@@ -1,0 +1,11 @@
+{% extends "students/exam_base.html" %}
+
+{% block title%}Daten gespeichert | Klausuranmeldung{% endblock %}
+
+{% block content_exam %}
+
+<p><span class="glyphicon glyphicon-ok" style="padding-right:0.3em;"></span>Deine Daten wurden erfolgreich gespeichert.</p>
+
+<p><a href="{% url 'students:registration' %}">Nächsten Eintrag hinzufügen</a></p>
+
+{% endblock %}

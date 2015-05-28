@@ -1,0 +1,18 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}
+{% block title %}Willkommen{% endblock %}
+
+{% block content %}
+
+
+<h1>Willkommen - OphaseHQ</h1>
+<div class="row">
+  <div class="col-md-6">
+  <h2>Für engagierte Studierende</h2>
+  <p><a href="{% url 'staff:registration' %}">Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken</a>
+  </div>
+  <div class="col-md-6">
+  <h2>Für Tutorinnen und Tutoren</h2>
+  <p><a href="{% url 'students:registration' %}">Die Erstsemester deiner Kleingruppe registieren</a></p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+# list files and folders here which should not be set under version control
+
+# database
+*.sqlite3
+
+# compiled python byte code
+*.pyc
+
+# static files collected by manage.py collectstatic on root path
+/static/
+
+# local settings file for overwriting default development settings
+settings_local.py
+
+# JetBrains IDE
+.idea/
+
+# pyDev IDE
+.project
+.pydevproject

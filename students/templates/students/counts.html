@@ -1,0 +1,11 @@
+{% extends "students/exam_base.html" %}{% load bootstrap3 %}
+{% block title %}Statistik | Klausuranmeldung{% endblock %}
+{% block content_exam %}
+<h2>Statistik</h2>
+<p>Eingetragene Ersties: {{ studentCount }}<br>
+Klausuranmeldungen: {{ examCount }}<br>
+Newsletteranmeldungen: {{ newsletterCount }}<br>
+Eingetragene Gruppen: {{ tutorGroupCount }}
+</p>
+
+{% endblock %}

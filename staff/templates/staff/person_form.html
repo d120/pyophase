@@ -1,0 +1,54 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}
+{% block title %}Mitmachen{% endblock %}
+
+{% block content %}
+
+<h1>{{ ophase_title }}</h1>
+{% if any_registration_enabled %}
+<p>Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> werden {{staff_vacancies}} gesucht.</p>
+{% if orga_registration_enabled or helper_registration_enabled %}
+<p>Als Helfer bzw. Orga kümmerst du dich um die Durchführung bestimmter
+Programmpunkte der Ophase. {% endif %}
+{%if orga_registration_enabled %}
+Als Orga kommt im Vorfeld noch etwas Organisationsarbeit dazu (wer hätte das gedacht ;-)).</p>{% endif %}
+{% if tutor_registration_enabled %}
+<p>Als Tutor betreut ihr eine Kleingruppe und helft bei der Durchführung der übrigen Programmpunkte.
+Außerdem ist für die Woche vor der Ophase eine Schulung sowie eine kurze Einführung in das Programm der Ophase geplant.
+Jeder Tutor bekommt natürlich auch ein Ophasen-T-Shirt.
+</p>
+{% endif %}
+<p style="text-align:right;"><i>Die Ophasen-Leitung</i></p>
+<div id="mainForm">
+
+    <form role="form" action="{{action}}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+    {% buttons %}
+        <button type="reset" class="btn btn-danger">
+            {% bootstrap_icon "remove" %} Zurücksetzen
+        </button>
+        <button type="submit" class="btn btn-success pull-right">
+            {% bootstrap_icon "ok" %} Abschicken
+        </button>
+    {% endbuttons %}
+    </form>
+
+</div>
+{% else %}
+<p>Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> ist die Anmeldung bereits abgeschlossen.</p>
+<p style="text-align:right"><i>Die Ophasen-Leitung</i></p>
+{% endif %}
+{% endblock %}
+{% block bottom_script %}
+{% load staticfiles %}
+<script src="{% static "ophasebase/js/dependent_input_visibility.js" %}"></script>
+
+<script type="text/javascript">
+$(function(){
+dependent_input_visibility('id_is_tutor','id_tutor_for');
+dependent_input_visibility('id_is_orga','id_orga_jobs');
+dependent_input_visibility('id_is_helper','id_helper_jobs');
+dependent_two_input_visibility('id_is_tutor','id_is_orga','id_dress_size');
+});
+</script>
+{% endblock %}

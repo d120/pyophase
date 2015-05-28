@@ -1,0 +1,37 @@
+{% extends "students/exam_base.html" %}{% load bootstrap3 %}
+{% block title %}Klausuranmeldung{% endblock %}
+
+{% block content_exam %}
+{% if student_registration_enabled %}
+<div id="mainForm">
+
+    <form role="form" action="{{action}}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+    {% buttons %}
+        <button type="reset" class="btn btn-danger">
+            {% bootstrap_icon "remove" %} Zurücksetzen
+        </button>
+        <button type="submit" class="btn btn-success pull-right">
+            {% bootstrap_icon "ok" %} Abschicken
+        </button>
+    {% endbuttons %}
+    </form>
+</div>
+{% else %}
+<p>
+    Derzeit ist die Registrierung nicht freigeschaltet.
+</p>
+{% endif %}
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% if student_registration_enabled %}
+<script src="{% static "ophasebase/js/dependent_input_visibility.js" %}"></script>
+
+<script type="text/javascript">
+    $(function(){
+        dependent_input_visibility('id_wantNewsletter','id_email');
+    });
+</script>
+{% endif %}
+{% endblock %}

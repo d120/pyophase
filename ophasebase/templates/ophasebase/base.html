@@ -1,0 +1,36 @@
+<!DOCTYPE html>{% load staticfiles %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %} {% endblock %} | OphaseHQ - d120.de </title>
+    <link rel="stylesheet" href="{% static 'ophasebase/bootstrap/css/bootstrap.min.css' %}" media="screen" />
+</head>
+<body>
+    <div class="container">
+
+        <!-- Static navbar -->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{% url 'ophasebase:welcome' %}">OphaseHQ</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main component -->
+        <div class="jumbotron">
+        {% block content %} {% endblock %}
+        </div>
+
+    </div>
+
+    <script src="{% static 'ophasebase/jquery/js/jquery-2.1.1.min.js' %}"></script>
+    <script src="{% static 'ophasebase/bootstrap/js/bootstrap.min.js' %}"></script>{% block bottom_script %} {% endblock %}
+</body>
+</html>
