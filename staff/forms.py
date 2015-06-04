@@ -4,11 +4,17 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from staff.models import Person, Settings
+from ophasebase.models import HelperJob, OrgaJob
 
 class PersonForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
+
+        # Only display jobs that need persons
+        # http://stackoverflow.com/a/291968 http://stackoverflow.com/a/13539479
+        self.fields['helper_jobs'].queryset = HelperJob.objects.filter(has_enough_persons=False)
+        self.fields['orga_jobs'].queryset = OrgaJob.objects.filter(has_enough_persons=False)
 
         # Add all fields you potentially need in Meta and then
         # dynamically remove not required fields from the form
