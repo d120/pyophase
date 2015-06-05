@@ -110,6 +110,6 @@ STATIC_ROOT = 'static'
 
 
 try:
-    from settings_local import *
+    from pyophase.settings_local import *
 except ImportError:
     pass
