@@ -3,7 +3,7 @@ from django.contrib import admin
 import staff.models
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper']
+    list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper', 'created_at']
     list_filter = ['is_tutor', 'is_orga', 'is_helper']
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name']
