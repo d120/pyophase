@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from django.db import models
 from django.utils import formats
 from django.core.exceptions import ValidationError
