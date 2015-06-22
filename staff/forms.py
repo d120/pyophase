@@ -82,3 +82,6 @@ class PersonForm(forms.ModelForm):
 
         if (cleaned_data.get("is_tutor") or cleaned_data.get("is_orga")) and cleaned_data.get("dress_size") is None:
             self.add_error('dress_size', ValidationError('Tutoren und Orgas bekommen ein kostenloses Kleidungsstück, wofür die Größe benötigt wird.'))
+            
+        if cleaned_data.get('is_tutor') == False and cleaned_data.get('is_helper') == False and cleaned_data.get('is_orga') == False:
+            self.add_error(None, ValidationError('Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus.'))
