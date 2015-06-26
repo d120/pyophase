@@ -22,7 +22,6 @@ class Job(models.Model):
 
     label = models.CharField(max_length=50)
     description = models.TextField()
-    has_enough_persons = models.BooleanField(default=False, verbose_name="Ausreichend Personen", help_text="Sind bereits ausreichend Personen für den Job vorhanden?")
 
     def __str__(self):
         return self.label
@@ -113,9 +112,6 @@ class Ophase(models.Model):
     start_date = models.DateField(verbose_name="Beginn")
     end_date = models.DateField(verbose_name="Ende")
     is_active = models.BooleanField(default=False, verbose_name="Aktiv?")
-    group_categories = models.ManyToManyField(GroupCategory, verbose_name="Kleingruppenkategorien")
-    orga_jobs = models.ManyToManyField(OrgaJob, verbose_name="Orgajobs")
-    helper_jobs = models.ManyToManyField(HelperJob, verbose_name="Helferjobs")
 
     def get_name(self):
         term = "Ophase"

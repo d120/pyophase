@@ -4,20 +4,14 @@ from ophasebase.models import Building, GroupCategory, OrgaJob, HelperJob, Ophas
 
 
 admin.site.register(GroupCategory)
+admin.site.register(OrgaJob)
+admin.site.register(HelperJob)
 
 
 class OphaseAdmin(admin.ModelAdmin):
     list_display = ('get_name', 'start_date', 'end_date', 'is_active')
 
 admin.site.register(Ophase, OphaseAdmin)
-
-
-class JobAdmin(admin.ModelAdmin):
-    list_display = ('label', 'has_enough_persons')
-    list_filter = ['has_enough_persons']
-
-admin.site.register(OrgaJob, JobAdmin)
-admin.site.register(HelperJob, JobAdmin)
 
 
 class BuildingAdmin(admin.ModelAdmin):

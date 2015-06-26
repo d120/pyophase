@@ -70,6 +70,9 @@ class Settings(models.Model):
     tutor_registration_enabled = models.BooleanField(default=False, verbose_name="Tutor Registrierung aktiv")
     orga_registration_enabled = models.BooleanField(default=False, verbose_name="Orga Registrierung aktiv")
     helper_registration_enabled = models.BooleanField(default=False, verbose_name="Helfer Registrierung aktiv")
+    group_categories_enabled = models.ManyToManyField(GroupCategory, verbose_name="Freigeschaltete Kleingruppenkategorien")
+    orga_jobs_enabled = models.ManyToManyField(OrgaJob, verbose_name="Freigeschaltete Orgajobs")
+    helper_jobs_enabled = models.ManyToManyField(HelperJob, verbose_name="Freigeschaltete Helferjobs")
 
     def get_name(self):
         return "Staff Einstellungen"

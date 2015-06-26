@@ -2,17 +2,12 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 from staff.models import Person, Settings
-from ophasebase.models import HelperJob, OrgaJob
+from ophasebase.models import GroupCategory, HelperJob, OrgaJob
 
 class PersonForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
-
-        # Only display jobs that need persons
-        # http://stackoverflow.com/a/291968 http://stackoverflow.com/a/13539479
-        self.fields['helper_jobs'].queryset = HelperJob.objects.filter(has_enough_persons=False)
-        self.fields['orga_jobs'].queryset = OrgaJob.objects.filter(has_enough_persons=False)
 
         # Add all fields you potentially need in Meta and then
         # dynamically remove not required fields from the form
@@ -20,6 +15,10 @@ class PersonForm(forms.ModelForm):
         settingsAll = Settings.objects.all()
         if len(settingsAll) == 1:
             settings = settingsAll[0]
+
+            self.fields['tutor_for'].queryset = GroupCategory.objects.filter(id__in=settings.group_categories_enabled.all().values_list('id'))
+            self.fields['orga_jobs'].queryset = OrgaJob.objects.filter(id__in=settings.orga_jobs_enabled.all().values_list('id'))
+            self.fields['helper_jobs'].queryset = HelperJob.objects.filter(id__in=settings.helper_jobs_enabled.all().values_list('id'))
 
             fields_to_del = []
             #fields only required for a registration as tutor
@@ -82,6 +81,6 @@ class PersonForm(forms.ModelForm):
 
         if (cleaned_data.get("is_tutor") or cleaned_data.get("is_orga")) and cleaned_data.get("dress_size") is None:
             self.add_error('dress_size', ValidationError('Tutoren und Orgas bekommen ein kostenloses Kleidungsstück, wofür die Größe benötigt wird.'))
-            
+
         if cleaned_data.get('is_tutor') == False and cleaned_data.get('is_helper') == False and cleaned_data.get('is_orga') == False:
             self.add_error(None, ValidationError('Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus.'))
