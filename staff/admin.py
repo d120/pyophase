@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.template import loader
+from django.template.response import SimpleTemplateResponse
 
 import staff.models
 
@@ -8,6 +10,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name']
     readonly_fields = ('created_at', 'updated_at')
+    actions = ['mail_export']
 
     fieldsets = [
         ('Stammdaten', {'fields':
@@ -20,6 +23,12 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 
     filter_horizontal = ('orga_jobs', 'helper_jobs')
+
+    def mail_export(self, request, queryset):
+        template = loader.get_template("staff/mail_export.html")
+        context = {'persons' : queryset}
+        return SimpleTemplateResponse(template, context)
+    mail_export.short_description = "E-Mail Mass Subscription Export"
 
 
 class SettingsAdmin(admin.ModelAdmin):

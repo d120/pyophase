@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}E-Mail Mass Subscription Export | Django-Systemverwaltung{% endblock %}
+
+{% block content %}
+
+<h2>E-Mail Mass Subscription Export</h2>
+
+<p>
+Es wurden {{ persons|length }} Personen ausgewählt.
+</p>
+
+<textarea cols="60" rows="25">
+{% for person in persons %}{{ person.prename }} {{ person.name}} <{{person.email}}>
+{% endfor %}</textarea>
+
+{% endblock %}
