@@ -3,10 +3,33 @@ from django.template import loader
 from django.template.response import SimpleTemplateResponse
 
 import staff.models
+import ophasebase.models
+
+
+class TutorFilter(admin.SimpleListFilter):
+    title = "Tutorenstatus"
+    parameter_name = "tutorstatus"
+
+    def lookups(self, request, model_admin):
+        choices = [('onlytutors', 'Alle Tutoren')]
+        for gc in ophasebase.models.GroupCategory.objects.all():
+            choices.append((gc.id, gc.label))
+        choices.append(('notutors', 'Keine Tutoren'))
+        return choices
+
+    def queryset(self, request, queryset):
+        if self.value() is None:
+            return queryset
+        if self.value() == 'onlytutors':
+            return queryset.filter(is_tutor=True)
+        if self.value() == 'notutors':
+            return queryset.filter(is_tutor=False)
+        return queryset.filter(tutor_for__id=self.value())
+
 
 class PersonAdmin(admin.ModelAdmin):
     list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper', 'created_at']
-    list_filter = ['is_tutor', 'is_orga', 'is_helper']
+    list_filter = [TutorFilter, 'is_orga', 'is_helper']
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name']
     readonly_fields = ('created_at', 'updated_at')

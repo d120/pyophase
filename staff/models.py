@@ -58,6 +58,9 @@ class Person(models.Model):
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
             self.ophase = Ophase.objects.get(is_active=True)
+        # ensure tutor flag is set when group is selected
+        if self.tutor_for is not None:
+            self.is_tutor = True
         super(Person, self).save(*args, **kwargs)
 
 
