@@ -8,19 +8,18 @@ admin.site.register(OrgaJob)
 admin.site.register(HelperJob)
 
 
+@admin.register(Ophase)
 class OphaseAdmin(admin.ModelAdmin):
     list_display = ('get_name', 'start_date', 'end_date', 'is_active')
 
-admin.site.register(Ophase, OphaseAdmin)
 
-
+@admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
     list_display = ('get_name', 'label')
     list_filter = ['area', 'subarea']
 
-admin.site.register(Building, BuildingAdmin)
 
-
+@admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
     list_display = ('get_name', 'type', 'capacity', 'hasBeamer')
     list_filter = ['building', 'type', 'hasBeamer']
@@ -30,5 +29,3 @@ class RoomAdmin(admin.ModelAdmin):
         ('Ausstattung', {'fields': ['type', 'capacity', 'hasBeamer']}),
         ('Position', {'fields': ['lat', 'lng']})
     ]
-
-admin.site.register(Room, RoomAdmin)

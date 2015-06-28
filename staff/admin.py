@@ -2,8 +2,11 @@ from django.contrib import admin
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
 
-import staff.models
+from staff.models import Person, DressSize, Settings
 import ophasebase.models
+
+
+admin.site.register(DressSize)
 
 
 class TutorFilter(admin.SimpleListFilter):
@@ -27,6 +30,7 @@ class TutorFilter(admin.SimpleListFilter):
         return queryset.filter(tutor_for__id=self.value())
 
 
+@admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper', 'created_at']
     list_filter = [TutorFilter, 'is_orga', 'is_helper']
@@ -54,11 +58,7 @@ class PersonAdmin(admin.ModelAdmin):
     mail_export.short_description = "E-Mail Mass Subscription Export"
 
 
+@admin.register(Settings)
 class SettingsAdmin(admin.ModelAdmin):
     list_display = ['tutor_registration_enabled', 'orga_registration_enabled', 'helper_registration_enabled']
     list_display_links = ['tutor_registration_enabled', 'orga_registration_enabled', 'helper_registration_enabled']
-
-
-admin.site.register(staff.models.Person, PersonAdmin)
-admin.site.register(staff.models.DressSize)
-admin.site.register(staff.models.Settings, SettingsAdmin)
