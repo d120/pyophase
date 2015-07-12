@@ -24,7 +24,7 @@ class Person(models.Model):
         verbose_name = "Person"
         verbose_name_plural = "Personen"
         ordering = ['prename', 'name']
-        unique_together = ('ophase', 'prename', 'name', 'email')
+        unique_together = ('ophase', 'email')
 
     ophase = models.ForeignKey(Ophase)
     prename = models.CharField(max_length=60, verbose_name="Vorname")
