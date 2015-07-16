@@ -19,3 +19,6 @@ As the pyophase project grows, there might be some more little handy features wh
 ## Data Privacy
 
 During the organizational work, it is unavoidable to store certain data, some of which is related to individual persons. pyophase is designed in a way such that it is easy to delete all the data after it is no longer needed. The head of Ophase is told to delete this data as early as possible.
+
+## License
+Files in pyOphase are licensed under the Affero General Public License version 3, the text of which can be found in LICENSE-AGPL.txt, or any later version of the AGPL, unless otherwise noted.
