@@ -1,11 +1,11 @@
 from django.views.generic.edit import CreateView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.core.urlresolvers import reverse_lazy
 from django.db import IntegrityError
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
 
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, OrgaJob, HelperJob, GroupCategory
 from staff.models import Settings
 from staff.forms import PersonForm
 
@@ -58,3 +58,43 @@ class StaffAdd(CreateView):
 
 class StaffAddSuccess(TemplateView):
     template_name = 'staff/success.html'
+
+class GenericJobList(ListView):
+    """List all Jobs of a Model that do have a label field"""
+    template_name = 'staff/job_list.html'
+
+    def __init__(self):
+        self.title = 'Aufgabenliste'
+
+    def get_context_data(self, **kwargs):
+        current_ophase_qs = Ophase.objects.filter(is_active=True)
+
+        if len(current_ophase_qs) == 1:
+            current_ophase = current_ophase_qs[0]
+
+            context = super(GenericJobList, self).get_context_data(**kwargs)
+            context['ophase_title'] = current_ophase.__str__()
+            context['title'] = self.title
+            return context
+
+class GroupCategoryList(GenericJobList):
+    """List all GroupCategorys"""
+    model = GroupCategory
+    
+    def __init__(self):
+        self.title = GroupCategory._meta.verbose_name_plural.title()
+
+class OrgaJobList(GenericJobList):
+    """List all OrgaJobs"""
+    model = OrgaJob
+    
+    def __init__(self):
+        self.title = OrgaJob._meta.verbose_name_plural.title()
+    
+class HelperJobList(GenericJobList):
+    """List all HelperJobs"""
+    model = HelperJob
+    
+    def __init__(self):
+        self.title = HelperJob._meta.verbose_name_plural.title()
+        

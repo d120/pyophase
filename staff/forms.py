@@ -1,10 +1,15 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse
 
 from staff.models import Person, Settings
 from ophasebase.models import GroupCategory, HelperJob, OrgaJob
 
 class PersonForm(forms.ModelForm):
+    
+    def __append_description_link(self, field, view):
+        """Append a link to a description view to the field label"""
+        self.fields[field].label += ' <a href="%s" target="_blank">(Aufgabenbeschreibung)</a>' % reverse(view)
 
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
@@ -19,6 +24,10 @@ class PersonForm(forms.ModelForm):
             self.fields['tutor_for'].queryset = GroupCategory.objects.filter(id__in=settings.group_categories_enabled.all().values_list('id'))
             self.fields['orga_jobs'].queryset = OrgaJob.objects.filter(id__in=settings.orga_jobs_enabled.all().values_list('id'))
             self.fields['helper_jobs'].queryset = HelperJob.objects.filter(id__in=settings.helper_jobs_enabled.all().values_list('id'))
+            
+            self.__append_description_link('tutor_for', 'staff:tutor_group_category_list')
+            self.__append_description_link('orga_jobs', 'staff:orgajob_list')
+            self.__append_description_link('helper_jobs', 'staff:helperjob_list')
 
             fields_to_del = []
             #fields only required for a registration as tutor
@@ -65,7 +74,6 @@ class PersonForm(forms.ModelForm):
             'orga_jobs': forms.CheckboxSelectMultiple,
             'helper_jobs': forms.CheckboxSelectMultiple
         }
-
 
     def clean(self):
         cleaned_data = super(PersonForm, self).clean()
