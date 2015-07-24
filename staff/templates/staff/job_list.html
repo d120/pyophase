@@ -9,8 +9,7 @@
 {% for job in object_list %}
     <li>{% if job.settings_set.count == 0 %} <span class="label label-danger">Hilfe vorhanden</span>
     {% else %} <span class="label label-success">Hilfe benötigt</span>{% endif %}
-     {{ job.label }}
-     {% if job.description %} : {{ job.description }} {% endif %}</li>
+     {{ job.label }}{% if job.description %}: {{ job.description }}{% endif %}</li>
 {% empty %}
     <li>Keine Aufgaben vorhanden</li>
 {% endfor %}
