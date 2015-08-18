@@ -6,6 +6,9 @@
 # compiled python byte code
 *.pyc
 
+# bower components
+ophasebase/static/ophasebase/components
+
 # static files collected by manage.py collectstatic on root path
 /static/
 

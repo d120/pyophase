@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %} | OphaseHQ - d120.de</title>
-    <link rel="stylesheet" href="{% static 'ophasebase/bootstrap/css/bootstrap.min.css' %}" media="screen" />
+    <link rel="stylesheet" href="{% static 'ophasebase/components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
 </head>
 <body>
     <div class="container">
@@ -30,7 +30,8 @@
 
     </div>
 
-    <script src="{% static 'ophasebase/jquery/js/jquery-2.1.1.min.js' %}"></script>
-    <script src="{% static 'ophasebase/bootstrap/js/bootstrap.min.js' %}"></script>{% block bottom_script %} {% endblock %}
+    <script src="{% static 'ophasebase/components/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'ophasebase/components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    {% block bottom_script %}{% endblock %}
 </body>
 </html>
