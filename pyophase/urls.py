@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^teilnehmer/', include('students.urls', namespace='students', app_name='students')),
     url(r'^klausur/', include('exam.urls', namespace='exam', app_name='exam')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'admin/login.html'}),
 )
