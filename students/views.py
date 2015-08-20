@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 from django.db.models import Count
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 
 from ophasebase.models import Ophase
 from students.models import Student, TutorGroup, Settings
@@ -35,7 +35,7 @@ class StudentAdd(CreateView):
 
         return context
 
-    @method_decorator(login_required)
+    @method_decorator(permission_required('students.add_student'))
     def dispatch(self, *args, **kwargs):
         return super(StudentAdd, self).dispatch(*args, **kwargs)
 
