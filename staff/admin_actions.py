@@ -3,6 +3,7 @@ import io
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
 from django.http import HttpResponse
+from django.db.models import Q
 
 import odswriter
 
@@ -24,7 +25,7 @@ def staff_nametag_export(modeladmin, request, queryset):
     """
     table = []
     empty = '~'
-    for person in queryset:
+    for person in queryset.filter(Q(is_tutor=True) | Q(is_orga=True)):
         row = [person.prename, person.name]
         if person.is_tutor:
             if "master" in str(person.tutor_for).lower():
