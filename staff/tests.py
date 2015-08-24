@@ -1,8 +1,11 @@
 from django.test import TestCase
+from django.utils.safestring import SafeText
+
 from datetime import date
 
 from ophasebase.models import Ophase
 from staff.models import Person, DressSize
+from staff.forms import PersonForm
 
 # Create your tests here.
 
@@ -23,3 +26,16 @@ class PersonSave(TestCase):
         p = Person.objects.get(pk=p.pk)
         self.assertEqual(p.ophase.start_date, date(2014, 4, 7))
         self.assertEqual(p.email, "doe@example.net")
+        
+class AppendDescriptionTestCase(TestCase):
+    """Test append of a link to a field Label"""
+    
+    def test_appendend_label_is_safe(self):
+        """Test all labels that get appended a link are of type SafeText"""
+        pf = PersonForm()
+        #after __init__ the link was appended
+        for field in ['tutor_for', 'orga_jobs', 'helper_jobs']:
+            self.assertTrue(isinstance(pf.fields[field].label, SafeText),
+                             field)
+        #Other labels are not of type SafeText
+        self.assertFalse(isinstance(pf.fields['name'].label, SafeText))
