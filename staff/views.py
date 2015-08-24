@@ -31,7 +31,7 @@ class StaffAdd(CreateView):
                 vacancies.append('Helfer')
             vacancies_str = '.'.join(vacancies)
             vacancies_str = vacancies_str.replace('.', ', ', len(vacancies)-2)
-            vacancies_str = vacancies_str.replace('.',' und ')
+            vacancies_str = vacancies_str.replace('.', ' und ')
 
             context = super(StaffAdd, self).get_context_data(**kwargs)
             context['ophase_title'] = current_ophase.__str__()
@@ -80,21 +80,20 @@ class GenericJobList(ListView):
 class GroupCategoryList(GenericJobList):
     """List all GroupCategorys"""
     model = GroupCategory
-    
+
     def __init__(self):
         self.title = GroupCategory._meta.verbose_name_plural.title()
 
 class OrgaJobList(GenericJobList):
     """List all OrgaJobs"""
     model = OrgaJob
-    
+
     def __init__(self):
         self.title = OrgaJob._meta.verbose_name_plural.title()
-    
+
 class HelperJobList(GenericJobList):
     """List all HelperJobs"""
     model = HelperJob
-    
+
     def __init__(self):
         self.title = HelperJob._meta.verbose_name_plural.title()
-        
