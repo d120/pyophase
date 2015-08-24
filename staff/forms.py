@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
+from django.utils.html import format_html
 
 from staff.models import Person, Settings
 from ophasebase.models import GroupCategory, HelperJob, OrgaJob
@@ -9,7 +10,8 @@ class PersonForm(forms.ModelForm):
 
     def __append_description_link(self, field, view):
         """Append a link to a description view to the field label"""
-        self.fields[field].label += ' <a href="%s" target="_blank">(Aufgabenbeschreibung)</a>' % reverse(view)
+        code = ' <a href="{}" target="_blank">(Aufgabenbeschreibung)</a>'
+        self.fields[field].label += format_html(code, reverse(view))
 
     def __init__(self, *args, **kwargs):
         super(PersonForm, self).__init__(*args, **kwargs)
