@@ -1,9 +1,8 @@
 from django.contrib import admin
-from django.template import loader
-from django.template.response import SimpleTemplateResponse
 
 from staff.models import Person, DressSize, Settings
-import ophasebase.models
+from staff.admin_actions import mail_export, staff_nametag_export
+from ophasebase.models import GroupCategory
 
 
 admin.site.register(DressSize)
@@ -15,7 +14,7 @@ class TutorFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         choices = [('onlytutors', 'Alle Tutoren')]
-        for gc in ophasebase.models.GroupCategory.objects.all():
+        for gc in GroupCategory.objects.all():
             choices.append((gc.id, gc.label))
         choices.append(('notutors', 'Keine Tutoren'))
         return choices
@@ -37,7 +36,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name']
     readonly_fields = ('created_at', 'updated_at')
-    actions = ['mail_export']
+    actions = [mail_export, staff_nametag_export]
 
     fieldsets = [
         ('Stammdaten', {'fields':
@@ -50,12 +49,6 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 
     filter_horizontal = ('orga_jobs', 'helper_jobs')
-
-    def mail_export(self, request, queryset):
-        template = loader.get_template("staff/mail_export.html")
-        context = {'persons' : queryset}
-        return SimpleTemplateResponse(template, context)
-    mail_export.short_description = "E-Mail Mass Subscription Export"
 
 
 @admin.register(Settings)

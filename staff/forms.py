@@ -6,7 +6,7 @@ from staff.models import Person, Settings
 from ophasebase.models import GroupCategory, HelperJob, OrgaJob
 
 class PersonForm(forms.ModelForm):
-    
+
     def __append_description_link(self, field, view):
         """Append a link to a description view to the field label"""
         self.fields[field].label += ' <a href="%s" target="_blank">(Aufgabenbeschreibung)</a>' % reverse(view)
@@ -17,14 +17,14 @@ class PersonForm(forms.ModelForm):
         # Add all fields you potentially need in Meta and then
         # dynamically remove not required fields from the form
         # Idea by https://www.silviogutierrez.com/blog/django-dynamic-forms/
-        settingsAll = Settings.objects.all()
-        if len(settingsAll) == 1:
-            settings = settingsAll[0]
+        settings_all = Settings.objects.all()
+        if len(settings_all) == 1:
+            settings = settings_all[0]
 
             self.fields['tutor_for'].queryset = GroupCategory.objects.filter(id__in=settings.group_categories_enabled.all().values_list('id'))
             self.fields['orga_jobs'].queryset = OrgaJob.objects.filter(id__in=settings.orga_jobs_enabled.all().values_list('id'))
             self.fields['helper_jobs'].queryset = HelperJob.objects.filter(id__in=settings.helper_jobs_enabled.all().values_list('id'))
-            
+
             self.__append_description_link('tutor_for', 'staff:tutor_group_category_list')
             self.__append_description_link('orga_jobs', 'staff:orgajob_list')
             self.__append_description_link('helper_jobs', 'staff:helperjob_list')
@@ -32,7 +32,7 @@ class PersonForm(forms.ModelForm):
             fields_to_del = []
             #fields only required for a registration as tutor
             if not(settings.tutor_registration_enabled):
-                fields_to_del.extend(['is_tutor','tutor_for'])
+                fields_to_del.extend(['is_tutor', 'tutor_for'])
 
             #fields only required for a registration as orga
             if not(settings.orga_registration_enabled):
