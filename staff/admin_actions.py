@@ -55,3 +55,43 @@ def staff_nametag_export(modeladmin, request, queryset):
     return response
 
 staff_nametag_export.short_description = "Namensschilderexport"
+
+
+def staff_overview_export(modeladmin, request, queryset):
+    """Exports an overview of the staff containing contact data and field of duty.
+    """
+    orgas = []
+    tutors = []
+    helpers = []
+    for person in queryset:
+        row = [person.prename, person.name, person.email, person.phone]
+        if person.is_orga:
+            jobs = ' / '.join(sorted([str(job) for job in person.orga_jobs.all()]))
+            orgas.append(row + [jobs])
+        if person.is_tutor:
+            tutors.append(row + [str(person.tutor_for)])
+        if person.is_helper:
+            jobs = ' / '.join(sorted([str(job) for job in person.helper_jobs.all()]))
+            helpers.append(row + [jobs])
+
+    orgas.sort(key=lambda row: row[1])
+    tutors.sort(key=lambda row: row[1])
+    helpers.sort(key=lambda row: row[1])
+
+    out_stream = io.BytesIO()
+    with odswriter.writer(out_stream) as out:
+        orga_sheet = out.new_sheet("Orgas")
+        orga_sheet.writerow(["Vorname", "Nachname", "E-Mail", "Handy", "Verantwortlich für ..."])
+        orga_sheet.writerows(orgas)
+        tutor_sheet = out.new_sheet("Tutoren")
+        tutor_sheet.writerow(["Vorname", "Nachname", "E-Mail", "Handy", "Betreut ..."])
+        tutor_sheet.writerows(tutors)
+        helper_sheet = out.new_sheet("Helfer")
+        helper_sheet.writerow(["Vorname", "Nachname", "E-Mail", "Handy", "Hilft bei ..."])
+        helper_sheet.writerows(helpers)
+
+    response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")
+    response['Content-Disposition'] = 'attachment; filename="Personal.ods"'
+    return response
+
+staff_overview_export.short_description = "Übersicht exportieren"

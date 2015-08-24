@@ -12,7 +12,7 @@ class DressSize(models.Model):
         ordering = ["sort_key"]
 
     name = models.CharField(max_length=75, verbose_name="Kleidergröße", unique=True)
-    sort_key =  models.PositiveSmallIntegerField(verbose_name="Position in Auflistung", unique=True)
+    sort_key = models.PositiveSmallIntegerField(verbose_name="Position in Auflistung", unique=True)
 
     def __str__(self):
         return self.name
@@ -41,8 +41,8 @@ class Person(models.Model):
     tutor_for = models.ForeignKey(GroupCategory, blank=True, null=True, verbose_name="Tutor für", help_text="Erstsemester welches Studiengangs möchtest du als Tutor betreuen?")
     orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name="Orgaaufgaben", help_text="Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?")
     helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name="Helferaufgaben", help_text="Bei welchen Aufgaben kannst du dir vorstellen zu helfen?")
-    dress_size = models.ForeignKey(DressSize, null=True, blank=True, verbose_name = "Kleidergröße", help_text="Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt passt brauchen wir deine Größe.")
-    remarks = models.TextField(blank=True, verbose_name="Anmerkungen",  help_text="Was sollten wir noch wissen?")
+    dress_size = models.ForeignKey(DressSize, null=True, blank=True, verbose_name="Kleidergröße", help_text="Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt passt brauchen wir deine Größe.")
+    remarks = models.TextField(blank=True, verbose_name="Anmerkungen", help_text="Was sollten wir noch wissen?")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Eingetragen am")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Verändert am")
 

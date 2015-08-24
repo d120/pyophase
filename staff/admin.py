@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from staff.models import Person, DressSize, Settings
-from staff.admin_actions import mail_export, staff_nametag_export
+from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export
 from ophasebase.models import GroupCategory
 
 
@@ -36,7 +36,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name']
     readonly_fields = ('created_at', 'updated_at')
-    actions = [mail_export, staff_nametag_export]
+    actions = [mail_export, staff_overview_export, staff_nametag_export]
 
     fieldsets = [
         ('Stammdaten', {'fields':
