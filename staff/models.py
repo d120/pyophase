@@ -1,7 +1,20 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
-from ophasebase.models import Ophase, GroupCategory, OrgaJob, HelperJob
+from ophasebase.models import Ophase, OrgaJob, HelperJob
+
+
+class GroupCategory(models.Model):
+    """Group category like "Bachelor", "Master german", "Master english", ..."""
+    class Meta:
+        verbose_name = "Gruppenkategorie"
+        verbose_name_plural = "Gruppenkategorien"
+
+    label = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.label
+
 
 class DressSize(models.Model):
     """A dress size for a Person"""

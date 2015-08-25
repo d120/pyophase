@@ -3,18 +3,6 @@ from django.utils import formats
 from django.core.exceptions import ValidationError
 
 
-class GroupCategory(models.Model):
-    """Group category like "Bachelor", "Master german", "Master english", ..."""
-    class Meta:
-        verbose_name = "Gruppenkategorie"
-        verbose_name_plural = "Gruppenkategorien"
-
-    label = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.label
-
-
 class Job(models.Model):
     """A job during the Ophase for which persons are needed."""
     class Meta:

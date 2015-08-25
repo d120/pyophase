@@ -3,8 +3,8 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html, escape
 
-from staff.models import Person, Settings
-from ophasebase.models import GroupCategory, HelperJob, OrgaJob
+from staff.models import Person, Settings, GroupCategory
+from ophasebase.models import HelperJob, OrgaJob
 
 class PersonForm(forms.ModelForm):
 

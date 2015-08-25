@@ -2,6 +2,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 from ophasebase.models import Ophase
+from staff.models import GroupCategory
+
 
 class TutorGroup(models.Model):
     """A group of students guided by tutors."""
@@ -12,7 +14,7 @@ class TutorGroup(models.Model):
 
     name = models.CharField(max_length=50, verbose_name="Gruppenname")
     tutors = models.ManyToManyField('staff.Person', verbose_name="Tutoren")
-    groupCategory = models.ForeignKey('ophasebase.GroupCategory', verbose_name="Gruppenkategorie")
+    groupCategory = models.ForeignKey(GroupCategory, verbose_name="Gruppenkategorie")
 
     def __str__(self):
         return self.name

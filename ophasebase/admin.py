@@ -1,9 +1,8 @@
 from django.contrib import admin
 
-from ophasebase.models import Building, GroupCategory, OrgaJob, HelperJob, Ophase, Room
+from ophasebase.models import Building, OrgaJob, HelperJob, Ophase, Room
 
 
-admin.site.register(GroupCategory)
 admin.site.register(OrgaJob)
 admin.site.register(HelperJob)
 

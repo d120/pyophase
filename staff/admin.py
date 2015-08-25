@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from staff.models import Person, DressSize, Settings
+from staff.models import Person, DressSize, Settings, GroupCategory
 from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export
-from ophasebase.models import GroupCategory
 
 
+admin.site.register(GroupCategory)
 admin.site.register(DressSize)
 
 
