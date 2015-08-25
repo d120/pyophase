@@ -10,35 +10,35 @@ from ophasebase.models import Ophase
 
 class StudentSave(TestCase):
     def setUp(self):
+        self.o1 = Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
+
         self.gc = GroupCategory.objects.create(label="Super Mario")
         self.assertEqual(self.gc.label, "Super Mario")
 
-        self.tg = TutorGroup.objects.create(name="Mario", groupCategory=self.gc)
+        self.tg = TutorGroup.objects.create(ophase=self.o1, name="Mario", group_category=self.gc)
         self.assertEqual(self.tg.name, "Mario")
 
-        self.o1 = Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
-
         self.st = Student(prename="John", name="Doe", email="john@example.net",
-            tutorGroup=self.tg, wantExam=True, wantNewsletter=False)
+            tutor_group=self.tg, want_exam=True, want_newsletter=False)
 
     def test_drop_not_needed_student_data(self):
         """Ensure Student email address is removed if newsletter is not wanted."""
 
         self.assertEqual(self.st.email, "john@example.net")
-        self.assertEqual(self.st.wantNewsletter, False)
+        self.assertEqual(self.st.want_newsletter, False)
 
         self.st.save()
         #check after Student is created in the db
-        self.assertEqual(self.st.wantNewsletter, False)
+        self.assertEqual(self.st.want_newsletter, False)
         self.assertEqual(self.st.email, '')
 
         self.st.email = "doe@example.net"
         self.assertEqual(self.st.email, "doe@example.net")
-        self.assertEqual(self.st.wantNewsletter, False)
+        self.assertEqual(self.st.want_newsletter, False)
         self.st.save()
 
         #check after Student is update in the db
-        self.assertEqual(self.st.wantNewsletter, False)
+        self.assertEqual(self.st.want_newsletter, False)
         self.assertEqual(self.st.email, '')
 
     def test_student_foreign_key_ophase(self):
@@ -52,7 +52,7 @@ class StudentSave(TestCase):
         self.o1.is_active = False
         self.o1.save()
 
-        self.st.wantNewsletter = True
+        self.st.want_newsletter = True
         self.st.email = "doe@example.net"
         self.st.save()
         st = Student.objects.get(pk=self.st.pk)
