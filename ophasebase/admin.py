@@ -16,11 +16,11 @@ class BuildingAdmin(admin.ModelAdmin):
 
 @admin.register(Room)
 class RoomAdmin(admin.ModelAdmin):
-    list_display = ('get_name', 'type', 'capacity', 'hasBeamer')
-    list_filter = ['building', 'type', 'hasBeamer']
+    list_display = ('get_name', 'type', 'capacity', 'has_beamer')
+    list_filter = ['building', 'type', 'has_beamer']
 
     fieldsets = [
         (None, {'fields': ['building', 'number']}),
-        ('Ausstattung', {'fields': ['type', 'capacity', 'hasBeamer']}),
+        ('Ausstattung', {'fields': ['type', 'capacity', 'has_beamer']}),
         ('Position', {'fields': ['lat', 'lng']})
     ]

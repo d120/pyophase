@@ -52,7 +52,7 @@ class Room(models.Model):
     building = models.ForeignKey(Building, verbose_name="Gebäude")
     number = models.CharField(max_length=50, verbose_name="Nummer")
     type = models.CharField(max_length=2, choices=ROOM_TYPE_CHOICES, verbose_name="Typ")
-    hasBeamer = models.BooleanField(default=False, verbose_name="Beamer vorhanden?")
+    has_beamer = models.BooleanField(default=False, verbose_name="Beamer vorhanden?")
     capacity = models.IntegerField(verbose_name="Anzahl Plätze")
     lat = models.FloatField(verbose_name="Latitude", default=0, blank=True)
     lng = models.FloatField(verbose_name="Longitude", default=0, blank=True)
