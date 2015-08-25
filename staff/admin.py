@@ -1,10 +1,12 @@
 from django.contrib import admin
 
-from staff.models import Person, DressSize, Settings, GroupCategory
+from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob
 from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export
 
 
 admin.site.register(GroupCategory)
+admin.site.register(OrgaJob)
+admin.site.register(HelperJob)
 admin.site.register(DressSize)
 
 

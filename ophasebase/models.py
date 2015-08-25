@@ -3,32 +3,6 @@ from django.utils import formats
 from django.core.exceptions import ValidationError
 
 
-class Job(models.Model):
-    """A job during the Ophase for which persons are needed."""
-    class Meta:
-        abstract = True
-
-    label = models.CharField(max_length=50)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.label
-
-
-class OrgaJob(Job):
-    """Job for an organizer."""
-    class Meta:
-        verbose_name = "Orgajob"
-        verbose_name_plural = "Orgajobs"
-
-
-class HelperJob(Job):
-    """Job for a helper."""
-    class Meta:
-        verbose_name = "Helferjob"
-        verbose_name_plural = "Helferjobs"
-
-
 class Building(models.Model):
     """A building on the campus."""
     class Meta:

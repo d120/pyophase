@@ -1,10 +1,6 @@
 from django.contrib import admin
 
-from ophasebase.models import Building, OrgaJob, HelperJob, Ophase, Room
-
-
-admin.site.register(OrgaJob)
-admin.site.register(HelperJob)
+from ophasebase.models import Building, Ophase, Room
 
 
 @admin.register(Ophase)

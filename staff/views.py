@@ -5,8 +5,8 @@ from django.db import IntegrityError
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
 
-from ophasebase.models import Ophase, OrgaJob, HelperJob
-from staff.models import Settings, GroupCategory
+from ophasebase.models import Ophase
+from staff.models import Settings, GroupCategory, OrgaJob, HelperJob
 from staff.forms import PersonForm
 
 class StaffAdd(CreateView):
