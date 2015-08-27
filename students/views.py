@@ -69,8 +69,8 @@ class StudentRegistrationCount(TemplateView):
 
             Students = Student.objects.filter(ophase=current_ophase)
             context['studentCount'] = Students.count()
-            context['examCount'] = Students.filter(wantExam=True).count()
-            context['newsletterCount'] = Students.filter(wantNewsletter=True).count()
+            context['examCount'] = Students.filter(want_exam=True).count()
+            context['newsletterCount'] = Students.filter(want_newsletter=True).count()
 
             #Get the number of Tutor Groups who have at least one Student in the current Ophase
             context['tutorGroupCount'] = TutorGroup.objects.filter(student__ophase=current_ophase).annotate(num=Count('student')).filter(num__gte=1).count()
