@@ -11,7 +11,7 @@ from students.models import Student, TutorGroup, Settings
 
 class StudentAdd(CreateView):
     model = Student
-    fields = ['prename', 'name', 'tutorGroup', 'wantExam', 'wantNewsletter', 'email']
+    fields = ['prename', 'name', 'tutor_group', 'want_exam', 'want_newsletter', 'email']
     success_url = reverse_lazy('students:registration_success')
 
     def get_context_data(self, **kwargs):
