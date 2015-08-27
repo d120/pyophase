@@ -102,3 +102,7 @@ class Ophase(models.Model):
         if self.is_active:
             Ophase.objects.filter(is_active=True).exclude(pk=self.pk).update(is_active=False)
         super(Ophase, self).save(*args, **kwargs)
+
+    @staticmethod
+    def current():
+        return Ophase.objects.get(is_active=True)
