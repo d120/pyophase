@@ -15,13 +15,10 @@ class StaffAdd(CreateView):
     success_url = reverse_lazy('staff:registration_success')
 
     def get_context_data(self, **kwargs):
-        current_ophase_qs = Ophase.objects.filter(is_active=True)
-        settings_qs = Settings.objects.all()
+        current_ophase = Ophase.current()
+        settings = Settings.instance()
 
-        if (len(current_ophase_qs) == 1) and (len(settings_qs) == 1):
-            current_ophase = current_ophase_qs[0]
-            settings = settings_qs[0]
-
+        if current_ophase is not None and settings is not None:
             vacancies = []
             if settings.tutor_registration_enabled:
                 vacancies.append('Tutoren')
@@ -67,11 +64,8 @@ class GenericJobList(ListView):
         self.title = 'Aufgabenliste'
 
     def get_context_data(self, **kwargs):
-        current_ophase_qs = Ophase.objects.filter(is_active=True)
-
-        if len(current_ophase_qs) == 1:
-            current_ophase = current_ophase_qs[0]
-
+        current_ophase = Ophase.current()
+        if current_ophase is not None:
             context = super(GenericJobList, self).get_context_data(**kwargs)
             context['ophase_title'] = current_ophase.__str__()
             context['title'] = self.title

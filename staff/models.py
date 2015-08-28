@@ -96,7 +96,7 @@ class Person(models.Model):
     def save(self, *args, **kwargs):
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
-            self.ophase = Ophase.objects.get(is_active=True)
+            self.ophase = Ophase.current()
         # ensure tutor flag is set when group is selected
         if self.tutor_for is not None:
             self.is_tutor = True
@@ -126,3 +126,10 @@ class Settings(models.Model):
         super(Settings, self).clean(*args, **kwargs)
         if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
             raise ValidationError("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen.")
+
+    @staticmethod
+    def instance():
+        try:
+            return Settings.objects.get()
+        except Settings.DoesNotExist:
+            return None

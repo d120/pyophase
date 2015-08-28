@@ -23,10 +23,8 @@ class PersonForm(forms.ModelForm):
         # Add all fields you potentially need in Meta and then
         # dynamically remove not required fields from the form
         # Idea by https://www.silviogutierrez.com/blog/django-dynamic-forms/
-        settings_all = Settings.objects.all()
-        if len(settings_all) == 1:
-            settings = settings_all[0]
-
+        settings = Settings.instance()
+        if settings is not None:
             self.fields['tutor_for'].queryset = GroupCategory.objects.filter(id__in=settings.group_categories_enabled.all().values_list('id'))
             self.fields['orga_jobs'].queryset = OrgaJob.objects.filter(id__in=settings.orga_jobs_enabled.all().values_list('id'))
             self.fields['helper_jobs'].queryset = HelperJob.objects.filter(id__in=settings.helper_jobs_enabled.all().values_list('id'))

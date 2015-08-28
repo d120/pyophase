@@ -66,7 +66,7 @@ class Room(models.Model):
 
 
 class Ophase(models.Model):
-    """Settings object for Ophase."""
+    """Object representing an Ophase."""
     class Meta:
         verbose_name = "Ophase"
         verbose_name_plural = "Ophasen"
@@ -105,4 +105,7 @@ class Ophase(models.Model):
 
     @staticmethod
     def current():
-        return Ophase.objects.get(is_active=True)
+        try:
+            return Ophase.objects.get(is_active=True)
+        except Ophase.DoesNotExist:
+            return None

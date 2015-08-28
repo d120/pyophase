@@ -51,7 +51,7 @@ class Student(models.Model):
             self.email = '' # remove mail address when unnecessary
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
-            self.ophase = Ophase.objects.get(is_active=True)
+            self.ophase = Ophase.current()
         super(Student, self).save(*args, **kwargs)
 
 
@@ -73,3 +73,10 @@ class Settings(models.Model):
         super(Settings, self).clean(*args, **kwargs)
         if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
             raise ValidationError("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen.")
+
+    @staticmethod
+    def instance():
+        try:
+            return Settings.objects.get()
+        except Settings.DoesNotExist:
+            return None

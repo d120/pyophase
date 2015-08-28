@@ -15,24 +15,15 @@ class StudentAdd(CreateView):
     success_url = reverse_lazy('students:registration_success')
 
     def get_context_data(self, **kwargs):
-
-        current_ophase_qs = Ophase.objects.filter(is_active=True)
-        settings_qs = Settings.objects.all()
-
+        current_ophase = Ophase.current()
+        settings = Settings.instance()
         context = super(StudentAdd, self).get_context_data(**kwargs)
-
-        context['ophase_title'] = 'Ophase'
-
-        if len(current_ophase_qs) == 1:
-            context['ophase_title'] = current_ophase_qs[0].__str__()
-
-        if len(settings_qs) == 1:
-            settings = settings_qs[0]
-
+        if current_ophase is not None and settings is not None:
+            context['ophase_title'] = current_ophase.__str__()
             context['student_registration_enabled'] = settings.student_registration_enabled
         else:
+            context['ophase_title'] = 'Ophase'
             context['student_registration_enabled'] = False
-
         return context
 
     @method_decorator(permission_required('students.add_student'))
@@ -45,13 +36,13 @@ class StudentAddSuccess(TemplateView):
 
     def get_context_data(self, **kwargs):
 
-        current_ophase_qs = Ophase.objects.filter(is_active=True)
+        current_ophase = Ophase.current()
 
         context = super(StudentAddSuccess, self).get_context_data(**kwargs)
 
         context['ophase_title'] = 'Ophase'
-        if len(current_ophase_qs) == 1:
-            context['ophase_title'] = current_ophase_qs[0].__str__()
+        if current_ophase is not None:
+            context['ophase_title'] = current_ophase.__str__()
         return context
 
 
@@ -61,10 +52,9 @@ class StudentRegistrationCount(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(StudentRegistrationCount, self).get_context_data(**kwargs)
 
-        current_ophase_qs = Ophase.objects.filter(is_active=True)
+        current_ophase = Ophase.current()
         context['ophase_title'] = 'Ophase'
-        if len(current_ophase_qs) == 1:
-            current_ophase = current_ophase_qs[0]
+        if current_ophase is not None:
             context['ophase_title'] = current_ophase.__str__()
 
             Students = Student.objects.filter(ophase=current_ophase)
