@@ -18,6 +18,7 @@ class StudentAdmin(admin.ModelAdmin):
     list_display = ['name', 'prename', 'tutor_group', 'want_exam', 'want_newsletter']
     list_filter = ['want_exam', 'want_newsletter']
     list_display_links = ['name', 'prename']
+    readonly_fields = ('created_at', 'updated_at')
 
 
 @admin.register(Settings)
