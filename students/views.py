@@ -19,7 +19,7 @@ class StudentAdd(CreateView):
         settings = Settings.instance()
         context = super(StudentAdd, self).get_context_data(**kwargs)
         if current_ophase is not None and settings is not None:
-            context['ophase_title'] = current_ophase.__str__()
+            context['ophase_title'] = str(current_ophase)
             context['student_registration_enabled'] = settings.student_registration_enabled
         else:
             context['ophase_title'] = 'Ophase'
@@ -42,7 +42,7 @@ class StudentAddSuccess(TemplateView):
 
         context['ophase_title'] = 'Ophase'
         if current_ophase is not None:
-            context['ophase_title'] = current_ophase.__str__()
+            context['ophase_title'] = str(current_ophase)
         return context
 
 
@@ -55,7 +55,7 @@ class StudentRegistrationCount(TemplateView):
         current_ophase = Ophase.current()
         context['ophase_title'] = 'Ophase'
         if current_ophase is not None:
-            context['ophase_title'] = current_ophase.__str__()
+            context['ophase_title'] = str(current_ophase)
 
             Students = Student.objects.filter(ophase=current_ophase)
             context['studentCount'] = Students.count()

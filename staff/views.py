@@ -31,7 +31,7 @@ class StaffAdd(CreateView):
             vacancies_str = vacancies_str.replace('.', ' und ')
 
             context = super(StaffAdd, self).get_context_data(**kwargs)
-            context['ophase_title'] = current_ophase.__str__()
+            context['ophase_title'] = str(current_ophase)
             context['ophase_duration'] = current_ophase.get_human_duration()
             context['any_registration_enabled'] = settings.tutor_registration_enabled or settings.orga_registration_enabled or settings.helper_registration_enabled
             context['tutor_registration_enabled'] = settings.tutor_registration_enabled
@@ -67,7 +67,7 @@ class GenericJobList(ListView):
         current_ophase = Ophase.current()
         if current_ophase is not None:
             context = super(GenericJobList, self).get_context_data(**kwargs)
-            context['ophase_title'] = current_ophase.__str__()
+            context['ophase_title'] = str(current_ophase)
             context['title'] = self.title
             return context
 
