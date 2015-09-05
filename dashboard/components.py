@@ -1,10 +1,9 @@
 from django.template.loader import render_to_string
-from django.views.generic import TemplateView
 
 
 class WidgetComponent():
     """
-    Base class for a dashboard widget
+    Base class for a dashboard widget.
     """
 
     permissions = []
@@ -15,7 +14,7 @@ class WidgetComponent():
     @property
     def render(self):
         """
-        Create a chuck of html to be displayed in panel for this widget
+        Create a chunk of html to be displayed in panel for this widget.
 
         :return: SafeText
         """
@@ -28,7 +27,7 @@ class WidgetComponent():
 
 class TemplateWidgetComponent(WidgetComponent):
     """
-    Base class for a dashboard widget that uses templates
+    Base class for a dashboard widget that uses templates.
     """
 
     template_name = ""

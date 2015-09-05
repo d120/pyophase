@@ -11,7 +11,15 @@ class CountdownWidget(WidgetComponent):
 
     @property
     def render(self):
-        #current_ophase = Ophase.current()
-        #time_delta = current_ophase.start_date.day - datetime.date.today()
-        #return "<span style='font-size:50px'>%i</span>" % time_delta.days
-        return SafeText("<h3>Noch 5 Tage</h3>")
+        ophase = Ophase.current()
+        if ophase is None:
+            msg = "Keine Ophase in Aussicht"
+        elif datetime.date.today() < ophase.start_date:
+            delta = ophase.start_date - datetime.date.today()
+            msg = "Noch {} Tage bis zur Ophase".format(delta.days)
+        elif ophase.end_date < datetime.date.today():
+            msg = "Die Ophase ist vorüber"
+        else:
+            weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
+            msg = "Es ist Ophase<br />- {} -".format(weekdays[datetime.date.today().weekday()])
+        return SafeText("<h3 class='text-center'>{}</h3>".format(msg))
