@@ -3,12 +3,17 @@
 {% block title%}Übersicht | Dashboard{% endblock %}
 
 {% block content_dashboard %}
-        <div class="row">
+    <div class="row">
         <div class="col-lg-3 col-sm-12 col-md-4">
-                    </div>
+              <!-- Navigation Sidebar -->
+            {% block content_dashboard_sidebar %}
+                <!-- Default implementation of sidebar (may be overridden in subfiles) -->
+            {% endblock %}
+        </div>
 
         <div class="col-lg-9 col-sm-12 col-md-8">
-                    </div>
-
-            </div>
+            <!-- Dashboard Action-->
+            {% block content_dashboard_view %}{% endblock %}
+        </div>
+    </div>
 {% endblock %}

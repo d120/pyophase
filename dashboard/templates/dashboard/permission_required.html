@@ -1,0 +1,11 @@
+{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}
+
+{% block title%}Übersicht | Dashboard{% endblock %}
+
+{% block content_dashboard %}
+
+<div class="alert alert-danger">Keine ausreichenden Berechtigungen, um diese Seite anzuzeigen.</div>
+
+<a href="{%  url 'dashboard:index' %}" class="btn btn-default">Zurück zur Übersicht</a>
+
+{% endblock %}

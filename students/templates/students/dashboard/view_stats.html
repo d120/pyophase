@@ -1,0 +1,14 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+
+{% block title%}Stats | Dashboard{% endblock %}
+
+
+{% block content_dashboard_view %}
+    <h2>Statistik</h2>
+    <p>
+        Eingetragene Ersties: {{ studentCount }}<br>
+        Klausuranmeldungen: {{ examCount }}<br>
+        Newsletteranmeldungen: {{ newsletterCount }}<br>
+        Eingetragene Gruppen: {{ tutorGroupCount }}
+    </p>
+{% endblock %}
