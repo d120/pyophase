@@ -1,0 +1,13 @@
+{% extends "ophasebase/base.html" %}
+{% block content %}
+<h2 style="float:left;;margin-right:50px;">Dash&shy;board</h2>
+
+<ul class="nav nav-pills" style="margin-top: 17px;">
+  <li><a href="{% url 'dashboard:index' %}">Übersicht</a></li>
+</ul>
+
+<hr style="margin-top: 5px;">
+
+{% block content_dashboard %}{% endblock %}
+
+{% endblock %}
