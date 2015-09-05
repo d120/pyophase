@@ -1,12 +1,29 @@
-from django.utils.safestring import SafeText
-from dashboard.components import WidgetComponent
+from django.core.urlresolvers import reverse_lazy
+from dashboard.components import TemplateWidgetComponent
+from ophasebase.models import Ophase
+from students.models import Student, TutorGroup
+from django.db.models import Count
 
 
-class StudentCountWidget(WidgetComponent):
+class StudentCountWidget(TemplateWidgetComponent):
     permissions = []
     name = "Erstie-Anmeldung"
-    link_target = "#"
+    link_target = reverse_lazy('students:stats')
+    template_name = "students/dashboard/widget_registration_stats.html"
+    status = "success"
 
-    @property
-    def render(self):
-        return SafeText("<h3>5</h3>")
+    def get_context_data(self):
+        context = super().get_context_data()
+
+        current_ophase = Ophase.current()
+        context['ophase_title'] = 'Ophase'
+        if current_ophase is not None:
+            context['ophase_title'] = str(current_ophase)
+
+            Students = Student.objects.filter(ophase=current_ophase)
+            context['studentCount'] = Students.count()
+            context['examCount'] = Students.filter(want_exam=True).count()
+
+            #Get the number of Tutor Groups who have at least one Student in the current Ophase
+            context['tutorGroupCount'] = TutorGroup.objects.filter(student__ophase=current_ophase).annotate(num=Count('student')).filter(num__gte=1).count()
+        return context

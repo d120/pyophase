@@ -19,11 +19,11 @@
 
 <div style="margin-right:-20px">
 {% for widget in widgets %}
-    <div class="panel panel-default">
+    <div class="panel panel-{{ widget.get_status }}">
       <div class="panel-body">
         {{ widget.render}}
       </div>
-      <div class="panel-footer">
+      <div class="panel-heading">
           {% if widget.link_target != "" %}
               <span style="float:right;">
                 <a href="{{ widget.link_target }}">{% bootstrap_icon "new-window" %}</a>

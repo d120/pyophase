@@ -1,7 +1,16 @@
+from django.template.loader import render_to_string
+from django.views.generic import TemplateView
+
+
 class WidgetComponent():
+    """
+    Base class for a dashboard widget
+    """
+
     permissions = []
     name = ""
     link_target = ""
+    status = "default"
 
     @property
     def render(self):
@@ -13,5 +22,20 @@ class WidgetComponent():
         raise NotImplementedError
 
     @property
-    def status(self):
-        return "OK"
+    def get_status(self):
+        return self.status
+
+
+class TemplateWidgetComponent(WidgetComponent):
+    """
+    Base class for a dashboard widget that uses templates
+    """
+
+    template_name = ""
+
+    @property
+    def render(self):
+        return render_to_string(self.template_name, self.get_context_data())
+
+    def get_context_data(self):
+        return {}
