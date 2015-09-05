@@ -6,7 +6,7 @@ from django.db.models import Count
 
 
 class StudentCountWidget(TemplateWidgetComponent):
-    permissions = []
+    permissions = ['students.add_student']
     name = "Erstie-Anmeldung"
     link_target = reverse_lazy('students:stats')
     template_name = "students/dashboard/widget_registration_stats.html"
