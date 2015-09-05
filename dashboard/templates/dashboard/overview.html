@@ -21,7 +21,7 @@
 {% for widget in widgets %}
     <div class="panel panel-{{ widget.get_status }}">
       <div class="panel-body">
-        {{ widget.render}}
+        {{ widget.render }}
       </div>
       <div class="panel-heading">
           {% if widget.link_target != "" %}
