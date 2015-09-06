@@ -1,13 +1,14 @@
 from django.views.generic import TemplateView
 
-from .dashboard import Dashboard
+from .dashboard_widgets import DashboardWidgets
+from .dashboard_links import DashboardLinks
 from .components import ViewComponent
 from .shortcuts import check_permissions
 
 
 class IndexView(ViewComponent):
     template_name = 'dashboard/overview.html'
-    navigation_links = Dashboard.navigation_links
+    navigation_links = DashboardLinks.navigation_links
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -16,7 +17,7 @@ class IndexView(ViewComponent):
 
         active_widgets_for_current_user = []
         #Check the permissions for each widget...
-        for widget in Dashboard.active_widgets:
+        for widget in DashboardWidgets.active_widgets:
             #...only add widgets with matching permissions
             if check_permissions(user, widget.permissions):
                 active_widgets_for_current_user.append(widget)

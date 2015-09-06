@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.views.generic import TemplateView
+from dashboard.dashboard_links import DashboardLinks
 
 from .shortcuts import check_permissions
 
@@ -48,7 +49,7 @@ class TemplateWidgetComponent(WidgetComponent):
 class ViewComponent(TemplateView):
     permissions = []
     redirect_target = reverse_lazy('dashboard:missing_permission')
-    navigation_links = []
+    navigation_links = DashboardLinks.navigation_links
 
     def dispatch(self, request, *args, **kwargs):
         if not check_permissions(request.user, self.permissions):
