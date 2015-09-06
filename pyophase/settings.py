@@ -58,6 +58,8 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'pyophase.urls'
 
+LOGIN_REDIRECT_URL = 'ophasebase:welcome'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
