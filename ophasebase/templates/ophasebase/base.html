@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %} | OphaseHQ - d120.de</title>
     <link rel="stylesheet" href="{% static 'ophasebase/components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
+    <link rel="stylesheet" href="{% static 'ophasebase/components/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'ophasebase/css/sticky-footer.css' %}" media="screen" />
 </head>
 <body>
     <div class="container">
@@ -26,6 +28,15 @@
         <div class="jumbotron">
         {% block content %} {% endblock %}
         </div>
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">
+                    <span class="pull-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>
+                    <span class="pull-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fa fa-github fa-lg"></i></a></span>
+                </p>
+            </div>
+        </footer>
 
     </div>
 
