@@ -1,5 +1,5 @@
 from ophasebase.dashboard_components import CountdownWidget
-from students.dashboard_components import StudentCountWidget
+from students.dashboard_widgets import StudentCountWidget
 
 
 class DashboardWidgets():

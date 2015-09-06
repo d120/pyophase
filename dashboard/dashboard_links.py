@@ -28,3 +28,7 @@ class DashboardLinks():
     @classmethod
     def get_permission_missing_link(cls):
         return reverse_lazy('dashboard:missing_permission')
+
+    @classmethod
+    def get_prefix(cls):
+        return 'dashboard'

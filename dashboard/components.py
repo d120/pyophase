@@ -54,6 +54,9 @@ class ViewComponent(TemplateView):
     permissions = []
     redirect_target = DashboardLinks.get_permission_missing_link()
     navigation_links = DashboardLinks.get_navigation_links()
+    app_name = ""
+    app_name_verbose = ""
+    action_name = ""
 
     def dispatch(self, request, *args, **kwargs):
         if not check_permissions(request.user, self.permissions):
@@ -63,5 +66,27 @@ class ViewComponent(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['navigation_links'] = self.navigation_links
+        context['app_name_verbose'] = self.app_name_verbose
+        context['action_name'] = self.action_name
         return context
 
+
+class AppViewComponent(ViewComponent):
+    """
+    Base class for dashboard views with app name and sidebar links
+    """
+    sidebar_links = []
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['sidebar_links'] = self.sidebar_links
+        return context
+
+    def prefix_reverse_lazy(self, target):
+        """
+        Adds necessary prefixes and calls reverse_lazy
+
+        :param target: target name (without prefixes)
+        :return: lazily resolved URL
+        """
+        return reverse_lazy('%s:%s:%s' % (DashboardLinks.get_prefix(), self.app_name, target))
