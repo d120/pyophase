@@ -28,6 +28,11 @@ class WidgetComponent():
 
     @property
     def get_status(self):
+        """
+        Should return the status of the current widget content.
+        At the moment, these are the possible bootstrap panel states.
+        default, primary, success, info, warning, danger
+        """
         return self.status
 
 
