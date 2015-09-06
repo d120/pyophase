@@ -1,12 +1,11 @@
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
-from django.db.models import Count
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
 from ophasebase.models import Ophase
-from students.models import Student, TutorGroup, Settings
+from students.models import Student, Settings
 
 
 class StudentAdd(CreateView):

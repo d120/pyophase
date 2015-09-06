@@ -47,9 +47,13 @@ class TemplateWidgetComponent(WidgetComponent):
 
 
 class ViewComponent(TemplateView):
+    """
+    Base class for dashboard views (complete page inside of dashboard).
+    """
+
     permissions = []
-    redirect_target = reverse_lazy('dashboard:missing_permission')
-    navigation_links = DashboardLinks.navigation_links
+    redirect_target = DashboardLinks.get_permission_missing_link()
+    navigation_links = DashboardLinks.get_navigation_links()
 
     def dispatch(self, request, *args, **kwargs):
         if not check_permissions(request.user, self.permissions):

@@ -8,7 +8,6 @@ from .shortcuts import check_permissions
 
 class IndexView(ViewComponent):
     template_name = 'dashboard/overview.html'
-    navigation_links = DashboardLinks.navigation_links
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
