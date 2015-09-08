@@ -1,0 +1,52 @@
+{% extends "admin/base_site.html" %}{% load staticfiles %}
+
+{% block title %}Helfer-Übersicht {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'ophasebase/components/font-awesome/css/font-awesome.min.css' %}" />
+<style>
+    td {
+        font-size: 10pt;
+        text-align: center;
+    }
+    tfoot td {
+        border: none;
+    }
+    .leftcol {
+        text-align: left;
+    }
+</style>
+
+<h2>Helfer-Übersicht</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td></td>
+            {% for j in jobs %}
+            <td>{{ j.label }}</td>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for name, job_row in assignment.items %}
+        <tr>
+            <td class="leftcol">{{ name }}</td>
+            {% for cell in job_row %}
+            <td>{% if cell == True %}<i class="fa fa-check"></i>{% else %}{% endif %}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="leftcol">Gesamt</td>
+            {% for j, c in job_count.items %}
+            <td>{{c}}</td>
+            {% endfor %}
+        </tr>
+    </tfoot>
+</table>
+
+{% endblock %}

@@ -1,9 +1,12 @@
 import io
+from collections import OrderedDict
 
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
 from django.http import HttpResponse
 from django.db.models import Q
+
+from .models import HelperJob
 
 import odswriter
 
@@ -95,3 +98,38 @@ def staff_overview_export(modeladmin, request, queryset):
     return response
 
 staff_overview_export.short_description = "Übersicht exportieren"
+
+
+def helper_job_overview(modeladmin, request, queryset):
+    """Display a matrix to show helpers with associated helper jobs.
+    """
+    template = loader.get_template("staff/helper_matrix.html")
+
+    helper = queryset.filter(is_helper=True)
+    jobs = HelperJob.objects.all()
+
+    assignment = OrderedDict()
+    job_count = OrderedDict()
+    for j in jobs:
+        job_count[str(j)] = 0
+
+    for h in helper:
+        line = []
+        for j in jobs:
+            if h.helper_jobs.filter(id=j.id).exists():
+                line.append(True)
+                job_count[str(j)] += 1
+            else:
+                line.append(False)
+        assignment[str(h)] = line
+
+    context = {
+        'helper' : helper,
+        'jobs' : jobs,
+        'assignment' : assignment,
+        'job_count' : job_count
+    }
+
+    return SimpleTemplateResponse(template, context)
+
+helper_job_overview.short_description = "Helfer-Übersicht anzeigen"
