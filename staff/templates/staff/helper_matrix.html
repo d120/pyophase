@@ -41,6 +41,12 @@
     </tbody>
     <tfoot>
         <tr>
+            <td></td>
+            {% for j in jobs %}
+            <td>{{ j.label }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
             <td>Gesamt</td>
             {% for j in jobs %}
             <td>{{ j.num_helper }}</td>
