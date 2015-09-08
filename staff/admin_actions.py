@@ -4,9 +4,9 @@ from collections import OrderedDict
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
 from django.http import HttpResponse
-from django.db.models import Q
+from django.db.models import Q, Count
 
-from .models import HelperJob
+from staff.models import HelperJob
 
 import odswriter
 
@@ -106,19 +106,15 @@ def helper_job_overview(modeladmin, request, queryset):
     template = loader.get_template("staff/helper_matrix.html")
 
     helper = queryset.filter(is_helper=True)
-    jobs = HelperJob.objects.all()
+    jobs = HelperJob.objects.all().annotate(num_helper=Count('person'))
 
     assignment = OrderedDict()
-    job_count = OrderedDict()
-    for j in jobs:
-        job_count[str(j)] = 0
 
     for h in helper:
         line = []
         for j in jobs:
             if h.helper_jobs.filter(id=j.id).exists():
                 line.append(True)
-                job_count[str(j)] += 1
             else:
                 line.append(False)
         assignment[str(h)] = line
@@ -127,7 +123,6 @@ def helper_job_overview(modeladmin, request, queryset):
         'helper' : helper,
         'jobs' : jobs,
         'assignment' : assignment,
-        'job_count' : job_count
     }
 
     return SimpleTemplateResponse(template, context)

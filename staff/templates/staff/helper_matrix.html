@@ -13,7 +13,7 @@
     tfoot td {
         border: none;
     }
-    .leftcol {
+    tbody td:first-child, tfoot td:first-child {
         text-align: left;
     }
 </style>
@@ -32,18 +32,18 @@
     <tbody>
         {% for name, job_row in assignment.items %}
         <tr>
-            <td class="leftcol">{{ name }}</td>
+            <td>{{ name }}</td>
             {% for cell in job_row %}
-            <td>{% if cell == True %}<i class="fa fa-check"></i>{% else %}{% endif %}</td>
+            <td>{% if cell == True %}<i class="fa fa-check"></{% endif %}</td>
             {% endfor %}
         </tr>
         {% endfor %}
     </tbody>
     <tfoot>
         <tr>
-            <td class="leftcol">Gesamt</td>
-            {% for j, c in job_count.items %}
-            <td>{{c}}</td>
+            <td>Gesamt</td>
+            {% for j in jobs %}
+            <td>{{ j.num_helper }}</td>
             {% endfor %}
         </tr>
     </tfoot>
