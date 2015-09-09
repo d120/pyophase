@@ -16,6 +16,9 @@
     tbody td:first-child, tfoot td:first-child {
         text-align: left;
     }
+    .fa-check {
+        color: #048704;
+    }
 </style>
 
 <h2>Helfer-Übersicht</h2>
@@ -34,7 +37,7 @@
         <tr>
             <td>{{ name }}</td>
             {% for cell in job_row %}
-            <td>{% if cell == True %}<i class="fa fa-check"></{% endif %}</td>
+            <td>{% if cell == True %}<i class="fa fa-check"></i>{% endif %}</td>
             {% endfor %}
         </tr>
         {% endfor %}
