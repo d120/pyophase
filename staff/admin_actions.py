@@ -105,7 +105,7 @@ def helper_job_overview(modeladmin, request, queryset):
     template = loader.get_template("staff/helper_matrix.html")
 
     helper = queryset.filter(is_helper=True)
-    jobs = HelperJob.objects.all().annotate(num_helper=Count('person'))
+    jobs = HelperJob.objects.all().annotate(num_helper=Count('person')).order_by('label')
 
     for h in helper:
         job_interest = []
