@@ -33,11 +33,11 @@
         </tr>
     </thead>
     <tbody>
-        {% for name, job_row in assignment.items %}
+        {% for h in helper %}
         <tr>
-            <td>{{ name }}</td>
-            {% for cell in job_row %}
-            <td>{% if cell == True %}<i class="fa fa-check"></i>{% endif %}</td>
+            <td>{{ h.prename }} {{ h.name }} {% if h.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
+            {% for j in h.job_interest %}
+            <td>{% if j == True %}<i class="fa fa-check"></i>{% endif %}</td>
             {% endfor %}
         </tr>
         {% endfor %}

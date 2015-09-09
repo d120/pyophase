@@ -1,5 +1,4 @@
 import io
-from collections import OrderedDict
 
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
@@ -108,21 +107,18 @@ def helper_job_overview(modeladmin, request, queryset):
     helper = queryset.filter(is_helper=True)
     jobs = HelperJob.objects.all().annotate(num_helper=Count('person'))
 
-    assignment = OrderedDict()
-
     for h in helper:
-        line = []
+        job_interest = []
         for j in jobs:
             if h.helper_jobs.filter(id=j.id).exists():
-                line.append(True)
+                job_interest.append(True)
             else:
-                line.append(False)
-        assignment[str(h)] = line
+                job_interest.append(False)
+        h.job_interest = job_interest
 
     context = {
         'helper' : helper,
         'jobs' : jobs,
-        'assignment' : assignment,
     }
 
     return SimpleTemplateResponse(template, context)
