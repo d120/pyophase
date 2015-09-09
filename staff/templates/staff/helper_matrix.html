@@ -27,6 +27,7 @@
     <thead>
         <tr>
             <td></td>
+            <td></td>
             {% for j in jobs %}
             <td>{{ j.label }}</td>
             {% endfor %}
@@ -35,7 +36,8 @@
     <tbody>
         {% for h in helper %}
         <tr>
-            <td>{{ h.prename }} {{ h.name }} {% if h.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
+            <td>{{ h.prename }} {{ h.name }}</td>
+            <td>{% if h.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
             {% for j in h.job_interest %}
             <td>{% if j == True %}<i class="fa fa-check"></i>{% endif %}</td>
             {% endfor %}
@@ -45,12 +47,14 @@
     <tfoot>
         <tr>
             <td></td>
+            <td></td>
             {% for j in jobs %}
             <td>{{ j.label }}</td>
             {% endfor %}
         </tr>
         <tr>
             <td>Gesamt</td>
+            <td></td>
             {% for j in jobs %}
             <td>{{ j.num_helper }}</td>
             {% endfor %}
