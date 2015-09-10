@@ -1,7 +1,6 @@
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from django.views.generic import TemplateView
 from dashboard.dashboard_links import DashboardLinks
 
 from .shortcuts import check_permissions
@@ -51,39 +50,48 @@ class TemplateWidgetComponent(WidgetComponent):
         return {}
 
 
-class ViewComponent(TemplateView):
+class DashboardBaseMixin:
     """
-    Base class for dashboard views (complete page inside of dashboard).
-    """
+    Base mixin to transform django generic views into dashboard views
 
-    permissions = []
-    redirect_target = DashboardLinks.get_permission_missing_link()
-    navigation_links = DashboardLinks.get_navigation_links()
-    app_name = ""
-    app_name_verbose = ""
+    This should handle all common functionality that is needed in every generic view
+    """
     action_name = ""
+    app_name_verbose = ""
+    app_name = ""
+    navigation_links = DashboardLinks.get_navigation_links()
+    redirect_target = DashboardLinks.get_permission_missing_link()
+    permissions = []
 
-    def dispatch(self, request, *args, **kwargs):
-        if not check_permissions(request.user, self.permissions):
-            return redirect(self.redirect_target)
-        return super().dispatch(request, *args, **kwargs)
+    def add_context_data(self, context):
+        """
+        Add additional data to the given context object.
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        This should be used in all childs of DashboardBaseView instead of directly overriding get_context_data()
+        """
         context['navigation_links'] = self.navigation_links
         context['app_name_verbose'] = self.app_name_verbose
         context['action_name'] = self.action_name
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        if not check_permissions(request.user, self.permissions):
+            return redirect(self.redirect_target)
+        return super(DashboardBaseMixin, self).dispatch(request, *args, **kwargs)
 
-class AppViewComponent(ViewComponent):
+    def get_context_data(self, **kwargs):
+        context = super(DashboardBaseMixin, self).get_context_data(**kwargs)
+        return self.add_context_data(context)
+
+
+class DashboardAppMixin(DashboardBaseMixin):
     """
     Base class for dashboard views with app name and sidebar links
     """
     sidebar_links = []
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def add_context_data(self, context):
+        context = super().add_context_data(context)
         context['sidebar_links'] = self.sidebar_links
         return context
 

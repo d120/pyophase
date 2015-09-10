@@ -1,12 +1,14 @@
-from dashboard.components import AppViewComponent
+from django.views.generic import TemplateView
+from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
 from .models import Student, TutorGroup
 from django.db.models import Count, Sum
 
 
-class StudentsView(AppViewComponent):
+class StudentsAppMixin(DashboardAppMixin):
     app_name_verbose = "Ersties"
     app_name = 'students'
+    permissions = ['students.add_student']
 
     @property
     def sidebar_links(self):
@@ -16,9 +18,8 @@ class StudentsView(AppViewComponent):
         ]
 
 
-class StudentStatsView(StudentsView):
+class StudentStatsView(StudentsAppMixin, TemplateView):
     template_name = "students/dashboard/view_stats.html"
-    permissions = ['students.add_student']
 
     def get_context_data(self):
         context = super().get_context_data()
@@ -43,5 +44,5 @@ class StudentStatsView(StudentsView):
         return context
 
 
-class ExportCertificateView(StudentsView):
+class ExportCertificateView(StudentsAppMixin, TemplateView):
     template_name = "students/dashboard/view_certificate.html"

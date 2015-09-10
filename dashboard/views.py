@@ -1,12 +1,11 @@
 from django.views.generic import TemplateView
 
 from .dashboard_widgets import DashboardWidgets
-from .dashboard_links import DashboardLinks
-from .components import ViewComponent
+from .components import DashboardBaseMixin
 from .shortcuts import check_permissions
 
 
-class IndexView(ViewComponent):
+class IndexView(DashboardBaseMixin, TemplateView):
     template_name = 'dashboard/overview.html'
 
     def get_context_data(self, **kwargs):
@@ -25,6 +24,6 @@ class IndexView(ViewComponent):
         return context
 
 
-class PermissionMissingView(TemplateView):
+class PermissionMissingView(DashboardBaseMixin, TemplateView):
     template_name = 'dashboard/permission_required.html'
 
