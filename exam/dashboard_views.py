@@ -29,7 +29,7 @@ class MakeAssignmentView(ExamAppMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(MakeAssignmentView, self).get_context_data(**kwargs)
         exam_rooms = ExamRoom.objects.filter(available=True)
-        context['student_count'] = Student.objects.filter(want_exam=True).order_by('name', 'prename').count()
+        context['student_count'] = Student.objects.filter(ophase=Ophase.current(), want_exam=True).order_by('name', 'prename').count()
         context['free_places_1'] = sum([exam_room.capacity(1) for exam_room in exam_rooms])
         context['free_places_2'] = sum([exam_room.capacity(2) for exam_room in exam_rooms])
         return context
