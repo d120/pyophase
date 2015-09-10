@@ -1,0 +1,28 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% block title %}Neue Zuteilung | Klausur{% endblock %}
+
+{% block content_dashboard_view %}
+<div id="mainForm">
+
+    <table class="table">
+        <tr><th>Angemeldete Ersties (alle Gruppen):</th><th>{{ student_count }}</th></tr>
+        <tr class="{% if free_places_1 > student_count %}success{% else %}danger{% endif %}"><td>Verfügbare Plätze (1 Platz Abstand):</td><td>{{ free_places_1 }}</td></tr>
+        <tr class="{% if free_places_2 > student_count %}success{% else %}danger{% endif %}"><td>Verfügbare Plätze (2 Plätze Abstand):</td><td>{{ free_places_2 }}</td></tr>
+    </table>
+
+    <form role="form" action="{{action}}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+    {% buttons %}
+        <button type="reset" class="btn btn-danger">
+            {% bootstrap_icon "remove" %} Zurücksetzen
+        </button>
+        <button type="submit" class="btn btn-success pull-right">
+            {% bootstrap_icon "ok" %} Abschicken
+        </button>
+    {% endbuttons %}
+    </form>
+</div>
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}

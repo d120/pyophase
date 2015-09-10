@@ -39,7 +39,7 @@ class Student(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "%s %s (%s)" % (self.prename, self.name, self.tutor_group)
+        return "%s, %s (%s)" % (self.name, self.prename, self.tutor_group)
 
     def clean(self, *args, **kwargs):
         super(Student, self).clean(*args, **kwargs)

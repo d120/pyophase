@@ -1,37 +1,44 @@
-from django.shortcuts import render
-import math
+from django.contrib.auth.decorators import permission_required
+from django.core.urlresolvers import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import CreateView, TemplateView
 
-from exam.models import ExamRoom
+from .models import ExamRoom, Assignment
+from ophasebase.models import Ophase
 from students.models import Student
 
-def assign(request):
-    examRooms = ExamRoom.objects.filter(available=True)
-    examStudents = Student.objects.filter(wantExam=True).order_by('name', 'prename')
 
-    free_places = sum([eRoom.capacity_1_free for eRoom in examRooms])
-    places_needed = len(examStudents)
-    ratio = places_needed / free_places
+class MakeAssignmentView(CreateView):
+    model = Assignment
+    fields = ['group_category', 'spacing', 'mode']
+    success_url = reverse_lazy('exam:assignment_success')
 
-    totalUsedPlaces = 0
-    splitPoints = []
+    def get_context_data(self, **kwargs):
+        current_ophase = Ophase.current()
+        context = super(MakeAssignmentView, self).get_context_data(**kwargs)
+        if current_ophase is not None:
+            context['ophase_title'] = str(current_ophase)
+        else:
+            context['ophase_title'] = 'Ophase'
+        exam_rooms = ExamRoom.objects.filter(available=True)
+        context['student_count'] = Student.objects.filter(want_exam=True).order_by('name', 'prename').count()
+        context['free_places_1'] = sum([exam_room.capacity(1) for exam_room in exam_rooms])
+        context['free_places_2'] = sum([exam_room.capacity(2) for exam_room in exam_rooms])
+        return context
 
-    for eRoom in examRooms:
-        usedPlaces = math.ceil(eRoom.capacity_1_free * ratio)
-        end = min(totalUsedPlaces + usedPlaces - 1, places_needed - 1)
-        splitPoints.append(end)
-        totalUsedPlaces = end + 1
+    @method_decorator(permission_required('exam.add_assignment'))
+    def dispatch(self, *args, **kwargs):
+        return super(MakeAssignmentView, self).dispatch(*args, **kwargs)
 
-    currentRoom = 0
-    assignments = []
-    assignmentsTmp = []
-    for index, student in enumerate(examStudents):
-        if index == splitPoints[currentRoom] + 1:
-            assignments.append({'room':examRooms[currentRoom], 'current':len(assignmentsTmp), 'max':examRooms[currentRoom].capacity_1_free, 'students': assignmentsTmp})
-            assignmentsTmp = []
-            currentRoom += 1
-        assignmentsTmp.append(student)
 
-    assignments.append({'room':examRooms[currentRoom], 'current':len(assignmentsTmp), 'max':examRooms[currentRoom].capacity_1_free, 'students': assignmentsTmp})
+class MakeAssignmentSuccess(TemplateView):
+    template_name = 'exam/success.html'
 
-    context = {'freePlaces':free_places, 'placesNeeded':places_needed, 'splitPoints':splitPoints, 'assignments': assignments}
-    return render(request, 'exam/assign.html', context)
+    def get_context_data(self, **kwargs):
+        current_ophase = Ophase.current()
+        context = super().get_context_data(**kwargs)
+
+        context['ophase_title'] = 'Ophase'
+        if current_ophase is not None:
+            context['ophase_title'] = str(current_ophase)
+        return context
