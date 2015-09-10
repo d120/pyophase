@@ -20,6 +20,7 @@ class StaffCountWidget(TemplateWidgetComponent):
             context['count_staff'] = Staff.count()
             context['count_tutor'] = Staff.filter(is_tutor=True).count()
             context['count_orga'] = Staff.filter(is_orga=True).count()
+            context['count_helper'] = Staff.filter(is_helper=True).count()
         return context
 
     def get_status(self):

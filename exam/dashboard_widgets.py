@@ -33,7 +33,7 @@ class ExamWidget(TemplateWidgetComponent):
             context['status_icon'] = "ok"
             context['submessage'] = ""
         elif assignment is None:
-            context['message'] = "Noch keine gülitge Zuteilung"
+            context['message'] = "Noch keine gültige Zuteilung"
             context['status_icon'] = "remove"
             context['submessage'] = ""
         elif self._correct_count(assignment):

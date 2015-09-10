@@ -7,7 +7,7 @@ from django.db.models import Count
 
 class StudentCountWidget(TemplateWidgetComponent):
     permissions = ['students.add_student']
-    name = "Erstie-Anmeldung"
+    name = "Erstie-Anmeldestatus"
     link_target = reverse_lazy('dashboard:students:index')
     template_name = "students/dashboard/widget_registration_stats.html"
     status = "success"
@@ -27,4 +27,3 @@ class StudentCountWidget(TemplateWidgetComponent):
             #Get the number of Tutor Groups who have at least one Student in the current Ophase
             context['tutorGroupCount'] = TutorGroup.objects.filter(student__ophase=current_ophase).annotate(num=Count('student')).filter(num__gte=1).count()
         return context
-

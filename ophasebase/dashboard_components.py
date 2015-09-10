@@ -11,16 +11,16 @@ class CountdownWidget(WidgetComponent):
     def render(self):
         ophase = Ophase.current()
         if ophase is None:
-            msg = "Keine Ophase in Aussicht"
+            msg = "Keine Ophase<br />in Aussicht"
         elif datetime.date.today() < ophase.start_date:
             delta = ophase.start_date - datetime.date.today()
-            msg = "Noch {} Tage bis zur Ophase".format(delta.days)
+            msg = "<b>{} Tage</b><br />bis zur Ophase".format(delta.days)
         elif ophase.end_date < datetime.date.today():
-            msg = "Die Ophase ist vorüber"
+            msg = "Die Ophase<br />ist vorüber"
         else:
             weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
-            msg = "Es ist Ophase<br />- {} -".format(weekdays[datetime.date.today().weekday()])
-        return SafeText("<h3 class='text-center'>{}</h3>".format(msg))
+            msg = "Es ist Ophase<br /> <b>{}</b>".format(weekdays[datetime.date.today().weekday()])
+        return SafeText("<p class='text-center' style='font-size:2em; line-height:180%;'>{}</p>".format(msg))
 
     @property
     def get_status(self):
