@@ -1,12 +1,11 @@
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
-from django.db.models import Count
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
 from ophasebase.models import Ophase
-from students.models import Student, TutorGroup, Settings
+from students.models import Student, Settings
 
 
 class StudentAdd(CreateView):
@@ -43,25 +42,4 @@ class StudentAddSuccess(TemplateView):
         context['ophase_title'] = 'Ophase'
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
-        return context
-
-
-class StudentRegistrationCount(TemplateView):
-    template_name = 'students/counts.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(StudentRegistrationCount, self).get_context_data(**kwargs)
-
-        current_ophase = Ophase.current()
-        context['ophase_title'] = 'Ophase'
-        if current_ophase is not None:
-            context['ophase_title'] = str(current_ophase)
-
-            Students = Student.objects.filter(ophase=current_ophase)
-            context['studentCount'] = Students.count()
-            context['examCount'] = Students.filter(want_exam=True).count()
-            context['newsletterCount'] = Students.filter(want_newsletter=True).count()
-
-            #Get the number of Tutor Groups who have at least one Student in the current Ophase
-            context['tutorGroupCount'] = TutorGroup.objects.filter(student__ophase=current_ophase).annotate(num=Count('student')).filter(num__gte=1).count()
         return context

@@ -16,11 +16,13 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'ophasebase:welcome' %}">OphaseHQ</a>
                 </div>
-                {% if user.is_authenticated %}
                 <div class="navbar-right">
+                    {% if user.is_authenticated %}
                     <span class="navbar-text">Angemeldet als {{ user.username }} - <a href="{% url 'logout' %}">Logout</a></span>
+                    {% else %}
+                    <span class="navbar-text"><a href="{% url 'login' %}?next={{request.path}}">Login</a></span>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
         </nav>
 
