@@ -14,6 +14,7 @@ class DashboardLinks():
         """
         return [
             ("Übersicht", cls.get_index_link()),
+            ("Personal", reverse_lazy('dashboard:staff:group_mass_create')),
             ("Ersties", reverse_lazy('dashboard:students:index')),
             ("Klausur", reverse_lazy('dashboard:exam:assignment_new')),
         ]

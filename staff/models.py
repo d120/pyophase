@@ -109,6 +109,7 @@ class TutorGroup(models.Model):
         verbose_name = "Kleingruppe"
         verbose_name_plural = "Kleingruppen"
         ordering = ['group_category', 'name']
+        unique_together = ('ophase', 'name')
 
     ophase = models.ForeignKey(Ophase)
     name = models.CharField(max_length=50, verbose_name="Gruppenname")

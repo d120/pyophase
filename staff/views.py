@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, ListView
 from django.core.urlresolvers import reverse_lazy
 from django.db import IntegrityError
 from django.template import loader
-from django.template.response import SimpleTemplateResponse
+from django.template.response import TemplateResponse
 
 from ophasebase.models import Ophase
 from staff.models import Settings, GroupCategory, OrgaJob, HelperJob
@@ -51,7 +51,7 @@ class StaffAdd(CreateView):
         except IntegrityError:
             # this should happen when unique constraints fail
             template = loader.get_template("staff/already_registered.html")
-            return SimpleTemplateResponse(template)
+            return TemplateResponse(self.request, template)
 
 class StaffAddSuccess(TemplateView):
     template_name = 'staff/success.html'

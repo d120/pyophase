@@ -1,0 +1,18 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+
+{% block title%}Kleingruppen erstellt | Dashboard{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>Mehrere Kleingruppen auf einmal erstellen</h3>
+
+{% if ophase == True %}
+<div class="alert alert-success">{% bootstrap_icon "ok" %} {{ new_group_count }} Kleingruppen erstellt.</div>
+{% if duplicate_group_count > 0 %}
+<div class="alert alert-info">{% bootstrap_icon "remove" %} {{ duplicate_group_count }} Kleingruppen existierten bereits.</div>
+{% endif %}
+<a href="{%  url 'dashboard:staff:group_mass_create' %}" class="btn btn-default">Mehr Kleingruppen erstellen</a>
+{% else %}
+<div class="alert alert-danger">{% bootstrap_icon "warning-sign" %} Keine aktive Ophase vorhanden.</div>
+{% endif %}
+
+{% endblock %}
