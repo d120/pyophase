@@ -12,7 +12,7 @@ class ExamWidget(TemplateWidgetComponent):
 
     permissions = ['exam.add_assignment']
     name = "Klausurzuteilung"
-    link_target = reverse_lazy('dashboard:exam:assignment_new')
+    link_target = reverse_lazy('dashboard:exam:assignment')
     template_name = "exam/dashboard/widget_exam.html"
 
     def _get_latest_assignment(self):

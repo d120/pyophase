@@ -36,6 +36,7 @@ class Assignment(models.Model):
         verbose_name = "Klausurzuteilung"
         verbose_name_plural = "Klausurzuteilungen"
         get_latest_by = 'created_at'
+        ordering = ['-created_at']
 
     SPACING_CHOICES = (
         (1, "Ein Platz Abstand"),

@@ -1,0 +1,29 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% block title %}Zuteilungen | Klausur{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>Vorhandene Klausurzuteilungen</h3>
+
+<table class="table table-striped">
+<thead>
+<tr>
+    <th>Durchgeführt am</th>
+    <th># zugeteilte Studenten</th>
+    <th>Gruppenart</th>
+</tr>
+</thead>
+{% for assignment in object_list %}
+    <tr>
+        <td><a href="{% url "dashboard:exam:assignment_detail" assignment.pk %}">{{ assignment.created_at }}</a></td>
+        <td>{{ assignment.count }}</td>
+        <td>{{ assignment.group_category }}</td>
+    </tr>
+{% empty %}
+    <tr><td>Bisher keine Zuteilungen.</td><td></td><td></td></tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}

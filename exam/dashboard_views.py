@@ -1,10 +1,8 @@
-from django.contrib.auth.decorators import permission_required
 from django.core.urlresolvers import reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, ListView, DetailView
 from dashboard.components import DashboardAppMixin
 
-from .models import ExamRoom, Assignment
+from .models import ExamRoom, Assignment, PersonToExamRoomAssignment
 from ophasebase.models import Ophase
 from students.models import Student
 
@@ -17,8 +15,27 @@ class ExamAppMixin(DashboardAppMixin):
     @property
     def sidebar_links(self):
         return [
+            ('Zuteilungen', self.prefix_reverse_lazy('assignment')),
             ('Neue Zuteilung', self.prefix_reverse_lazy('assignment_new'))
         ]
+
+
+class AssignmentIndexView(ExamAppMixin, ListView):
+    template_name = "exam/dashboard/assignment_overview.html"
+    model = Assignment
+
+
+class AssignmentDetailView(ExamAppMixin, DetailView):
+    template_name = "exam/dashboard/assignment_detail.html"
+    model = Assignment
+
+
+class AssignmentNameListView(ExamAppMixin, ListView):
+    template_name = "exam/dashboard/assignment_name_list.html"
+    model = PersonToExamRoomAssignment
+
+    def get_queryset(self):
+        return super().get_queryset().filter(assignment_id=self.kwargs['assignment_id'])
 
 
 class MakeAssignmentView(ExamAppMixin, CreateView):

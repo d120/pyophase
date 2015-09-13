@@ -1,0 +1,29 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% block title %}Zuteilungen | Klausur{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>Klausurzuteilung</h3>
+
+<table class="table table-striped">
+    <tr>
+        <td>Durchgeführt am</td><td>{{ object.created_at }}</td>
+    </tr>
+    <tr>
+        <td># zugeteilte Studenten</td><td>{{ object.count }}</td>
+    </tr>
+    <tr>
+        <td>Gruppenart</td><td>{{ object.group_category }}</td>
+    </tr>
+    <tr>
+        <td>Abstand</td><td>{{ object.get_spacing_display }}</td>
+    </tr>
+    <tr>
+        <td>Modus</td><td>{{ object.get_mode_display }}</td>
+    </tr>
+</table>
+
+<a href="{% url "dashboard:exam:assignment_name_list" object.pk %}" class="btn btn-primary">Raumzuteilung exportieren</a>
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}

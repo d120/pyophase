@@ -1,0 +1,21 @@
+<h2>Anwesenheitsliste Ophasenklausur</h2>
+
+<table>
+<thead>
+<tr>
+    <th>Name</th>
+    <th>Raum</th>
+    <th>Anwesend</th>
+</tr>
+</thead>
+{% for ptra in object_list %}
+    <tr>
+        <td>{{ ptra.person.name }}, {{ ptra.person.prename }}</td>
+        <td>{{ ptra.room }}</td>
+        <td></td>
+    </tr>
+{% empty %}
+    <tr><td>Keine individuellen Zuteilungen gefunden.</td><td></td><td></td></tr>
+{% endfor %}
+</table>
+
