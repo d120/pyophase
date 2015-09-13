@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from datetime import date
 
-from students.models import Student, TutorGroup
-from staff.models import GroupCategory
+from students.models import Student
+from staff.models import GroupCategory, TutorGroup
 from ophasebase.models import Ophase
 
 # Create your tests here.

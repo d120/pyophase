@@ -103,6 +103,22 @@ class Person(models.Model):
         super(Person, self).save(*args, **kwargs)
 
 
+class TutorGroup(models.Model):
+    """A group of students guided by tutors."""
+    class Meta:
+        verbose_name = "Kleingruppe"
+        verbose_name_plural = "Kleingruppen"
+        ordering = ['group_category', 'name']
+
+    ophase = models.ForeignKey(Ophase)
+    name = models.CharField(max_length=50, verbose_name="Gruppenname")
+    tutors = models.ManyToManyField(Person, blank=True, verbose_name="Tutoren")
+    group_category = models.ForeignKey(GroupCategory, verbose_name="Gruppenkategorie")
+
+    def __str__(self):
+        return self.name
+
+
 class Settings(models.Model):
     """Configuration for Staff App."""
     class Meta:

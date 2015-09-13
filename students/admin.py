@@ -1,16 +1,6 @@
 from django.contrib import admin
 
-from students.models import Student, TutorGroup, Settings
-
-
-@admin.register(TutorGroup)
-class TutorGroupAdmin(admin.ModelAdmin):
-    list_display = ['name', 'get_tutors', 'group_category']
-    list_filter = ['group_category']
-
-    def get_tutors(self, obj):
-        return ", ".join([str(t) for t in obj.tutors.all()])
-    get_tutors.short_description = "Tutoren"
+from students.models import Student, Settings
 
 
 @admin.register(Student)

@@ -1,8 +1,10 @@
 from django.views.generic import TemplateView
+from django.db.models import Count, Sum
+
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
-from .models import Student, TutorGroup
-from django.db.models import Count, Sum
+from staff.models import TutorGroup
+from .models import Student
 
 
 class StudentsAppMixin(DashboardAppMixin):

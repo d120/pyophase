@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob
+from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
 from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview
 
 
@@ -51,6 +51,16 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 
     filter_horizontal = ('orga_jobs', 'helper_jobs')
+
+
+@admin.register(TutorGroup)
+class TutorGroupAdmin(admin.ModelAdmin):
+    list_display = ['name', 'get_tutors', 'group_category']
+    list_filter = ['group_category']
+
+    def get_tutors(self, obj):
+        return ", ".join([str(t) for t in obj.tutors.all()])
+    get_tutors.short_description = "Tutoren"
 
 
 @admin.register(Settings)

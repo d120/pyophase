@@ -1,8 +1,10 @@
 from django.core.urlresolvers import reverse_lazy
+from django.db.models import Count
+
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase
-from .models import Student, TutorGroup
-from django.db.models import Count
+from staff.models import TutorGroup
+from .models import Student
 
 
 class StudentCountWidget(TemplateWidgetComponent):
