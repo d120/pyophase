@@ -14,7 +14,7 @@ class TutorGroup(models.Model):
 
     ophase = models.ForeignKey(Ophase)
     name = models.CharField(max_length=50, verbose_name="Gruppenname")
-    tutors = models.ManyToManyField(Person, verbose_name="Tutoren")
+    tutors = models.ManyToManyField(Person, blank=True, verbose_name="Tutoren")
     group_category = models.ForeignKey(GroupCategory, verbose_name="Gruppenkategorie")
 
     def __str__(self):
