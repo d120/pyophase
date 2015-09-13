@@ -7,9 +7,7 @@ from students.dashboard_widgets import StudentCountWidget
 class DashboardWidgets():
     active_widgets = [
         CountdownWidget(),
-        StudentCountWidget(),
         StaffCountWidget(),
+        StudentCountWidget(),
         ExamWidget()
     ]
-
-
