@@ -11,6 +11,7 @@
 <div class="alert alert-info">{% bootstrap_icon "remove" %} {{ duplicate_group_count }} Kleingruppen existierten bereits.</div>
 {% endif %}
 <a href="{%  url 'dashboard:staff:group_mass_create' %}" class="btn btn-default">Mehr Kleingruppen erstellen</a>
+<a href="{%  url 'dashboard:staff:tutor_pairing' %}" class="btn btn-default">Tutoren auf Kleingruppen verteilen</a>
 {% else %}
 <div class="alert alert-danger">{% bootstrap_icon "warning-sign" %} Keine aktive Ophase vorhanden.</div>
 {% endif %}
