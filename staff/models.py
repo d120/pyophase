@@ -82,6 +82,7 @@ class Person(models.Model):
     helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name="Helferaufgaben", help_text="Bei welchen Aufgaben kannst du dir vorstellen zu helfen?")
     dress_size = models.ForeignKey(DressSize, null=True, blank=True, verbose_name="Kleidergröße", help_text="Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt passt brauchen wir deine Größe.")
     remarks = models.TextField(blank=True, verbose_name="Anmerkungen", help_text="Was sollten wir noch wissen?")
+    orga_annotation = models.TextField(blank=True, verbose_name="Orga-Anmerkungen", help_text="Notizen von Leitung und Orgas.")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Eingetragen am")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Verändert am")
 

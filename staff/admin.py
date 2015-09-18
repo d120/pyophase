@@ -33,7 +33,12 @@ class TutorFilter(admin.SimpleListFilter):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper', 'created_at']
+    class Media:
+        css = {
+             'all': ("ophasebase/components/font-awesome/css/font-awesome.min.css",)
+        }
+
+    list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper', 'created_at', 'orga_annotation_status']
     list_filter = [TutorFilter, 'is_orga', 'is_helper']
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name']
@@ -41,16 +46,25 @@ class PersonAdmin(admin.ModelAdmin):
     actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview]
 
     fieldsets = [
-        ('Stammdaten', {'fields':
-            ['ophase', 'prename', 'name', 'email', 'phone', 'dress_size', 'remarks']}),
+        ('Personendaten', {'fields':
+            ['ophase', 'prename', 'name', 'email', 'phone', 'dress_size', 'orga_annotation']}),
         ('Bewerbung', {'fields':
-            ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate']}),
+            ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
         ('In der Ophase', {'fields':
             ['is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs']}),
-        ('Sonstiges', {'fields': ['created_at', 'updated_at']}),
+        ('Sonstiges', {'fields':
+            ['created_at', 'updated_at']}),
     ]
 
     filter_horizontal = ('orga_jobs', 'helper_jobs')
+
+    def orga_annotation_status(self, obj):
+        if obj.orga_annotation:
+            return "<i class='fa fa-commenting-o'></i>"
+        else:
+            return ""
+    orga_annotation_status.short_description = "Orga-Notiz"
+    orga_annotation_status.allow_tags = True
 
 
 @admin.register(TutorGroup)
