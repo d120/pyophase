@@ -3,7 +3,7 @@ import io
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
 from django.http import HttpResponse
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Case, When
 
 from staff.models import HelperJob
 
@@ -105,7 +105,7 @@ def helper_job_overview(modeladmin, request, queryset):
     template = loader.get_template("staff/helper_matrix.html")
 
     helper = queryset.filter(is_helper=True)
-    jobs = HelperJob.objects.all().annotate(num_helper=Count('person')).order_by('label')
+    jobs = HelperJob.objects.all().annotate(num_helper=Count(Case(When(person__is_helper=True, then=1)))).order_by('label')
 
     for h in helper:
         job_interest = []
@@ -136,7 +136,7 @@ def tutorgroup_export(modeladmin, request, queryset):
     for i in range(1, max_number_of_tutors+1):
         head_row.extend(['Tutor ' + str(i), "Nummer Tutor " + str(i)])
     table.append(head_row)
-    for group in queryset.extra(order_by=['name']):
+    for group in queryset.order_by('name'):
         row = [group.name, 'icon_' + group.name.lower()]
         for tutor in group.tutors.all():
             row.extend([str(tutor), tutor.phone])
