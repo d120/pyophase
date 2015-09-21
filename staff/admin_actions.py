@@ -136,7 +136,7 @@ def tutorgroup_export(modeladmin, request, queryset):
     for i in range(1, max_number_of_tutors+1):
         head_row.extend(['Tutor ' + str(i), "Nummer Tutor " + str(i)])
     table.append(head_row)
-    for group in queryset:
+    for group in queryset.extra(order_by=['name']):
         row = [group.name, 'icon_' + group.name.lower()]
         for tutor in group.tutors.all():
             row.extend([str(tutor), tutor.phone])
