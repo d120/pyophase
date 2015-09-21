@@ -145,7 +145,7 @@ def tutorgroup_export(modeladmin, request, queryset):
     out_stream = io.BytesIO()
     with odswriter.writer(out_stream) as out:
         # need to specify number of columns for jOpenDocument compatibility
-        sheet = out.new_sheet("Staff", cols=2*max_number_of_tutors+2)
+        sheet = out.new_sheet("Gruppen", cols=2*max_number_of_tutors+2)
         sheet.writerows(table)
 
     response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")

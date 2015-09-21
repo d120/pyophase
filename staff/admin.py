@@ -60,7 +60,7 @@ class PersonAdmin(admin.ModelAdmin):
 
     def orga_annotation_status(self, obj):
         if obj.orga_annotation:
-            return "<i class='fa fa-commenting-o'></i>"
+            return "<i class='fa fa-commenting-o' title='{}'></i>".format(obj.orga_annotation)
         else:
             return ""
     orga_annotation_status.short_description = "Orga-Notiz"
