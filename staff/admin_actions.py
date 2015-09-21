@@ -124,3 +124,33 @@ def helper_job_overview(modeladmin, request, queryset):
     return SimpleTemplateResponse(template, context)
 
 helper_job_overview.short_description = "Helfer-Übersicht anzeigen"
+
+
+def tutorgroup_export(modeladmin, request, queryset):
+    """Exports group names with associated tutors in ods format.
+    The produced ods file serves as an input for the name tag Java aplication.
+    """
+    table = []
+    max_number_of_tutors = max(group.tutors.count() for group in queryset)
+    head_row = ['Gruppenname', 'Gruppenbild']
+    for i in range(1, max_number_of_tutors+1):
+        head_row.extend(['Tutor ' + str(i), "Nummer Tutor " + str(i)])
+    table.append(head_row)
+    for group in queryset:
+        row = [group.name, 'icon_' + group.name.lower()]
+        for tutor in group.tutors.all():
+            row.extend([str(tutor), tutor.phone])
+        table.append(row)
+
+    out_stream = io.BytesIO()
+    with odswriter.writer(out_stream) as out:
+        # need to specify number of columns for jOpenDocument compatibility
+        sheet = out.new_sheet("Staff", cols=2*max_number_of_tutors+2)
+        sheet.writerows(table)
+
+    response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")
+    # name the file according to the expectations of the Java name tag application
+    response['Content-Disposition'] = 'attachment; filename="gruppen.ods"'
+    return response
+
+tutorgroup_export.short_description = "Kleingruppen exportieren"
