@@ -25,6 +25,18 @@ class StudentAdd(CreateView):
             context['student_registration_enabled'] = False
         return context
 
+    def get_initial(self):
+        initial = super(StudentAdd, self).get_initial()
+
+        if 'previous_tutor_group' in self.request.session:
+            initial['tutor_group'] = self.request.session['previous_tutor_group']
+
+        return initial
+
+    def form_valid(self, form):
+        self.request.session['previous_tutor_group'] = form.data['tutor_group']
+        return super(StudentAdd, self).form_valid(form)
+
     @method_decorator(permission_required('students.add_student'))
     def dispatch(self, *args, **kwargs):
         return super(StudentAdd, self).dispatch(*args, **kwargs)
