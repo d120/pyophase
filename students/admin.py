@@ -5,8 +5,8 @@ from students.models import Student, Settings, Newsletter
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'prename', 'tutor_group', 'want_exam', 'want_newsletter']
-    list_filter = ['want_exam', 'want_newsletter', 'tutor_group']
+    list_display = ['name', 'prename', 'tutor_group', 'want_exam']
+    list_filter = ['want_exam', 'tutor_group']
     list_display_links = ['name', 'prename']
     search_fields = ['name', 'prename']
     readonly_fields = ('created_at', 'updated_at')
