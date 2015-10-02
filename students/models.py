@@ -5,6 +5,22 @@ from ophasebase.models import Ophase
 from staff.models import TutorGroup
 
 
+class Newsletter(models.Model):
+    """A newsletter."""
+
+    class Meta:
+        verbose_name = "Newsletter"
+        verbose_name_plural = "Newsletter"
+        ordering = ['-active', 'name']
+
+    name = models.CharField(max_length=50, verbose_name="Newsletter")
+    description = models.TextField(verbose_name="Beschreibung")
+    active = models.BooleanField(default=True, verbose_name="Auswählbar")
+
+    def __str__(self):
+        return self.name
+
+
 class Student(models.Model):
     """A student who participates in the Ophase."""
     class Meta:
@@ -17,6 +33,7 @@ class Student(models.Model):
     email = models.EmailField(verbose_name="E-Mail-Adresse", blank=True)
     tutor_group = models.ForeignKey(TutorGroup, verbose_name="Kleingruppe")
     want_exam = models.BooleanField(default=False, blank=True, verbose_name="Klausur mitschreiben?")
+    newsletters = models.ManyToManyField(Newsletter, blank=True, verbose_name="Newsletter", help_text="Welche Newsletter willst du abonieren (optional)?")
     want_newsletter = models.BooleanField(default=False, blank=True, verbose_name="Newsletter abonnieren?")
     ophase = models.ForeignKey(Ophase)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,7 +49,7 @@ class Student(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.want_newsletter:
-            self.email = '' # remove mail address when unnecessary
+            self.email = '' # remove mail address when unnecessary (only save important data)
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
             self.ophase = Ophase.current()

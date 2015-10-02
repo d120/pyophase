@@ -5,13 +5,14 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 
 from ophasebase.models import Ophase
+from students.forms import StudentRegisterForm
 from students.models import Student, Settings
 
 
 class StudentAdd(CreateView):
     model = Student
-    fields = ['prename', 'name', 'tutor_group', 'want_exam', 'want_newsletter', 'email']
     success_url = reverse_lazy('students:registration_success')
+    form_class = StudentRegisterForm
 
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()

@@ -37,3 +37,13 @@ function _dependent_two_input_visibility_inner(d,e,f){
   $('input:checkbox[id^="'+f+'"]:checked').each(function(){
       $(this).removeAttr('checked');});$(c).parent().hide();}
 }
+
+function dependent_multi_checkbox_active(a, b) {
+  var checkboxes = $("#"+a).find("input[type='checkbox']");
+  var toggledElement = $("#"+b);
+  toggledElement.attr("disabled", !checkboxes.is(":checked"));
+
+  checkboxes.click(function() {
+     toggledElement.attr("disabled", !checkboxes.is(":checked"));
+  });
+}
