@@ -10,7 +10,7 @@ class StudentAdmin(admin.ModelAdmin):
     list_display_links = ['name', 'prename']
     search_fields = ['name', 'prename']
     readonly_fields = ('created_at', 'updated_at')
-
+    filter_horizontal = ['newsletters']
 
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
