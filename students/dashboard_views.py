@@ -35,13 +35,11 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
 
             context['count_student'] = Students.count()
             context['count_exam'] = Students.filter(want_exam=True).count()
-            context['count_newsletter'] = Students.filter(want_newsletter=True).count()
 
             context['tutor_groups'] = TutorGroup.objects\
                                                     .annotate(
                                                         num=Count('student'),
-                                                        num_exam=Sum('student__want_exam'),
-                                                        num_newsletter=Sum('student__want_newsletter'))\
+                                                        num_exam=Sum('student__want_exam'))\
                                                     .order_by('name')
         return context
 

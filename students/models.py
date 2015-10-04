@@ -42,7 +42,6 @@ class Student(models.Model):
         return "%s, %s (%s)" % (self.name, self.prename, self.tutor_group)
 
     def want_newsletter(self):
-        print(self.newsletters.count())
         return self.newsletters.count() > 0
 
     def save(self, *args, **kwargs):

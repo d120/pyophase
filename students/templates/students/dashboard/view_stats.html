@@ -8,7 +8,7 @@
 
     <table class="table table-hover">
         <thead>
-            <tr><th>Gruppe</th><th></th><th># Ersties</th><th># Klausur</th><th># Newsletter</th></tr>
+            <tr><th>Gruppe</th><th></th><th># Ersties</th><th># Klausur</th></tr>
         </thead>
         <tbody>
             {% for tg in tutor_groups %}
@@ -17,10 +17,9 @@
                     <td>{% if tg.num == 0 %}{% bootstrap_icon "remove" %}{% else %}{% bootstrap_icon "ok" %}{% endif %}
                     <td>{{ tg.num }}</td>
                     <td>{% if tg.num_exam == None %}0{% else %}{{ tg.num_exam }}{% endif %}</td>
-                    <td>{% if tg.num_newsletter == None %}0{% else %}{{ tg.num_newsletter }}{% endif %}</td>
                 </tr>
             {% endfor %}
-            <tr class="info"><th>Summe</th><th></th><th>{{ count_student }}</th><th>{{ count_exam }}</th><th>{{ count_newsletter }}</th></tr>
+            <tr class="info"><th>Summe</th><th></th><th>{{ count_student }}</th><th>{{ count_exam }}</th></tr>
         </tbody>
     </table>
 {% endblock %}
