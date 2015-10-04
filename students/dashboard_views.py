@@ -1,10 +1,10 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView, ListView
 from django.db.models import Count, Sum
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
 from staff.models import TutorGroup
-from .models import Student
+from .models import Student, Newsletter
 
 
 class StudentsAppMixin(DashboardAppMixin):
@@ -16,7 +16,8 @@ class StudentsAppMixin(DashboardAppMixin):
     def sidebar_links(self):
         return [
             ('Übersicht', self.prefix_reverse_lazy('index')),
-            ('Zertifikate erstellen', self.prefix_reverse_lazy('certificate'))
+            ('Zertifikate erstellen', self.prefix_reverse_lazy('certificate')),
+            ('Newsletter', self.prefix_reverse_lazy('newsletter'))
         ]
 
 
@@ -46,3 +47,24 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
 
 class ExportCertificateView(StudentsAppMixin, TemplateView):
     template_name = "students/dashboard/view_certificate.html"
+
+
+class NewsletterOverviewView(StudentsAppMixin, ListView):
+    model = Newsletter
+    template_name = "students/dashboard/view_newsletter_overview.html"
+
+    def get_queryset(self):
+        return Newsletter.objects.annotate(num=Count('student'))
+
+
+class ExportNewsletterSubscriptionView(StudentsAppMixin, ListView):
+    model = Student
+    template_name = "students/dashboard/view_export_newsletter.html"
+
+    def get_queryset(self):
+        return Student.objects.filter(newsletters__id=self.kwargs['newsletter_id'])
+
+    def add_context_data(self, context):
+        context = super().add_context_data(context)
+        context['newsletter_name'] = Newsletter.objects.get(pk=self.kwargs['newsletter_id']).name
+        return context

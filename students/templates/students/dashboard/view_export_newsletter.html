@@ -1,0 +1,18 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+
+{% block title%}Stats | Dashboard{% endblock %}
+
+
+{% block content_dashboard_view %}
+    <h3>Newsletter Export</h3>
+
+<blockquote>
+  <small>{{ newsletter_name }} <span class="badge">{{ object_list|length }}</span></small>
+</blockquote>
+
+<textarea cols="100" rows="25">
+{% for person in object_list %}{{ person.prename }} {{ person.name}} <{{person.email}}>
+{% endfor %}
+</textarea>
+
+{% endblock %}
