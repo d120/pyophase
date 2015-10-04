@@ -4,6 +4,7 @@ from dashboard.components import WidgetComponent
 
 from .models import Ophase
 
+
 class CountdownWidget(WidgetComponent):
     name = "Ophasenstatus"
 
@@ -14,7 +15,10 @@ class CountdownWidget(WidgetComponent):
             msg = "Keine Ophase<br />in Aussicht"
         elif datetime.date.today() < ophase.start_date:
             delta = ophase.start_date - datetime.date.today()
-            msg = "<b>{} Tage</b><br />bis zur Ophase".format(delta.days)
+            if delta.days < 2:
+                msg = "<b>1 Tag</b><br />bis zur Ophase"
+            else:
+                msg = "<b>{} Tage</b><br />bis zur Ophase".format(delta.days)
         elif ophase.end_date < datetime.date.today():
             msg = "Die Ophase<br />ist vorüber"
         else:
