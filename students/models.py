@@ -18,7 +18,7 @@ class Newsletter(models.Model):
     active = models.BooleanField(default=True, verbose_name="Auswählbar")
 
     def __str__(self):
-        return self.name
+        return "%s - %s" % (self.name, self.description)
 
 
 class Student(models.Model):
@@ -33,8 +33,7 @@ class Student(models.Model):
     email = models.EmailField(verbose_name="E-Mail-Adresse", blank=True)
     tutor_group = models.ForeignKey(TutorGroup, verbose_name="Kleingruppe")
     want_exam = models.BooleanField(default=False, blank=True, verbose_name="Klausur mitschreiben?")
-    newsletters = models.ManyToManyField(Newsletter, blank=True, verbose_name="Newsletter", help_text="Welche Newsletter willst du abonieren (optional)?")
-    want_newsletter = models.BooleanField(default=False, blank=True, verbose_name="Newsletter abonnieren?")
+    newsletters = models.ManyToManyField(Newsletter, blank=True, verbose_name="Newsletter", help_text="Welche Newsletter willst du abonieren (optional)?", limit_choices_to={'active': True})
     ophase = models.ForeignKey(Ophase)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -42,14 +41,11 @@ class Student(models.Model):
     def __str__(self):
         return "%s, %s (%s)" % (self.name, self.prename, self.tutor_group)
 
-    def clean(self, *args, **kwargs):
-        super(Student, self).clean(*args, **kwargs)
-        if self.want_newsletter and self.email == '':
-            raise ValidationError({'email': 'Um den Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden.'})
+    def want_newsletter(self):
+        print(self.newsletters.count())
+        return self.newsletters.count() > 0
 
     def save(self, *args, **kwargs):
-        if not self.want_newsletter:
-            self.email = '' # remove mail address when unnecessary (only save important data)
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
             self.ophase = Ophase.current()
