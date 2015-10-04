@@ -40,10 +40,20 @@ function _dependent_two_input_visibility_inner(d,e,f){
 
 function dependent_multi_checkbox_active(a, b) {
   var checkboxes = $("#"+a).find("input[type='checkbox']");
-  var toggledElement = $("#"+b);
-  toggledElement.attr("disabled", !checkboxes.is(":checked"));
+  toggle_visibility_enabled_disabled(checkboxes.is(":checked"), b);
 
   checkboxes.click(function() {
-     toggledElement.attr("disabled", !checkboxes.is(":checked"));
+     toggle_visibility_enabled_disabled(checkboxes.is(":checked"), b);
   });
+}
+
+function toggle_visibility_enabled_disabled(targetState, id) {
+  var toggledElement = $("#"+id);
+  var toggledParent = toggledElement.parent();
+
+  toggledElement.attr("disabled", !targetState);
+  if(targetState)
+    toggledParent.show();
+  else
+    toggledParent.hide();
 }
