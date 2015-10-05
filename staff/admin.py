@@ -41,7 +41,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper', 'created_at', 'orga_annotation_status']
     list_filter = [TutorFilter, 'is_orga', 'is_helper']
     list_display_links = ['prename', 'name']
-    search_fields = ['prename', 'name']
+    search_fields = ['prename', 'name', 'phone']
     readonly_fields = ('created_at', 'updated_at')
     actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview]
 
