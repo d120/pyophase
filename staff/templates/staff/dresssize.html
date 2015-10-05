@@ -1,0 +1,29 @@
+{% extends "admin/base_site.html" %}
+
+{% block title %}Testseite! {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<h2>Kekse sind gut.</h2>
+
+<p>
+Es wurden {{ data | length }} Gr&ouml;&szlig;en ausgewertet.
+{% if diff != 0 %}<p><b>Achtung:</b> Es wurde{{ diff|pluralize:"n"}} {{ diff }} der ausgew&auml;hlten Personen ignoriert, da diese nicht T-Shirtberechtigt {% if diff == 1 %}ist{% else %}sind{% endif %}. (kein Tutor/Orga)</p>{% endif %}
+</p>
+
+{% for size in data %}
+<fieldset>
+    <legend>Gr&ouml;&szlig;e: {{ size.name }}</legend>
+    <ul>
+    {% for person in size.persons %}
+        <li>{{ person.prename }} {{ person.name }}</li>
+        {% empty %}
+        <li><i>Keine Eintr&auml;ge vorhanden</i></li>
+    {% endfor %}
+    </ul>
+</fieldset>
+ {% endfor %}
+
+{% endblock %}
+
+
