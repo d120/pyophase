@@ -5,7 +5,7 @@ from django.template.response import SimpleTemplateResponse
 from django.http import HttpResponse
 from django.db.models import Q, Count, Case, When
 
-from staff.models import HelperJob
+from staff.models import HelperJob, DressSize
 
 import odswriter
 
@@ -154,3 +154,21 @@ def tutorgroup_export(modeladmin, request, queryset):
     return response
 
 tutorgroup_export.short_description = "Kleingruppen exportieren"
+
+
+def group_by_dresssize(modeladmin, request, queryset):
+    """groups all selected orgas and tutors by their dresssize
+    """
+    template = loader.get_template("staff/dresssize.html")
+    persons = queryset.filter(Q(is_tutor=True) | Q(is_orga=True))
+    dressSizeTemp = DressSize.objects.all()
+    for size in dressSizeTemp:
+        persons_with_this_size = []
+        for person in persons:
+            if person.dress_size.id == size.id:
+                persons_with_this_size.append(person)
+        size.persons = persons_with_this_size
+    context = {'data' : dressSizeTemp, 'diff': (len(queryset) - len(persons))}
+    return SimpleTemplateResponse(template, context)
+
+group_by_dresssize.short_description = "Kleidergrößenübersicht"
