@@ -8,7 +8,18 @@
 
 <p>
 Es wurden {{ data | length }} Gr&ouml;&szlig;en ausgewertet.
-{% if diff != 0 %}<p><b>Achtung:</b> Es wurde{{ diff|pluralize:"n"}} {{ diff }} der ausgew&auml;hlten Personen ignoriert, da diese nicht T-Shirtberechtigt {% if diff == 1 %}ist{% else %}sind{% endif %}. (kein Tutor/Orga)</p>{% endif %}
+{% if notallowed != 0 %}
+    <p>
+        <b>Achtung:</b>
+        Es wurde{{ notallowed|pluralize:"n"}} {{ notallowed }} der ausgew&auml;hlten Personen ignoriert, da diese nicht T-Shirtberechtigt {% if notallowed == 1 %}ist{% else %}sind{% endif %}. (kein Tutor/Orga)
+    </p>
+{% endif %}
+{% if unknown_length != 0 %}
+    <p>
+        <b>Achtung:</b>
+        Es wurde{{ unknown_length | pluralize:"n"}} {{ unknown_length }} der ausgew&auml;hlten  T-Shirtberechtigten Personen ignoriert, da diese keine Kleidergr&ouml;&szlig;e hinterlegt {% if unknown_length == 1 %}hat{% else %}haben{% endif %}.
+    </p>
+{% endif %}
 </p>
 
 {% for size in data %}
