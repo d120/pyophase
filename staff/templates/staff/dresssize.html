@@ -11,13 +11,18 @@ Es wurden {{ data | length }} Gr&ouml;&szlig;en ausgewertet.
 {% if notallowed != 0 %}
     <p>
         <b>Achtung:</b>
-        Es wurde{{ notallowed|pluralize:"n"}} {{ notallowed }} der ausgew&auml;hlten Personen ignoriert, da diese nicht T-Shirtberechtigt {% if notallowed == 1 %}ist{% else %}sind{% endif %}. (kein Tutor/Orga)
+        Es wurde{{ notallowed|pluralize:"n"}} {{ notallowed }} der ausgew&auml;hlten Personen ignoriert, da diese nicht T-Shirtberechtigt {{notallowed|pluralize:"ist,sind"}}. (kein Tutor/Orga)
     </p>
 {% endif %}
 {% if unknown_length != 0 %}
     <p>
         <b>Achtung:</b>
-        Es wurde{{ unknown_length | pluralize:"n"}} {{ unknown_length }} der ausgew&auml;hlten  T-Shirtberechtigten Personen ignoriert, da diese keine Kleidergr&ouml;&szlig;e hinterlegt {% if unknown_length == 1 %}hat{% else %}haben{% endif %}.
+        Die folgende{% if unknown_length != 1 %}n {{ unknown_length }} {% endif %} ausgew&auml;hlte{{unknown_length|pluralize:"n"}}  T-Shirtberechtigte{{unknown_length|pluralize:"n"}} Person{{unknown_length|pluralize:"en"}} wurde{{unknown_length|pluralize:"n"}} ignoriert, da diese keine Kleidergr&ouml;&szlig;e hinterlegt ha{{unknown_length|pluralize:"t,ben"}}.
+        <ul>
+            {% for person in unknown %}
+            <li><a href="{% url 'admin:staff_person_change' person.id %}">{{ person.prename }} {{ person.name }}</a></li>
+            {% endfor %}    
+        </ul>
     </p>
 {% endif %}
 </p>
