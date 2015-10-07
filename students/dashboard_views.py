@@ -45,8 +45,12 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
         return context
 
 
-class ExportCertificateView(StudentsAppMixin, TemplateView):
+class ExportCertificateView(StudentsAppMixin, ListView):
+    model = Student
     template_name = "students/dashboard/view_certificate.html"
+
+    def get_queryset(self):
+        return Student.objects.filter(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
 
 
 class NewsletterOverviewView(StudentsAppMixin, ListView):
