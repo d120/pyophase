@@ -10,7 +10,7 @@ from .models import Student, Newsletter
 class StudentsAppMixin(DashboardAppMixin):
     app_name_verbose = "Ersties"
     app_name = 'students'
-    permissions = ['students.add_student']
+    permissions = ['students.add_student', 'exam.add_assignment']
 
     @property
     def sidebar_links(self):

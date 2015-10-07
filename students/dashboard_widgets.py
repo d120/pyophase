@@ -8,7 +8,7 @@ from .models import Student
 
 
 class StudentCountWidget(TemplateWidgetComponent):
-    permissions = ['students.add_student']
+    permissions = ['students.add_student', 'exam.add_assignment']
     name = "Erstie-Anmeldestatus"
     link_target = reverse_lazy('dashboard:students:index')
     template_name = "students/dashboard/widget_registration_stats.html"
