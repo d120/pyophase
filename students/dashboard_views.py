@@ -41,7 +41,7 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
                                                     .annotate(
                                                         num=Count('student'),
                                                         num_exam=Sum('student__want_exam'))\
-                                                    .order_by('name')
+                                                    .order_by('group_category', 'name')
         return context
 
 
