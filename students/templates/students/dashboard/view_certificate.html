@@ -8,10 +8,8 @@
 
 
 <textarea cols="100" rows="25">
-[
 {% for person in object_list %}\schein{ {{ person.prename }} }{ {{ person.name}} }{ {{ person.tutor_group.tutors.all.0 }} }{ {{ person.tutor_group.tutors.all.1 }} }
 {% endfor %}
-]
 </textarea>
 
 {% endblock %}
