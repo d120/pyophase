@@ -62,7 +62,7 @@ class GenericJobList(ListView):
     template_name = 'staff/job_list.html'
 
     def __init__(self):
-        self.title = 'Aufgabenliste'
+        self.title = _('Aufgabenliste')
 
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()
