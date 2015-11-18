@@ -1,23 +1,23 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base_site.html" %}{% load i18n %}
 
-{% block title %}Kleidergr&ouml;&szlig;en&uuml;bersicht{{ block.super }}{% endblock %}
+{% block title %}{% trans "Kleidergrößenübersicht" %}{{ block.super }}{% endblock %}
 
 {% block content %}
 
-<h2>&Uuml;bersicht der Kleidergr&ouml;&szlig;en.</h2>
+<h2>{% trans "Übersicht der Kleidergrößen" %}</h2>
 
 <p>
-Es wurden {{ data | length }} Gr&ouml;&szlig;en ausgewertet.
+{% blocktrans %}Es wurden {{ data | length }} Größen ausgewertet.{% endblocktrans %}
 {% if notallowed != 0 %}
     <p>
-        <b>Achtung:</b>
-        Es wurde{{ notallowed|pluralize:"n"}} {{ notallowed }} der ausgew&auml;hlten Personen ignoriert, da diese nicht T-Shirtberechtigt {{notallowed|pluralize:"ist,sind"}}. (kein Tutor/Orga)
+        {% blocktrans %}<b>Achtung:</b>
+        Es wurde{{ notallowed|pluralize:"n"}} {{ notallowed }} der ausgewählten Personen ignoriert, da diese nicht T-Shirtberechtigt {{notallowed|pluralize:"ist,sind"}}. (kein Tutor/Orga){% endblocktrans %}
     </p>
 {% endif %}
 {% if unknown_length != 0 %}
     <p>
         <b>Achtung:</b>
-        Die folgende{% if unknown_length != 1 %}n {{ unknown_length }} {% endif %} ausgew&auml;hlte{{unknown_length|pluralize:"n"}}  T-Shirtberechtigte{{unknown_length|pluralize:"n"}} Person{{unknown_length|pluralize:"en"}} wurde{{unknown_length|pluralize:"n"}} ignoriert, da diese keine Kleidergr&ouml;&szlig;e hinterlegt ha{{unknown_length|pluralize:"t,ben"}}.
+        Die folgende{% if unknown_length != 1 %}n {{ unknown_length }} {% endif %} ausgewählte{{unknown_length|pluralize:"n"}} T-Shirtberechtigte{{unknown_length|pluralize:"n"}} Person{{unknown_length|pluralize:"en"}} wurde{{unknown_length|pluralize:"n"}} ignoriert, da diese keine Kleidergröße hinterlegt ha{{unknown_length|pluralize:"t,ben"}}.
         <ul>
             {% for person in unknown %}
             <li><a href="{% url 'admin:staff_person_change' person.id %}">{{ person.prename }} {{ person.name }}</a></li>
@@ -29,12 +29,12 @@ Es wurden {{ data | length }} Gr&ouml;&szlig;en ausgewertet.
 
 {% for size in data %}
 <fieldset>
-    <legend>Gr&ouml;&szlig;e: {{ size.name }}</legend>
+    <legend>{% trans "Größe" %}: {{ size.name }}</legend>
     <ul>
     {% for person in size.persons %}
         <li>{{ person.prename }} {{ person.name }}</li>
         {% empty %}
-        <li><i>Keine Eintr&auml;ge vorhanden</i></li>
+        <li><i>{% trans "Keine Einträge vorhanden" %}</i></li>
     {% endfor %}
     </ul>
 </fieldset>

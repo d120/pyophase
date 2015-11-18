@@ -1,6 +1,6 @@
-{% extends "admin/base_site.html" %}{% load staticfiles %}
+{% extends "admin/base_site.html" %}{% load staticfiles %}{% load i18n %}
 
-{% block title %}Helfer-Übersicht {{ block.super }}{% endblock %}
+{% block title %}{% trans "Helfer-Übersicht" %} {{ block.super }}{% endblock %}
 
 {% block content %}
 
@@ -24,7 +24,7 @@
     }
 </style>
 
-<h2>Helfer-Übersicht</h2>
+<h2>{% trans "Helfer-Übersicht" %}</h2>
 
 <table>
     <thead>
@@ -56,7 +56,7 @@
             {% endfor %}
         </tr>
         <tr>
-            <td>Gesamt</td>
+            <td>{% trans "Gesamt" %}</td>
             <td></td>
             {% for j in jobs %}
             <td>{{ j.num_helper }}</td>

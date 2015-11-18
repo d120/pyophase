@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 18:21+0100\n"
+"POT-Creation-Date: 2015-11-18 20:46+0100\n"
 "PO-Revision-Date: 2015-11-18 18:46+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>\n"
@@ -16,6 +16,119 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
+
+#: admin.py:15
+#, fuzzy
+#| msgid "Tutoren"
+msgid "Tutorenstatus"
+msgstr "tutors"
+
+#: admin.py:19
+#, fuzzy
+#| msgid "Tutoren"
+msgid "Alle Tutoren"
+msgstr "tutors"
+
+#: admin.py:22
+#, fuzzy
+#| msgid "Tutoren"
+msgid "Keine Tutoren"
+msgstr "tutors"
+
+#: admin.py:67
+msgid "Orga-Notiz"
+msgstr ""
+
+#: admin.py:79 admin_actions.py:89 models.py:118
+#: templates/staff/dashboard/widget_staff.html:3 views.py:25
+msgid "Tutoren"
+msgstr "tutors"
+
+#: admin_actions.py:22 templates/staff/mail_export.html:3
+#: templates/staff/mail_export.html.py:7
+msgid "E-Mail Mass Subscription Export"
+msgstr ""
+
+#: admin_actions.py:60
+msgid "Namensschilderexport"
+msgstr ""
+
+#: admin_actions.py:86 templates/staff/dashboard/widget_staff.html:4
+#, fuzzy
+#| msgid "Orga"
+msgid "Orgas"
+msgstr "organizer"
+
+#: admin_actions.py:87 admin_actions.py:90 admin_actions.py:93 models.py:70
+msgid "Vorname"
+msgstr "first name"
+
+#: admin_actions.py:87 admin_actions.py:90 admin_actions.py:93
+msgid "Nachname"
+msgstr ""
+
+#: admin_actions.py:87 admin_actions.py:90 admin_actions.py:93
+#, fuzzy
+#| msgid "E-Mail-Adresse"
+msgid "E-Mail"
+msgstr "e-mail address"
+
+#: admin_actions.py:87 admin_actions.py:90 admin_actions.py:93
+#, fuzzy
+#| msgid "Handynummer"
+msgid "Handy"
+msgstr "mobile phone number"
+
+#: admin_actions.py:87
+msgid "Verantwortlich für ..."
+msgstr ""
+
+#: admin_actions.py:90
+msgid "Betreut ..."
+msgstr ""
+
+#: admin_actions.py:92 models.py:80
+#: templates/staff/dashboard/widget_staff.html:5 views.py:29
+msgid "Helfer"
+msgstr "helper"
+
+#: admin_actions.py:93
+msgid "Hilft bei ..."
+msgstr ""
+
+#: admin_actions.py:100
+msgid "Übersicht exportieren"
+msgstr ""
+
+#: admin_actions.py:127
+msgid "Helfer-Übersicht anzeigen"
+msgstr ""
+
+#: admin_actions.py:157
+#, fuzzy
+#| msgid "Kleingruppen"
+msgid "Kleingruppen exportieren"
+msgstr "tutorgroups"
+
+#: admin_actions.py:177 templates/staff/dresssize.html:3
+#, fuzzy
+#| msgid "Kleidergrößen"
+msgid "Kleidergrößenübersicht"
+msgstr "dress sizes"
+
+#: dashboard_forms.py:10 dashboard_forms.py:26 models.py:11 models.py:119
+msgid "Gruppenkategorie"
+msgstr "groupcategories"
+
+#: dashboard_forms.py:11
+#, fuzzy
+#| msgid "Gruppenname"
+msgid "Gruppennamen"
+msgstr "groupname"
+
+#: dashboard_forms.py:11
+msgid "Einen Gruppennamen pro Zeile eintragen."
+msgstr ""
 
 #: forms.py:14
 msgid "Aufgabenbeschreibung"
@@ -50,10 +163,6 @@ msgid ""
 "Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder "
 "Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus."
 msgstr ""
-
-#: models.py:11 models.py:119
-msgid "Gruppenkategorie"
-msgstr "groupcategories"
 
 #: models.py:12
 msgid "Gruppenkategorien"
@@ -94,10 +203,6 @@ msgstr "person"
 #: models.py:65
 msgid "Personen"
 msgstr "persons"
-
-#: models.py:70
-msgid "Vorname"
-msgstr "first name"
 
 #: models.py:71 models.py:92
 msgid "Name"
@@ -162,10 +267,6 @@ msgstr "organizer"
 #: models.py:79
 msgid "Möchtest du als Orga bei der Ophase mitmachen?"
 msgstr "Do you want to participate as a organizer at the Ophase?"
-
-#: models.py:80 views.py:29
-msgid "Helfer"
-msgstr "helper"
 
 #: models.py:80
 msgid "Möchtest du als Helfer bei der Ophase mitmachen?"
@@ -239,10 +340,6 @@ msgstr "tutorgroups"
 msgid "Gruppenname"
 msgstr "groupname"
 
-#: models.py:118 views.py:25
-msgid "Tutoren"
-msgstr "tutors"
-
 #: models.py:128 models.py:129
 msgid "Einstellungen"
 msgstr "Settings"
@@ -283,9 +380,161 @@ msgstr ""
 "It only makes sense and possible to create one instance of the settings "
 "object. "
 
-#: templates/staff/person_form.html:2
+#: templates/staff/already_registered.html:3
+msgid "Fehler"
+msgstr ""
+
+#: templates/staff/already_registered.html:3 templates/staff/job_list.html:3
+#: templates/staff/person_form.html:2 templates/staff/success.html:3
 msgid "Mitmachen"
 msgstr "Participate"
+
+#: templates/staff/already_registered.html:7
+msgid "Fehler: E-Mail-Adresse bereits registriert."
+msgstr ""
+
+#: templates/staff/already_registered.html:10
+msgid ""
+"Scheinbar bist du bereits für diese Ophase registriert. Wenn etwas an deiner "
+"Registrierung geändert werden soll, schreib einfach eine E-Mail an <a href="
+msgstr ""
+
+#: templates/staff/dashboard/group_mass_create.html:3
+#, fuzzy
+#| msgid "Kleingruppen"
+msgid "Kleingruppen erstellen"
+msgstr "tutorgroups"
+
+#: templates/staff/dashboard/group_mass_create.html:3
+#: templates/staff/dashboard/group_mass_create_success.html:3
+#: templates/staff/dashboard/tutor_pairing.html:3
+#: templates/staff/dashboard/tutor_pairing_success.html:3
+msgid "Dashboard"
+msgstr ""
+
+#: templates/staff/dashboard/group_mass_create.html:6
+#: templates/staff/dashboard/group_mass_create_success.html:6
+msgid "Mehrere Kleingruppen auf einmal erstellen"
+msgstr ""
+
+#: templates/staff/dashboard/group_mass_create.html:13
+#: templates/staff/person_form.html:45
+msgid "Zurücksetzen"
+msgstr "Reset"
+
+#: templates/staff/dashboard/group_mass_create.html:16
+#: templates/staff/person_form.html:48
+msgid "Abschicken"
+msgstr "Submit"
+
+#: templates/staff/dashboard/group_mass_create_success.html:3
+#, fuzzy
+#| msgid "Kleingruppen"
+msgid "Kleingruppen erstellt"
+msgstr "tutorgroups"
+
+#: templates/staff/dashboard/group_mass_create_success.html:9
+#, fuzzy
+#| msgid "Kleingruppen"
+msgid "Kleingruppen erstellt."
+msgstr "tutorgroups"
+
+#: templates/staff/dashboard/group_mass_create_success.html:11
+msgid "Kleingruppen existierten bereits."
+msgstr ""
+
+#: templates/staff/dashboard/group_mass_create_success.html:13
+#, fuzzy
+#| msgid "Kleingruppen"
+msgid "Mehr Kleingruppen erstellen"
+msgstr "tutorgroups"
+
+#: templates/staff/dashboard/group_mass_create_success.html:14
+#: templates/staff/dashboard/tutor_pairing.html:8
+#: templates/staff/dashboard/tutor_pairing_success.html:6
+msgid "Tutoren auf Kleingruppen verteilen"
+msgstr ""
+
+#: templates/staff/dashboard/group_mass_create_success.html:16
+msgid "Keine aktive Ophase vorhanden."
+msgstr ""
+
+#: templates/staff/dashboard/tutor_pairing.html:3
+#, fuzzy
+#| msgid "Tutoren"
+msgid "Tutoren paaren"
+msgstr "tutors"
+
+#: templates/staff/dashboard/tutor_pairing.html:15
+msgid "Paarungen speichern"
+msgstr ""
+
+#: templates/staff/dashboard/tutor_pairing_success.html:3
+#, fuzzy
+#| msgid "Tutoren"
+msgid "Tutoren gepaart"
+msgstr "tutors"
+
+#: templates/staff/dashboard/tutor_pairing_success.html:7
+msgid "Zuteilung erfolgreich gespeichert"
+msgstr ""
+
+#: templates/staff/dashboard/tutor_pairing_success.html:8
+msgid "Weitere Paarungen vornehmen"
+msgstr ""
+
+#: templates/staff/dresssize.html:7
+#, fuzzy
+#| msgid "Kleidergrößen"
+msgid "Übersicht der Kleidergrößen"
+msgstr "dress sizes"
+
+#: templates/staff/dresssize.html:10
+#, python-format
+msgid "Es wurden %(data | length)s Größen ausgewertet."
+msgstr ""
+
+#: templates/staff/dresssize.html:13
+#, python-format
+msgid ""
+"<b>Achtung:</b>\n"
+"        Es wurde%(notallowed|pluralize:\"n\")s %(notallowed)s der "
+"ausgewählten Personen ignoriert, da diese nicht T-Shirtberechtigt "
+"%(notallowed|pluralize:\"ist,sind\")s. (kein Tutor/Orga)"
+msgstr ""
+
+#: templates/staff/dresssize.html:32
+msgid "Größe"
+msgstr ""
+
+#: templates/staff/dresssize.html:37
+msgid "Keine Einträge vorhanden"
+msgstr ""
+
+#: templates/staff/helper_matrix.html:3 templates/staff/helper_matrix.html:27
+msgid "Helfer-Übersicht"
+msgstr ""
+
+#: templates/staff/helper_matrix.html:59
+msgid "Gesamt"
+msgstr ""
+
+#: templates/staff/job_list.html:10
+msgid "Hilfe vorhanden"
+msgstr ""
+
+#: templates/staff/job_list.html:11
+msgid "Hilfe benötigt"
+msgstr ""
+
+#: templates/staff/job_list.html:14
+msgid "Keine Aufgaben vorhanden"
+msgstr ""
+
+#: templates/staff/mail_export.html:10
+#, python-format
+msgid " Es wurden %(persons|length)s Personen ausgewählt."
+msgstr ""
 
 #: templates/staff/person_form.html:9
 #, python-format
@@ -341,14 +590,6 @@ msgstr ""
 msgid "Die Ophasen-Leitung"
 msgstr "The Ophase-Leitung"
 
-#: templates/staff/person_form.html:45
-msgid "Zurücksetzen"
-msgstr "Reset"
-
-#: templates/staff/person_form.html:48
-msgid "Abschicken"
-msgstr "Submit"
-
 #: templates/staff/person_form.html:55
 #, python-format
 msgid ""
@@ -358,6 +599,21 @@ msgstr ""
 "The registration for the %(ophase_title)s <b>%(ophase_duration)s</b> is "
 "already closed."
 
+#: templates/staff/success.html:3
+msgid "Daten gespeichert"
+msgstr ""
+
+#: templates/staff/success.html:7
+msgid "Deine Daten wurden erfolgreich gespeichert."
+msgstr ""
+
+#: templates/staff/success.html:10
+msgid ""
+"Vielen Dank dass du mithelfen möchtest. Die Ophasenleitung wird sich in "
+"geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder "
+"Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern."
+msgstr ""
+
 #: views.py:27
 msgid "Organisatoren"
 msgstr "organisers"
@@ -365,3 +621,9 @@ msgstr "organisers"
 #: views.py:32
 msgid "und"
 msgstr "and"
+
+#: views.py:65
+#, fuzzy
+#| msgid "Aufgabenbeschreibung"
+msgid "Aufgabenliste"
+msgstr "task description"

@@ -1,18 +1,18 @@
-{% extends "dashboard/action.html" %}{% load staticfiles %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load staticfiles %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title%}Tutoren paaren | Dashboard{% endblock %}
+{% block title%}{% trans "Tutoren paaren" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard_view %}
 <link rel="stylesheet" href="{% static 'ophasebase/components/bootstrap-chosen/bootstrap-chosen.css' %}" />
 
-<h3>Tutoren auf Kleingruppen verteilen</h3>
+<h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
 
 <form role="form" action="{{action}}" method="POST">
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
     <button type="submit" class="btn btn-success pull-right">
-        {% bootstrap_icon "ok" %} Paarungen speichern
+        {% bootstrap_icon "ok" %} {% trans "Paarungen speichern" %}
     </button>
     {% endbuttons %}
 </form>

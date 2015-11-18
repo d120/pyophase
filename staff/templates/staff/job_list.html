@@ -1,17 +1,17 @@
-{% extends "ophasebase/base.html" %}{% load bootstrap3 %}
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title %}{{ title }} | Mitmachen{% endblock %}
+{% block title %}{{ title }} | {% trans "Mitmachen" %}{% endblock %}
 
 {% block content %}
 <h1>{{ ophase_title }}</h1>
 <h2>{{ title }}</h2>
 <ul>
 {% for job in object_list %}
-    <li>{% if job.settings_set.count == 0 %} <span class="label label-danger">Hilfe vorhanden</span>
-    {% else %} <span class="label label-success">Hilfe benötigt</span>{% endif %}
+    <li>{% if job.settings_set.count == 0 %} <span class="label label-danger">{% trans "Hilfe vorhanden" %}</span>
+    {% else %} <span class="label label-success">{% trans "Hilfe benötigt" %}</span>{% endif %}
      {{ job.label }}{% if job.description %}: {{ job.description }}{% endif %}</li>
 {% empty %}
-    <li>Keine Aufgaben vorhanden</li>
+    <li>{% trans "Keine Aufgaben vorhanden" %}</li>
 {% endfor %}
 </ul>
 
