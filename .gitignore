@@ -6,6 +6,9 @@
 # compiled python byte code
 *.pyc
 
+# compiled gettext
+*.mo
+
 # bower components
 ophasebase/static/ophasebase/components
 
