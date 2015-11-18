@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 20:46+0100\n"
+"POT-Creation-Date: 2015-11-18 21:39+0100\n"
 "PO-Revision-Date: 2015-11-18 18:46+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>\n"
@@ -494,20 +494,44 @@ msgstr "dress sizes"
 msgid "Es wurden %(data | length)s Größen ausgewertet."
 msgstr ""
 
-#: templates/staff/dresssize.html:13
-#, python-format
-msgid ""
-"<b>Achtung:</b>\n"
-"        Es wurde%(notallowed|pluralize:\"n\")s %(notallowed)s der "
-"ausgewählten Personen ignoriert, da diese nicht T-Shirtberechtigt "
-"%(notallowed|pluralize:\"ist,sind\")s. (kein Tutor/Orga)"
+#: templates/staff/dresssize.html:13 templates/staff/dresssize.html.py:23
+msgid "Achtung:"
 msgstr ""
 
-#: templates/staff/dresssize.html:32
+#: templates/staff/dresssize.html:14
+#, python-format
+msgid ""
+"\n"
+"        Es wurde %(counter)s der ausgewählten Personen ignoriert, da diese "
+"nicht T-Shirtberechtigt ist. (kein Tutor/Orga)\n"
+"        "
+msgid_plural ""
+"\n"
+"        Es wurden %(counter)s der ausgewählten Personen ignoriert, da diese "
+"nicht T-Shirtberechtigt sind. (kein Tutor/Orga)\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/staff/dresssize.html:24
+msgid ""
+"\n"
+"        Die folgende ausgewählte T-Shirtberechtigte Person wurde ignoriert, "
+"da diese keine Kleidergröße hinterlegt hat:\n"
+"        "
+msgid_plural ""
+"\n"
+"        Die folgenden ausgewählten T-Shirtberechtigten Personen wurden "
+"ignoriert, da diese keine Kleidergröße hinterlegt haben:\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/staff/dresssize.html:40
 msgid "Größe"
 msgstr ""
 
-#: templates/staff/dresssize.html:37
+#: templates/staff/dresssize.html:45
 msgid "Keine Einträge vorhanden"
 msgstr ""
 

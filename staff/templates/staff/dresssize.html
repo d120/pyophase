@@ -10,14 +10,22 @@
 {% blocktrans %}Es wurden {{ data | length }} Größen ausgewertet.{% endblocktrans %}
 {% if notallowed != 0 %}
     <p>
-        {% blocktrans %}<b>Achtung:</b>
-        Es wurde{{ notallowed|pluralize:"n"}} {{ notallowed }} der ausgewählten Personen ignoriert, da diese nicht T-Shirtberechtigt {{notallowed|pluralize:"ist,sind"}}. (kein Tutor/Orga){% endblocktrans %}
+        <b>{% trans "Achtung:" %}</b>
+        {% blocktrans count counter=notallowed %}
+        Es wurde {{ counter }} der ausgewählten Personen ignoriert, da diese nicht T-Shirtberechtigt ist. (kein Tutor/Orga)
+        {% plural %}
+        Es wurden {{ counter }} der ausgewählten Personen ignoriert, da diese nicht T-Shirtberechtigt sind. (kein Tutor/Orga)
+        {% endblocktrans %}
     </p>
 {% endif %}
 {% if unknown_length != 0 %}
     <p>
-        <b>Achtung:</b>
-        Die folgende{% if unknown_length != 1 %}n {{ unknown_length }} {% endif %} ausgewählte{{unknown_length|pluralize:"n"}} T-Shirtberechtigte{{unknown_length|pluralize:"n"}} Person{{unknown_length|pluralize:"en"}} wurde{{unknown_length|pluralize:"n"}} ignoriert, da diese keine Kleidergröße hinterlegt ha{{unknown_length|pluralize:"t,ben"}}.
+        <b>{% trans "Achtung:" %}</b>
+        {% blocktrans count counter=unknown_length%}
+        Die folgende ausgewählte T-Shirtberechtigte Person wurde ignoriert, da diese keine Kleidergröße hinterlegt hat:
+        {% plural %}
+        Die folgenden ausgewählten T-Shirtberechtigten Personen wurden ignoriert, da diese keine Kleidergröße hinterlegt haben:
+        {% endblocktrans %}
         <ul>
             {% for person in unknown %}
             <li><a href="{% url 'admin:staff_person_change' person.id %}">{{ person.prename }} {{ person.name }}</a></li>
