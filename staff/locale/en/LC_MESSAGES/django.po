@@ -1,0 +1,367 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-18 18:21+0100\n"
+"PO-Revision-Date: 2015-11-18 18:46+0100\n"
+"Last-Translator: ckleemann <ckleemann@d120.de>\n"
+"Language-Team: ckleemann <ckleemann@d120.de>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: forms.py:14
+msgid "Aufgabenbeschreibung"
+msgstr "task description"
+
+#: forms.py:83
+msgid ""
+"Um Tutor zu sein muss ausgewählt werden, welche Art Gruppe betreut werden "
+"soll."
+msgstr "To be "
+
+#: forms.py:86
+msgid ""
+"Um Orga zu sein muss ausgewählt werden, welche Aufgaben übernommen werden "
+"sollen."
+msgstr ""
+
+#: forms.py:89
+msgid ""
+"Um Helfer zu sein muss ausgewählt werden, bei welchen Aufgaben geholfen "
+"werden soll."
+msgstr ""
+
+#: forms.py:92
+msgid ""
+"Tutoren und Orgas bekommen ein kostenloses Kleidungsstück, wofür die Größe "
+"benötigt wird."
+msgstr ""
+
+#: forms.py:95
+msgid ""
+"Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder "
+"Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus."
+msgstr ""
+
+#: models.py:11 models.py:119
+msgid "Gruppenkategorie"
+msgstr "groupcategories"
+
+#: models.py:12
+msgid "Gruppenkategorien"
+msgstr "groupcategory"
+
+#: models.py:35
+msgid "Orgajob"
+msgstr "organizerjob"
+
+#: models.py:36
+msgid "Orgajobs"
+msgstr "organizerjobs"
+
+#: models.py:42
+msgid "Helferjob"
+msgstr "helperjob"
+
+#: models.py:43
+msgid "Helferjobs"
+msgstr "helperjobs"
+
+#: models.py:49 models.py:54 models.py:84
+msgid "Kleidergröße"
+msgstr "dress size"
+
+#: models.py:50
+msgid "Kleidergrößen"
+msgstr "dress sizes"
+
+#: models.py:55
+msgid "Position in Auflistung"
+msgstr ""
+
+#: models.py:64
+msgid "Person"
+msgstr "person"
+
+#: models.py:65
+msgid "Personen"
+msgstr "persons"
+
+#: models.py:70
+msgid "Vorname"
+msgstr "first name"
+
+#: models.py:71 models.py:92
+msgid "Name"
+msgstr "Name"
+
+#: models.py:72
+msgid "E-Mail-Adresse"
+msgstr "e-mail address"
+
+#: models.py:73
+msgid "Handynummer"
+msgstr "mobile phone number"
+
+#: models.py:73
+msgid "Deine Handynummer brauchen wir um dich schnell erreichen zu können."
+msgstr "Your mobile phone number is required to reach you fast."
+
+#: models.py:74
+msgid "An der Uni seit"
+msgstr "At the university since"
+
+#: models.py:74
+msgid "Seit wann studierst du an der TU Darmstadt?"
+msgstr "Since when do you study at the TU Darmstadt?"
+
+#: models.py:75
+msgid "Aktuell angestrebter Abschluss"
+msgstr "Current degree programm"
+
+#: models.py:75
+msgid "Bachelor, Master, Joint Bachelor of Arts, etc."
+msgstr "Bachelor, Master, Joint Bachelor of Arts, etc."
+
+#: models.py:76
+msgid "Bisherige Ophasenerfahrung"
+msgstr "Ophasen experience so far"
+
+#: models.py:76
+msgid ""
+"Wenn du schonmal bei einer Ophase geholfen hast, schreib uns wann das war "
+"und was du gemacht hast."
+msgstr ""
+"If you already assisted at a Ophase, let us know when it was and what you "
+"did."
+
+#: models.py:77
+msgid "Warum möchtest du bei der Ophase mitmachen?"
+msgstr "Why do you want to want to participate at the Ophase?"
+
+#: models.py:78
+msgid "Tutor"
+msgstr "tutor"
+
+#: models.py:78
+msgid "Möchtest du als Tutor bei der Ophase mitmachen?"
+msgstr "Do you want to participate as a tutor at the Ophase?"
+
+#: models.py:79
+msgid "Orga"
+msgstr "organizer"
+
+#: models.py:79
+msgid "Möchtest du als Orga bei der Ophase mitmachen?"
+msgstr "Do you want to participate as a organizer at the Ophase?"
+
+#: models.py:80 views.py:29
+msgid "Helfer"
+msgstr "helper"
+
+#: models.py:80
+msgid "Möchtest du als Helfer bei der Ophase mitmachen?"
+msgstr "Do you want to participate as a helper at the Ophase?"
+
+#: models.py:81
+msgid "Tutor für"
+msgstr "tutor for"
+
+#: models.py:81
+msgid "Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"
+msgstr "freshman of which degree program you want to supervise?"
+
+#: models.py:82
+msgid "Orgaaufgaben"
+msgstr "organizerjobs"
+
+#: models.py:82
+msgid "Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"
+msgstr "Which organizerjobs you want to take?"
+
+#: models.py:83
+msgid "Helferaufgaben"
+msgstr "helperjobs"
+
+#: models.py:83
+msgid "Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"
+msgstr "At which jobs did you want to help?"
+
+#: models.py:84
+msgid ""
+"Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt "
+"passt brauchen wir deine Größe."
+msgstr ""
+"Contributors get a t-shirt to recognize them better. We need your size so "
+"your t-shirt fits."
+
+#: models.py:85
+msgid "Anmerkungen"
+msgstr "remarks"
+
+#: models.py:85
+msgid "Was sollten wir noch wissen?"
+msgstr "What else should we know?"
+
+#: models.py:86
+msgid "Orga-Anmerkungen"
+msgstr ""
+
+#: models.py:86
+msgid "Notizen von Leitung und Orgas."
+msgstr ""
+
+#: models.py:87
+msgid "Eingetragen am"
+msgstr "Created at"
+
+#: models.py:88
+msgid "Verändert am"
+msgstr "Updated at"
+
+#: models.py:111
+msgid "Kleingruppe"
+msgstr "tutorgroup"
+
+#: models.py:112
+msgid "Kleingruppen"
+msgstr "tutorgroups"
+
+#: models.py:117
+msgid "Gruppenname"
+msgstr "groupname"
+
+#: models.py:118 views.py:25
+msgid "Tutoren"
+msgstr "tutors"
+
+#: models.py:128 models.py:129
+msgid "Einstellungen"
+msgstr "Settings"
+
+#: models.py:131
+msgid "Tutor Registrierung aktiv"
+msgstr "tutor registration active?"
+
+#: models.py:132
+msgid "Orga Registrierung aktiv"
+msgstr "organizer registration active?"
+
+#: models.py:133
+msgid "Helfer Registrierung aktiv"
+msgstr "helper registration active?"
+
+#: models.py:134
+msgid "Freigeschaltete Kleingruppenkategorien"
+msgstr "Released tutorgroup categories "
+
+#: models.py:135
+msgid "Freigeschaltete Orgajobs"
+msgstr "Released Organizer jobs"
+
+#: models.py:136
+msgid "Freigeschaltete Helferjobs"
+msgstr "Released helperj obs"
+
+#: models.py:139
+msgid "Staff Einstellungen"
+msgstr "staff settings"
+
+#: models.py:147
+msgid ""
+"Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
+"anzulegen."
+msgstr ""
+"It only makes sense and possible to create one instance of the settings "
+"object. "
+
+#: templates/staff/person_form.html:2
+msgid "Mitmachen"
+msgstr "Participate"
+
+#: templates/staff/person_form.html:9
+#, python-format
+msgid ""
+"Für die %(ophase_title)s <b>%(ophase_duration)s</b> werden "
+"%(staff_vacancies)s gesucht."
+msgstr ""
+"For the %(ophase_title)s <b>%(ophase_duration)s</b> we are looking for "
+"%(staff_vacancies)s."
+
+#: templates/staff/person_form.html:13
+msgid ""
+"Als Tutor betreust du eine Kleingruppe von Ersties und hilfst bei der "
+"Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze "
+"Schulung sowie eine Einführung in das Programm der Ophase geplant."
+msgstr ""
+"As tutor you supervise a tutorgroup of freshman and you assist at "
+"activities. In the week before the Ophase as short training and an "
+"introduction in the program of the Ophase is scheduled."
+
+#: templates/staff/person_form.html:18
+msgid ""
+"Als Orga bist du für die Organisation eines bestimmten Programmpunktes "
+"verantwortlich. Dazu zählt die Planung und Vorbereitung vor der Ophase, "
+"sowie die eigentliche Durchführung in der Woche."
+msgstr ""
+"As organizer you are responsible for the organization of some activities. "
+"That includes the planning and preparation prior the Ophase as well as the "
+"actual execution during the week."
+
+#: templates/staff/person_form.html:23
+msgid ""
+"Tutoren und Organisatoren erhalten dabei wie immer ein kostenloses Ophasen-T-"
+"Shirt ;-)"
+msgstr "Tutors and organizers as always get a free Ophase t-shirt ;-)"
+
+#: templates/staff/person_form.html:28
+msgid ""
+"Als Helfer hilfst du bei der Durchführung bestimmter Programmpunkte, die "
+"dringend helfende Hände benötigen."
+msgstr ""
+"As helper you assist during certain activities, which need helping hands."
+
+#: templates/staff/person_form.html:32
+msgid ""
+"Die Jobs, die unten nicht mehr auswählbar sind, sind bereits ausreichend mit "
+"Personen besetzt."
+msgstr ""
+"The jobs that are no longer selectable below are already busy enough with "
+"people."
+
+#: templates/staff/person_form.html:35 templates/staff/person_form.html:56
+msgid "Die Ophasen-Leitung"
+msgstr "The Ophase-Leitung"
+
+#: templates/staff/person_form.html:45
+msgid "Zurücksetzen"
+msgstr "Reset"
+
+#: templates/staff/person_form.html:48
+msgid "Abschicken"
+msgstr "Submit"
+
+#: templates/staff/person_form.html:55
+#, python-format
+msgid ""
+"Für die %(ophase_title)s <b>%(ophase_duration)s</b> ist die Anmeldung "
+"bereits abgeschlossen."
+msgstr ""
+"The registration for the %(ophase_title)s <b>%(ophase_duration)s</b> is "
+"already closed."
+
+#: views.py:27
+msgid "Organisatoren"
+msgstr "organisers"
+
+#: views.py:32
+msgid "und"
+msgstr "and"
