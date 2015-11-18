@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.utils.html import format_html, escape
+from django.utils.translation import ugettext as _
 
 from staff.models import Person, Settings, GroupCategory, HelperJob, OrgaJob
 
@@ -10,7 +11,7 @@ class PersonForm(forms.ModelForm):
     def __append_description_link(self, field, view):
         """Append a link to a description view to the field label"""
         self.fields[field].label = escape(self.fields[field].label)
-        code = ' <a href="{}" target="_blank">(Aufgabenbeschreibung)</a>'
+        code = ' <a href="{}" target="_blank">(%s)</a>' % _('Aufgabenbeschreibung')
         self.fields[field].label += format_html(code, reverse(view))
 
     def __init__(self, *args, **kwargs):
@@ -79,16 +80,16 @@ class PersonForm(forms.ModelForm):
         cleaned_data = super(PersonForm, self).clean()
 
         if cleaned_data.get("is_tutor") and cleaned_data.get("tutor_for") is None:
-            self.add_error('tutor_for', ValidationError('Um Tutor zu sein muss ausgewählt werden, welche Art Gruppe betreut werden soll.'))
+            self.add_error('tutor_for', ValidationError(_('Um Tutor zu sein muss ausgewählt werden, welche Art Gruppe betreut werden soll.')))
 
         if cleaned_data.get("is_orga") and cleaned_data.get("orga_jobs").count() == 0:
-            self.add_error('orga_jobs', ValidationError('Um Orga zu sein muss ausgewählt werden, welche Aufgaben übernommen werden sollen.'))
+            self.add_error('orga_jobs', ValidationError(_('Um Orga zu sein muss ausgewählt werden, welche Aufgaben übernommen werden sollen.')))
 
         if cleaned_data.get("is_helper") and cleaned_data.get("helper_jobs").count() == 0:
-            self.add_error('helper_jobs', ValidationError('Um Helfer zu sein muss ausgewählt werden, bei welchen Aufgaben geholfen werden soll.'))
+            self.add_error('helper_jobs', ValidationError(_('Um Helfer zu sein muss ausgewählt werden, bei welchen Aufgaben geholfen werden soll.')))
 
         if (cleaned_data.get("is_tutor") or cleaned_data.get("is_orga")) and cleaned_data.get("dress_size") is None:
-            self.add_error('dress_size', ValidationError('Tutoren und Orgas bekommen ein kostenloses Kleidungsstück, wofür die Größe benötigt wird.'))
+            self.add_error('dress_size', ValidationError(_('Tutoren und Orgas bekommen ein kostenloses Kleidungsstück, wofür die Größe benötigt wird.')))
 
         if cleaned_data.get('is_tutor') != True and cleaned_data.get('is_helper') != True and cleaned_data.get('is_orga') != True:
-            self.add_error(None, ValidationError('Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus.'))
+            self.add_error(None, ValidationError(_('Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus.')))

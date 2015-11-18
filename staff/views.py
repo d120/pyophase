@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.db import IntegrityError
 from django.template import loader
 from django.template.response import TemplateResponse
+from django.utils.translation import ugettext as _
 
 from ophasebase.models import Ophase
 from staff.models import Settings, GroupCategory, OrgaJob, HelperJob
@@ -21,14 +22,14 @@ class StaffAdd(CreateView):
         if current_ophase is not None and settings is not None:
             vacancies = []
             if settings.tutor_registration_enabled:
-                vacancies.append('Tutoren')
+                vacancies.append(_('Tutoren'))
             if settings.orga_registration_enabled:
-                vacancies.append('Organisatoren')
+                vacancies.append(_('Organisatoren'))
             if settings.helper_registration_enabled:
-                vacancies.append('Helfer')
+                vacancies.append(_('Helfer'))
             vacancies_str = '.'.join(vacancies)
             vacancies_str = vacancies_str.replace('.', ', ', len(vacancies)-2)
-            vacancies_str = vacancies_str.replace('.', ' und ')
+            vacancies_str = vacancies_str.replace('.', ' %s '% _('und'))
 
             context = super(StaffAdd, self).get_context_data(**kwargs)
             context['ophase_title'] = str(current_ophase)

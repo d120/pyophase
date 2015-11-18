@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import formats
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext as _
 
 
 class Building(models.Model):
@@ -89,8 +90,9 @@ class Ophase(models.Model):
         return self.get_name()
 
     def get_human_duration(self):
-        return "vom %s bis %s" % (formats.date_format(self.start_date, "MONTH_DAY_FORMAT"),
-         formats.date_format(self.end_date, "DATE_FORMAT"))
+        return _('vom %(begin)s bis %(end)s') % {
+          'begin': formats.date_format(self.start_date, 'DATE_FORMAT'),
+          'end': formats.date_format(self.end_date, 'DATE_FORMAT'),}
 
     def clean(self, *args, **kwargs):
         super(Ophase, self).clean(*args, **kwargs)
