@@ -3,19 +3,20 @@ import math
 from ophasebase.models import Ophase
 from staff.models import GroupCategory
 from students.models import Student
-
+from django.utils.translation import ugettext_lazy as _
+from django.utils import formats
 
 class ExamRoom(models.Model):
     """A room which is suitable for the exam."""
     class Meta:
-        verbose_name = "Klausurraum"
-        verbose_name_plural = "Klausurräume"
+        verbose_name = _('Klausurraum')
+        verbose_name_plural = _('Klausurräume')
         ordering = ['available', '-capacity_1_free', '-capacity_2_free', 'room']
 
-    room = models.OneToOneField('ophasebase.Room', verbose_name="Raum", limit_choices_to={"type": "HS"})
-    available = models.BooleanField(verbose_name="Verfügbar", default=True)
-    capacity_1_free = models.IntegerField(verbose_name="Plätze (1 Platz Abstand)")
-    capacity_2_free = models.IntegerField(verbose_name="Plätze (2 Plätze Abstand)")
+    room = models.OneToOneField('ophasebase.Room', verbose_name=_('Raum'), limit_choices_to={"type": "HS"})
+    available = models.BooleanField(verbose_name=_('Verfügbar'), default=True)
+    capacity_1_free = models.IntegerField(verbose_name=_('Plätze (1 Platz Abstand)'))
+    capacity_2_free = models.IntegerField(verbose_name=_('Plätze (2 Plätze Abstand)'))
 
     def __str__(self):
         return str(self.room)
@@ -33,30 +34,33 @@ class Assignment(models.Model):
     """
 
     class Meta:
-        verbose_name = "Klausurzuteilung"
-        verbose_name_plural = "Klausurzuteilungen"
+        verbose_name = _('Klausurzuteilung')
+        verbose_name_plural = _('Klausurzuteilungen')
         get_latest_by = 'created_at'
         ordering = ['-created_at']
 
     SPACING_CHOICES = (
-        (1, "Ein Platz Abstand"),
-        (2, "Zwei Plätze Abstand")
+        (1, _('Ein Platz Abstand')),
+        (2, _('Zwei Plätze Abstand'))
     )
 
     MODE_CHOICES = (
-        (0, "Gleichmäßig auf alle Räume verteilen"),
-        (1, "Möglichst wenig Räume")
+        (0, _('Gleichmäßig auf alle Räume verteilen')),
+        (1, _('Möglichst wenig Räume'))
     )
 
     ophase = models.ForeignKey(Ophase)
     created_at = models.DateTimeField(auto_now_add=True)
-    group_category = models.ForeignKey(GroupCategory, verbose_name="Gruppenkategorie")
-    spacing = models.PositiveSmallIntegerField(choices=SPACING_CHOICES, default=2, verbose_name="Sitzplatzabstand")
-    mode = models.PositiveSmallIntegerField(choices=MODE_CHOICES, default=0, verbose_name="Verteilmodus")
-    count = models.PositiveIntegerField(verbose_name="# Zuteilungen")
+    group_category = models.ForeignKey(GroupCategory, verbose_name=_('Gruppenkategorie'))
+    spacing = models.PositiveSmallIntegerField(choices=SPACING_CHOICES, default=2, verbose_name=_('Sitzplatzabstand'))
+    mode = models.PositiveSmallIntegerField(choices=MODE_CHOICES, default=0, verbose_name=_('Verteilmodus'))
+    count = models.PositiveIntegerField(verbose_name=_('# Zuteilungen'))
 
     def __str__(self):
-        return self.created_at.strftime("Zuteilung vom %d.%m.%y %H:%M:%S")
+        # see http://stackoverflow.com/a/8288298
+        formatted_datetime = formats.date_format(self.created_at, 'SHORT_DATETIME_FORMAT')
+        return _('Zuteilung vom %(formated_datetime)s') % {
+                 'formated_datetime' : formatted_datetime,}
 
     def save(self, *args, **kwargs):
         if self.ophase_id is None:
@@ -125,8 +129,8 @@ class PersonToExamRoomAssignment(models.Model):
     """
 
     class Meta:
-        verbose_name = "Individuelle Klausurzuteilung"
-        verbose_name_plural = "Individuelle Klausurzuteilungen"
+        verbose_name = _('Individuelle Klausurzuteilung')
+        verbose_name_plural = _('Individuelle Klausurzuteilungen')
         ordering = ['assignment', 'room', 'person__name', 'person__prename']
 
     assignment = models.ForeignKey(Assignment)
