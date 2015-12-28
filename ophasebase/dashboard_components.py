@@ -1,29 +1,34 @@
 import datetime
 from django.utils.safestring import SafeText
 from dashboard.components import WidgetComponent
+from django.utils.translation import ugettext as _
+from django.utils.translation import ungettext
+from django.utils.dateformat import DateFormat
 
 from .models import Ophase
 
-
 class CountdownWidget(WidgetComponent):
-    name = "Ophasenstatus"
+    name = _('Ophasenstatus')
 
     @property
     def render(self):
         ophase = Ophase.current()
         if ophase is None:
-            msg = "Keine Ophase<br />in Aussicht"
+            msg = _('Keine Ophase<br />in Aussicht')
         elif datetime.date.today() < ophase.start_date:
             delta = ophase.start_date - datetime.date.today()
-            if delta.days < 2:
-                msg = "<b>1 Tag</b><br />bis zur Ophase"
-            else:
-                msg = "<b>{} Tage</b><br />bis zur Ophase".format(delta.days)
+            msg = ungettext(
+                            '<b>%(days)d Tag</b><br />bis zur Ophase', 
+                            '<b>%(days)d Tage</b><br />bis zur Ophase',
+                            delta.days
+                            ) % {
+                                 'days' : delta.days,
+                                 }
         elif ophase.end_date < datetime.date.today():
-            msg = "Die Ophase<br />ist vorüber"
+            msg = _('Die Ophase<br />ist vorüber')
         else:
-            weekdays = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag']
-            msg = "Es ist Ophase<br /> <b>{}</b>".format(weekdays[datetime.date.today().weekday()])
+            df = DateFormat(datetime.datetime.now())
+            msg = _('Es ist Ophase<br /> <b>%(weekday)s</b>') % {'weekday' : df.format('l'),}
         return SafeText("<p class='text-center' style='font-size:2em; line-height:180%;'>{}</p>".format(msg))
 
     @property
