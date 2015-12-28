@@ -47,13 +47,13 @@ class PersonAdmin(admin.ModelAdmin):
     actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, group_by_dresssize]
 
     fieldsets = [
-        ('Personendaten', {'fields':
+        (_('Personendaten'), {'fields':
             ['ophase', 'prename', 'name', 'email', 'phone', 'dress_size', 'orga_annotation']}),
-        ('Bewerbung', {'fields':
+        (_('Bewerbung'), {'fields':
             ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
-        ('In der Ophase', {'fields':
+        (_('In der Ophase'), {'fields':
             ['is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs']}),
-        ('Sonstiges', {'fields':
+        (_('Sonstiges'), {'fields':
             ['created_at', 'updated_at']}),
     ]
 

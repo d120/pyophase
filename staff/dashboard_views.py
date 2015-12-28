@@ -11,15 +11,15 @@ from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 
 
 class StaffAppMixin(DashboardAppMixin):
-    app_name_verbose = "Personal"
+    app_name_verbose = _('Personal')
     app_name = 'staff'
     permissions = ['staff.add_person']
 
     @property
     def sidebar_links(self):
         return [
-            ('Kleingruppen erstellen', self.prefix_reverse_lazy('group_mass_create')),
-            ('Tutoren paaren', self.prefix_reverse_lazy('tutor_pairing')),
+            (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
+            (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
         ]
 
 
