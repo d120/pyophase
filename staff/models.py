@@ -67,8 +67,8 @@ class Person(models.Model):
         unique_together = ('ophase', 'email')
 
     ophase = models.ForeignKey(Ophase)
-    prename = models.CharField(max_length=60, verbose_name=_("Vorname"))
-    name = models.CharField(max_length=75, verbose_name=_("Name"))
+    prename = models.CharField(max_length=60, verbose_name=_('first name'))
+    name = models.CharField(max_length=75, verbose_name=_('last name'))
     email = models.EmailField(verbose_name=_("E-Mail-Adresse"))
     phone = models.CharField(max_length=30, verbose_name=_("Handynummer"), help_text=_("Deine Handynummer brauchen wir um dich schnell erreichen zu können."))
     matriculated_since = models.CharField(max_length=30, verbose_name=_("An der Uni seit"), help_text=_("Seit wann studierst du an der TU Darmstadt?"))
