@@ -4,11 +4,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'pyophase.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
+urlpatterns = [
     url(r'^$', include('ophasebase.urls', namespace='ophasebase', app_name='ophasebase')),
     url(r'^mitmachen/', include('staff.urls', namespace='staff', app_name='staff')),
     url(r'^teilnehmer/', include('students.urls', namespace='students', app_name='students')),
@@ -17,4 +13,4 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'admin/login.html'}, name='login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page': reverse_lazy('ophasebase:welcome')}, name='logout'),
-)
+]
