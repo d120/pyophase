@@ -3,6 +3,7 @@ from dashboard.components import TemplateWidgetComponent
 from exam.models import Assignment
 from ophasebase.models import Ophase
 from students.models import Student
+from django.utils.translation import ugettext_lazy as _
 
 
 class ExamWidget(TemplateWidgetComponent):
@@ -11,7 +12,7 @@ class ExamWidget(TemplateWidgetComponent):
     """
 
     permissions = ['exam.add_assignment']
-    name = "Klausurzuteilung"
+    name = _("Klausurzuteilung")
     link_target = reverse_lazy('dashboard:exam:assignment')
     template_name = "exam/dashboard/widget_exam.html"
 
@@ -29,19 +30,19 @@ class ExamWidget(TemplateWidgetComponent):
         assignment = self._get_latest_assignment()
 
         if current_ophase is None:
-            context['message'] = "Keine Ophase, keine Zuteilung"
+            context['message'] = _("Keine Ophase, keine Zuteilung")
             context['status_icon'] = "ok"
             context['submessage'] = ""
         elif assignment is None:
-            context['message'] = "Noch keine gültige Zuteilung"
+            context['message'] = _("Noch keine gültige Zuteilung")
             context['status_icon'] = "remove"
             context['submessage'] = ""
         elif self._correct_count(assignment):
-            context['message'] = "Gültige Zuteilung"
+            context['message'] = _("Gültige Zuteilung")
             context['status_icon'] = "ok"
-            context['submessage'] = assignment.created_at.strftime("Erstellt am %d.%m.%y um %H:%M")
+            context['submessage'] = assignment.created_at.strftime(_("Erstellt am %d.%m.%y um %H:%M")) # TODO Date time format is also part of i18n
         else:
-            context['message'] = "Achtung: Zuteilung ist ungültig"
+            context['message'] = _("Achtung: Zuteilung ist ungültig")
             context['status_icon'] = "remove"
             context['submessage'] = ""
 
