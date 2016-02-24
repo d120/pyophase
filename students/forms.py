@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from .models import Student
+from django.utils.translation import ugettext_lazy as _
 
 
 class StudentRegisterForm(forms.ModelForm):
@@ -19,4 +20,4 @@ class StudentRegisterForm(forms.ModelForm):
         cleaned_data = super(StudentRegisterForm, self).clean()
 
         if cleaned_data.get("newsletters").count() > 0 and cleaned_data.get("email") == "":
-            self.add_error('email', ValidationError('Um Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden.'))
+            self.add_error('email', ValidationError(_('Um Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden.')))

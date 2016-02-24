@@ -1,10 +1,10 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title%}Stats | Dashboard{% endblock %}
+{% block title%}{% trans "Stats" %} | {% trans "Dashboard" %}{% endblock %}
 
 
 {% block content_dashboard_view %}
-    <h3>Newsletter Export</h3>
+    <h3>{% trans "Newsletter Export" %}</h3>
 
 <blockquote>
   <small>{{ newsletter_name }} <span class="badge">{{ object_list|length }}</span></small>

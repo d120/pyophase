@@ -1,5 +1,5 @@
-<table class="table">
-    <tr><td>Eingetragene Ersties:</td><td>{{ studentCount }}</td></tr>
-    <tr><td>Klausuranmeldungen:</td><td>{{ examCount }}</td></tr>
-    <tr><td>Eingetragene Gruppen:</td><td>{{ tutorGroupCount }}</td></tr>
+<table class="table">{% load i18n %}
+    <tr><td>{% trans "Eingetragene Ersties:" %}</td><td>{{ studentCount }}</td></tr>
+    <tr><td>{% trans "Klausuranmeldungen:" %}</td><td>{{ examCount }}</td></tr>
+    <tr><td>{% trans "Eingetragene Gruppen:" %}</td><td>{{ tutorGroupCount }}</td></tr>
 </table>

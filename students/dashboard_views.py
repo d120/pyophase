@@ -1,5 +1,6 @@
 from django.views.generic import TemplateView, DetailView, ListView
 from django.db.models import Count, Sum
+from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
@@ -8,16 +9,16 @@ from .models import Student, Newsletter
 
 
 class StudentsAppMixin(DashboardAppMixin):
-    app_name_verbose = "Ersties"
-    app_name = 'students'
+    app_name_verbose = _("Ersties")
+    app_name = _('students')
     permissions = ['students.add_student', 'exam.add_assignment']
 
     @property
     def sidebar_links(self):
         return [
-            ('Übersicht', self.prefix_reverse_lazy('index')),
-            ('Zertifikate erstellen', self.prefix_reverse_lazy('certificate')),
-            ('Newsletter', self.prefix_reverse_lazy('newsletter'))
+            (_('Übersicht'), self.prefix_reverse_lazy('index')),
+            (_('Zertifikate erstellen'), self.prefix_reverse_lazy('certificate')),
+            (_('Newsletter'), self.prefix_reverse_lazy('newsletter'))
         ]
 
 
