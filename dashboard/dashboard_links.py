@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 
 class DashboardLinks():
@@ -13,10 +14,10 @@ class DashboardLinks():
         :return: List(String, String) - a list of (name, URL)-tuples
         """
         return [
-            ("Übersicht", cls.get_index_link()),
-            ("Personal", reverse_lazy('dashboard:staff:group_mass_create')),
-            ("Ersties", reverse_lazy('dashboard:students:index')),
-            ("Klausur", reverse_lazy('dashboard:exam:assignment')),
+            (_("Übersicht"), cls.get_index_link()),
+            (_("Personal)", reverse_lazy('dashboard:staff:group_mass_create')),
+            (_("Ersties"), reverse_lazy('dashboard:students:index')),
+            (_("Klausur"), reverse_lazy('dashboard:exam:assignment')),
         ]
 
     @classmethod

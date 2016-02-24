@@ -1,11 +1,11 @@
-{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}
+{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title%}Übersicht | Dashboard{% endblock %}
+{% block title%}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard %}
 
-<div class="alert alert-danger">Keine ausreichenden Berechtigungen, um diese Seite anzuzeigen.</div>
+<div class="alert alert-danger">{% trans "Keine ausreichenden Berechtigungen, um diese Seite anzuzeigen." %}</div>
 
-<a href="{%  url 'dashboard:index' %}" class="btn btn-default">Zurück zur Übersicht</a>
+<a href="{%  url 'dashboard:index' %}" class="btn btn-default">{% trans "Zurück zur Übersicht" %}</a>
 
 {% endblock %}

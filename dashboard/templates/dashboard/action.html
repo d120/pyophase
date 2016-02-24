@@ -1,6 +1,6 @@
-{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}
+{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title%}Übersicht | Dashboard{% endblock %}
+{% block title%}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard %}
     <div class="row">
