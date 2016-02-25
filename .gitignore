@@ -21,3 +21,6 @@ settings_local.py
 # pyDev IDE
 .project
 .pydevproject
+
+# virtualenv
+venv/
