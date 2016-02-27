@@ -62,11 +62,7 @@ class TutorPairingView(StaffAppMixin, FormView):
         for group_id, choices in pairing_data.items():
             group = TutorGroup.objects.get(id=group_id)
             new_tutors = Person.objects.filter(id__in=choices)
-            # TODO: replace the following two lines once the .set feature has landed in a stable version of Django
-            # https://docs.djangoproject.com/en/dev/ref/models/relations/#django.db.models.fields.related.RelatedManager.set
-            # this will replace the current workaround of comparing the sets of tutors to avoid unnecessary DB operations
-            if set(group.tutors.all()) != set(new_tutors):
-                group.tutors = new_tutors
+            group.tutors.set(new_tutors)
         return super(TutorPairingView, self).form_valid(form)
 
 
