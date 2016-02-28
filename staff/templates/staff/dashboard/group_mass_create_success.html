@@ -13,7 +13,7 @@
 <a href="{%  url 'dashboard:staff:group_mass_create' %}" class="btn btn-default">{% trans "Mehr Kleingruppen erstellen" %}</a>
 <a href="{%  url 'dashboard:staff:tutor_pairing' %}" class="btn btn-default">{% trans "Tutoren auf Kleingruppen verteilen" %}</a>
 {% else %}
-<div class="alert alert-danger">{% bootstrap_icon "warning-sign" %} {% trans "Keine aktive Ophase vorhanden." %}</div>
+<div class="alert alert-danger">{% bootstrap_icon "warning-sign" %} {% trans "Keine aktive Ophase vorhanden" %}.</div>
 {% endif %}
 
 {% endblock %}
