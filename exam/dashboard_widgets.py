@@ -4,6 +4,7 @@ from exam.models import Assignment
 from ophasebase.models import Ophase
 from students.models import Student
 from django.utils.translation import ugettext_lazy as _
+from django.utils import formats
 
 
 class ExamWidget(TemplateWidgetComponent):
@@ -40,7 +41,9 @@ class ExamWidget(TemplateWidgetComponent):
         elif self._correct_count(assignment):
             context['message'] = _("Gültige Zuteilung")
             context['status_icon'] = "ok"
-            context['submessage'] = assignment.created_at.strftime(_("Erstellt am %d.%m.%y um %H:%M")) # TODO Date time format is also part of i18n
+            formatted_datetime = formats.date_format(assignment.created_at, 'SHORT_DATETIME_FORMAT')
+            context['submessage'] = _('Erstellt am %(formated_datetime)s') % {
+                     'formated_datetime' : formatted_datetime,}
         else:
             context['message'] = _("Achtung: Zuteilung ist ungültig")
             context['status_icon'] = "remove"
