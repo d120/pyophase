@@ -1,7 +1,7 @@
-<table class="table" id="staff_table">
+{% load i18n %}<table class="table" id="staff_table">
     <tbody>
-        <tr><td>Tutoren:</td><td>{{ count_tutor }}</td></tr>
-        <tr><td>Orgas:</td><td>{{ count_orga }}</td></tr>
-        <tr><td>Helfer:</td><td>{{ count_helper }}</td></tr>
+        <tr><td>{% trans "Tutoren" %}:</td><td>{{ count_tutor }}</td></tr>
+        <tr><td>{% trans "Orgas" %}:</td><td>{{ count_orga }}</td></tr>
+        <tr><td>{% trans "Helfer" %}:</td><td>{{ count_helper }}</td></tr>
     </tbody>
 </table>

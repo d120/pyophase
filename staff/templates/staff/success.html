@@ -1,13 +1,13 @@
-{% extends "ophasebase/base.html" %}{% load bootstrap3 %}
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title %}Daten gespeichert | Mitmachen{% endblock %}
+{% block title %}{% trans "Daten gespeichert" %} | {% trans "Mitmachen" %}{% endblock %}
 
 {% block content %}
 
-<h2>{% bootstrap_icon "ok" %} Deine Daten wurden erfolgreich gespeichert.</h2>
+<h2>{% bootstrap_icon "ok" %} {% trans "Deine Daten wurden erfolgreich gespeichert." %}</h2>
 
 <p>
-    Vielen Dank dass du mithelfen möchtest. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern.
+    {% trans "Vielen Dank dass du mithelfen möchtest. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern." %}
 </p>
 
 {% endblock %}

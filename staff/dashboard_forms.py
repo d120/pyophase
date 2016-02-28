@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.translation import ugettext as _
 
 from .models import GroupCategory, Person, TutorGroup
 from ophasebase.models import Ophase
@@ -6,8 +7,8 @@ from ophasebase.models import Ophase
 
 class GroupMassCreateForm(forms.Form):
     category_choices = [(gc.id, str(gc)) for gc in GroupCategory.objects.all()]
-    category = forms.ChoiceField(label="Gruppenkategorie", choices=category_choices)
-    group_names = forms.CharField(label="Gruppennamen", help_text="Einen Gruppennamen pro Zeile eintragen.", widget=forms.Textarea)
+    category = forms.ChoiceField(label=_('Gruppenkategorie'), choices=category_choices)
+    group_names = forms.CharField(label=_('Gruppennamen'), help_text=_('Einen Gruppennamen pro Zeile eintragen.'), widget=forms.Textarea)
 
     def clean_group_names(self):
         # remove unnecessary whitespace and duplicates
@@ -22,7 +23,7 @@ class TutorPairingForm(forms.Form):
 
         group_categories = GroupCategory.objects.all()
         group_category_choices = [(gc.id, str(gc)) for gc in group_categories]
-        self.fields['category'] = forms.ChoiceField(label="Gruppenkategorie", choices=group_category_choices)
+        self.fields['category'] = forms.ChoiceField(label=_('Gruppenkategorie'), choices=group_category_choices)
 
         tutor_groups = TutorGroup.objects.filter(ophase=current_ophase)
         tutors = Person.objects.filter(ophase=current_ophase, is_tutor=True)

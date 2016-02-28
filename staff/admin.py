@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.translation import ugettext as _
 
 from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
 from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, tutorgroup_export, group_by_dresssize
@@ -11,14 +12,14 @@ admin.site.register(DressSize)
 
 
 class TutorFilter(admin.SimpleListFilter):
-    title = "Tutorenstatus"
+    title = _('Tutorenstatus')
     parameter_name = "tutorstatus"
 
     def lookups(self, request, model_admin):
-        choices = [('onlytutors', 'Alle Tutoren')]
+        choices = [('onlytutors', _('Alle Tutoren'))]
         for gc in GroupCategory.objects.all():
             choices.append((gc.id, gc.label))
-        choices.append(('notutors', 'Keine Tutoren'))
+        choices.append(('notutors', _('Keine Tutoren')))
         return choices
 
     def queryset(self, request, queryset):
@@ -46,13 +47,13 @@ class PersonAdmin(admin.ModelAdmin):
     actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, group_by_dresssize]
 
     fieldsets = [
-        ('Personendaten', {'fields':
+        (_('Personendaten'), {'fields':
             ['ophase', 'prename', 'name', 'email', 'phone', 'dress_size', 'orga_annotation']}),
-        ('Bewerbung', {'fields':
+        (_('Bewerbung'), {'fields':
             ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
-        ('In der Ophase', {'fields':
+        (_('In der Ophase'), {'fields':
             ['is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs']}),
-        ('Sonstiges', {'fields':
+        (_('Sonstiges'), {'fields':
             ['created_at', 'updated_at']}),
     ]
 
@@ -63,7 +64,7 @@ class PersonAdmin(admin.ModelAdmin):
             return "<i class='fa fa-commenting-o' title='{}'></i>".format(obj.orga_annotation)
         else:
             return ""
-    orga_annotation_status.short_description = "Orga-Notiz"
+    orga_annotation_status.short_description = _('Orga-Notiz')
     orga_annotation_status.allow_tags = True
 
 
@@ -75,7 +76,7 @@ class TutorGroupAdmin(admin.ModelAdmin):
 
     def get_tutors(self, obj):
         return ", ".join([str(t) for t in obj.tutors.all()])
-    get_tutors.short_description = "Tutoren"
+    get_tutors.short_description = _('Tutoren')
 
 
 @admin.register(Settings)

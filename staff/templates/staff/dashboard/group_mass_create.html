@@ -1,19 +1,19 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title%}Kleingruppen erstellen | Dashboard{% endblock %}
+{% block title%}{% trans "Kleingruppen erstellen" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard_view %}
-<h3>Mehrere Kleingruppen auf einmal erstellen</h3>
+<h3>{% trans "Mehrere Kleingruppen auf einmal erstellen" %}</h3>
 
 <form role="form" action="{{action}}" method="POST">
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
     <button type="reset" class="btn btn-danger">
-        {% bootstrap_icon "remove" %} Zurücksetzen
+        {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
     </button>
     <button type="submit" class="btn btn-success pull-right">
-        {% bootstrap_icon "ok" %} Abschicken
+        {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
     </button>
     {% endbuttons %}
 </form>

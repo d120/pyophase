@@ -1,7 +1,7 @@
 from django.contrib import admin
+from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Building, Ophase, Room
-
 
 @admin.register(Ophase)
 class OphaseAdmin(admin.ModelAdmin):
@@ -21,6 +21,6 @@ class RoomAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (None, {'fields': ['building', 'number']}),
-        ('Ausstattung', {'fields': ['type', 'capacity', 'has_beamer']}),
-        ('Position', {'fields': ['lat', 'lng']})
+        (_('Ausstattung'), {'fields': ['type', 'capacity', 'has_beamer']}),
+        (_('Position'), {'fields': ['lat', 'lng']})
     ]

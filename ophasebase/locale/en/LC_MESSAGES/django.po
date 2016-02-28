@@ -1,0 +1,227 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-28 15:02+0100\n"
+"PO-Revision-Date: 2015-11-18 17:25+0100\n"
+"Last-Translator: ckleemann <ckleemann@d120.de>\n"
+"Language-Team: ckleemann <ckleemann@d120.de>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#: admin.py:24
+msgid "Ausstattung"
+msgstr ""
+
+#: admin.py:25
+msgid "Position"
+msgstr ""
+
+#: dashboard_components.py:11
+msgid "Ophasenstatus"
+msgstr ""
+
+#: dashboard_components.py:17
+msgid "Keine Ophase<br />in Aussicht"
+msgstr ""
+
+#: dashboard_components.py:21
+#, python-format
+msgid "<b>%(days)d Tag</b><br />bis zur Ophase"
+msgid_plural "<b>%(days)d Tage</b><br />bis zur Ophase"
+msgstr[0] ""
+msgstr[1] ""
+
+#: dashboard_components.py:28
+msgid "Die Ophase<br />ist vorüber"
+msgstr ""
+
+#: dashboard_components.py:31
+#, python-format
+msgid "Es ist Ophase<br /> <b>%(weekday)s</b>"
+msgstr ""
+
+#: models.py:10 models.py:11 models.py:53
+msgid "Gebäude"
+msgstr ""
+
+#: models.py:16
+msgid "Botanischer Garten (B)"
+msgstr ""
+
+#: models.py:17
+msgid "Hochschulstadion (H)"
+msgstr ""
+
+#: models.py:18
+msgid "Lichtwiese (L)"
+msgstr ""
+
+#: models.py:19
+msgid "Stadtmitte (S)"
+msgstr ""
+
+#: models.py:20
+msgid "Windkanal (W)"
+msgstr ""
+
+#: models.py:23
+msgid "Campus"
+msgstr ""
+
+#: models.py:24
+msgid "Campusabschnitt"
+msgstr ""
+
+#: models.py:25
+msgid "Gebäudenummer"
+msgstr ""
+
+#: models.py:26
+msgid "Gebäudename"
+msgstr ""
+
+#: models.py:27
+msgid "Anmerkungen"
+msgstr ""
+
+#: models.py:40
+msgid "Raum"
+msgstr ""
+
+#: models.py:41
+msgid "Räume"
+msgstr ""
+
+#: models.py:46
+msgid "Kleingruppenraum"
+msgstr ""
+
+#: models.py:47
+msgid "Hörsaal"
+msgstr ""
+
+#: models.py:48
+msgid "PC-Pool"
+msgstr ""
+
+#: models.py:49
+msgid "Lernzentrum"
+msgstr ""
+
+#: models.py:50
+msgid "Sonstiges"
+msgstr ""
+
+#: models.py:54
+msgid "Nummer"
+msgstr ""
+
+#: models.py:55
+msgid "Typ"
+msgstr ""
+
+#: models.py:56
+msgid "Beamer vorhanden?"
+msgstr ""
+
+#: models.py:57
+msgid "Anzahl Plätze"
+msgstr ""
+
+#: models.py:58
+msgid "Latitude"
+msgstr ""
+
+#: models.py:59
+msgid "Longitude"
+msgstr ""
+
+#: models.py:63
+msgid "Name"
+msgstr ""
+
+#: models.py:72 models.py:80 models.py:87
+msgid "Ophase"
+msgstr ""
+
+#: models.py:73
+msgid "Ophasen"
+msgstr ""
+
+#: models.py:75
+msgid "Beginn"
+msgstr ""
+
+#: models.py:76
+msgid "Ende"
+msgstr ""
+
+#: models.py:77
+msgid "Aktiv?"
+msgstr ""
+
+#: models.py:82
+msgid "Sommerophase"
+msgstr ""
+
+#: models.py:84
+msgid "Winterophase"
+msgstr ""
+
+#: models.py:93
+#, python-format
+msgid "vom %(begin)s bis %(end)s"
+msgstr "from %(begin)s to %(end)s"
+
+#: models.py:100
+msgid "Ende der Ophase kann nicht vor ihrem Anfang liegen."
+msgstr ""
+
+#: templates/ophasebase/base.html:21
+msgid "Angemeldet als"
+msgstr ""
+
+#: templates/ophasebase/base.html:21
+msgid "Logout"
+msgstr ""
+
+#: templates/ophasebase/base.html:23
+msgid "Login"
+msgstr ""
+
+#: templates/ophasebase/welcome.html:6
+msgid "Willkommen"
+msgstr ""
+
+#: templates/ophasebase/welcome.html:9
+msgid "Für engagierte Studierende"
+msgstr ""
+
+#: templates/ophasebase/welcome.html:10
+msgid "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken"
+msgstr ""
+
+#: templates/ophasebase/welcome.html:13
+msgid "Für Tutorinnen und Tutoren"
+msgstr ""
+
+#: templates/ophasebase/welcome.html:14
+msgid "Die Erstsemester deiner Kleingruppe registrieren"
+msgstr ""
+
+#: templates/ophasebase/welcome.html:17
+msgid "Für Orgas"
+msgstr ""
+
+#: templates/ophasebase/welcome.html:18
+msgid "Das Dashboard aufrufen"
+msgstr ""

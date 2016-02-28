@@ -1,14 +1,14 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
 
-{% block title%}Stats | Dashboard{% endblock %}
+{% block title%}{% trans "Stats" %} | {% trans "Dashboard" %}{% endblock %}
 
 
 {% block content_dashboard_view %}
-    <h3>Aktueller Eintragungsstand</h3>
+    <h3>{% trans "Aktueller Eintragungsstand" ½}</h3>
 
     <table class="table table-hover">
         <thead>
-            <tr><th>Gruppe</th><th>Kategorie</th><th></th><th># Ersties</th><th># Klausur</th></tr>
+            <tr><th>{% trans "Gruppe" %}</th><th>Kategorie</th><th></th><th>{% trans "# Ersties" %}</th><th>{% trans "# Klausur" %}</th></tr>
         </thead>
         <tbody>
             {% for tg in tutor_groups %}
@@ -20,7 +20,7 @@
                     <td>{% if tg.num_exam == None %}0{% else %}{{ tg.num_exam }}{% endif %}</td>
                 </tr>
             {% endfor %}
-            <tr class="info"><th>Summe</th><th></th><th></th><th>{{ count_student }}</th><th>{{ count_exam }}</th></tr>
+            <tr class="info"><th>{% trans "Summe" %}</th><th></th><th></th><th>{{ count_student }}</th><th>{{ count_exam }}</th></tr>
         </tbody>
     </table>
 {% endblock %}

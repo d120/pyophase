@@ -2,6 +2,7 @@ from django.views.generic import FormView, TemplateView
 from django.template import loader
 from django.template.response import TemplateResponse
 from django.core.urlresolvers import reverse_lazy
+from django.utils.translation import ugettext as _
 
 from ophasebase.models import Ophase
 from .models import TutorGroup, GroupCategory, Person
@@ -10,15 +11,15 @@ from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 
 
 class StaffAppMixin(DashboardAppMixin):
-    app_name_verbose = "Personal"
+    app_name_verbose = _('Personal')
     app_name = 'staff'
     permissions = ['staff.add_person']
 
     @property
     def sidebar_links(self):
         return [
-            ('Kleingruppen erstellen', self.prefix_reverse_lazy('group_mass_create')),
-            ('Tutoren paaren', self.prefix_reverse_lazy('tutor_pairing')),
+            (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
+            (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
         ]
 
 

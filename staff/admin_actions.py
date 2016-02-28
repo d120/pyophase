@@ -4,6 +4,7 @@ from django.template import loader
 from django.template.response import SimpleTemplateResponse
 from django.http import HttpResponse
 from django.db.models import Q, Count, Case, When
+from django.utils.translation import ugettext as _
 
 from staff.models import HelperJob, DressSize
 
@@ -18,7 +19,7 @@ def mail_export(modeladmin, request, queryset):
     context = {'persons' : queryset}
     return SimpleTemplateResponse(template, context)
 
-mail_export.short_description = "E-Mail Mass Subscription Export"
+mail_export.short_description = _('E-Mail Mass Subscription Export')
 
 
 def staff_nametag_export(modeladmin, request, queryset):
@@ -56,7 +57,7 @@ def staff_nametag_export(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename="tutoren.ods"'
     return response
 
-staff_nametag_export.short_description = "Namensschilderexport"
+staff_nametag_export.short_description = _('Namensschilderexport')
 
 
 def staff_overview_export(modeladmin, request, queryset):
@@ -82,21 +83,21 @@ def staff_overview_export(modeladmin, request, queryset):
 
     out_stream = io.BytesIO()
     with odswriter.writer(out_stream) as out:
-        orga_sheet = out.new_sheet("Orgas")
-        orga_sheet.writerow(["Vorname", "Nachname", "E-Mail", "Handy", "Verantwortlich für ..."])
+        orga_sheet = out.new_sheet(_('Orgas'))
+        orga_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Verantwortlich für ...')])
         orga_sheet.writerows(orgas)
-        tutor_sheet = out.new_sheet("Tutoren")
-        tutor_sheet.writerow(["Vorname", "Nachname", "E-Mail", "Handy", "Betreut ..."])
+        tutor_sheet = out.new_sheet(_('Tutoren'))
+        tutor_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Betreut ...')])
         tutor_sheet.writerows(tutors)
-        helper_sheet = out.new_sheet("Helfer")
-        helper_sheet.writerow(["Vorname", "Nachname", "E-Mail", "Handy", "Hilft bei ..."])
+        helper_sheet = out.new_sheet(_('Helfer'))
+        helper_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Hilft bei ...')])
         helper_sheet.writerows(helpers)
 
     response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")
     response['Content-Disposition'] = 'attachment; filename="Personal.ods"'
     return response
 
-staff_overview_export.short_description = "Übersicht exportieren"
+staff_overview_export.short_description = _('Übersicht exportieren')
 
 
 def helper_job_overview(modeladmin, request, queryset):
@@ -123,7 +124,7 @@ def helper_job_overview(modeladmin, request, queryset):
 
     return SimpleTemplateResponse(template, context)
 
-helper_job_overview.short_description = "Helfer-Übersicht anzeigen"
+helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
 
 
 def tutorgroup_export(modeladmin, request, queryset):
@@ -153,7 +154,7 @@ def tutorgroup_export(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename="gruppen.ods"'
     return response
 
-tutorgroup_export.short_description = "Kleingruppen exportieren"
+tutorgroup_export.short_description = _('Kleingruppen exportieren')
 
 
 def group_by_dresssize(modeladmin, request, queryset):
@@ -173,4 +174,4 @@ def group_by_dresssize(modeladmin, request, queryset):
     context = {'data' : dress_size_temp, 'notallowed': (len(queryset) - len(person_temp)), 'unknown': persons_without_size, 'unknown_length': len(persons_without_size)}
     return SimpleTemplateResponse(template, context)
 
-group_by_dresssize.short_description = "Kleidergrößenübersicht"
+group_by_dresssize.short_description = _('Kleidergrößenübersicht')

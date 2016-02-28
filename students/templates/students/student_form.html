@@ -1,5 +1,5 @@
-{% extends "students/exam_base.html" %}{% load bootstrap3 %}
-{% block title %}Klausuranmeldung{% endblock %}
+{% extends "students/exam_base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% block title %}{% trans "Klausuranmeldung" %}{% endblock %}
 
 {% block content_exam %}
 {% if student_registration_enabled %}
@@ -10,17 +10,17 @@
         {% bootstrap_form form %}
     {% buttons %}
         <button type="reset" class="btn btn-danger">
-            {% bootstrap_icon "remove" %} Zurücksetzen
+            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
         </button>
         <button type="submit" class="btn btn-success pull-right">
-            {% bootstrap_icon "ok" %} Abschicken
+            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
         </button>
     {% endbuttons %}
     </form>
 </div>
 {% else %}
 <p>
-    Derzeit ist die Registrierung nicht freigeschaltet.
+  {% trans "Derzeit ist die Registrierung nicht freigeschaltet." %}
 </p>
 {% endif %}
 {% endblock %}
