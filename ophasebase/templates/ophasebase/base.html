@@ -22,6 +22,23 @@
                     {% else %}
                     <span class="navbar-text"><a href="{% url 'login' %}?next={{request.path}}">{% trans "Login" %}</a></span>
                     {% endif %}
+                    <span class="navbar-text" style="margin-top:10px; margin-bottom:0px;">
+                        <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
+                            {% csrf_token %}
+                            <input name="next" type="hidden" value="{{ request.path }}" />
+                            <select name="language" class="form-control input-sm">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                        {{ language.code | upper }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Go" class="btn btn-default btn-sm" />
+                        </form>
+                    </span>
                 </div>
             </div>
         </nav>
@@ -44,6 +61,11 @@
 
     <script src="{% static 'ophasebase/components/jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'ophasebase/components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script>
+        var languageForm = $("form[name='language-form']");
+        $(":submit", languageForm).hide();
+        $("select", languageForm).change(function(){languageForm.submit()});
+    </script>
     {% block bottom_script %}{% endblock %}
 </body>
 </html>
