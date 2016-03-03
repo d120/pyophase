@@ -11,7 +11,7 @@ msgstr ""
 "POT-Creation-Date: 2015-11-18 21:39+0100\n"
 "PO-Revision-Date: 2016-02-28 17:28+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
-"Language-Team: ckleemann <ckleemann@d120.de>\n ngeisler <ngeisler@d120.de>\n"
+"Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -74,7 +74,7 @@ msgstr "E-mail address"
 
 #: models.py:35
 msgid "Kleingruppe"
-msgstr "Small group"
+msgstr "Tutored group"
 
 #: models.py:36
 msgid "Klausur mitschreiben?"
@@ -186,7 +186,7 @@ msgstr "Reset"
 
 #: templates/students/student_form.html:16
 msgid "Abschicken"
-msgstr "Send"
+msgstr "Submit"
 
 #: templates/students/student_form.html:23
 msgid "Derzeit ist die Registrierung nicht freigeschaltet."
