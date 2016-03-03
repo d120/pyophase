@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2016-03-02 18:38+0100\n"
 "PO-Revision-Date: 2016-02-28 17:28+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
-"Language-Team: ckleemann <ckleemann@d120.de>\n"
+"Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,163 +20,163 @@ msgstr ""
 
 #: admin.py:24
 msgid "Ausstattung"
-msgstr ""
+msgstr "Facilities"
 
 #: admin.py:25
 msgid "Position"
-msgstr ""
+msgstr "Position"
 
 #: dashboard_components.py:11
 msgid "Ophasenstatus"
-msgstr ""
+msgstr "State of Ophase"
 
 #: dashboard_components.py:17
 msgid "Keine Ophase<br />in Aussicht"
-msgstr ""
+msgstr "No Ophase<br />in sight"
 
 #: dashboard_components.py:21
 #, python-format
 msgid "<b>%(days)d Tag</b><br />bis zur Ophase"
 msgid_plural "<b>%(days)d Tage</b><br />bis zur Ophase"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<b>%(days)d day</b><br />until the next Ophase"
+msgstr[1] "<b>%(days)d Tage</b><br />until the next Ophase"
 
 #: dashboard_components.py:28
 msgid "Die Ophase<br />ist vorüber"
-msgstr ""
+msgstr "The Ophase<br />is over"
 
 #: dashboard_components.py:31
 #, python-format
 msgid "Es ist Ophase<br /> <b>%(weekday)s</b>"
-msgstr ""
+msgstr "It's Ophase<br /> <b>%(weekday)s</b> "
 
 #: models.py:10 models.py:11 models.py:53
 msgid "Gebäude"
-msgstr ""
+msgstr "Building"
 
 #: models.py:16
 msgid "Botanischer Garten (B)"
-msgstr ""
+msgstr "Botanical garden (B)"
 
 #: models.py:17
 msgid "Hochschulstadion (H)"
-msgstr ""
+msgstr "Hochschulstadion (university stadium) (H)"
 
 #: models.py:18
 msgid "Lichtwiese (L)"
-msgstr ""
+msgstr "Lichtwiese (L)"
 
 #: models.py:19
 msgid "Stadtmitte (S)"
-msgstr ""
+msgstr "Stadtmitte (city centre) (S)"
 
 #: models.py:20
 msgid "Windkanal (W)"
-msgstr ""
+msgstr "Windkanal (W)"
 
 #: models.py:23
 msgid "Campus"
-msgstr ""
+msgstr "Campus"
 
 #: models.py:24
 msgid "Campusabschnitt"
-msgstr ""
+msgstr "Campus section"
 
 #: models.py:25
 msgid "Gebäudenummer"
-msgstr ""
+msgstr "Building number"
 
 #: models.py:26
 msgid "Gebäudename"
-msgstr ""
+msgstr "Building name"
 
 #: models.py:27
 msgid "Anmerkungen"
-msgstr ""
+msgstr "Notes"
 
 #: models.py:40
 msgid "Raum"
-msgstr ""
+msgstr "Room"
 
 #: models.py:41
 msgid "Räume"
-msgstr ""
+msgstr "Rooms"
 
 #: models.py:46
 msgid "Kleingruppenraum"
-msgstr ""
+msgstr "Tutored group's room"
 
 #: models.py:47
 msgid "Hörsaal"
-msgstr ""
+msgstr "Lecture hall"
 
 #: models.py:48
 msgid "PC-Pool"
-msgstr ""
+msgstr "Computer pool"
 
 #: models.py:49
 msgid "Lernzentrum"
-msgstr ""
+msgstr "Lernzentrum"
 
 #: models.py:50
 msgid "Sonstiges"
-msgstr ""
+msgstr "Miscellaneous"
 
 #: models.py:54
 msgid "Nummer"
-msgstr ""
+msgstr "Number"
 
 #: models.py:55
 msgid "Typ"
-msgstr ""
+msgstr "Type"
 
 #: models.py:56
 msgid "Beamer vorhanden?"
-msgstr ""
+msgstr "Beamer available?"
 
 #: models.py:57
 msgid "Anzahl Plätze"
-msgstr ""
+msgstr "Number of seats"
 
 #: models.py:58
 msgid "Latitude"
-msgstr ""
+msgstr "Latitude"
 
 #: models.py:59
 msgid "Longitude"
-msgstr ""
+msgstr "Longitude"
 
 #: models.py:63
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: models.py:72 models.py:80 models.py:87
 msgid "Ophase"
-msgstr ""
+msgstr "Ophase"
 
 #: models.py:73
 msgid "Ophasen"
-msgstr ""
+msgstr "Ophases"
 
 #: models.py:75
 msgid "Beginn"
-msgstr ""
+msgstr "Start"
 
 #: models.py:76
 msgid "Ende"
-msgstr ""
+msgstr "End"
 
 #: models.py:77
 msgid "Aktiv?"
-msgstr ""
+msgstr "Active?"
 
 #: models.py:82
 msgid "Sommerophase"
-msgstr ""
+msgstr "Summer term Ophase"
 
 #: models.py:84
 msgid "Winterophase"
-msgstr ""
+msgstr "Winter term Ophase"
 
 #: models.py:93
 #, python-format
@@ -185,48 +185,48 @@ msgstr "from %(begin)s to %(end)s"
 
 #: models.py:100
 msgid "Ende der Ophase kann nicht vor ihrem Anfang liegen."
-msgstr ""
+msgstr "The end of the Ophase cannot be before its beginning."
 
 #: templates/ophasebase/base.html:21
 msgid "Angemeldet als"
-msgstr ""
+msgstr "Registered as"
 
 #: templates/ophasebase/base.html:21
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: templates/ophasebase/base.html:23
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 #: templates/ophasebase/base.html:39
 msgid "Sprache ändern"
-msgstr ""
+msgstr "Switch language"
 
 #: templates/ophasebase/welcome.html:6
 msgid "Willkommen"
-msgstr ""
+msgstr "Welcome"
 
 #: templates/ophasebase/welcome.html:9
 msgid "Für engagierte Studierende"
-msgstr ""
+msgstr "For dedicated students"
 
 #: templates/ophasebase/welcome.html:10
 msgid "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken"
-msgstr ""
+msgstr "Participate in the Ophase as organizer, tutor or helper"
 
 #: templates/ophasebase/welcome.html:13
 msgid "Für Tutorinnen und Tutoren"
-msgstr ""
+msgstr "For tutors"
 
 #: templates/ophasebase/welcome.html:14
 msgid "Die Erstsemester deiner Kleingruppe registrieren"
-msgstr ""
+msgstr "Register freshmen of your tutored group"
 
 #: templates/ophasebase/welcome.html:17
 msgid "Für Orgas"
-msgstr ""
+msgstr "For organizers"
 
 #: templates/ophasebase/welcome.html:18
 msgid "Das Dashboard aufrufen"
-msgstr ""
+msgstr "Access the dashboard"
