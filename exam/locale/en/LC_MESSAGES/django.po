@@ -11,7 +11,7 @@ msgstr ""
 "POT-Creation-Date: 2015-11-18 21:39+0100\n"
 "PO-Revision-Date: 2016-02-28 17:28+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
-"Language-Team: ckleemann <ckleemann@d120.de>\n"
+"Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,98 +21,98 @@ msgstr ""
 
 #: dashboard_widgets.py:16 models.py:37
 msgid "Klausurzuteilung"
-msgstr ""
+msgstr "Exam room assignment"
 
 #: dashboard_widgets.py:34
 msgid "Keine Ophase, keine Zuteilung"
-msgstr ""
+msgstr "No Ophase, no assignment"
 
 #: dashboard_widgets.py:38
 msgid "Noch keine gültige Zuteilung"
-msgstr ""
+msgstr "No valid assignment yet"
 
 #: dashboard_widgets.py:42
 msgid "Gültige Zuteilung"
-msgstr ""
+msgstr "Valid assignment"
 
 #: dashboard_widgets.py:45
 #, python-format
 msgid "Erstellt am %(formated_datetime)s"
-msgstr ""
+msgstr "Created at %(formated_datetime)s"
 
 #: dashboard_widgets.py:48
 msgid "Achtung: Zuteilung ist ungültig"
-msgstr ""
+msgstr "Caution: Assignment is not valid"
 
 #: models.py:12
 msgid "Klausurraum"
-msgstr ""
+msgstr "Exam room"
 
 #: models.py:13
 msgid "Klausurräume"
-msgstr ""
+msgstr "Exam rooms"
 
 #: models.py:16
 msgid "Raum"
-msgstr ""
+msgstr "Room"
 
 #: models.py:17
 msgid "Verfügbar"
-msgstr ""
+msgstr "Available"
 
 #: models.py:18
 msgid "Plätze (1 Platz Abstand)"
-msgstr ""
+msgstr "Capacity (1 seat apart)"
 
 #: models.py:19
 msgid "Plätze (2 Plätze Abstand)"
-msgstr ""
+msgstr "Capacity (2 seats apart)"
 
 #: models.py:38
 msgid "Klausurzuteilungen"
-msgstr ""
+msgstr "Exam assignments"
 
 #: models.py:43
 msgid "Ein Platz Abstand"
-msgstr ""
+msgstr "One seat apart"
 
 #: models.py:44
 msgid "Zwei Plätze Abstand"
-msgstr ""
+msgstr "Two seats apart"
 
 #: models.py:48
 msgid "Gleichmäßig auf alle Räume verteilen"
-msgstr ""
+msgstr "Evenly distribute across all rooms"
 
 #: models.py:49
 msgid "Möglichst wenig Räume"
-msgstr ""
+msgstr "As few rooms as possible"
 
 #: models.py:54
 msgid "Gruppenkategorie"
-msgstr ""
+msgstr "Tutored group category"
 
 #: models.py:55
 msgid "Sitzplatzabstand"
-msgstr ""
+msgstr "Space between seats"
 
 #: models.py:56
 msgid "Verteilmodus"
-msgstr ""
+msgstr "Distribution mode"
 
 #: models.py:57
 msgid "# Zuteilungen"
-msgstr ""
+msgstr "# assignments"
 
 #: models.py:62
 #, python-format
 msgid "Zuteilung vom %(formated_datetime)s"
-msgstr ""
+msgstr "Assignment from %(formated_datetime)s"
 
 #: models.py:132
 msgid "Individuelle Klausurzuteilung"
-msgstr ""
+msgstr "Individual exam room assignment"
 
 #: models.py:133
 msgid "Individuelle Klausurzuteilungen"
-msgstr ""
+msgstr "Individual exam room assignments"
