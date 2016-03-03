@@ -401,7 +401,7 @@ msgstr "Tutor registration active"
 
 #: models.py:132
 msgid "Orga Registrierung aktiv"
-msgstr Organizer registration active"
+msgstr "Organizer registration active"
 
 #: models.py:133
 msgid "Helfer Registrierung aktiv"
