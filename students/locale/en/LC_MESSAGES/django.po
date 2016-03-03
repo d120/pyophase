@@ -11,7 +11,7 @@ msgstr ""
 "POT-Creation-Date: 2015-11-18 21:39+0100\n"
 "PO-Revision-Date: 2016-02-28 17:28+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
-"Language-Team: ckleemann <ckleemann@d120.de>\n"
+"Language-Team: ckleemann <ckleemann@d120.de>\n ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,185 +21,185 @@ msgstr ""
 
 #: dashboard_views.py:12 models.py:29
 msgid "Ersties"
-msgstr ""
+msgstr "Freshmen"
 
 #: dashboard_views.py:13
 msgid "students"
-msgstr ""
+msgstr "Students"
 
 #: dashboard_views.py:19
 msgid "Übersicht"
-msgstr ""
+msgstr "Overview"
 
 #: dashboard_views.py:20
 msgid "Zertifikate erstellen"
-msgstr ""
+msgstr "Create certificates"
 
 #: dashboard_views.py:21 models.py:13 models.py:14 models.py:17 models.py:37
 #: templates/students/dashboard/view_newsletter_overview.html:7
 msgid "Newsletter"
-msgstr ""
+msgstr "Newsletter"
 
 #: dashboard_widgets.py:13
 msgid "Erstie-Anmeldestatus"
-msgstr ""
+msgstr "Freshman sign-up status"
 
 #: forms.py:23
 msgid "Um Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden."
-msgstr ""
+msgstr "To subscribe to newsletters an e-mail address is necessary."
 
 #: models.py:18 templates/students/dashboard/view_newsletter_overview.html:11
 msgid "Beschreibung"
-msgstr ""
+msgstr "Description"
 
 #: models.py:19
 msgid "Auswählbar"
-msgstr ""
+msgstr "Selectable"
 
 #: models.py:28
 msgid "Erstie"
-msgstr ""
+msgstr "Freshman"
 
 #: models.py:32
 msgid "first name"
-msgstr ""
+msgstr "First name"
 
 #: models.py:33
 msgid "last name"
-msgstr ""
+msgstr "Last name"
 
 #: models.py:34
 msgid "e-mail address"
-msgstr ""
+msgstr "E-mail address"
 
 #: models.py:35
 msgid "Kleingruppe"
-msgstr ""
+msgstr "Small group"
 
 #: models.py:36
 msgid "Klausur mitschreiben?"
-msgstr ""
+msgstr "Participate in exam?"
 
 #: models.py:37
 msgid "Welche Newsletter willst du abonieren (optional)?"
-msgstr ""
+msgstr "Which newsletter(s) would you like to subscribe to?"
 
 #: models.py:58 models.py:59
 msgid "Einstellungen"
-msgstr ""
+msgstr "Settings"
 
 #: models.py:61
 msgid "Klausuranmeldung aktiv"
-msgstr ""
+msgstr "Exam registration open"
 
 #: models.py:64
 msgid "Students Einstellungen"
-msgstr ""
+msgstr "Student settings"
 
 #: models.py:72
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
-msgstr ""
+msgstr "It only makes sense and is possible to create one instance of the settings object."
 
 #: templates/students/dashboard/view_certificate.html:3
 #: templates/students/dashboard/view_export_newsletter.html:3
 #: templates/students/dashboard/view_newsletter_overview.html:3
 #: templates/students/dashboard/view_stats.html:3
 msgid "Stats"
-msgstr ""
+msgstr "Stats"
 
 #: templates/students/dashboard/view_certificate.html:3
 #: templates/students/dashboard/view_export_newsletter.html:3
 #: templates/students/dashboard/view_newsletter_overview.html:3
 #: templates/students/dashboard/view_stats.html:3
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
 #: templates/students/dashboard/view_certificate.html:7
 msgid "Zertifikate exportieren"
-msgstr ""
+msgstr "Export certificates"
 
 #: templates/students/dashboard/view_export_newsletter.html:7
 msgid "Newsletter Export"
-msgstr ""
+msgstr "Export newsletter"
 
 #: templates/students/dashboard/view_newsletter_overview.html:11
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: templates/students/dashboard/view_newsletter_overview.html:11
 msgid "Aktiv"
-msgstr ""
+msgstr "Active"
 
 #: templates/students/dashboard/view_newsletter_overview.html:11
 msgid "# Neue Abos"
-msgstr ""
+msgstr "# new subscriptions"
 
 #: templates/students/dashboard/view_newsletter_overview.html:11
 msgid "Export"
-msgstr ""
+msgstr "Export"
 
 #: templates/students/dashboard/view_stats.html:7
 msgid "Aktueller Eintragungsstand"
-msgstr ""
+msgstr "Current sign up status"
 
 #: templates/students/dashboard/view_stats.html:11
 msgid "Gruppe"
-msgstr ""
+msgstr "Group"
 
 #: templates/students/dashboard/view_stats.html:11
 msgid "# Ersties"
-msgstr ""
+msgstr "# freshmen"
 
 #: templates/students/dashboard/view_stats.html:11
 msgid "# Klausur"
-msgstr ""
+msgstr "# exam"
 
 #: templates/students/dashboard/view_stats.html:23
 msgid "Summe"
-msgstr ""
+msgstr "Sum"
 
 #: templates/students/dashboard/widget_registration_stats.html:2
 msgid "Eingetragene Ersties:"
-msgstr ""
+msgstr "Signed-up freshmen:"
 
 #: templates/students/dashboard/widget_registration_stats.html:3
 msgid "Klausuranmeldungen:"
-msgstr ""
+msgstr "Exam sign-ups:"
 
 #: templates/students/dashboard/widget_registration_stats.html:4
 msgid "Eingetragene Gruppen:"
-msgstr ""
+msgstr "Signed-up groups:"
 
 #: templates/students/exam_base.html:4
 msgid "Klau&shy;sur&shy;an&shy;mel&shy;dung"
-msgstr ""
+msgstr "Exam registration"
 
 #: templates/students/student_form.html:2 templates/students/success.html:3
 msgid "Klausuranmeldung"
-msgstr ""
+msgstr "Exam registration"
 
 #: templates/students/student_form.html:13
 msgid "Zurücksetzen"
-msgstr ""
+msgstr "Reset"
 
 #: templates/students/student_form.html:16
 msgid "Abschicken"
-msgstr ""
+msgstr "Send"
 
 #: templates/students/student_form.html:23
 msgid "Derzeit ist die Registrierung nicht freigeschaltet."
-msgstr ""
+msgstr "The registration is currently not active."
 
 #: templates/students/success.html:3
 msgid "Daten gespeichert"
-msgstr ""
+msgstr "Data saved"
 
 #: templates/students/success.html:12
 msgid "Deine Daten wurden erfolgreich gespeichert."
-msgstr ""
+msgstr "Your data has been saved successfully."
 
 #: templates/students/success.html:14
 msgid "Nächsten Eintrag hinzufügen"
-msgstr ""
+msgstr "Add next entry"
