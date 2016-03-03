@@ -588,7 +588,7 @@ msgstr "No existing tasks"
 #: templates/staff/mail_export.html:10
 #, python-format
 msgid " Es wurden %(persons|length)s Personen ausgewählt."
-msgstr "%(persons|lengths)s people selected"
+msgstr "%(persons|length)s people selected"
 
 #: templates/staff/person_form.html:9
 #, python-format
