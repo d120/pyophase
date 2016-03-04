@@ -6,9 +6,11 @@ from ophasebase.models import Ophase
 
 
 class GroupMassCreateForm(forms.Form):
-    category_choices = [(gc.id, str(gc)) for gc in GroupCategory.objects.all()]
-    category = forms.ChoiceField(label=_('Gruppenkategorie'), choices=category_choices)
-    group_names = forms.CharField(label=_('Gruppennamen'), help_text=_('Einen Gruppennamen pro Zeile eintragen.'), widget=forms.Textarea)
+    def __init__(self, *args, **kwargs):
+        super(GroupMassCreateForm, self).__init__(*args, **kwargs)
+        category_choices = [(gc.id, str(gc)) for gc in GroupCategory.objects.all()]
+        self.fields['category'] = forms.ChoiceField(label=_('Gruppenkategorie'), choices=category_choices)
+        self.fields['group_names'] = forms.CharField(label=_('Gruppennamen'), help_text=_('Einen Gruppennamen pro Zeile eintragen.'), widget=forms.Textarea)
 
     def clean_group_names(self):
         # remove unnecessary whitespace and duplicates
