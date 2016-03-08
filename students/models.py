@@ -61,7 +61,7 @@ class Settings(models.Model):
     student_registration_enabled = models.BooleanField(default=False, verbose_name=_("Klausuranmeldung aktiv"))
 
     def get_name(self):
-        return _("Students Einstellungen")
+        return '%s' % _("Students Einstellungen")
 
     def __str__(self):
         return self.get_name()
