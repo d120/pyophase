@@ -136,7 +136,7 @@ class Settings(models.Model):
     helper_jobs_enabled = models.ManyToManyField(HelperJob, verbose_name=_("Freigeschaltete Helferjobs"))
 
     def get_name(self):
-        return _("Staff Einstellungen")
+        return '%s' % _("Staff Einstellungen")
 
     def __str__(self):
         return self.get_name()
