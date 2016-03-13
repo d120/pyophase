@@ -5,9 +5,11 @@ pyophase is our management application used for organizing an introductory week 
 ## Development
 
 Please keep the following things in mind:
+* Objects which are relevant for only one Ophase should have a foreign key referring to this Ophase. This allows deleting all data associated to a specific Ophase by removing this single object.
 * Create and commit migrations after the database scheme changed (e.g. model changes). `./manage.py makemigrations`
 * Recreate, (maybe translate) and commit message files after a string is introduced or changed. `cd changed-app && ../manage.py makemessages`
 * From time to time, look for new versions of the dependencies, listed in `requirements.txt` and `bower.json`, test them and commit updated files.
+* When new major functionality is introduced, briefly explain it in `DOCUMENTATION.md`.
 
 ## Deployment
 
@@ -16,7 +18,7 @@ Please keep the following things in mind:
 * Maybe create a user for Django/WSGI applications (e.g. `django`)
 * Clone this repository into a proper directory (e.g. `/srv/pyophase`)
 * Maybe create MySQL database and proper user
-* Create the file `pyophase/settings_local.py` and fill it with production settings (it will be included automatically and overrides default settings)
+* Create the file `pyophase/settings_local.py` and fill it with production settings (it will be imported by `settings.py` and overrides default settings)
 * Create a virtualenv (e.g. `virtualenv -p python3 venv`)
 * For serving WSGI applications, one can install `uwsgi`, create an ini file under `/etc/uwsgi/` with the proper configuration and configure the webserver to use mod-proxy-uwsgi to make the application accessible. The webserver should also serve the static files.
 * Run all the relevant commands from the Updates section
@@ -37,7 +39,7 @@ Please keep the following things in mind:
 
 ## Usage
 
-Documentation is coming...
+A documentation (in German) for users of pyophase is available in `DOCUMENTATION.md`.
 
 ## Data Privacy
 
