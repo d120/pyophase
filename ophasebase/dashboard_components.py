@@ -1,10 +1,11 @@
 import datetime
+
 from django.utils.safestring import SafeText
-from dashboard.components import WidgetComponent
 from django.utils.translation import ugettext as _
 from django.utils.translation import ungettext
 from django.utils.dateformat import DateFormat
 
+from dashboard.components import WidgetComponent
 from .models import Ophase
 
 class CountdownWidget(WidgetComponent):
@@ -18,7 +19,7 @@ class CountdownWidget(WidgetComponent):
         elif datetime.date.today() < ophase.start_date:
             delta = ophase.start_date - datetime.date.today()
             msg = ungettext(
-                            '<b>%(days)d Tag</b><br />bis zur Ophase', 
+                            '<b>%(days)d Tag</b><br />bis zur Ophase',
                             '<b>%(days)d Tage</b><br />bis zur Ophase',
                             delta.days
                             ) % {
