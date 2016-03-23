@@ -27,7 +27,7 @@
                         <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
                             {% csrf_token %}
                             <input name="next" type="hidden" value="{{ request.path }}" />
-                            <select name="language" class="form-control input-sm">
+                            <select name="language" class="form-control input-sm" style="width:initial;">
                                 {% get_current_language as LANGUAGE_CODE %}
                                 {% get_available_languages as LANGUAGES %}
                                 {% get_language_info_list for LANGUAGES as languages %}
@@ -46,7 +46,7 @@
 
         <!-- Main component -->
         <div class="jumbotron">
-        {% block content %} {% endblock %}
+        {% block content %}{% endblock %}
         </div>
 
         <footer class="footer">
