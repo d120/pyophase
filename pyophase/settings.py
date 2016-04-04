@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'staff',
     'students',
     'exam',
+    'oplan',
     'bootstrap3',
 )
 

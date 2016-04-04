@@ -57,6 +57,11 @@ class Room(models.Model):
     capacity = models.IntegerField(verbose_name=_('Anzahl Plätze'))
     lat = models.FloatField(verbose_name=_('Latitude'), default=0, blank=True)
     lng = models.FloatField(verbose_name=_('Longitude'), default=0, blank=True)
+    mgmt_source = models.CharField(max_length=20, blank=True)
+    mgmt_id = models.CharField(max_length=50, blank=True)
+    mgmt_link = models.CharField(max_length=255, blank=True)
+    mgmt_comment = models.CharField(max_length=255, blank=True)
+
 
     def get_name(self):
         return "%s %s" % (self.building, self.number)

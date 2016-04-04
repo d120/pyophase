@@ -1,0 +1,253 @@
+<!doctype html>
+<html ng-app="oplanApp">
+<head>
+  <meta charset="utf-8">
+  <base href="/orga/">
+  <title>{{vk}}/{{title}}</title>
+  <link rel="stylesheet" href="../vendor/ag-grid/dist/angular-grid.css">
+  <link rel="stylesheet" href="../vendor/ag-grid/dist/theme-fresh.css">
+  <link rel="stylesheet" href="../vendor/fullcalendar/dist/fullcalendar.css"/>
+  <link rel="stylesheet" href="style.css">
+  <script src="../vendor/jquery/dist/jquery.min.js"></script>
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="angular-locale_de-de.js"></script>
+  <script src="../vendor/ag-grid/dist/angular-grid.js"></script>
+  <script src="../vendor/angular-route/angular-route.js"></script>
+  <script src="../vendor/moment/min/moment.min.js"></script>
+  <script src="../vendor/angular-ui-calendar/src/calendar.js"></script>
+  <script src="../vendor/fullcalendar/dist/fullcalendar.min.js"></script>
+  <script type="text/javascript" src="../vendor/fullcalendar/dist/gcal.js"></script>
+  
+  <script src="oplanApp.js"></script>
+  <script src="oplanBackend.js"></script>
+  <script src="oplanSlot.js"></script>
+  <script src="oplanRaumListe.js"></script>
+  <script src="oplanTimetable.js"></script>
+  <script src="httpIndicator.js"></script>
+</head>
+<body>
+
+<div id="menu">
+
+  <a href="#/{{vk}}/home" class="menubtn">Home</a>
+  <div id="dropdownmenu" ng-include="'partials/menu.html'"></div>
+  <input type="text" placeholder="Gehe zu Raum..." ng-model="gotoRoomText" size="15" ng-keypress="gotoRoomKey($event)">
+  &nbsp;
+</div>
+
+
+<div ng-view></div>
+
+<script type="text/ng-template" id="partials/slot.html">
+
+<div style="border:1px solid red;padding:10px;" ng-if="error">
+{{error}}
+</div>
+<div ng-if="!error">
+  <div style="margin:-5px -18px 5px; padding: 5px 18px; background: #993399">
+    <b>{{ak.von_dt|date:"EEE HH:mm"}} - {{ak.bis_dt|date:"HH:mm"}}</b>
+  </div>
+  
+  <button style="float:right" ng-click="slotDetailsMore=!slotDetailsMore">Details</button>
+  
+  <div class="ak_title">AK <input type="text" ng-model="ak.kurztitel" size=20 maxlength=20></div>
+  <div class="form-field">
+  <label class=b>Zielgruppe:</label> <input type="text" ng-model="ak.zielgruppe" maxlength="50" style="width:500px">
+  </div>
+  
+  <div ng-show="slotDetailsMore">
+    <div class="form-field">
+    <label class=b>Langer Titel:</label> <input type="text" ng-model="ak.langtitel" style="width:500px"></div>
+    <div class="form-field">
+    <label class=b>Beschreibung:</label> <input type="text" ng-model="ak.beschreibung" style="width:500px"></div>
+    <div class="form-field">
+    <label class=b>Wie viele:</label> <input type="text" ng-model="ak.wieviele_min" placeholder="von" style="width:25px"> &lt; n &lt; <input type="text" ng-model="ak.wieviele_max" placeholder="bis" style="width:25px">
+      <em>- oder -</em> <input type="text" ng-model="ak.wieviele_freitext" placeholder="Freitext" style="width:334px" maxlength="100"></div>
+    <div class="form-field">
+    <label class=b>Dauer:</label> <input type="text" ng-model="ak.dauer" maxlength="10" size="2" style="width:25px"> Minuten &nbsp; &nbsp;  <em>- oder - </em>
+      <input type="text" ng-model="ak.dauer_freitext" maxlength="100"  style="width:336px"></div>
+  </div>
+  
+  
+  <div class="toolbar">
+    <button class="menubtn" ng-click="addRow()" style="float:right">Zeile hinzufügen</button>
+
+    <a href="javascript:" ng-click="toggleSelection()" class="menubtn" title="Auswahl umkehren">+ / &mdash;</a>  
+
+    <select ng-model="multiselect.action" ng-show="multiselect.show">
+    <option value="">(Aktion für Auswahl)</option>
+    <option value="delete">Zeilen löschen</option>
+    <option value="set_zielgruppe">Zielgruppe zuweisen:</option>
+    <option value="set_min_platz">Min. Plätze zuweisen:</option>
+    <option value="copy_rooms">Räume kopieren</option>
+    <option value="set_rooms">Räume zuweisen:</option>
+    </select>
+    <input type="text" ng-model="multiselect.value" ng-show="multiselect.show">
+    <button ng-click="runMultiselectAction()" class="menubtn" ng-show="multiselect.show">go</button>
+  </div>
+
+
+  <div ag-grid="gridOptions" id="belegunggrid" class="ag-fresh" ng-style="{height:windowHeight-230-(slotDetailsMore?100:0)+'px'}" sizewithwindow></div>
+
+</div>
+
+</script>
+
+<script type="text/ng-template" id="partials/raumliste.html">
+<h1 style="float:left; margin:0 20px 0 0;">Alle verfügbaren Räume </h1>
+<div style="float:left">
+<button ng-click="persistView()">View speichern</button>
+</div>
+
+<hr style="clear:both">
+<div ag-grid="gridOptions" class="ag-fresh" style="height: 90%; width: 100%;"></div>
+
+</script>
+
+<script type="text/ng-template" id="partials/raumlistetucan.html">
+<h1>Raumliste - Druckansicht</h1>
+<table class="tucan">
+<thead>
+<tr><th>Datum</th><th>Von</th><th>Bis</th><th>Raum</th></tr>
+</thead>
+<tr ng-repeat="row in data">
+<td><nobr>{{row[0].von|date:"EEE, dd. MMM yyyy"}}</nobr></td>
+<td>{{row[0].von_time}}</td>
+<td>{{row[0].bis_time}}</td>
+<td>
+  <span ng-repeat="room in row"><span ng-if="!$first">, </span>
+    <span><a href="#/{{vk}}/raumplan/{{room.raum_nummer}}?w={{room.von|date:'ww'}}">{{room.raum_nummer}}</a></span></span>
+</td>
+</tr>
+</table>
+
+</script>
+
+
+<script type="text/ng-template" id="partials/kleingruppen.html">
+<h1>Kleingruppenliste</h1>
+<table class="tucan">
+<thead>
+<tr><th>Kleingruppe</th><th>Montag</th><th>Dienstag</th><th>Mittwoch</th><th>Donnerstag</th><th>Freitag</th></tr>
+</thead>
+<tr ng-repeat="row in data">
+<td ng-repeat="col in row track by $index" ng-class="{ warn: col=='!!!' ? 'red' : '' }">{{col}}</td>
+</tr>
+</table>
+
+</script>
+
+
+
+<script type="text/ng-template" id="partials/timetable.html">
+<div ng-if="slotId" class="slotDetails">
+<button ng-click="closeDetails()" style="float:right;margin: -3px 0 0 10px;">Schließen</button>
+<div ng-controller="OplanSlotCtrl" ng-include="'partials/slot.html'"></div>
+</div>
+
+<h1 style="float:left; margin:0 20px 0 0;">Stundenplan {{gruppe}}</h1>
+<div style="float: left">
+  <a href="stundenplan.php?w={{woche}}&g={{gruppe}}" class="menubtn">Druckansicht</a>
+  <a href="stundenplan.php?w={{woche}}&g={{gruppe}}&format=ics" class="menubtn">Export als ICS</a>
+</div>
+<hr style="clear:both">
+
+
+<div ui-calendar="calendar" ng-model="eventSources" calendar="timetable">
+
+</script>
+
+
+
+<script type="text/ng-template" id="partials/room.html">
+<h1 style="float:left; margin:0 20px 0 0;">Raum {{room}}  </h1>
+<div style="float:left">
+Snap: <select ng-model="calendar.snapDuration"><option>0:05</option><option>0:10</option><option>0:15</option><option>0:30</option></select>
+<button ng-click="updateAusVerw()">Buchungszeiten laden</button>
+
+<br>
+<span>
+Plätze: {{raumInfo.platz}} | Typ: {{raumInfo.raumtyp}} 
+</span>
+<span ng-if="raumInfo.verw_mit=='tucan'">
+| <b>TUCaN</b>: <a href="{{raumInfo.verw_link}}">Raumdetails</a>, 
+<a href="https://www.tucan.tu-darmstadt.de/scripts/mgrqcgi?APPNAME=CampusNet&PRGNAME=SCHEDULER&ARGUMENTS=-N000000000000001,-N000385,-A{{calStart|date:'dd.MM.yyyy'}},-A,-N1,-N{{raumInfo.verw_id}}">Termine</a>
+</span>
+<br>
+<i>
+Kommentar: {{raumInfo.verw_kommentar}}
+</i>
+
+</div>
+<hr style="clear:both">
+
+<div id="sidebar">
+  <a ng-href="#/{{vk}}/raumplan/{{raum.nummer}}?w={{defaultWeek}}" ng-repeat="raum in raumliste" ng-class="{current:room==raum.nummer}">
+  {{raum.nummer}} <small>({{raum.platz}})</small></a>
+</div>
+<div id="contentArea">
+  <div ui-calendar="calendar" ng-model="eventSources" calendar="timetable">
+</div>
+</script>
+
+<script type="text/ng-template" id="partials/menu.html">
+<ul>
+<li><b>Stundenpläne</b><ul>
+  <li ng-repeat="(id,text) in stundenplanlist"><a ng-href="#/{{vk}}/stundenplan/{{ id }}?w={{defaultWeek}}">{{ text }}</a></li>
+</ul></li>
+
+<li><b>Raumlisten</b><ul>
+  <li><a href="#/{{vk}}/raumliste">Alle verfügbaren Räume</a></li>
+  <li><a href="#/{{vk}}/raumliste/tucan">Druckansicht</a></li>
+  <li><a href="#/{{vk}}/raumliste/kleingruppe">Kleingruppenräume</a></li>
+</ul></li>
+
+</ul>
+</script>
+
+<script type="text/ng-template" id="partials/home.html">
+<h1 style="float:left; margin:0 20px 0 0;">Oplan </h1>
+<div style="float:left">
+<a href="#/select_event" class="menubtn">Veranstaltung wechseln</a>
+</div>
+<hr style="clear:both">
+
+
+<div ng-include="'partials/menu.html'" id="homepage_menu"></div>
+
+<form ng-show="!auth">
+<input type="text" ng-model="username"> <input type="password" ng-model="password" id="login_pw"> 
+<button ng-click="login()">Login</button>
+</form>
+<div ng-show="auth">
+Hallo {{username}}, du bist eingeloggt.
+<button ng-click="logout()">Logout</button>
+</div>
+
+</script>
+
+<script type="text/ng-template" id="partials/select_veranstaltung.html">
+<h1>Veranstaltung wählen</h1>
+
+<div id="homepage_menu">
+<ul>
+<li><b>Veranstaltung</b><ul>
+  <li ng-repeat="vv in veranstaltunglist"><a ng-href="#/{{ vv.kuerzel }}/home">{{ vv.kuerzel }}</a></li>
+</ul></li>
+</ul>
+</div>
+
+
+</script>
+
+<script type="text/ng-template" id="partials/404.html">
+<br>
+<h1>404</h1>
+</script>
+<script type="text/ng-template" id="partials/eile.html">
+<br>
+<h1>Eile mit Weile</h1>
+</script>
+
+</body>
+</html>

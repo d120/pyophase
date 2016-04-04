@@ -16,6 +16,12 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'ophasebase:welcome' %}">OphaseHQ</a>
                 </div>
+                <ul class="navbar-nav nav">
+                  <li><a href="{% url 'ophasebase:welcome' %}">Home</a></li>
+                  <li><a href="{% url 'dashboard:index' %}">Dashboard</a></li>
+                  <li><a href="{% url 'dashboard:index' %}">Planung</a></li>
+                  <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                </ul>
                 <div class="navbar-right">
                     {% if user.is_authenticated %}
                     <span class="navbar-text">{% trans "Angemeldet als" %} {{ user.username }} - <a href="{% url 'logout' %}">{% trans "Logout" %}</a></span>
