@@ -675,7 +675,7 @@ msgid ""
 "momentan nicht geöffnet."
 msgstr ""
 "The registration for the %(ophase_title)s <b>%(ophase_duration)s</b> is "
-"already closed."
+"not open right now."
 
 #: templates/staff/success.html:3
 msgid "Daten gespeichert"
