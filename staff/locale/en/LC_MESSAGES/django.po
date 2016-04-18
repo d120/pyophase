@@ -669,10 +669,7 @@ msgid "Die Ophasen-Leitung"
 msgstr "Head of Ophase"
 
 #: templates/staff/person_form.html:55
-#, fuzzy, python-format
-#| msgid ""
-#| "Für die %(ophase_title)s <b>%(ophase_duration)s</b> ist die Anmeldung "
-#| "bereits abgeschlossen."
+#, python-format
 msgid ""
 "Für die %(ophase_title)s <b>%(ophase_duration)s</b> ist die Anmeldung "
 "momentan nicht geöffnet."
