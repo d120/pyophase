@@ -116,11 +116,9 @@ LANGUAGES = [
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-
 STATIC_ROOT = 'static'
 
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
 
-try:
-    from pyophase.settings_local import *
-except ImportError:
-    pass
+CSRF_COOKIE_HTTPONLY = True

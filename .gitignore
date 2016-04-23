@@ -15,8 +15,8 @@ ophasebase/static/ophasebase/components
 # static files collected by manage.py collectstatic on root path
 /static/
 
-# local settings file for overwriting default development settings
-settings_local.py
+# settings file containing secrets
+settings_secrets.py
 
 # JetBrains IDE
 .idea/
