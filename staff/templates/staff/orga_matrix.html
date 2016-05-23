@@ -1,0 +1,68 @@
+{% extends "admin/base_site.html" %}{% load staticfiles %}{% load i18n %}
+
+{% block title %}{% trans "Orga-Übersicht" %} {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'ophasebase/components/font-awesome/css/font-awesome.min.css' %}" />
+<style>
+    td {
+        font-size: 10pt;
+        text-align: center;
+    }
+    tfoot td {
+        border: none;
+    }
+    tbody td:first-child, tfoot td:first-child {
+        text-align: left;
+    }
+    tr:nth-child(even) {
+        background-color: #e9e9e9;
+    }
+    .fa-check {
+        color: #048704;
+    }
+</style>
+
+<h2>{% trans "Orga-Übersicht" %}</h2>
+
+<table>
+    <thead>
+        <tr>
+            <td></td>
+            <td></td>
+            {% for j in jobs %}
+            <td>{{ j.label }}</td>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for o in orgas %}
+        <tr>
+            <td>{{ o.prename }} {{ o.name }}</td>
+            <td>{% if o.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
+            {% for j in o.job_interest %}
+            <td>{% if j == True %}<i class="fa fa-check"></i>{% endif %}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            {% for j in jobs %}
+            <td>{{ j.label }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>{% trans "Gesamt" %}</td>
+            <td></td>
+            {% for j in jobs %}
+            <td>{{ j.num_helper }}</td>
+            {% endfor %}
+        </tr>
+    </tfoot>
+</table>
+
+{% endblock %}

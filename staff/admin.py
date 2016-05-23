@@ -44,7 +44,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
     readonly_fields = ('created_at', 'updated_at')
-    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, group_by_dresssize]
+    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, group_by_dresssize]
 
     fieldsets = [
         (_('Personendaten'), {'fields':

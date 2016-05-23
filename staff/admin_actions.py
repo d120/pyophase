@@ -127,6 +127,33 @@ def helper_job_overview(modeladmin, request, queryset):
 helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
 
 
+def orga_job_overview(modeladmin, request, queryset):
+    """Display a matrix to show orga with associated orga jobs.
+    """
+    template = loader.get_template("staff/orga_matrix.html")
+
+    orgas = queryset.filter(is_orga=True)
+    jobs = OrgaJob.objects.all().annotate(num_orgas=Count(Case(When(person__is_orga=True, then=1)))).order_by('label')
+
+    for o in orgas:
+        job_interest = []
+        for j in jobs:
+            if o.orga_jobs.filter(id=j.id).exists():
+                job_interest.append(True)
+            else:
+                job_interest.append(False)
+        o.job_interest = job_interest
+
+    context = {
+        'orgas' : orgas,
+        'jobs' : jobs,
+    }
+
+    return SimpleTemplateResponse(template, context)
+
+orga_job_overview.short_description = _('Orga-Übersicht anzeigen')
+
+
 def tutorgroup_export(modeladmin, request, queryset):
     """Exports group names with associated tutors in ods format.
     The produced ods file serves as an input for the name tag Java aplication.
