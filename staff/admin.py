@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext as _
 
 from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
-from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, tutorgroup_export, group_by_dresssize
+from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, group_by_dresssize
 
 
 admin.site.register(GroupCategory)
