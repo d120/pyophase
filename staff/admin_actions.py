@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.db.models import Q, Count, Case, When
 from django.utils.translation import ugettext as _
 
-from staff.models import HelperJob, DressSize
+from staff.models import HelperJob, OrgaJob, DressSize
 
 import odswriter
 
