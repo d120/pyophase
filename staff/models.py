@@ -12,6 +12,7 @@ class GroupCategory(models.Model):
     class Meta:
         verbose_name = _("Gruppenkategorie")
         verbose_name_plural = _("Gruppenkategorien")
+        ordering = ['label']
 
     label = models.CharField(max_length=50)
 
@@ -29,20 +30,20 @@ class Job(models.Model):
 
     def __str__(self):
         return self.label
-
-
+    
 class OrgaJob(Job):
     """Job for an organizer."""
     class Meta:
         verbose_name = _("Orgajob")
         verbose_name_plural = _("Orgajobs")
-
+        ordering = ['label']
 
 class HelperJob(Job):
     """Job for a helper."""
     class Meta:
         verbose_name = _("Helferjob")
         verbose_name_plural = _("Helferjobs")
+        ordering = ['label']
 
 
 class DressSize(models.Model):
