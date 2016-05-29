@@ -5,11 +5,14 @@ from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, He
 from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, group_by_dresssize
 
 
-admin.site.register(GroupCategory)
-admin.site.register(OrgaJob)
-admin.site.register(HelperJob)
 admin.site.register(DressSize)
 
+@admin.register(OrgaJob)
+@admin.register(HelperJob)
+@admin.register(GroupCategory)
+class LabelSortAdmin(admin.ModelAdmin):
+    """Simple ModelAdmin which just shows the field Value in the list view"""
+    list_display = ['label']
 
 class TutorFilter(admin.SimpleListFilter):
     title = _('Tutorenstatus')
