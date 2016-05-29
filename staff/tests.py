@@ -51,7 +51,7 @@ class AppendDescriptionTestCase(TestCase):
         self.assertFalse(isinstance(pf.fields['name'].label, SafeText))
 
 class StaffSeleniumTests(StaticLiveServerTestCase):
-    fixtures = ['ophasebase.json', 'staff.json', 'students.json', 'exam.json']
+    fixtures = ['ophasebase.json', 'staff.json', 'students.json']
 
     @classmethod
     def setUpClass(cls):

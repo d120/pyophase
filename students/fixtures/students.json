@@ -1,0 +1,1 @@
+[{"model": "students.newsletter", "pk": 1, "fields": {"name": "FS Newsletter", "description": "Hallo", "active": true}}, {"model": "students.settings", "pk": 1, "fields": {"student_registration_enabled": true}}]
