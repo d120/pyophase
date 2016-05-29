@@ -2,6 +2,8 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from urllib.parse import quote
+
 from ophasebase.models import Ophase
 
 
@@ -92,6 +94,24 @@ class Person(models.Model):
     get_name.short_description = _("Name")
     get_name.admin_order_field = 'prename'
 
+    def get_fillform(self):
+        """Return the fillform serialized informations of the Person.
+        To build a one click registration the full path to the 
+        staff registration view must be added at the beginning"""
+        
+        allowed_keys = ['prename','name','email','phone', 'matriculated_since',
+                         'degree_course', 'experience_ophase', 
+                         'why_participate', 'remarks']
+        
+        prefix = '#fillform&v=1'
+        
+        user_values = ''
+        for key in allowed_keys:
+            value = getattr(self,key).__str__()
+            user_values += ("&%s=%s" % (key, quote(value)) )
+            
+        return prefix+user_values
+
     def __str__(self):
         return self.get_name()
 
@@ -103,7 +123,6 @@ class Person(models.Model):
         if self.tutor_for is not None:
             self.is_tutor = True
         super(Person, self).save(*args, **kwargs)
-
 
 class TutorGroup(models.Model):
     """A group of students guided by tutors."""
