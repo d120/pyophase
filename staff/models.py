@@ -14,7 +14,7 @@ class GroupCategory(models.Model):
         verbose_name_plural = _("Gruppenkategorien")
         ordering = ['label']
 
-    label = models.CharField(max_length=50)
+    label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
 
     def __str__(self):
         return self.label
@@ -25,8 +25,8 @@ class Job(models.Model):
     class Meta:
         abstract = True
 
-    label = models.CharField(max_length=50)
-    description = models.TextField()
+    label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
+    description = models.TextField(verbose_name=_('Beschreibung'))
 
     def __str__(self):
         return self.label
