@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # ckleemann <ckleemann@d120.de>, 2016.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 21:39+0100\n"
-"PO-Revision-Date: 2016-02-28 17:28+0100\n"
+"POT-Creation-Date: 2016-05-29 17:04+0200\n"
+"PO-Revision-Date: 2016-05-29 17:06+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
@@ -22,10 +21,6 @@ msgstr ""
 #: dashboard_views.py:12 models.py:29
 msgid "Ersties"
 msgstr "Freshmen"
-
-#: dashboard_views.py:13
-msgid "students"
-msgstr "Students"
 
 #: dashboard_views.py:19
 msgid "Übersicht"
@@ -69,7 +64,8 @@ msgid "last name"
 msgstr "Last name"
 
 #: models.py:34
-msgid "e-mail address"
+#| msgid "e-mail address"
+msgid "E-Mail-Adresse"
 msgstr "E-mail address"
 
 #: models.py:35
@@ -100,7 +96,9 @@ msgstr "Student settings"
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
-msgstr "It only makes sense and is possible to create one instance of the settings object."
+msgstr ""
+"It only makes sense and is possible to create one instance of the settings "
+"object."
 
 #: templates/students/dashboard/view_certificate.html:3
 #: templates/students/dashboard/view_export_newsletter.html:3
@@ -203,3 +201,6 @@ msgstr "Your data has been saved successfully."
 #: templates/students/success.html:14
 msgid "Nächsten Eintrag hinzufügen"
 msgstr "Add next entry"
+
+#~ msgid "students"
+#~ msgstr "Students"
