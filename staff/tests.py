@@ -50,22 +50,23 @@ class AppendDescriptionTestCase(TestCase):
         #Other labels are not of type SafeText
         self.assertFalse(isinstance(pf.fields['name'].label, SafeText))
 
-class MySeleniumTests(StaticLiveServerTestCase):
+class StaffSeleniumTests(StaticLiveServerTestCase):
     fixtures = ['ophasebase.json', 'staff.json', 'students.json', 'exam.json']
 
     @classmethod
     def setUpClass(cls):
-        super(MySeleniumTests, cls).setUpClass()
+        super(StaffSeleniumTests, cls).setUpClass()
         cls.selenium = WebDriver()
 
     @classmethod
     def tearDownClass(cls):
         cls.selenium.quit()
-        super(MySeleniumTests, cls).tearDownClass()
+        super(StaffSeleniumTests, cls).tearDownClass()
 
     def test_dependent_visibility_two(self):
+        """Test that showing and hiding of fields works"""
         driver = self.selenium
-        driver.get(self.live_server_url + "/mitmachen/")
+        driver.get('%s%s' % (self.live_server_url, '/mitmachen/'))
         self.assertFalse(driver.find_element_by_id("id_tutor_for").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("//div[@id='mainForm']/form/div[12]").is_displayed())
         self.assertFalse(driver.find_element_by_xpath("//div[@id='mainForm']/form/div[14]").is_displayed())
@@ -101,6 +102,20 @@ class MySeleniumTests(StaticLiveServerTestCase):
         driver.find_element_by_id("id_is_helper").click()
         self.assertTrue(driver.find_element_by_xpath("//div[@id='mainForm']/form/div[14]").is_displayed())
         self.assertFalse(driver.find_element_by_id("id_helper_jobs_0").is_selected())
+
+    def test_fillform(self):
+        """Test fillform with all possible fields"""
+        driver = self.selenium
+        driver.get('%s%s' % (self.live_server_url, '/mitmachen/#fillform&v=1&prename=Thorsten&name=Freitag&email=ThorstenFreitag@example.com&phone=0151911860119&matriculated_since=2010&degree_course=Bachelor&experience_ophase=I did something.%0ALet me do more.&why_participate=Because I can %26 want do to more.&remarks=Some remark %3D better then nothing.'))
+        self.assertEqual("Thorsten", driver.find_element_by_id("id_prename").get_attribute("value"))
+        self.assertEqual("Freitag", driver.find_element_by_id("id_name").get_attribute("value"))
+        self.assertEqual("ThorstenFreitag@example.com", driver.find_element_by_id("id_email").get_attribute("value"))
+        self.assertEqual("0151911860119", driver.find_element_by_id("id_phone").get_attribute("value"))
+        self.assertEqual("2010", driver.find_element_by_id("id_matriculated_since").get_attribute("value"))
+        self.assertEqual("Bachelor", driver.find_element_by_id("id_degree_course").get_attribute("value"))
+        self.assertEqual("I did something.\nLet me do more.", driver.find_element_by_id("id_experience_ophase").get_attribute("value"))
+        self.assertEqual("Because I can & want do to more.", driver.find_element_by_id("id_why_participate").get_attribute("value"))
+        self.assertEqual("Some remark = better then nothing.", driver.find_element_by_id("id_remarks").get_attribute("value"))    
 
     def is_element_present(self, how, what):
         try: self.driver.find_element(by=how, value=what)
