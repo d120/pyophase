@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-02 18:38+0100\n"
+"POT-Creation-Date: 2016-05-30 13:43+0200\n"
 "PO-Revision-Date: 2016-03-21 16:33+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -26,26 +26,26 @@ msgstr "Facilities"
 msgid "Position"
 msgstr "Position"
 
-#: dashboard_components.py:11
+#: dashboard_components.py:12
 msgid "Ophasenstatus"
 msgstr "State of Ophase"
 
-#: dashboard_components.py:17
+#: dashboard_components.py:18
 msgid "Keine Ophase<br />in Aussicht"
 msgstr "No Ophase<br />in sight"
 
-#: dashboard_components.py:21
+#: dashboard_components.py:22
 #, python-format
 msgid "<b>%(days)d Tag</b><br />bis zur Ophase"
 msgid_plural "<b>%(days)d Tage</b><br />bis zur Ophase"
 msgstr[0] "<b>%(days)d day</b><br />until the next Ophase"
 msgstr[1] "<b>%(days)d days</b><br />until the next Ophase"
 
-#: dashboard_components.py:28
+#: dashboard_components.py:29
 msgid "Die Ophase<br />ist vorüber"
 msgstr "The Ophase<br />is over"
 
-#: dashboard_components.py:31
+#: dashboard_components.py:32
 #, python-format
 msgid "Es ist Ophase<br /> <b>%(weekday)s</b>"
 msgstr "It's Ophase<br /> <b>%(weekday)s</b> "
@@ -187,19 +187,19 @@ msgstr "from %(begin)s to %(end)s"
 msgid "Ende der Ophase kann nicht vor ihrem Anfang liegen."
 msgstr "The end of the Ophase cannot be before its beginning."
 
-#: templates/ophasebase/base.html:21
+#: templates/ophasebase/base.html:22
 msgid "Angemeldet als"
 msgstr "Registered as"
 
-#: templates/ophasebase/base.html:21
+#: templates/ophasebase/base.html:22
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/ophasebase/base.html:23
+#: templates/ophasebase/base.html:24
 msgid "Login"
 msgstr "Login"
 
-#: templates/ophasebase/base.html:39
+#: templates/ophasebase/base.html:40
 msgid "Sprache ändern"
 msgstr "Switch language"
 

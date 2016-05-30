@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-29 17:04+0200\n"
+"POT-Creation-Date: 2016-05-30 13:43+0200\n"
 "PO-Revision-Date: 2016-05-29 17:06+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -64,7 +64,6 @@ msgid "last name"
 msgstr "Last name"
 
 #: models.py:34
-#| msgid "e-mail address"
 msgid "E-Mail-Adresse"
 msgstr "E-mail address"
 

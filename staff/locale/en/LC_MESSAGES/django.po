@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-18 19:03+0200\n"
+"POT-Creation-Date: 2016-05-30 13:43+0200\n"
 "PO-Revision-Date: 2016-04-18 19:04+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -18,52 +18,52 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:15
+#: admin.py:18
 #, fuzzy
 #| msgid "Tutoren"
 msgid "Tutorenstatus"
 msgstr "Tutor status"
 
-#: admin.py:19
+#: admin.py:22
 #, fuzzy
 #| msgid "Tutoren"
 msgid "Alle Tutoren"
 msgstr "All tutors"
 
-#: admin.py:22
+#: admin.py:25
 #, fuzzy
 #| msgid "Tutoren"
 msgid "Keine Tutoren"
 msgstr "No tutors"
 
-#: admin.py:50
+#: admin.py:53
 #, fuzzy
 #| msgid "Personen"
 msgid "Personendaten"
 msgstr "Personal data"
 
-#: admin.py:52
+#: admin.py:55
 msgid "Bewerbung"
 msgstr "Application"
 
-#: admin.py:54
+#: admin.py:57
 msgid "In der Ophase"
 msgstr "During the Ophase"
 
-#: admin.py:56
+#: admin.py:59
 msgid "Sonstiges"
 msgstr "Miscellaneous"
 
-#: admin.py:67
+#: admin.py:70
 msgid "Orga-Notiz"
 msgstr "Organizers' notes"
 
-#: admin.py:79 admin_actions.py:89 models.py:118
+#: admin.py:82 admin_actions.py:89 models.py:138
 #: templates/staff/dashboard/widget_staff.html:3 views.py:25
 msgid "Tutoren"
 msgstr "Tutors"
 
-#: admin_actions.py:22 templates/staff/mail_export.html.py:3
+#: admin_actions.py:22 templates/staff/mail_export.html:3
 #: templates/staff/mail_export.html:7
 msgid "E-Mail Mass Subscription Export"
 msgstr "E-mail mass subscription export"
@@ -72,7 +72,7 @@ msgstr "E-mail mass subscription export"
 msgid "Namensschilderexport"
 msgstr "Name tag export"
 
-#: admin_actions.py:86 templates/staff/dashboard/widget_staff.html.py:4
+#: admin_actions.py:86 templates/staff/dashboard/widget_staff.html:4
 #, fuzzy
 #| msgid "Orga"
 msgid "Orgas"
@@ -106,7 +106,7 @@ msgstr "Responsible for ..."
 msgid "Betreut ..."
 msgstr "Takes care of ..."
 
-#: admin_actions.py:92 models.py:80
+#: admin_actions.py:92 models.py:83
 #: templates/staff/dashboard/widget_staff.html:5 views.py:29
 msgid "Helfer"
 msgstr "Helper"
@@ -123,19 +123,25 @@ msgstr "Export overview"
 msgid "Helfer-Übersicht anzeigen"
 msgstr "Show helper overview"
 
-#: admin_actions.py:157
+#: admin_actions.py:154
+#, fuzzy
+#| msgid "Helfer-Übersicht anzeigen"
+msgid "Orga-Übersicht anzeigen"
+msgstr "Show helper overview"
+
+#: admin_actions.py:184
 #, fuzzy
 #| msgid "Kleingruppen"
 msgid "Kleingruppen exportieren"
 msgstr "Export tutored groups"
 
-#: admin_actions.py:177 templates/staff/dresssize.html.py:3
+#: admin_actions.py:204 templates/staff/dresssize.html:3
 #, fuzzy
 #| msgid "Kleidergrößen"
 msgid "Kleidergrößenübersicht"
 msgstr "Overview of dress sizes"
 
-#: dashboard_forms.py:12 dashboard_forms.py:28 models.py:11 models.py:119
+#: dashboard_forms.py:12 dashboard_forms.py:28 models.py:13 models.py:139
 msgid "Gruppenkategorie"
 msgstr "Group categories"
 
@@ -155,13 +161,13 @@ msgstr "Enter one group name per line."
 msgid "Personal"
 msgstr "Staff"
 
-#: dashboard_views.py:21 templates/staff/dashboard/group_mass_create.html.py:3
+#: dashboard_views.py:21 templates/staff/dashboard/group_mass_create.html:3
 #, fuzzy
 #| msgid "Kleingruppen"
 msgid "Kleingruppen erstellen"
 msgstr "Create tutored groups"
 
-#: dashboard_views.py:22 templates/staff/dashboard/tutor_pairing.html.py:3
+#: dashboard_views.py:22 templates/staff/dashboard/tutor_pairing.html:3
 #, fuzzy
 #| msgid "Tutoren"
 msgid "Tutoren paaren"
@@ -216,89 +222,99 @@ msgstr ""
 "You can only help with the Ophase if you apply as tutor, organizer or "
 "helper. Please select at least one role."
 
-#: models.py:12
+#: models.py:14
 msgid "Gruppenkategorien"
 msgstr "Group categories"
 
-#: models.py:35
+#: models.py:17 models.py:28
+msgid "Bezeichnung"
+msgstr ""
+
+#: models.py:29
+#, fuzzy
+#| msgid "Aufgabenbeschreibung"
+msgid "Beschreibung"
+msgstr "Task description"
+
+#: models.py:37
 msgid "Orgajob"
 msgstr "Organizer's task"
 
-#: models.py:36
+#: models.py:38
 msgid "Orgajobs"
 msgstr "Organizer's tasks"
 
-#: models.py:42
+#: models.py:44
 msgid "Helferjob"
 msgstr "Helper's tasks"
 
-#: models.py:43
+#: models.py:45
 msgid "Helferjobs"
 msgstr "Helper's tasks"
 
-#: models.py:49 models.py:54 models.py:84
+#: models.py:52 models.py:57 models.py:87
 msgid "Kleidergröße"
 msgstr "Dress size"
 
-#: models.py:50
+#: models.py:53
 msgid "Kleidergrößen"
 msgstr "Dress sizes"
 
-#: models.py:55
+#: models.py:58
 msgid "Position in Auflistung"
 msgstr "Position in list"
 
-#: models.py:64
+#: models.py:67
 msgid "Person"
 msgstr "Person"
 
-#: models.py:65
+#: models.py:68
 msgid "Personen"
 msgstr "People"
 
-#: models.py:70
+#: models.py:73
 msgid "first name"
 msgstr "First name"
 
-#: models.py:71
+#: models.py:74
 msgid "last name"
 msgstr "Last name"
 
-#: models.py:72
+#: models.py:75
 msgid "E-Mail-Adresse"
 msgstr "E-mail address"
 
-#: models.py:73
+#: models.py:76
 msgid "Handynummer"
 msgstr "Mobile phone number"
 
-#: models.py:73
+#: models.py:76
 msgid "Deine Handynummer brauchen wir um dich schnell erreichen zu können."
 msgstr ""
 "Your mobile phone number is required to make it possible to contact you "
 "quickly."
 
-#: models.py:74
+#: models.py:77
 msgid "An der Uni seit"
 msgstr "At this university since"
 
-#: models.py:74
+#: models.py:77
 msgid "Seit wann studierst du an der TU Darmstadt?"
 msgstr "Since when do you study at TU Darmstadt?"
 
-#: models.py:75
+#: models.py:78
 msgid "Aktuell angestrebter Abschluss"
 msgstr "Current degree programm"
 
-#: models.py:75
+#: models.py:78
 msgid "Bachelor, Master, Joint Bachelor of Arts, etc."
 msgstr "Bachelor, Master, Joint Bachelor of Arts, etc."
 
-#: models.py:76
+#: models.py:79
 msgid "Bisherige Ophasenerfahrung"
 msgstr "Experience in the Ophase so far"
 
-#: models.py:76
+#: models.py:79
 msgid ""
 "Wenn du schonmal bei einer Ophase geholfen hast, schreib uns wann das war "
 "und was du gemacht hast."
@@ -306,55 +322,55 @@ msgstr ""
 "If you already helped with a previous Ophase, let us know when it was and "
 "what you did."
 
-#: models.py:77
+#: models.py:80
 msgid "Warum möchtest du bei der Ophase mitmachen?"
 msgstr "Why would you like to participate in the Ophase?"
 
-#: models.py:78
+#: models.py:81
 msgid "Tutor"
 msgstr "Tutor"
 
-#: models.py:78
+#: models.py:81
 msgid "Möchtest du als Tutor bei der Ophase mitmachen?"
 msgstr "Would you like to participate as a tutor in the Ophase?"
 
-#: models.py:79
+#: models.py:82
 msgid "Orga"
 msgstr "Organizer"
 
-#: models.py:79
+#: models.py:82
 msgid "Möchtest du als Orga bei der Ophase mitmachen?"
 msgstr "Would you like to participate as an organizer in the Ophase?"
 
-#: models.py:80
+#: models.py:83
 msgid "Möchtest du als Helfer bei der Ophase mitmachen?"
 msgstr "Would you like to participate as a helper in the Ophase?"
 
-#: models.py:81
+#: models.py:84
 msgid "Tutor für"
 msgstr "Tutor for"
 
-#: models.py:81
+#: models.py:84
 msgid "Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"
 msgstr "Freshmen of which degree program would you like to take care of?"
 
-#: models.py:82
+#: models.py:85
 msgid "Orgaaufgaben"
 msgstr "Organizer's tasks"
 
-#: models.py:82
+#: models.py:85
 msgid "Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"
 msgstr "Which organizer's tasks would you like to be responsible of?"
 
-#: models.py:83
+#: models.py:86
 msgid "Helferaufgaben"
 msgstr "Helper's tasks"
 
-#: models.py:83
+#: models.py:86
 msgid "Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"
 msgstr "With which tasks could you see yourself helping?"
 
-#: models.py:84
+#: models.py:87
 msgid ""
 "Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt "
 "passt brauchen wir deine Größe."
@@ -362,79 +378,79 @@ msgstr ""
 "Contributors get a t-shirt to make them easily recognizable. We need your "
 "dress size so your t-shirt fits you well."
 
-#: models.py:85
+#: models.py:88
 msgid "Anmerkungen"
 msgstr "Comments"
 
-#: models.py:85
+#: models.py:88
 msgid "Was sollten wir noch wissen?"
 msgstr "What else should we know?"
 
-#: models.py:86
+#: models.py:89
 msgid "Orga-Anmerkungen"
 msgstr "Organizers' notes"
 
-#: models.py:86
+#: models.py:89
 msgid "Notizen von Leitung und Orgas."
 msgstr "Notes by organizers/head of Ophase"
 
-#: models.py:87
+#: models.py:90
 msgid "Eingetragen am"
 msgstr "Created at"
 
-#: models.py:88
+#: models.py:91
 msgid "Verändert am"
 msgstr "Updated at"
 
-#: models.py:92
+#: models.py:95
 msgid "Name"
 msgstr "Name"
 
-#: models.py:111
+#: models.py:131
 msgid "Kleingruppe"
 msgstr "Tutored group"
 
-#: models.py:112
+#: models.py:132
 msgid "Kleingruppen"
 msgstr "Tutored groups"
 
-#: models.py:117
+#: models.py:137
 msgid "Gruppenname"
 msgstr "Group name"
 
-#: models.py:128 models.py:129
+#: models.py:148 models.py:149
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: models.py:131
+#: models.py:151
 msgid "Tutor Registrierung aktiv"
 msgstr "Tutor registration active"
 
-#: models.py:132
+#: models.py:152
 msgid "Orga Registrierung aktiv"
 msgstr "Organizer registration active"
 
-#: models.py:133
+#: models.py:153
 msgid "Helfer Registrierung aktiv"
 msgstr "Helper registration active"
 
-#: models.py:134
+#: models.py:154
 msgid "Freigeschaltete Kleingruppenkategorien"
 msgstr "Open tutored group categories"
 
-#: models.py:135
+#: models.py:155
 msgid "Freigeschaltete Orgajobs"
 msgstr "Open organizers' tasks"
 
-#: models.py:136
+#: models.py:156
 msgid "Freigeschaltete Helferjobs"
 msgstr "Open helpers' jobs"
 
-#: models.py:139
+#: models.py:159
 msgid "Staff Einstellungen"
 msgstr "Staff settings"
 
-#: models.py:147
+#: models.py:167
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
@@ -447,7 +463,7 @@ msgid "Fehler"
 msgstr "Error"
 
 #: templates/staff/already_registered.html:3 templates/staff/job_list.html:3
-#: templates/staff/person_form.html.py:2 templates/staff/success.html:3
+#: templates/staff/person_form.html:2 templates/staff/success.html:3
 msgid "Mitmachen"
 msgstr "Participate"
 
@@ -548,7 +564,7 @@ msgstr "Overview of dress sizes"
 msgid "Es wurden %(data | length)s Größen ausgewertet."
 msgstr "%(data | length)s sizes analyzed"
 
-#: templates/staff/dresssize.html:13 templates/staff/dresssize.html.py:19
+#: templates/staff/dresssize.html:13 templates/staff/dresssize.html:19
 msgid "Achtung:"
 msgstr "Caution:"
 
@@ -593,7 +609,7 @@ msgstr "No existing entries"
 msgid "Helfer-Übersicht"
 msgstr "Helper overview"
 
-#: templates/staff/helper_matrix.html:59
+#: templates/staff/helper_matrix.html:59 templates/staff/orga_matrix.html:59
 msgid "Gesamt"
 msgstr "Total"
 
@@ -613,6 +629,12 @@ msgstr "No existing tasks"
 #, python-format
 msgid " Es wurden %(persons|length)s Personen ausgewählt."
 msgstr "%(persons|length)s people selected"
+
+#: templates/staff/orga_matrix.html:3 templates/staff/orga_matrix.html:27
+#, fuzzy
+#| msgid "Helfer-Übersicht"
+msgid "Orga-Übersicht"
+msgstr "Helper overview"
 
 #: templates/staff/person_form.html:9
 #, python-format
@@ -674,8 +696,8 @@ msgid ""
 "Für die %(ophase_title)s <b>%(ophase_duration)s</b> ist die Anmeldung "
 "momentan nicht geöffnet."
 msgstr ""
-"The registration for the %(ophase_title)s <b>%(ophase_duration)s</b> is "
-"not open right now."
+"The registration for the %(ophase_title)s <b>%(ophase_duration)s</b> is not "
+"open right now."
 
 #: templates/staff/success.html:3
 msgid "Daten gespeichert"
