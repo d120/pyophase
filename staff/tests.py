@@ -4,6 +4,7 @@ from django.utils.safestring import SafeText
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.firefox.webdriver import WebDriver
 
+from unittest import skip
 from datetime import date
 
 from ophasebase.models import Ophase
