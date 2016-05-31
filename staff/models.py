@@ -30,7 +30,7 @@ class Job(models.Model):
 
     def __str__(self):
         return self.label
-    
+
 class OrgaJob(Job):
     """Job for an organizer."""
     class Meta:
@@ -96,21 +96,21 @@ class Person(models.Model):
     get_name.admin_order_field = 'prename'
 
     def get_fillform(self):
-        """Return the fillform serialized informations of the Person.
-        To build a one click registration the full path to the 
+        """Return the fillform serialized information of the Person.
+        To build a one click registration the full path to the
         staff registration view must be added at the beginning"""
-        
+
         allowed_keys = ['prename','name','email','phone', 'matriculated_since',
-                         'degree_course', 'experience_ophase', 
+                         'degree_course', 'experience_ophase',
                          'why_participate', 'remarks']
-        
+
         prefix = '#fillform&v=1'
-        
+
         user_values = ''
         for key in allowed_keys:
             value = getattr(self,key).__str__()
             user_values += ("&%s=%s" % (key, quote(value)) )
-            
+
         return prefix+user_values
 
     def __str__(self):
