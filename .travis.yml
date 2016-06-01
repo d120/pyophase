@@ -1,11 +1,8 @@
 language: python
 python:
   - "3.4"
-env:
-  - DJANGO=1.9
 install:
-  - pip install -q Django==$DJANGO --use-mirrors
-  - pip install -r requirements.txt --use-mirrors
+  - pip install -r requirements.txt
 
 # @see https://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-xvfb-to-Run-Tests-That-Require-a-GUI
 before_script:
@@ -16,4 +13,4 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 # command to run tests
-script: python manage.py test 
+script: python manage.py test

@@ -106,7 +106,7 @@ class StaffSeleniumTests(StaticLiveServerTestCase):
     def test_fillform(self):
         """Test fillform with all possible fields"""
         driver = self.selenium
-        driver.get('%s%s' % (self.live_server_url, '/mitmachen/#fillform&v=1&prename=Thorsten&name=Freitag&email=ThorstenFreitag@example.com&phone=0151911860119&matriculated_since=2010&degree_course=Bachelor&experience_ophase=I did something.%0ALet me do more.&why_participate=Because I can %26 want do to more.&remarks=Some remark %3D better then nothing.'))
+        driver.get('%s%s' % (self.live_server_url, '/mitmachen/#fillform&v=1&prename=Thorsten&name=Freitag&email=ThorstenFreitag@example.com&phone=0151911860119&matriculated_since=2010&degree_course=Bachelor&experience_ophase=I%20did%20something.%0ALet%20me%20do%20more.&why_participate=Because%20I%20can%20%26%20want%20do%20to%20more.&remarks=Some%20remark%20%3D%20better%20then%20nothing.'))
         self.assertEqual("Thorsten", driver.find_element_by_id("id_prename").get_attribute("value"))
         self.assertEqual("Freitag", driver.find_element_by_id("id_name").get_attribute("value"))
         self.assertEqual("ThorstenFreitag@example.com", driver.find_element_by_id("id_email").get_attribute("value"))
