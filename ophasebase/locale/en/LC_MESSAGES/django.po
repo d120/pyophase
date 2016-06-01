@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-30 13:43+0200\n"
+"POT-Creation-Date: 2016-06-02 00:05+0200\n"
 "PO-Revision-Date: 2016-03-21 16:33+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -191,15 +191,19 @@ msgstr "The end of the Ophase cannot be before its beginning."
 msgid "Angemeldet als"
 msgstr "Registered as"
 
-#: templates/ophasebase/base.html:22
+#: templates/ophasebase/base.html:24
+msgid "Zum Adminbereich"
+msgstr "Adminarea"
+
+#: templates/ophasebase/base.html:26
 msgid "Logout"
 msgstr "Logout"
 
-#: templates/ophasebase/base.html:24
+#: templates/ophasebase/base.html:28
 msgid "Login"
 msgstr "Login"
 
-#: templates/ophasebase/base.html:40
+#: templates/ophasebase/base.html:44
 msgid "Sprache ändern"
 msgstr "Switch language"
 
