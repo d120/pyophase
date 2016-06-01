@@ -106,7 +106,7 @@ class StaffSeleniumTests(StaticLiveServerTestCase):
     def test_fillform(self):
         """Test fillform with all possible fields"""
         driver = self.selenium
-        driver.get('%s%s' % (self.live_server_url, '/mitmachen/#fillform&v=1&prename=Thorsten&name=Freitag&email=ThorstenFreitag@example.com&phone=0151911860119&matriculated_since=2010&degree_course=Bachelor&experience_ophase=I%20did%20something.%0ALet%20me%20do%20more.&why_participate=Because%20I%20can%20%26%20want%20do%20to%20more.&remarks=Some%20remark%20%3D%20better%20then%20nothing.'))
+        driver.get('%s%s' % (self.live_server_url, '/mitmachen/#fillform&v=1&prename=Thorsten&name=Freitag&email=ThorstenFreitag@example.com&phone=0151911860119&matriculated_since=2010&degree_course=Bachelor&experience_ophase=I%20did%20something.%0ALet%20me%20do%20more.&why_participate=Because%20I%20can%20and%20want%20do%20to%20more.&remarks=Some%20remark%20%3D%20better%20then%20nothing.'))
         self.assertEqual("Thorsten", driver.find_element_by_id("id_prename").get_attribute("value"))
         self.assertEqual("Freitag", driver.find_element_by_id("id_name").get_attribute("value"))
         self.assertEqual("ThorstenFreitag@example.com", driver.find_element_by_id("id_email").get_attribute("value"))
@@ -114,7 +114,7 @@ class StaffSeleniumTests(StaticLiveServerTestCase):
         self.assertEqual("2010", driver.find_element_by_id("id_matriculated_since").get_attribute("value"))
         self.assertEqual("Bachelor", driver.find_element_by_id("id_degree_course").get_attribute("value"))
         self.assertEqual("I did something.\nLet me do more.", driver.find_element_by_id("id_experience_ophase").get_attribute("value"))
-        self.assertEqual("Because I can & want do to more.", driver.find_element_by_id("id_why_participate").get_attribute("value"))
+        self.assertEqual("Because I can and want do to more.", driver.find_element_by_id("id_why_participate").get_attribute("value"))
         self.assertEqual("Some remark = better then nothing.", driver.find_element_by_id("id_remarks").get_attribute("value"))    
 
     def is_element_present(self, how, what):
