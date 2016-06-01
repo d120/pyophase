@@ -1,6 +1,14 @@
 language: python
+
+cache:
+  pip: true
+  directories:
+  - $HOME/.m2
+  - $HOME/cache/bower/
+
 python:
   - "3.4"
+
 install:
   - pip install -r requirements.txt
 
