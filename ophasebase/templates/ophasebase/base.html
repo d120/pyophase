@@ -19,7 +19,11 @@
                 </div>
                 <div class="navbar-right">
                     {% if user.is_authenticated %}
-                    <span class="navbar-text">{% trans "Angemeldet als" %} {{ user.username }} - <a href="{% url 'logout' %}">{% trans "Logout" %}</a></span>
+                    <span class="navbar-text">{% trans "Angemeldet als" %} {{ user.username }}</span>
+                    {% if user.is_staff %}
+                    <span class="navbar-text"><a href="{% url 'admin:index' %}">{% trans "Zum Adminbereich" %}</a></span>
+                    {% endif %}
+                    <span class="navbar-text"><a href="{% url 'logout' %}">{% trans "Logout" %}</a></span>
                     {% else %}
                     <span class="navbar-text"><a href="{% url 'login' %}?next={{request.path}}">{% trans "Login" %}</a></span>
                     {% endif %}
