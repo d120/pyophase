@@ -1,4 +1,5 @@
 # pyophase
+[![Build Status](https://travis-ci.org/d120/pyophase.svg?branch=master)](https://travis-ci.org/d120/pyophase)
 
 pyophase is our management application used for organizing an introductory week for new students. Such an introductory week is called Ophase.
 
