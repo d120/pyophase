@@ -52,8 +52,13 @@ function toggle_visibility_enabled_disabled(targetState, id) {
   var toggledParent = toggledElement.parent();
 
   toggledElement.attr("disabled", !targetState);
-  if(targetState)
+  if(targetState){
     toggledParent.show();
-  else
+    toggledElement.prop('required',true);
+  }
+  else {
     toggledParent.hide();
+    toggledElement.removeAttr('required');
+    toggledElement.val('')
+  }
 }
