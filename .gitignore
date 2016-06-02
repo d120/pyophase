@@ -9,6 +9,10 @@
 # compiled gettext
 *.mo
 
+# coverage files and reports
+.coverage
+htmlcov/*
+
 # bower components
 ophasebase/static/ophasebase/components
 
