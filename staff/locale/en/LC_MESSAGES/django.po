@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-30 13:43+0200\n"
+"POT-Creation-Date: 2016-06-02 18:34+0200\n"
 "PO-Revision-Date: 2016-04-18 19:04+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -18,47 +18,51 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:18
+#: admin.py:22
 #, fuzzy
 #| msgid "Tutoren"
 msgid "Tutorenstatus"
 msgstr "Tutor status"
 
-#: admin.py:22
+#: admin.py:26
 #, fuzzy
 #| msgid "Tutoren"
 msgid "Alle Tutoren"
 msgstr "All tutors"
 
-#: admin.py:25
+#: admin.py:29
 #, fuzzy
 #| msgid "Tutoren"
 msgid "Keine Tutoren"
 msgstr "No tutors"
 
-#: admin.py:53
+#: admin.py:57
 #, fuzzy
 #| msgid "Personen"
 msgid "Personendaten"
 msgstr "Personal data"
 
-#: admin.py:55
+#: admin.py:59
 msgid "Bewerbung"
 msgstr "Application"
 
-#: admin.py:57
+#: admin.py:61
 msgid "In der Ophase"
 msgstr "During the Ophase"
 
-#: admin.py:59
+#: admin.py:63
 msgid "Sonstiges"
 msgstr "Miscellaneous"
 
-#: admin.py:70
+#: admin.py:74
 msgid "Orga-Notiz"
 msgstr "Organizers' notes"
 
-#: admin.py:82 admin_actions.py:89 models.py:138
+#: admin.py:86 models.py:81
+msgid "Tutor"
+msgstr "Tutor"
+
+#: admin.py:98 admin_actions.py:89 models.py:138
 #: templates/staff/dashboard/widget_staff.html:3 views.py:25
 msgid "Tutoren"
 msgstr "Tutors"
@@ -325,10 +329,6 @@ msgstr ""
 #: models.py:80
 msgid "Warum möchtest du bei der Ophase mitmachen?"
 msgstr "Why would you like to participate in the Ophase?"
-
-#: models.py:81
-msgid "Tutor"
-msgstr "Tutor"
 
 #: models.py:81
 msgid "Möchtest du als Tutor bei der Ophase mitmachen?"
