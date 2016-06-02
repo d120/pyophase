@@ -42,7 +42,7 @@ class PersonAdmin(admin.ModelAdmin):
              'all': ("ophasebase/components/font-awesome/css/font-awesome.min.css",)
         }
 
-    list_display = ['prename', 'name', 'is_tutor', 'is_orga', 'is_helper', 'created_at', 'orga_annotation_status']
+    list_display = ['prename', 'name', 'extended_is_tutor', 'is_orga', 'is_helper', 'created_at', 'orga_annotation_status']
     list_filter = [ ("ophase", admin.RelatedOnlyFieldListFilter), TutorFilter, 'is_orga', 'is_helper']
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
@@ -69,6 +69,14 @@ class PersonAdmin(admin.ModelAdmin):
             return ""
     orga_annotation_status.short_description = _('Orga-Notiz')
     orga_annotation_status.allow_tags = True
+
+    def extended_is_tutor(self, obj):
+        if obj.is_tutor:
+            return '<img src="/static/admin/img/icon-yes.svg" alt="True" title="' + obj.tutor_for.label + '" />'
+        else:
+            return '<img src="/static/admin/img/icon-no.svg" alt="False" />'
+    extended_is_tutor.short_description = _('Tutor')
+    extended_is_tutor.allow_tags = True
 
 
 @admin.register(TutorGroup)
