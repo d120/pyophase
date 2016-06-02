@@ -1,5 +1,9 @@
 from django.contrib import admin
 from django.utils.translation import ugettext as _
+from django.utils.html import format_html
+
+from django.templatetags.static import static
+from django.contrib.admin.templatetags.admin_list import _boolean_icon
 
 from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
 from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, group_by_dresssize
@@ -42,7 +46,7 @@ class PersonAdmin(admin.ModelAdmin):
              'all': ("ophasebase/components/font-awesome/css/font-awesome.min.css",)
         }
 
-    list_display = ['prename', 'name', 'extended_is_tutor', 'is_orga', 'is_helper', 'created_at', 'orga_annotation_status']
+    list_display = ['prename', 'name', 'is_tutor_with_title', 'is_orga', 'is_helper', 'created_at', 'orga_annotation_status']
     list_filter = [ ("ophase", admin.RelatedOnlyFieldListFilter), TutorFilter, 'is_orga', 'is_helper']
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
@@ -70,13 +74,17 @@ class PersonAdmin(admin.ModelAdmin):
     orga_annotation_status.short_description = _('Orga-Notiz')
     orga_annotation_status.allow_tags = True
 
-    def extended_is_tutor(self, obj):
-        if obj.is_tutor:
-            return '<img src="/static/admin/img/icon-yes.svg" alt="True" title="' + obj.tutor_for.label + '" />'
+    def is_tutor_with_title(self, obj):
+        """If the person is a tutor the tutor_for tag is set as image title"""
+        if obj.is_tutor == True and obj.tutor_for != None:
+            icon_url = static('admin/img/icon-yes.svg')
+            return format_html('<img src="{}" alt="{}" title="{}" />',
+                               icon_url, obj.is_tutor, obj.tutor_for.label)
         else:
-            return '<img src="/static/admin/img/icon-no.svg" alt="False" />'
-    extended_is_tutor.short_description = _('Tutor')
-    extended_is_tutor.allow_tags = True
+            return _boolean_icon(obj.is_tutor)
+
+    is_tutor_with_title.short_description = _('Tutor')
+    is_tutor_with_title.allow_tags = True
 
 
 @admin.register(TutorGroup)
