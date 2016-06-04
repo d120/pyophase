@@ -1,5 +1,5 @@
 # pyophase
-[![Build Status](https://travis-ci.org/d120/pyophase.svg?branch=master)](https://travis-ci.org/d120/pyophase) 
+[![Build Status](https://travis-ci.org/d120/pyophase.svg?branch=master)](https://travis-ci.org/d120/pyophase)
 [![Coverage Status](https://coveralls.io/repos/github/d120/pyophase/badge.svg?branch=master)](https://coveralls.io/github/d120/pyophase?branch=master)
 
 pyophase is our management application used for organizing an introductory week for new students. Such an introductory week is called Ophase.
@@ -54,7 +54,7 @@ When executing the `manage.py` commands in production, do not forget to either p
 * `bower install` when the `bower.json` file changed
 * `source venv/bin/activate` when some of the `pip` or `./manage.py` steps are necessary
 * `pip install -r requirements.txt` when the `requirements.txt` file changed
-* `export DJANGO_SETTINGS_MODULE=d120.settings_production` when some of the `./manage.py` steps are necessary
+* `export DJANGO_SETTINGS_MODULE=pyophase.settings_production` when some of the `./manage.py` steps are necessary
 * `./manage.py migrate` when a new migrations file is available
 * `./manage.py collectstatic` when a static file changed (or `bower install` was run)
 * `./manage.py compilemessages` when a message file (`*.po`) changed
