@@ -9,8 +9,14 @@ cache:
 python:
   - "3.4"
 
+env:
+  - $DJANGO_ENV=""
+  - $DJANGO_ENV="pip install --upgrade Django"
+  - $DJANGO_ENV="pip install --upgrade --pre Django"
+
 install:
   - pip install -r requirements.txt
+  - $DJANGO_ENV
   - pip install coveralls
   - npm install -g bower
   - bower install
@@ -28,5 +34,3 @@ script:
 
 after_success:
   coveralls
-
-
