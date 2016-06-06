@@ -3,7 +3,9 @@
 set -e
 
 source venv/bin/activate
-pip install -r requirements.txt
+git pull
+pip install --upgrade -r requirements.txt
 bower install
 ./manage.py compilemessages
 ./manage.py migrate
+./manage.py collectstatic --noinput
