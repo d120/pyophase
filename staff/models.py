@@ -15,8 +15,16 @@ class GroupCategory(models.Model):
         ordering = ['label']
 
     label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
-    warning_threshold = models.IntegerField(blank=True, null=True, verbose_name=_('Anzahl bis Warnung'), help_text=_('Sobald diese Anzahl Tutoren angemeldet sind, wird eine Warnung bei der Registrierung angezeigt.'))
-    max_threshold = models.IntegerField(blank=True,  null=True, verbose_name=_('Harte Maximalanzahl'), help_text=_('Sobald diese Anzahl Tutoren angemeldet sind, wird die Anmeldung für diese Gruppe automatisch geschlossen.'))
+    warning_threshold = models.IntegerField(blank=True, default=0, verbose_name=_('Anzahl bis Warnung'), help_text=_('Sobald diese Anzahl Tutoren angemeldet sind, wird eine Warnung bei der Registrierung angezeigt.'))
+    max_threshold = models.IntegerField(blank=True, default=0, verbose_name=_('Harte Maximalanzahl'), help_text=_('Sobald diese Anzahl Tutoren angemeldet sind, wird die Anmeldung für diese Gruppe automatisch geschlossen.'))
+
+    def show_warning(self):
+        return self.warning_threshold != 0 and \
+               Person.objects.filter(is_tutor=True, ophase=Ophase.current()).count() >= self.warning_threshold
+
+    def still_tutors_wanted(self):
+        return self.max_threshold != 0 and \
+               Person.objects.filter(is_tutor=True, ophase=Ophase.current()).count() < self.max_threshold
 
     def __str__(self):
         return self.label
