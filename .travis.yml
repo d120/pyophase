@@ -11,14 +11,17 @@ python:
   - "3.5"
 
 env:
-  - $DJANGO_ENV=""
-  - $DJANGO_ENV="pip install --upgrade Django"
-  - $DJANGO_ENV="pip install --upgrade --pre Django"
+    # the Django version from requirements.txt is used
+  - $DENV=""
+    # the latest Django stable version is used
+  - $DENV="pip install --upgrade Django"
+    # the latest Django development version is used
+  - $DENV="pip install --upgrade --pre Django"
 
 install:
   - pip install -r requirements.txt
-  - $DJANGO_ENV
-  - django-admin --version
+  - $DENV
+  - echo 'Django Version: '$( django-admin --version )
   - pip install coveralls
   - npm install -g bower
   - bower install
