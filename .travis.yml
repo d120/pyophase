@@ -21,7 +21,7 @@ env:
 install:
   - pip install -r requirements.txt
   - $DENV
-  - echo 'Django Version: '$( django-admin --version )
+  - django-admin --version
   - pip install coveralls
   - npm install -g bower
   - bower install
