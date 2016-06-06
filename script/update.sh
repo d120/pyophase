@@ -2,7 +2,10 @@
 
 set -e
 
-source venv/bin/activate
+# only source the virtual env if we are not already in it
+if [ -z ${VIRTUAL_ENV+x} ]; then
+    source venv/bin/activate
+fi
 git pull
 pip install --upgrade -r requirements.txt
 bower install
