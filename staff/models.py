@@ -15,6 +15,8 @@ class GroupCategory(models.Model):
         ordering = ['label']
 
     label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
+    warning_threshold = models.IntegerField(blank=True, null=True, verbose_name=_('Anzahl bis Warnung'), help_text=_('Sobald diese Anzahl Tutoren angemeldet sind, wird eine Warnung bei der Registrierung angezeigt.'))
+    max_threshold = models.IntegerField(blank=True,  null=True, verbose_name=_('Harte Maximalanzahl'), help_text=_('Sobald diese Anzahl Tutoren angemeldet sind, wird die Anmeldung für diese Gruppe automatisch geschlossen.'))
 
     def __str__(self):
         return self.label
