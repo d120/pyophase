@@ -23,7 +23,7 @@ class StudentCountWidget(TemplateWidgetComponent):
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
 
-            students = Student.objects.filter(ophase=current_ophase)
+            students = Student.get_current()
             context['studentCount'] = students.count()
             context['examCount'] = students.filter(want_exam=True).count()
 

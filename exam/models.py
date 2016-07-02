@@ -88,7 +88,7 @@ class Assignment(models.Model):
         """
 
         exam_rooms = ExamRoom.objects.filter(available=True)
-        exam_students = Student.objects.filter(ophase=Ophase.current(), tutor_group__group_category=self.group_category, want_exam=True).order_by('name', 'prename')
+        exam_students = Student.get_current(tutor_group__group_category=self.group_category, want_exam=True).order_by('name', 'prename')
         student_count = len(exam_students)
 
         if len(exam_rooms) == 0 or student_count == 0:

@@ -33,7 +33,7 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
 
-            students = Student.objects.filter(ophase=current_ophase)
+            students = Student.get_current()
 
             context['count_student'] = students.count()
             context['count_exam'] = students.filter(want_exam=True).count()
@@ -51,7 +51,7 @@ class ExportCertificateView(StudentsAppMixin, ListView):
     template_name = "students/dashboard/view_certificate.html"
 
     def get_queryset(self):
-        return Student.objects.filter(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
+        return Student.get_current(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
 
 
 class NewsletterOverviewView(StudentsAppMixin, ListView):
@@ -67,7 +67,7 @@ class ExportNewsletterSubscriptionView(StudentsAppMixin, ListView):
     template_name = "students/dashboard/view_export_newsletter.html"
 
     def get_queryset(self):
-        return Student.objects.filter(newsletters__id=self.kwargs['newsletter_id'])
+        return Student.get_current(newsletters__id=self.kwargs['newsletter_id'])
 
     def add_context_data(self, context):
         context = super().add_context_data(context)

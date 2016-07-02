@@ -22,8 +22,7 @@ class ExamWidget(TemplateWidgetComponent):
         return Assignment.objects.latest()
 
     def _correct_count(self, assignment):
-        current_ophase = Ophase.current()
-        return assignment.count == Student.objects.filter(ophase=current_ophase, want_exam=True, tutor_group__group_category=assignment.group_category).count()
+        return assignment.count == Student.get_current(want_exam=True, tutor_group__group_category=assignment.group_category).count()
 
     def get_context_data(self):
         context = super().get_context_data()

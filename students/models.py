@@ -51,6 +51,10 @@ class Student(models.Model):
             self.ophase = Ophase.current()
         super(Student, self).save(*args, **kwargs)
 
+    @staticmethod
+    def get_current(**kwargs):
+        return Student.objects.filter(ophase=Ophase.current(), **kwargs)
+
 
 class Settings(models.Model):
     """Configuration for Students App."""
