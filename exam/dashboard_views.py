@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import CreateView, TemplateView, ListView, DetailView
 from dashboard.components import DashboardAppMixin
 
-from .models import ExamRoom, Assignment, PersonToExamRoomAssignment
+from exam.models import ExamRoom, Assignment, PersonToExamRoomAssignment
 from ophasebase.models import Ophase
 from students.models import Student
 

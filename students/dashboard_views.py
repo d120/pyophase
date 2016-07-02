@@ -1,11 +1,11 @@
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, ListView
 from django.db.models import Count, Sum
 from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
 from staff.models import TutorGroup
-from .models import Student, Newsletter
+from students.models import Student, Newsletter
 
 
 class StudentsAppMixin(DashboardAppMixin):
@@ -33,10 +33,10 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
 
-            Students = Student.objects.filter(ophase=current_ophase)
+            students = Student.objects.filter(ophase=current_ophase)
 
-            context['count_student'] = Students.count()
-            context['count_exam'] = Students.filter(want_exam=True).count()
+            context['count_student'] = students.count()
+            context['count_exam'] = students.filter(want_exam=True).count()
 
             context['tutor_groups'] = TutorGroup.objects\
                                                     .annotate(

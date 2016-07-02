@@ -1,10 +1,12 @@
-from django.db import models
 import math
+
+from django.db import models
+from django.utils import formats
+from django.utils.translation import ugettext_lazy as _
+
 from ophasebase.models import Ophase
 from staff.models import GroupCategory
 from students.models import Student
-from django.utils.translation import ugettext_lazy as _
-from django.utils import formats
 
 class ExamRoom(models.Model):
     """A room which is suitable for the exam."""

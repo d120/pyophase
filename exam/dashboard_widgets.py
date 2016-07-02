@@ -1,10 +1,11 @@
 from django.core.urlresolvers import reverse_lazy
+from django.utils import formats
+from django.utils.translation import ugettext_lazy as _
+
 from dashboard.components import TemplateWidgetComponent
 from exam.models import Assignment
 from ophasebase.models import Ophase
 from students.models import Student
-from django.utils.translation import ugettext_lazy as _
-from django.utils import formats
 
 
 class ExamWidget(TemplateWidgetComponent):
