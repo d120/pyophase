@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-02 00:05+0200\n"
-"PO-Revision-Date: 2016-03-21 16:33+0100\n"
+"POT-Creation-Date: 2016-07-10 17:23+0200\n"
+"PO-Revision-Date: 2016-07-10 17:24+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:24
@@ -227,10 +227,18 @@ msgstr "For tutors"
 msgid "Die Erstsemester deiner Kleingruppe registrieren"
 msgstr "Register freshmen of your tutored group"
 
-#: templates/ophasebase/welcome.html:17
+#: templates/ophasebase/welcome.html:19
+msgid "Für Workshopleiter"
+msgstr "For workshop tutors"
+
+#: templates/ophasebase/welcome.html:20
+msgid "Bei der nächsten Ophase einen Workshop anbieten"
+msgstr "Offer a workshop in the next Ophase"
+
+#: templates/ophasebase/welcome.html:23
 msgid "Für Orgas"
 msgstr "For organizers"
 
-#: templates/ophasebase/welcome.html:18
+#: templates/ophasebase/welcome.html:24
 msgid "Das Dashboard aufrufen"
 msgstr "Access the dashboard"
