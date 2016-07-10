@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^mitmachen/', include('staff.urls', namespace='staff')),
     url(r'^teilnehmer/', include('students.urls', namespace='students')),
     url(r'^klausur/', include('exam.urls', namespace='exam')),
+    url(r'^workshops/', include('workshops.urls', namespace='workshops')),
     url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/login/$', django.contrib.auth.views.login, {'template_name': 'admin/login.html'}, name='login'),

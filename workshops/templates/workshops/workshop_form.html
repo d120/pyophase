@@ -1,0 +1,27 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% block title %}{% trans "Workshopregistrierung" %}{% endblock %}
+
+{% block content %}
+<h1>{{ ophase_title }}</h1>
+<h2>{% trans "Workshopregistrierung" %}</h2>
+{% if workshop_submission_enabled %}
+<div id="mainForm">
+    <form role="form" action="{{action}}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+    {% buttons %}
+        <button type="reset" class="btn btn-danger">
+            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+        </button>
+        <button type="submit" class="btn btn-success pull-right">
+            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+        </button>
+    {% endbuttons %}
+    </form>
+</div>
+{% else %}
+<p>
+  {% trans "Derzeit ist die Registrierung nicht freigeschaltet." %}
+</p>
+{% endif %}
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.template.defaultfilters import date as _date
 from django.utils.translation import ugettext_lazy as _
 
@@ -46,6 +47,39 @@ class Workshop(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def save(self, *args, **kwargs):
+        if self.ophase_id is None:
+            # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
+            self.ophase = Ophase.current()
+        super(Workshop, self).save(*args, **kwargs)
+
     @staticmethod
     def get_current(**kwargs):
         return Workshop.objects.filter(ophase=Ophase.current(), **kwargs)
+
+
+class Settings(models.Model):
+    """Configuration for Workshop app."""
+    class Meta:
+        verbose_name = _("Einstellungen")
+        verbose_name_plural = _("Einstellungen")
+
+    workshop_submission_enabled = models.BooleanField(default=False, verbose_name=_("Workshop-Einreichung aktiv"))
+
+    def get_name(self):
+        return '%s' % _("Workshops Einstellungen")
+
+    def __str__(self):
+        return self.get_name()
+
+    def clean(self, *args, **kwargs):
+        super(Settings, self).clean(*args, **kwargs)
+        if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
+            raise ValidationError(_("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen."))
+
+    @staticmethod
+    def instance():
+        try:
+            return Settings.objects.get()
+        except Settings.DoesNotExist:
+            return None
