@@ -65,6 +65,7 @@ class Settings(models.Model):
         verbose_name_plural = _("Einstellungen")
 
     workshop_submission_enabled = models.BooleanField(default=False, verbose_name=_("Workshop-Einreichung aktiv"))
+    orga_email = models.CharField(max_length=100, verbose_name=_("E-Mail-Adresse des Workshop-Orgas"))
 
     def get_name(self):
         return '%s' % _("Workshops Einstellungen")

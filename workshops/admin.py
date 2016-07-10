@@ -10,4 +10,4 @@ class WorkshopAdmin(admin.ModelAdmin):
 
 @admin.register(Settings)
 class SettingsAdmin(admin.ModelAdmin):
-    list_display = ['workshop_submission_enabled']
+    list_display = ['workshop_submission_enabled', 'orga_email']

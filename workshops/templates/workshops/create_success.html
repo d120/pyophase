@@ -5,6 +5,8 @@
 <h1>{{ ophase_title }}</h1>
 <h2>{% trans "Workshopregistrierung" %}</h2>
 <div class="alert alert-success" role="alert">
-    {% trans "Vielen Dank, der Workshop wurde gespeichert." %}
+    {% trans "Vielen Dank, der Workshop wurde gespeichert. Der Workshoporga wird sich zu gegebener Zeit mit dir in Verbindung setzen." %}
+    <br />
+    {% trans "Eine E-Mail wurde an die von dir angegebene E-Mail-Adresse gesendet. Sollte sie nicht angekommen sein, oder sollten sich Änderungen am Workshop ergeben, schreib bitte eine Mail an" %} <a href="mailto:{{ orga_email }}">{{ orga_email }}</a>.
 </div>
 {% endblock %}
