@@ -26,8 +26,18 @@ DATABASES = {
 STATIC_URL = '/ophasehq/static/'
 LOGIN_URL = '/ophasehq/accounts/login/'
 
-ADMINS = (('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),)
-
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
+
+ADMINS = (('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),)
+
+SERVER_EMAIL = "pyophase@fachschaft.informatik.tu-darmstadt.de"
+DEFAULT_FROM_EMAIL = SERVER_EMAIL
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.d120.de'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pyophase'
+EMAIL_HOST_PASSWORD = secrets.MAIL_PASSWORD
