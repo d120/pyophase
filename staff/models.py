@@ -1,8 +1,8 @@
+from urllib.parse import quote
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-
-from urllib.parse import quote
 
 from ophasebase.models import Ophase
 
@@ -100,7 +100,7 @@ class Person(models.Model):
         To build a one click registration the full path to the
         staff registration view must be added at the beginning"""
 
-        allowed_keys = ['prename','name','email','phone', 'matriculated_since',
+        allowed_keys = ['prename', 'name', 'email', 'phone', 'matriculated_since',
                          'degree_course', 'experience_ophase',
                          'why_participate', 'remarks']
 
@@ -108,8 +108,8 @@ class Person(models.Model):
 
         user_values = ''
         for key in allowed_keys:
-            value = getattr(self,key).__str__()
-            user_values += ("&%s=%s" % (key, quote(value)) )
+            value = getattr(self, key).__str__()
+            user_values += ("&%s=%s" % (key, quote(value)))
 
         return prefix+user_values
 
@@ -123,7 +123,7 @@ class Person(models.Model):
         # ensure tutor flag is set when group is selected
         if self.tutor_for is not None:
             self.is_tutor = True
-        super(Person, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 class TutorGroup(models.Model):
     """A group of students guided by tutors."""
@@ -162,7 +162,7 @@ class Settings(models.Model):
         return self.get_name()
 
     def clean(self, *args, **kwargs):
-        super(Settings, self).clean(*args, **kwargs)
+        super().clean(*args, **kwargs)
         if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
             raise ValidationError(_("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen."))
 

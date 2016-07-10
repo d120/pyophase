@@ -95,7 +95,7 @@ class Ophase(models.Model):
           'end': formats.date_format(self.end_date, 'DATE_FORMAT'),}
 
     def clean(self, *args, **kwargs):
-        super(Ophase, self).clean(*args, **kwargs)
+        super().clean(*args, **kwargs)
         if self.start_date > self.end_date:
             raise ValidationError({'end_date': _('Ende der Ophase kann nicht vor ihrem Anfang liegen.')})
 
@@ -103,7 +103,7 @@ class Ophase(models.Model):
         # ensure is_active is only set for one Ophase at the same time
         if self.is_active:
             Ophase.objects.filter(is_active=True).exclude(pk=self.pk).update(is_active=False)
-        super(Ophase, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     @staticmethod
     def current():

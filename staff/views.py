@@ -31,7 +31,7 @@ class StaffAdd(CreateView):
             vacancies_str = vacancies_str.replace('.', ', ', len(vacancies)-2)
             vacancies_str = vacancies_str.replace('.', ' %s '% _('und'))
 
-            context = super(StaffAdd, self).get_context_data(**kwargs)
+            context = super().get_context_data(**kwargs)
             context['ophase_title'] = str(current_ophase)
             context['ophase_duration'] = current_ophase.get_human_duration()
             context['any_registration_enabled'] = settings.tutor_registration_enabled or settings.orga_registration_enabled or settings.helper_registration_enabled
@@ -41,14 +41,14 @@ class StaffAdd(CreateView):
             context['staff_vacancies'] = vacancies_str
             return context
         else:
-            context = super(StaffAdd, self).get_context_data(**kwargs)
+            context = super().get_context_data(**kwargs)
             context['ophase_title'] = 'Ophase'
             context['any_registration_enabled'] = False
             return context
 
     def form_valid(self, form):
         try:
-            return super(StaffAdd, self).form_valid(form)
+            return super().form_valid(form)
         except IntegrityError:
             # this should happen when unique constraints fail
             template = loader.get_template("staff/already_registered.html")
@@ -67,7 +67,7 @@ class GenericJobList(ListView):
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()
         if current_ophase is not None:
-            context = super(GenericJobList, self).get_context_data(**kwargs)
+            context = super().get_context_data(**kwargs)
             context['ophase_title'] = str(current_ophase)
             context['title'] = self.title
             return context
@@ -77,6 +77,7 @@ class GroupCategoryList(GenericJobList):
     model = GroupCategory
 
     def __init__(self):
+        super().__init__()
         self.title = GroupCategory._meta.verbose_name_plural.title()
 
 class OrgaJobList(GenericJobList):
@@ -84,6 +85,7 @@ class OrgaJobList(GenericJobList):
     model = OrgaJob
 
     def __init__(self):
+        super().__init__()
         self.title = OrgaJob._meta.verbose_name_plural.title()
 
 class HelperJobList(GenericJobList):
@@ -91,4 +93,5 @@ class HelperJobList(GenericJobList):
     model = HelperJob
 
     def __init__(self):
+        super().__init__()
         self.title = HelperJob._meta.verbose_name_plural.title()

@@ -15,7 +15,7 @@ class PersonForm(forms.ModelForm):
         self.fields[field].label += format_html(code, reverse(view))
 
     def __init__(self, *args, **kwargs):
-        super(PersonForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.__append_description_link('tutor_for', 'staff:tutor_group_category_list')
         self.__append_description_link('orga_jobs', 'staff:orgajob_list')
@@ -32,19 +32,19 @@ class PersonForm(forms.ModelForm):
 
             fields_to_del = []
             #fields only required for a registration as tutor
-            if not(settings.tutor_registration_enabled):
+            if not settings.tutor_registration_enabled:
                 fields_to_del.extend(['is_tutor', 'tutor_for'])
 
             #fields only required for a registration as orga
-            if not(settings.orga_registration_enabled):
+            if not settings.orga_registration_enabled:
                 fields_to_del.extend(['is_orga', 'orga_jobs'])
 
             #fields only required for a registration as helper
-            if not(settings.helper_registration_enabled):
+            if not settings.helper_registration_enabled:
                 fields_to_del.extend(['is_helper', 'helper_jobs'])
 
             #fields only required for a registration as tutor or orga
-            if not(settings.tutor_registration_enabled) and not(settings.orga_registration_enabled):
+            if not settings.tutor_registration_enabled and not settings.orga_registration_enabled:
                 fields_to_del.extend(['dress_size'])
 
             #delete all fields not required
@@ -77,7 +77,7 @@ class PersonForm(forms.ModelForm):
         }
 
     def clean(self):
-        cleaned_data = super(PersonForm, self).clean()
+        cleaned_data = super().clean()
 
         if cleaned_data.get("is_tutor") and cleaned_data.get("tutor_for") is None:
             self.add_error('tutor_for', ValidationError(_('Um Tutor zu sein muss ausgewählt werden, welche Art Gruppe betreut werden soll.')))
@@ -93,6 +93,6 @@ class PersonForm(forms.ModelForm):
 
         if cleaned_data.get('is_tutor') != True and cleaned_data.get('is_helper') != True and cleaned_data.get('is_orga') != True:
             self.add_error(None, ValidationError(_('Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus.')))
-            
+
             for field in ('is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'dress_size', 'is_helper', 'helper_jobs'):
                 self.add_error(field, None)

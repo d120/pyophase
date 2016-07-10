@@ -43,7 +43,7 @@ class MakeAssignmentView(ExamAppMixin, CreateView):
     success_url = reverse_lazy('dashboard:exam:assignment_success')
 
     def get_context_data(self, **kwargs):
-        context = super(MakeAssignmentView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         exam_rooms = ExamRoom.objects.filter(available=True)
         context['student_count'] = Student.get_current(want_exam=True).order_by('name', 'prename').count()
         context['free_places_1'] = sum([exam_room.capacity(1) for exam_room in exam_rooms])

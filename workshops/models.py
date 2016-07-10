@@ -51,7 +51,7 @@ class Workshop(models.Model):
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
             self.ophase = Ophase.current()
-        super(Workshop, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     @staticmethod
     def get_current(**kwargs):
@@ -73,7 +73,7 @@ class Settings(models.Model):
         return self.get_name()
 
     def clean(self, *args, **kwargs):
-        super(Settings, self).clean(*args, **kwargs)
+        super().clean(*args, **kwargs)
         if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
             raise ValidationError(_("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen."))
 

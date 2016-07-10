@@ -17,7 +17,7 @@ class StudentAdd(CreateView):
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()
         settings = Settings.instance()
-        context = super(StudentAdd, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         if current_ophase is not None and settings is not None:
             context['ophase_title'] = str(current_ophase)
             context['student_registration_enabled'] = settings.student_registration_enabled
@@ -27,7 +27,7 @@ class StudentAdd(CreateView):
         return context
 
     def get_initial(self):
-        initial = super(StudentAdd, self).get_initial()
+        initial = super().get_initial()
 
         if 'previous_tutor_group' in self.request.session:
             initial['tutor_group'] = self.request.session['previous_tutor_group']
@@ -36,11 +36,11 @@ class StudentAdd(CreateView):
 
     def form_valid(self, form):
         self.request.session['previous_tutor_group'] = form.data['tutor_group']
-        return super(StudentAdd, self).form_valid(form)
+        return super().form_valid(form)
 
     @method_decorator(permission_required('students.add_student'))
     def dispatch(self, *args, **kwargs):
-        return super(StudentAdd, self).dispatch(*args, **kwargs)
+        return super().dispatch(*args, **kwargs)
 
 
 class StudentAddSuccess(TemplateView):
@@ -50,7 +50,7 @@ class StudentAddSuccess(TemplateView):
 
         current_ophase = Ophase.current()
 
-        context = super(StudentAddSuccess, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         context['ophase_title'] = 'Ophase'
         if current_ophase is not None:
