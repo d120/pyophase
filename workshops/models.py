@@ -47,6 +47,9 @@ class Workshop(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+
     def save(self, *args, **kwargs):
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
