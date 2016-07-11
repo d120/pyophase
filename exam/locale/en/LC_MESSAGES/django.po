@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-18 21:39+0100\n"
+"POT-Creation-Date: 2016-07-11 11:13+0200\n"
 "PO-Revision-Date: 2016-02-28 17:28+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dashboard_widgets.py:16 models.py:37
+#: dashboard_widgets.py:17 models.py:39
 msgid "Klausurzuteilung"
 msgstr "Exam room assignment"
 
@@ -44,75 +44,75 @@ msgstr "Created at %(formated_datetime)s"
 msgid "Achtung: Zuteilung ist ungültig"
 msgstr "Caution: Assignment is not valid"
 
-#: models.py:12
+#: models.py:14
 msgid "Klausurraum"
 msgstr "Exam room"
 
-#: models.py:13
+#: models.py:15
 msgid "Klausurräume"
 msgstr "Exam rooms"
 
-#: models.py:16
+#: models.py:18
 msgid "Raum"
 msgstr "Room"
 
-#: models.py:17
+#: models.py:19
 msgid "Verfügbar"
 msgstr "Available"
 
-#: models.py:18
+#: models.py:20
 msgid "Plätze (1 Platz Abstand)"
 msgstr "Capacity (1 seat apart)"
 
-#: models.py:19
+#: models.py:21
 msgid "Plätze (2 Plätze Abstand)"
 msgstr "Capacity (2 seats apart)"
 
-#: models.py:38
+#: models.py:40
 msgid "Klausurzuteilungen"
 msgstr "Exam assignments"
 
-#: models.py:43
+#: models.py:45
 msgid "Ein Platz Abstand"
 msgstr "One seat apart"
 
-#: models.py:44
+#: models.py:46
 msgid "Zwei Plätze Abstand"
 msgstr "Two seats apart"
 
-#: models.py:48
+#: models.py:50
 msgid "Gleichmäßig auf alle Räume verteilen"
 msgstr "Evenly distribute across all rooms"
 
-#: models.py:49
+#: models.py:51
 msgid "Möglichst wenig Räume"
 msgstr "As few rooms as possible"
 
-#: models.py:54
+#: models.py:56
 msgid "Gruppenkategorie"
 msgstr "Tutored group category"
 
-#: models.py:55
+#: models.py:57
 msgid "Sitzplatzabstand"
 msgstr "Space between seats"
 
-#: models.py:56
+#: models.py:58
 msgid "Verteilmodus"
 msgstr "Distribution mode"
 
-#: models.py:57
+#: models.py:59
 msgid "# Zuteilungen"
 msgstr "# assignments"
 
-#: models.py:62
+#: models.py:64
 #, python-format
 msgid "Zuteilung vom %(formated_datetime)s"
 msgstr "Assignment from %(formated_datetime)s"
 
-#: models.py:132
+#: models.py:134
 msgid "Individuelle Klausurzuteilung"
 msgstr "Individual exam room assignment"
 
-#: models.py:133
+#: models.py:135
 msgid "Individuelle Klausurzuteilungen"
 msgstr "Individual exam room assignments"

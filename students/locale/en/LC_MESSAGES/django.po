@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-02 17:31+0200\n"
+"POT-Creation-Date: 2016-07-11 11:13+0200\n"
 "PO-Revision-Date: 2016-05-29 17:06+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -79,19 +79,19 @@ msgstr "Participate in exam?"
 msgid "Welche Newsletter willst du abonieren (optional)?"
 msgstr "Which newsletter(s) would you like to subscribe to?"
 
-#: models.py:58 models.py:59
+#: models.py:62 models.py:63
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: models.py:61
+#: models.py:65
 msgid "Klausuranmeldung aktiv"
 msgstr "Exam registration open"
 
-#: models.py:64 tests/tests_models.py:215
+#: models.py:68 tests/tests_models.py:215
 msgid "Students Einstellungen"
 msgstr "Student settings"
 
-#: models.py:72
+#: models.py:76
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."

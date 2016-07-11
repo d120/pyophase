@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-10 16:55+0200\n"
+"POT-Creation-Date: 2016-07-11 11:13+0200\n"
 "PO-Revision-Date: 2016-07-10 17:19+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.8.8\n"
 
 #: models.py:11
@@ -148,23 +148,23 @@ msgstr "Remarks"
 msgid "Sonstige Informationen"
 msgstr "Further comments"
 
-#: models.py:64 models.py:65
+#: models.py:67 models.py:68
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: models.py:67
+#: models.py:70
 msgid "Workshop-Einreichung aktiv"
 msgstr "Workshop submission enabled"
 
-#: models.py:68
+#: models.py:71
 msgid "E-Mail-Adresse des Workshop-Orgas"
 msgstr "Email address of workshop organizer"
 
-#: models.py:71
+#: models.py:74
 msgid "Workshops Einstellungen"
 msgstr "Workshop settings"
 
-#: models.py:79
+#: models.py:82
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
@@ -198,8 +198,7 @@ msgid ""
 "schreib bitte eine Mail an"
 msgstr ""
 "An email was sent to the submitted address. If you do not receive the email "
-"or when there are changes regarding your workshop, please write an email "
-"to"
+"or when there are changes regarding your workshop, please write an email to"
 
 #: templates/workshops/workshop_form.html:14
 msgid "Zurücksetzen"
