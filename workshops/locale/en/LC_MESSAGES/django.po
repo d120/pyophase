@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 14:12+0200\n"
-"PO-Revision-Date: 2016-07-11 14:13+0200\n"
+"POT-Creation-Date: 2016-07-11 15:06+0200\n"
+"PO-Revision-Date: 2016-07-11 15:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.8\n"
+
+#: dashboard_widgets.py:8 models.py:32
+#: templates/workshops/dashboard/widget_workshops.html:3
+msgid "Workshops"
+msgstr "Workshops"
 
 #: models.py:11
 msgid "Workshopslot"
@@ -40,10 +45,6 @@ msgstr "End"
 #: models.py:31
 msgid "Workshop"
 msgstr "Workshop"
-
-#: models.py:32
-msgid "Workshops"
-msgstr "Workshops"
 
 #: models.py:35
 msgid "Name"
@@ -207,6 +208,14 @@ msgid ""
 msgstr ""
 "An email was sent to the submitted address. If you do not receive the email "
 "or when there are changes regarding your workshop, please write an email to"
+
+#: templates/workshops/dashboard/widget_workshops.html:4
+msgid "Gefüllte Slots"
+msgstr "Filled slots"
+
+#: templates/workshops/dashboard/widget_workshops.html:5
+msgid "Workshoptutoren"
+msgstr "Workshop tutors"
 
 #: templates/workshops/workshop_form.html:14
 msgid "Zurücksetzen"
