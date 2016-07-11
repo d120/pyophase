@@ -6,7 +6,7 @@ admin.site.register(WorkshopSlot)
 
 @admin.register(Workshop)
 class WorkshopAdmin(admin.ModelAdmin):
-    list_display = ('title', 'tutor_name')
+    list_display = ('title', 'tutor_name', 'created_at')
 
 @admin.register(Settings)
 class SettingsAdmin(admin.ModelAdmin):

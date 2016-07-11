@@ -44,8 +44,8 @@ class Workshop(models.Model):
     participant_requirements = models.TextField(blank=True, verbose_name=_('Teilnahmevoraussetzungen'), help_text=_('Benötigen die Teilnehmer Vorkenntnisse oder müssen sie etwas mitbringen?'))
     description = models.TextField(verbose_name=_('Beschreibungstext'), help_text=_('Eine kurze Beschreibung um was es geht und was die Teilnehmer erwartet.'))
     remarks = models.TextField(blank=True, verbose_name=_('Anmerkungen'), help_text=_('Sonstige Informationen'))
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
 
     def __str__(self):
         return self.title
