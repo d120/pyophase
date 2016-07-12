@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from staff import views
 
+app_name = 'staff'
 urlpatterns = [
     url(r'^$', views.StaffAdd.as_view(), name='registration'),
     url(r'success/$', views.StaffAddSuccess.as_view(), name='registration_success'),

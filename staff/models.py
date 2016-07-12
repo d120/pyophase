@@ -69,7 +69,7 @@ class Person(models.Model):
         ordering = ['prename', 'name']
         unique_together = ('ophase', 'email')
 
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
     email = models.EmailField(verbose_name=_("E-Mail-Adresse"))
@@ -81,10 +81,10 @@ class Person(models.Model):
     is_tutor = models.BooleanField(default=False, verbose_name=_("Tutor"), help_text=_("Möchtest du als Tutor bei der Ophase mitmachen?"))
     is_orga = models.BooleanField(default=False, verbose_name=_("Orga"), help_text=_("Möchtest du als Orga bei der Ophase mitmachen?"))
     is_helper = models.BooleanField(default=False, verbose_name=_("Helfer"), help_text=_("Möchtest du als Helfer bei der Ophase mitmachen?"))
-    tutor_for = models.ForeignKey(GroupCategory, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
+    tutor_for = models.ForeignKey(GroupCategory, models.SET_NULL, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
     orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name=_("Orgaaufgaben"), help_text=_("Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"))
     helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name=_("Helferaufgaben"), help_text=_("Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"))
-    dress_size = models.ForeignKey(DressSize, null=True, blank=True, verbose_name=_("Kleidergröße"), help_text=_("Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt passt brauchen wir deine Größe."))
+    dress_size = models.ForeignKey(DressSize, models.SET_NULL, null=True, blank=True, verbose_name=_("Kleidergröße"), help_text=_("Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt passt brauchen wir deine Größe."))
     remarks = models.TextField(blank=True, verbose_name=_("Anmerkungen"), help_text=_("Was sollten wir noch wissen?"))
     orga_annotation = models.TextField(blank=True, verbose_name=_("Orga-Anmerkungen"), help_text=_("Notizen von Leitung und Orgas."))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
@@ -133,10 +133,10 @@ class TutorGroup(models.Model):
         ordering = ['group_category', 'name']
         unique_together = ('ophase', 'name')
 
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     name = models.CharField(max_length=50, verbose_name=_("Gruppenname"))
     tutors = models.ManyToManyField(Person, blank=True, verbose_name=_("Tutoren"))
-    group_category = models.ForeignKey(GroupCategory, verbose_name=_("Gruppenkategorie"))
+    group_category = models.ForeignKey(GroupCategory, models.CASCADE, verbose_name=_("Gruppenkategorie"))
 
     def __str__(self):
         return self.name

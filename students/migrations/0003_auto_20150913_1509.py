@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='student',
             name='tutor_group',
-            field=models.ForeignKey(verbose_name='Kleingruppe', to='staff.TutorGroup'),
+            field=models.ForeignKey(verbose_name='Kleingruppe', to='staff.TutorGroup', on_delete=models.CASCADE),
         ),
         migrations.DeleteModel(
             name='TutorGroup',

@@ -15,7 +15,7 @@ class ExamRoom(models.Model):
         verbose_name_plural = _('Klausurräume')
         ordering = ['available', '-capacity_1_free', '-capacity_2_free', 'room']
 
-    room = models.OneToOneField('ophasebase.Room', verbose_name=_('Raum'), limit_choices_to={"type": "HS"})
+    room = models.OneToOneField('ophasebase.Room', models.CASCADE, verbose_name=_('Raum'), limit_choices_to={"type": "HS"})
     available = models.BooleanField(verbose_name=_('Verfügbar'), default=True)
     capacity_1_free = models.IntegerField(verbose_name=_('Plätze (1 Platz Abstand)'))
     capacity_2_free = models.IntegerField(verbose_name=_('Plätze (2 Plätze Abstand)'))
@@ -51,9 +51,9 @@ class Assignment(models.Model):
         (1, _('Möglichst wenig Räume'))
     )
 
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    group_category = models.ForeignKey(GroupCategory, verbose_name=_('Gruppenkategorie'))
+    group_category = models.ForeignKey(GroupCategory, models.CASCADE, verbose_name=_('Gruppenkategorie'))
     spacing = models.PositiveSmallIntegerField(choices=SPACING_CHOICES, default=2, verbose_name=_('Sitzplatzabstand'))
     mode = models.PositiveSmallIntegerField(choices=MODE_CHOICES, default=0, verbose_name=_('Verteilmodus'))
     count = models.PositiveIntegerField(verbose_name=_('# Zuteilungen'))
@@ -135,6 +135,6 @@ class PersonToExamRoomAssignment(models.Model):
         verbose_name_plural = _('Individuelle Klausurzuteilungen')
         ordering = ['assignment', 'room', 'person__name', 'person__prename']
 
-    assignment = models.ForeignKey(Assignment)
-    room = models.ForeignKey(ExamRoom)
-    person = models.ForeignKey(Student)
+    assignment = models.ForeignKey(Assignment, models.CASCADE)
+    room = models.ForeignKey(ExamRoom, models.CASCADE)
+    person = models.ForeignKey(Student, models.CASCADE)

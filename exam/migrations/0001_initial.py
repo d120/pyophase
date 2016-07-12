@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                 ('spacing', models.PositiveSmallIntegerField(verbose_name='Sitzplatzabstand', choices=[(1, 'Ein Platz Abstand'), (2, 'Zwei Plätze Abstand')], default=2)),
                 ('mode', models.PositiveSmallIntegerField(verbose_name='Verteilmodus', choices=[(0, 'Gleichmäßig auf alle Räume verteilen'), (1, 'Möglichst wenig Räume')], default=0)),
                 ('count', models.PositiveIntegerField(verbose_name='# Zuteilungen')),
-                ('group_category', models.ForeignKey(verbose_name='Gruppenkategorie', to='staff.GroupCategory')),
-                ('ophase', models.ForeignKey(to='ophasebase.Ophase')),
+                ('group_category', models.ForeignKey(verbose_name='Gruppenkategorie', to='staff.GroupCategory', on_delete=models.CASCADE)),
+                ('ophase', models.ForeignKey(to='ophasebase.Ophase', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Klausurzuteilung',
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('available', models.BooleanField(verbose_name='Verfügbar', default=True)),
                 ('capacity_1_free', models.IntegerField(verbose_name='Plätze (1 Platz Abstand)')),
                 ('capacity_2_free', models.IntegerField(verbose_name='Plätze (2 Plätze Abstand)')),
-                ('room', models.OneToOneField(to='ophasebase.Room', verbose_name='Raum')),
+                ('room', models.OneToOneField(to='ophasebase.Room', verbose_name='Raum', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Klausurraum',
@@ -49,9 +49,9 @@ class Migration(migrations.Migration):
             name='PersonToExamRoomAssignment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('assignment', models.ForeignKey(to='exam.Assignment')),
-                ('person', models.ForeignKey(to='students.Student')),
-                ('room', models.ForeignKey(to='exam.ExamRoom')),
+                ('assignment', models.ForeignKey(to='exam.Assignment', on_delete=models.CASCADE)),
+                ('person', models.ForeignKey(to='students.Student', on_delete=models.CASCADE)),
+                ('room', models.ForeignKey(to='exam.ExamRoom', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Individuelle Klausurzuteilung',

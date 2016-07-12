@@ -12,7 +12,7 @@ class WorkshopSlot(models.Model):
         verbose_name_plural = _('Workshopslots')
         ordering = ['date', 'start_time']
 
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     date = models.DateField(verbose_name=_('Datum'))
     start_time = models.TimeField(verbose_name=_('Beginn'))
     end_time = models.TimeField(verbose_name=_('Ende'))
@@ -31,7 +31,7 @@ class Workshop(models.Model):
         verbose_name = _('Workshop')
         verbose_name_plural = _('Workshops')
 
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     tutor_name = models.CharField(max_length=100, verbose_name=_('Name'))
     tutor_mail = models.EmailField(verbose_name=_('E-Mail-Adresse'))
     title = models.CharField(max_length=200, verbose_name=_('Workshoptitel'), help_text=_('Unter welcher Überschrift steht der Workshop?'))

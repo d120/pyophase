@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^klausur/', include('exam.urls', namespace='exam')),
     url(r'^workshops/', include('workshops.urls', namespace='workshops')),
     url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', django.contrib.auth.views.login, {'template_name': 'admin/login.html'}, name='login'),
     url(r'^accounts/logout/$', django.contrib.auth.views.logout, {'next_page': reverse_lazy('ophasebase:welcome')}, name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),

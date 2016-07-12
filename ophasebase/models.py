@@ -50,7 +50,7 @@ class Room(models.Model):
         ("SO", _('Sonstiges'))
     )
 
-    building = models.ForeignKey(Building, verbose_name=_('Gebäude'))
+    building = models.ForeignKey(Building, models.CASCADE, verbose_name=_('Gebäude'))
     number = models.CharField(max_length=50, verbose_name=_('Nummer'))
     type = models.CharField(max_length=2, choices=ROOM_TYPE_CHOICES, verbose_name=_('Typ'))
     has_beamer = models.BooleanField(default=False, verbose_name=_('Beamer vorhanden?'))

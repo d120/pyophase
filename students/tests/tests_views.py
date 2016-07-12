@@ -126,7 +126,7 @@ class StudentAddViewTest(TestCase):
         # Test whitout a ophase object
         response = c.get(reverse('students:registration_success'))
         self.assertEqual(response.status_code, 200)
-        self.assertEquals(response.context['ophase_title'], 'Ophase')
+        self.assertEqual(response.context['ophase_title'], 'Ophase')
 
         # Create a ophase object
         o1 = Ophase.objects.create(
@@ -134,4 +134,4 @@ class StudentAddViewTest(TestCase):
 
         response = c.get(reverse('students:registration_success'))
         self.assertEqual(response.status_code, 200)
-        self.assertEquals(response.context['ophase_title'], str(o1))
+        self.assertEqual(response.context['ophase_title'], str(o1))

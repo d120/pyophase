@@ -32,10 +32,10 @@ class Student(models.Model):
     prename = models.CharField(max_length=50, verbose_name=_('first name'))
     name = models.CharField(max_length=50, verbose_name=_('last name'))
     email = models.EmailField(verbose_name=_("E-Mail-Adresse"), blank=True)
-    tutor_group = models.ForeignKey(TutorGroup, verbose_name=_("Kleingruppe"))
+    tutor_group = models.ForeignKey(TutorGroup, models.CASCADE, verbose_name=_("Kleingruppe"))
     want_exam = models.BooleanField(default=False, blank=True, verbose_name=_("Klausur mitschreiben?"))
     newsletters = models.ManyToManyField(Newsletter, blank=True, verbose_name=_("Newsletter"), help_text=_("Welche Newsletter willst du abonieren (optional)?"), limit_choices_to={'active': True})
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
