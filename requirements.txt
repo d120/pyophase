@@ -1,5 +1,5 @@
 coverage==4.1
-Django==1.9.7
+Django==1.9.8
 django-bootstrap3==7.0.1
 mysqlclient==1.3.7
 odswriter==0.4.0
