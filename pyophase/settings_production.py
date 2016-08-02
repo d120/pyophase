@@ -19,7 +19,10 @@ DATABASES = {
         'HOST': 'localhost',
         'NAME': 'pyophase',
         'USER': 'pyophase',
-        'PASSWORD': secrets.DB_PASSWORD
+        'PASSWORD': secrets.DB_PASSWORD,
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
