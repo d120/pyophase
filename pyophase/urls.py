@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 import django.contrib.auth.views
 
 from django.contrib import admin

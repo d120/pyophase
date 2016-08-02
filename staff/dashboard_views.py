@@ -1,7 +1,7 @@
 from django.views.generic import FormView, TemplateView
 from django.template import loader
 from django.template.response import TemplateResponse
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 
 from ophasebase.models import Ophase

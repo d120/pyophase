@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
 from django.utils.translation import ugettext_lazy as _
 

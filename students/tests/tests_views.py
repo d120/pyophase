@@ -1,19 +1,12 @@
+from datetime import date
+
 from django.test import Client, TestCase
-
-from django.core.urlresolvers import reverse
-
+from django.urls import reverse
 from django.contrib.auth.models import User, Permission
-
 from django.utils.translation import ugettext_lazy as _
 
 from staff.models import GroupCategory, TutorGroup
-
-from datetime import date
-
-
-
 from ophasebase.models import Ophase
-from students.views import StudentAdd, StudentAddSuccess
 
 
 class StudentAddViewTest(TestCase):
