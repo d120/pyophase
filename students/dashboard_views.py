@@ -38,20 +38,19 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
             context['count_student'] = students.count()
             context['count_exam'] = students.filter(want_exam=True).count()
 
-            tutor_groups = TutorGroup.objects\
-                                            .annotate(
-                                                num=Count('student'),
-                                                num_exam=Sum('student__want_exam'))\
-                                            .order_by('group_category', 'name')
+            t_groups = TutorGroup.objects
+            t_groups = t_groups.annotate(num=Count('student'))
+            t_groups = t_groups.annotate(num_exam=Sum('student__want_exam'))
+            t_groups = t_groups.order_by('group_category', 'name')
 
             # With some DB Backends Sum returns True instead of 1
             # int() fixes it.
             # see https://github.com/d120/pyophase/issues/47
-            for group in tutor_groups:
+            for group in t_groups:
                 if group.num_exam != None:
                     group.num_exam = int(group.num_exam)
 
-            context['tutor_groups'] = tutor_groups
+            context['tutor_groups'] = t_groups
         return context
 
 
