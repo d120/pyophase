@@ -47,7 +47,7 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
             # int() fixes it.
             # see https://github.com/d120/pyophase/issues/47
             for group in t_groups:
-                if group.num_exam != None:
+                if group.num_exam is not None:
                     group.num_exam = int(group.num_exam)
 
             context['tutor_groups'] = t_groups
