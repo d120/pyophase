@@ -78,7 +78,7 @@ class GroupCategoryList(GenericJobList):
 
     def __init__(self):
         super().__init__()
-        self.title = GroupCategory._meta.verbose_name_plural.title()
+        self.title = GroupCategory._meta.verbose_name_plural
 
 class OrgaJobList(GenericJobList):
     """List all OrgaJobs"""
@@ -86,7 +86,7 @@ class OrgaJobList(GenericJobList):
 
     def __init__(self):
         super().__init__()
-        self.title = OrgaJob._meta.verbose_name_plural.title()
+        self.title = OrgaJob._meta.verbose_name_plural
 
 class HelperJobList(GenericJobList):
     """List all HelperJobs"""
@@ -94,4 +94,4 @@ class HelperJobList(GenericJobList):
 
     def __init__(self):
         super().__init__()
-        self.title = HelperJob._meta.verbose_name_plural.title()
+        self.title = HelperJob._meta.verbose_name_plural
