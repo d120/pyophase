@@ -76,7 +76,7 @@ class PersonAdmin(admin.ModelAdmin):
 
     def is_tutor_with_title(self, obj):
         """If the person is a tutor the tutor_for tag is set as image title"""
-        if obj.is_tutor == True and obj.tutor_for != None:
+        if obj.is_tutor == True and obj.tutor_for is not None:
             icon_url = static('admin/img/icon-yes.svg')
             return format_html('<img src="{}" alt="{}" title="{}" />',
                                icon_url, obj.is_tutor, obj.tutor_for.label)
