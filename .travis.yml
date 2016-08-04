@@ -35,7 +35,7 @@ before_script:
 # command to run tests
 script:
   - python manage.py test 
-  - coverage run --omit="*/migrations*" --source=dashboard,exam,ophasebase,staff,students manage.py test
+  - coverage run --omit="*/migrations*" --source=dashboard,exam,ophasebase,staff,students,workshops manage.py test
 
 after_success:
   coveralls
