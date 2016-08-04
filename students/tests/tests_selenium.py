@@ -1,15 +1,15 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 
 from django.contrib.auth.models import User, Permission
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.firefox.webdriver import WebDriver
 
 from students.models import Newsletter
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
@@ -33,6 +33,7 @@ class StudentSeleniumTests(StaticLiveServerTestCase):
         news2 = Newsletter.objects.create(name='Number 2', description='Just a test', active=True)
         news2.save()
 
+    @tag('selenium')
     def test_show_hide_email(self):
         """Test that showing and hiding of the email field for students"""
 

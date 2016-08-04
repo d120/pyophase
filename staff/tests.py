@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, tag
 from django.utils.safestring import SafeText
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -63,6 +63,7 @@ class StaffSeleniumTests(StaticLiveServerTestCase):
         cls.selenium.quit()
         super(StaffSeleniumTests, cls).tearDownClass()
 
+    @tag('selenium')
     def test_dependent_visibility_two(self):
         """Test that showing and hiding of fields works"""
         driver = self.selenium
@@ -103,6 +104,7 @@ class StaffSeleniumTests(StaticLiveServerTestCase):
         self.assertTrue(driver.find_element_by_xpath("//div[@id='mainForm']/form/div[14]").is_displayed())
         self.assertFalse(driver.find_element_by_id("id_helper_jobs_0").is_selected())
 
+    @tag('selenium')
     def test_fillform(self):
         """Test fillform with all possible fields"""
         driver = self.selenium
