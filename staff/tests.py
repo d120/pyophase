@@ -6,6 +6,8 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 
 from datetime import date
 
+import time
+
 from ophasebase.models import Ophase
 from staff.models import Person, DressSize
 from staff.forms import PersonForm
@@ -90,6 +92,7 @@ class StaffSeleniumTests(StaticLiveServerTestCase):
         driver.find_element_by_id("id_is_orga").click()
         self.assertTrue(driver.find_element_by_id("id_dress_size").is_displayed())
         driver.find_element_by_id("id_is_orga").click()
+        self.assertFalse(driver.find_element_by_id("id_orga_jobs_0").is_displayed())
         self.assertFalse(driver.find_element_by_id("id_orga_jobs_0").is_selected())
         driver.find_element_by_id("id_is_tutor").click()
         self.assertFalse(driver.find_element_by_id("id_dress_size").is_displayed())
@@ -97,11 +100,13 @@ class StaffSeleniumTests(StaticLiveServerTestCase):
         driver.find_element_by_id("id_is_tutor").click()
         driver.find_element_by_id("id_is_helper").click()
         driver.find_element_by_id("id_helper_jobs_0").click()
+        self.assertTrue(driver.find_element_by_id("id_helper_jobs_0").is_displayed())
         self.assertTrue(driver.find_element_by_id("id_helper_jobs_0").is_selected())
         driver.find_element_by_id("id_is_helper").click()
         self.assertFalse(driver.find_element_by_xpath("//div[@id='mainForm']/form/div[14]").is_displayed())
         driver.find_element_by_id("id_is_helper").click()
         self.assertTrue(driver.find_element_by_xpath("//div[@id='mainForm']/form/div[14]").is_displayed())
+        self.assertTrue(driver.find_element_by_id("id_helper_jobs_0").is_displayed())
         self.assertFalse(driver.find_element_by_id("id_helper_jobs_0").is_selected())
 
     @tag('selenium')
