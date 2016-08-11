@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="{% static 'ophasebase/components/font-awesome/css/font-awesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'ophasebase/css/sticky-footer.css' %}" media="screen" />
 </head>
-<body>
-    <div class="container">
+<body style="background-color: #eee; margin-bottom: 0;">
+    <div class="container" style="background-color: #fff; box-shadow: 10px 0px 50px 5px rgba(100,100,100,0.75), -10px 0px 50px 5px rgba(100,100,100,0.75);">
 
         <!-- Static navbar -->
-        <nav class="navbar navbar-default" role="navigation">
+        <!--<nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'website:homepage' %}">OphaseHQ</a>
@@ -46,22 +46,17 @@
                     </span>
                 </div>
             </div>
-        </nav>
+        </nav>-->
 
         <!-- Main component -->
-        <div class="jumbotron">
+        <!--<div class="jumbotron">-->
         {% block content %}{% endblock %}
-        </div>
+        <!--</div>-->
 
-        <footer class="footer">
-            <div class="container">
-                <p class="text-muted">
-                    <span class="pull-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>
-                    <span class="pull-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fa fa-github fa-lg"></i></a></span>
-                </p>
-            </div>
-        </footer>
-
+        <p class="text-muted" style="padding: 3rem 0 2rem 0;">
+            <span class="pull-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>
+            <span class="pull-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fa fa-github fa-lg"></i></a></span>
+        </p>
     </div>
 
     <script src="{% static 'ophasebase/components/jquery/dist/jquery.min.js' %}"></script>

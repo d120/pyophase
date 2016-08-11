@@ -1,9 +1,46 @@
-{% extends "ophasebase/base.html" %}{% load i18n %}
+{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
 {% block title %}Willkommen{% endblock %}
 
 {% block content %}
 
-<h1 class="text-center">{% trans "Willkommen" %} - OphaseHQ</h1>
+
+<div class="row" style="padding: 1rem 0; margin-top: 1rem;">
+    <div class="col-sm-8">
+        <h1>Willkommen zur Ophase Informatik!</h1>
+    </div>
+    <div class="col-sm-4" style="text-align: right;">
+        <img src="{% static 'website/logo_ohne_rand.png' %}" class="pull-right" style="height: 7rem; margin-top: .5rem;" />
+    </div>
+</div>
+
+<div style="margin-top: 3rem; border-left: 3px solid #8e44ad; padding-left: 1.5rem; background-color: #ecdef2;">
+    <div style="padding: .6rem 0;">
+        <h3 style="margin: 0;">Helfer*innen gesucht!</h3>
+        <p style="margin: 0; padding-top: .6rem; font-size: 1.8rem;">
+            Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'staff:registration' %}">hier</a>!
+        </p>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 3rem;">
+    <div class="col-lg-6">
+        <div style="background-color: #fbd41f; padding-right: 1rem; border-risght: 3px solid #888; padding: 1rem; min-height: 800px;">
+            <h2 style="margin-top: .5rem;">Bachelor</h2>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div style="background-color: #3adcbc; padding: 1rem; min-height: 380px;">
+            <h2 style="margin-top: .5rem;">Master DSS</h2>
+        </div>
+        <div style="background-color: #64c8fb; margin-top: 3rem; padding: 1rem; min-height: 300px;">
+            <h2 style="margin-top: .5rem;">Anderer Master</h2>
+        </div>
+    </div>
+</div>
+
+
+<!-- old stuff -->
+<!--<h1 class="text-center">{% trans "Willkommen" %} - OphaseHQ</h1>
 <div class="row">
     <div class="col-md-6">
         <h2>{% trans "Für engagierte Studierende" %}</h2>
@@ -23,7 +60,7 @@
         <h2>{% trans "Für Orgas" %}</h2>
         <p><a href="{% url 'dashboard:index' %}">{% trans "Das Dashboard aufrufen" %}</a></p>
     </div>
-</div>
+</div>-->
 
 {% endblock %}
 
