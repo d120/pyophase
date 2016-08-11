@@ -16,7 +16,4 @@ urlpatterns = [
     url(r'^accounts/login/$', django.contrib.auth.views.login, {'template_name': 'admin/login.html'}, name='login'),
     url(r'^accounts/logout/$', django.contrib.auth.views.logout, {'next_page': reverse_lazy('website:homepage')}, name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^base/', include('ophasebase.urls', namespace='ophasebase')),
 ]
-
-
