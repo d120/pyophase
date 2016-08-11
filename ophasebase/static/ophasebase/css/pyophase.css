@@ -14,3 +14,13 @@ html {
 a {
     color: #1141c5 !important;
 }
+
+a.no-underline:hover {
+    text-decoration: none;
+}
+
+.breadcrumbs {
+    font-style: italic;
+    color: #888;
+    margin-bottom: 2rem;
+}

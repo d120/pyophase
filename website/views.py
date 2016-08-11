@@ -45,3 +45,12 @@ class HelfenView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['current_ophase'] = Ophase.current()
         return context
+
+
+class InternView(TemplateView):
+    template_name = "website/intern.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['current_ophase'] = Ophase.current()
+        return context

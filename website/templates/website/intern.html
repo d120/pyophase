@@ -1,0 +1,28 @@
+{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% block title %}Intern{% endblock %}
+{% block heading %}Interner Bereich{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>{% trans "Für engagierte Studierende" %}</h2>
+        <p><a href="{% url 'staff:registration' %}">{% trans "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken" %}</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>{% trans "Für Tutorinnen und Tutoren" %}</h2>
+        <p><a href="{% url 'students:registration' %}">{% trans "Die Erstsemester deiner Kleingruppe registrieren" %}</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>{% trans "Für Workshopleiter" %}</h2>
+        <p><a href="{% url 'workshops:create' %}">{% trans "Bei der nächsten Ophase einen Workshop anbieten" %}</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>{% trans "Für Orgas" %}</h2>
+        <p><a href="{% url 'dashboard:index' %}">{% trans "Das Dashboard aufrufen" %}</a></p>
+    </div>
+</div>
+
+{% endblock %}
