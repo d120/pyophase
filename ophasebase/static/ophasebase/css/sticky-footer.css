@@ -20,3 +20,5 @@ body {
 .footer .container .text-muted {
   margin: 5px 0;
 }
+
+a { color: #1141c5 !important; }
