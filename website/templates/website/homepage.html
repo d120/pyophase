@@ -1,23 +1,15 @@
 {% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
-{% block title %}Willkommen{% endblock %}
+{% block title %}Startseite{% endblock %}
+{% block heading %}Willkommen zur Ophase Informatik!{% endblock %}
 
 {% block content %}
 
-
-<div class="row" style="padding: 1rem 0; margin-top: 1rem;">
-    <div class="col-sm-8">
-        <h1>Willkommen zur Ophase Informatik!</h1>
-    </div>
-    <div class="col-sm-4" style="text-align: right;">
-        <img src="{% static 'website/logo_ohne_rand.png' %}" class="pull-right" style="height: 7rem; margin-top: .5rem;" />
-    </div>
-</div>
 
 <div style="margin-top: 3rem; border-left: 3px solid #8e44ad; padding-left: 1.5rem; background-color: #ecdef2;">
     <div style="padding: 1rem 0;">
         <h3 style="margin: 0;">Helfer*innen gesucht!</h3>
         <p style="margin: 0; padding-top: .6rem; font-size: 1.8rem;">
-            Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'staff:registration' %}">hier</a>!
+            Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'website:helfen' %}">hier</a>!
         </p>
     </div>
 </div>
@@ -33,13 +25,13 @@
                     <span class="fa fa-calendar" style="font-size:30pt"></span>
                     <p>
                         10. - 14. Oktober<br />
-                        <a href="/wiki/Ophase/Bachelor_Stundenplan" title="Ophase/Bachelor Stundenplan">zum Stundenplan</a>
+                        <a href="{% url 'website:bachelor' %}">zum Stundenplan</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
                     <span class="fa fa-map-marker" style="font-size:30pt"></span>
                     <p>Gebäude S2|02 <br />
-                        <a rel="nofollow" class="external text" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">Lageplan der Uni</a>
+                        <a rel="nofollow" class="external text" target="_blank" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">Lageplan der Uni</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
@@ -97,13 +89,13 @@
                     <span class="fa fa-calendar" style="font-size:30pt"></span>
                     <p>
                         13. - 14. Oktober<br />
-                        <a href="/wiki/Ophase/Bachelor_Stundenplan" title="Ophase/Bachelor Stundenplan">zum Stundenplan</a>
+                        <a href="{% url 'website:master-dss' %}">zum Stundenplan</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
                     <span class="fa fa-map-marker" style="font-size:30pt"></span>
                     <p>Gebäude S2|02 <br />
-                        <a rel="nofollow" class="external text" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">Lageplan der Uni</a>
+                        <a rel="nofollow" class="external text" target="_blank" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">Lageplan der Uni</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
@@ -129,13 +121,13 @@
                     <span class="fa fa-calendar" style="font-size:30pt"></span>
                     <p>
                         11. - 13. Oktober<br />
-                        <a href="/wiki/Ophase/Bachelor_Stundenplan" title="Ophase/Bachelor Stundenplan">zum Stundenplan</a>
+                        <a href="{% url 'website:master-de' %}">zum Stundenplan</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
                     <span class="fa fa-map-marker" style="font-size:30pt"></span>
                     <p>Gebäude S2|02 <br />
-                        <a rel="nofollow" class="external text" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">Lageplan der Uni</a>
+                        <a rel="nofollow" class="external text" target="_blank" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">Lageplan der Uni</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">

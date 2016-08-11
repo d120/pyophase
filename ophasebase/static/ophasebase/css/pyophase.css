@@ -1,0 +1,16 @@
+/*
+ * pyophase common styles
+ */
+
+html {
+    position: relative;
+    min-height: 100.1%;
+}
+
+.text-muted {
+    margin: 5px 0;
+}
+
+a {
+    color: #1141c5 !important;
+}
