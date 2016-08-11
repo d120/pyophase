@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ophasebase',
+    'website',
     'dashboard',
     'staff',
     'students',
@@ -62,7 +63,7 @@ MIDDLEWARE = (
 
 ROOT_URLCONF = 'pyophase.urls'
 
-LOGIN_REDIRECT_URL = 'ophasebase:welcome'
+LOGIN_REDIRECT_URL = 'website:homepage'
 
 TEMPLATES = [
     {
