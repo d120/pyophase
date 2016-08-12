@@ -38,20 +38,19 @@ bower install
 
 ### Installation
 
-* Install `python3`, `python3-pip`, `python3-virtualenv` and `bower` (the latter maybe via `npm`)
+* Install `python3`, `python3-pip`, `virtualenv` and `bower` (the latter maybe via `npm`)
 * Maybe create a user for Django/WSGI applications (e.g. `django`)
 * Clone this repository into a proper directory (e.g. `/srv/pyophase`)
 * Maybe create MySQL database and proper user
 * Create the file `pyophase/settings_secrets.py` and fill it with the credentials needed in `settings_production.py`
 * Create a virtualenv (e.g. `virtualenv -p python3 venv`)
-* For serving WSGI applications, one can install `uwsgi`, create an ini file under `/etc/uwsgi/` with the proper configuration and configure the webserver to use mod-proxy-uwsgi to make the application accessible. The webserver should also serve the static files. Make sure the application server (uwsgi) sets the proper environment variable for production settings (`DJANGO_SETTINGS_MODULE=pyophase.settings_production`).
+* For serving WSGI applications, one can install `uwsgi`, create an ini file under `/etc/uwsgi` with a proper configuration and configure the webserver to use mod-proxy-uwsgi to make the application accessible. The webserver should also serve the static files. Make sure the application server (uwsgi) sets the proper environment variable for production settings (`DJANGO_SETTINGS_MODULE=pyophase.settings_production`).
 * Run all the relevant commands from the Updates section
 
 ### Updates
 
 When executing the `manage.py` commands in production, do not forget to either pass the `--settings pyophase.settings_production` flag oder set it as an environment variable like `export DJANGO_SETTINGS_MODULE=pyophase.settings_production`.
 
-* `systemctl stop uwsgi`
 * `git pull`
 * `bower install` when the `bower.json` file changed
 * `source venv/bin/activate` when some of the `pip` or `./manage.py` steps are necessary
@@ -62,7 +61,7 @@ When executing the `manage.py` commands in production, do not forget to either p
 * `./manage.py compilemessages` when a message file (`*.po`) changed
 * `deactivate` when virtualenv was activated
 * `chown -R django:django .`
-* `systemctl start uwsgi`
+* `touch pyophase/wsgi.py`
 
 ## Usage
 
