@@ -1,13 +1,14 @@
 {% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
-
 {% block title %}{% trans "Fehler" %} | {% trans "Mitmachen" %}{% endblock %}
+{% block heading %}Bei der Ophase mithelfen{% endblock %}
 
 {% block content %}
 
-<h2>{% bootstrap_icon "remove" %} {% trans "Fehler: E-Mail-Adresse bereits registriert." %}</h2>
-
-<p>
-    {% trans "Scheinbar bist du bereits für diese Ophase registriert. Wenn etwas an deiner Registrierung geändert werden soll, schreib einfach eine E-Mail an <a href='mailto:ophase-leitung@d120.de'>ophase-leitung@d120.de</a>." %}
-</p>
+<div class="jumbotron" style="margin-top: 1rem;">
+    <h2>{% bootstrap_icon "remove" %} {% trans "Fehler: E-Mail-Adresse bereits registriert." %}</h2>
+    <p>
+        {% trans "Scheinbar bist du bereits für diese Ophase registriert. Wenn etwas an deiner Registrierung geändert werden soll, schreib einfach eine E-Mail an <a href='mailto:ophase-leitung@d120.de'>ophase-leitung@d120.de</a>." %}
+    </p>
+</div>
 
 {% endblock %}

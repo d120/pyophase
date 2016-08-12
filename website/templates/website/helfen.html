@@ -1,0 +1,74 @@
+{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% block title %}Mithelfen{% endblock %}
+{% block heading %}Bei der Ophase mithelfen{% endblock %}
+{% block language-switcher %}{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumbs">
+    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Mithelfen
+</div>
+
+<div style="margin-top: 1rem; border-left: 3px solid #8e44ad; padding-left: 1.5rem; background-color: #ecdef2;">
+    <div style="padding: 1rem 0;">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>{% trans "Für engagierte Studierende" %}</h2>
+                <p><a href="{% url 'staff:registration' %}">{% trans "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken" %}</a></p>
+            </div>
+            <div class="col-md-6">
+                <h2>{% trans "Für Workshopleiter" %}</h2>
+                <p><a href="{% url 'workshops:create' %}">{% trans "Bei der nächsten Ophase einen Workshop anbieten" %}</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="padding-top: 3rem;"></div>
+
+<p>Die Ophase lebt davon, dass viele Studenten ehrenamtlich daran mitarbeiten. Hier wollen wir die Möglichkeiten vorstellen, wie du dich an der Organisation der Ophase beteiligen kannst. Grundsätzlich gibt es vier verschiedene Möglichkeiten, die sich alle im Zeitaufwand unterscheiden.</p>
+
+
+<h2>Helfer</h2>
+
+<p>Helfer übernehmen kleinere Aufgaben während der Ophase. Dies sind in der Regel Aufgaben, welche in den Programmpunkten anfallen. Die möglichen Aufgaben sind sehr vielfältig. Regelmäßig wiederkehrende Aufgaben sind
+    Stationen bei Spielen oder der Unirallye zu betreuen,
+    Leitung von Kneipentouren,
+    Workshops für die Ersties halten,
+    Auf- und Abbau des Frühstücks, Frühstückswache, Einkaufshelfer, Springer,
+    Tutoren bei der Korrektur der Ophase unterstützen
+    und die Ausgabe der Namensschilder.
+    Interessierte Helfer können sich auf die Mailingliste ophase-helfer(a-t)d120.de eintragen. Dort werden dann vor der Ophase die möglichen Aufgaben mit Terminen bekanntgegeben und du kannst dich dann bei Interesse für die einzelnen Aufgaben melden. Bei manchen Aufgaben wirst du zeitnah noch eine kurze Einweisung erhalten. Bei Fragen wendet euch an ophase-leitung(a-t)d120.de.</p>
+
+
+<h2>Workshopleiter</h2>
+
+<p>Wir suchen noch Leute die sich vorstellen könnten dort einen Workshop anzubieten. Dabei ist es egal ob es mehr ein Vortrag, ein Hands-on-Workshop, Sport, ein Ausflug oder Sonstiges ist. Es spielt auch keine Rolle ob es um etwas Fachliches oder etwas ganz anderes geht. Wenn ihr also irgendwas könnt oder zu erzählen habt, überlegt euch doch einen Workshop daraus zu machen.</p>
+
+
+<h2>Tutor</h2>
+
+<p>Zwei Tutoren sind immer gemeinsam für eine Kleingruppe verantwortlich. Dabei bilden meist ein neuer Tutor mit einem erfahrenen Tutor, welcher schon in einer vorherigen Ophase Tutor war, ein Team. In der Kleingruppe führt ihr die Ersties über den Campus, helft ihnen bei der Zusammenstellung ihres Stundenplans, korrigiert die Klausur und veranstaltet eine Klausureinsicht und informiert sie über die Unterschiede zwischen Schule und Universität. Natürlich dürfen sich Tutoren auch gerne weiter einbringen und noch zusätzlich Helfer-Aufgaben übernehmen.
+    Als Tutor solltest du in der Woche der Ophase Zeit haben, da täglich Kleingruppentermine und Tutorenbesprechungen stattfinden. Außerdem gibt es vor der Ophase eine Schulung, ein Treffen zum Kennenlernen der Tutoren untereinander und ein Kickoff-Treffen.
+    Aber neben den ganzen Aufgaben darf man nicht den Spaß vergessen. Ein Ophasen-Tutor kann jeden Morgen kostenlos frühstücken, kann mit den anderen Tutoren sowie den Ersties auf Kneipentour gehen und sehr viel Spaß an der Ophase haben. Außerdem hast du so die Möglichkeit die Ophase von der anderen Seite zu sehen.
+    Unter Tutorenanmeldung kannst du dich als Tutor melden. Weitere Informationen erhälst du dann per E-Mail.</p>
+
+
+<h2>Orga</h2>
+
+<p>Ein Orga investiert einen Großteil seiner Zeit bereits einige Zeit vor der Ophase. Denn ein Orga übernimmt die Organisation einer oder mehrerer Aufgaben. Die Aufgaben sind sehr unterschiedlich. Einige mögliche Aufgabenfelder sind
+    der Entwurf der Klausur,
+    die Überarbeitung des OInforz,
+    die Koordination der Workshops,
+    die Organisation der Unirallye,
+    die Planung des Frühstücks
+    und die Gestaltung des Abendprogramms.
+    Zu Beginn des vorherigen Semesters werden die Orgas gesucht und die Aufgaben verteilt. Dann beginnen die Orgas je nach Aufgabe schon sehr früh mit der Arbeit. Es gibt regelmäßige Treffen bis zur Ophase, bei denen sich die verschiedenen Orgas austauschen können. Bei Interesse wende dich einfach mit einer Mail an ophase-leitung(a-t)d120.de.</p>
+
+
+<h2>Leitung</h2>
+
+<p>Die Leitung übernehmen immer zwei oder drei Studierende, die sich bereits in der Vergangenheit schon intensiv als Orgas und Tutoren in die Ophase eingebracht haben. Diese Aufgabe ist sehr zeitintensiv und beginnt einige Monate vor der Ophase. Die Leitung muss Orgas, Tutoren und Helfer suchen und schulen. Außerdem muss sie die Koordination der Orgas, die Raumbuchungen, den Stundenplan und die verschiedenen Treffen organisieren.</p>
+
+
+{% endblock %}

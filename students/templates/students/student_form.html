@@ -19,9 +19,9 @@
     </form>
 </div>
 {% else %}
-<p>
+<div class="jumbotron" style="margin-top: 1rem;">
   {% trans "Derzeit ist die Registrierung nicht freigeschaltet." %}
-</p>
+</div>
 {% endif %}
 {% endblock %}
 {% block bottom_script %}{% load staticfiles %}

@@ -6,62 +6,69 @@
     <meta name=viewport content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="{% static 'ophasebase/components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
     <link rel="stylesheet" href="{% static 'ophasebase/components/font-awesome/css/font-awesome.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'ophasebase/css/sticky-footer.css' %}" media="screen" />
+    <link rel="stylesheet" href="{% static 'ophasebase/css/pyophase.css' %}" media="screen" />
 </head>
 <body>
+
+    {% block language-switcher %}
+        <!-- language switcher -->
+        <div class="language-switcher">
+            <div class="container">
+                <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}" />
+                    Switch languages:
+                    <select name="language" class="form-control input-sm" style="width:initial;">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                {{ language.code | upper }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="{% trans 'Sprache ändern' %}" class="btn btn-default btn-sm" />
+                </form>
+            </div>
+        </div>
+    {% endblock %}
+
     <div class="container">
 
-        <!-- Static navbar -->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{% url 'ophasebase:welcome' %}">OphaseHQ</a>
-                </div>
-                <div class="navbar-right">
-                    {% if user.is_authenticated %}
-                    <span class="navbar-text">{% trans "Angemeldet als" %} {{ user.username }}</span>
-                    {% if user.is_staff %}
-                    <span class="navbar-text"><a href="{% url 'admin:index' %}">{% trans "Zum Adminbereich" %}</a></span>
-                    {% endif %}
-                    <span class="navbar-text"><a href="{% url 'logout' %}">{% trans "Logout" %}</a></span>
-                    {% else %}
-                    <span class="navbar-text"><a href="{% url 'login' %}?next={{request.path}}">{% trans "Login" %}</a></span>
-                    {% endif %}
-                    <span class="navbar-text" style="margin-top:10px; margin-bottom:0px;">
-                        <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
-                            {% csrf_token %}
-                            <input name="next" type="hidden" value="{{ request.path }}" />
-                            <select name="language" class="form-control input-sm" style="width:initial;">
-                                {% get_current_language as LANGUAGE_CODE %}
-                                {% get_available_languages as LANGUAGES %}
-                                {% get_language_info_list for LANGUAGES as languages %}
-                                {% for language in languages %}
-                                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                                        {{ language.code | upper }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                            <input type="submit" value="{% trans 'Sprache ändern' %}" class="btn btn-default btn-sm" />
-                        </form>
-                    </span>
-                </div>
+        <!-- Header -->
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>
+                    <a href="{% url 'website:homepage' %}" class="no-underline">
+                        <img src="{% static 'website/OPhasenWesen_2016.png' %}" style="height: 9rem;" />
+                    </a>
+                    {% block heading %}{% endblock %}
+                </h1>
             </div>
-        </nav>
-
-        <!-- Main component -->
-        <div class="jumbotron">
-        {% block content %}{% endblock %}
+            <div class="col-sm-4" style="text-align: right;">
+                <img src="{% static 'website/logo_ohne_rand.png' %}" class="pull-right" style="height: 7rem; margin-top: 3rem;" />
+            </div>
         </div>
 
-        <footer class="footer">
-            <div class="container">
-                <p class="text-muted">
-                    <span class="pull-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>
-                    <span class="pull-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fa fa-github fa-lg"></i></a></span>
-                </p>
-            </div>
-        </footer>
+        <!-- Main component -->
+        {% block content %}{% endblock %}
 
+        <!-- Footer menu -->
+        <p class="text-muted" style="padding: 3rem 0 2rem 0;">
+            <span class="pull-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>&nbsp;&bull;
+            {% if user.is_authenticated %}
+            {% trans "Angemeldet als" %} {{ user.username }}
+            {% if user.is_staff %}
+            &bull; <a href="{% url 'admin:index' %}">{% trans "Zum Adminbereich" %}</a>
+            &bull; <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+            {% endif %}
+            &bull; <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+            {% else %}
+            <a href="{% url 'login' %}?next={{request.path}}">{% trans "Login" %}</a>
+            {% endif %}
+            <span class="pull-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fa fa-github fa-lg"></i></a></span>
+        </p>
     </div>
 
     <script src="{% static 'ophasebase/components/jquery/dist/jquery.min.js' %}"></script>

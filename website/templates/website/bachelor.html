@@ -1,0 +1,19 @@
+{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% block title %}Bachelor{% endblock %}
+{% block heading %}Ophase für Bachelor{% endblock %}
+{% block language-switcher %}{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumbs">
+    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Bachelor
+</div>
+
+<p>Hier ist der Stundenplan für Bachelor-Erstsemester für die Ophase zum Wintersemester 2016 vom 10. bis 14. Oktober. Änderungen sind bis kurz vor Beginn der Ophase möglich. (Stand: 29.06.2016)</p>
+
+<img src="{% static 'website/stundenplan-bachelor.png' %}" class="img-responsive" />
+
+<div style="padding-top: 1rem;"></div>
+<p>Gültig sind nur Zeit- und Raumangaben in diesem Stundenplan. Andere Angaben (zum Beispiel im uniweiten Raumbuchungssystem) haben keine Bedeutung.</p>
+
+{% endblock %}

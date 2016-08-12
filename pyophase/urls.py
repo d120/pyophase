@@ -6,7 +6,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^', include('ophasebase.urls', namespace='ophasebase')),
+    url(r'^', include('website.urls', namespace='website')),
     url(r'^mitmachen/', include('staff.urls', namespace='staff')),
     url(r'^teilnehmer/', include('students.urls', namespace='students')),
     url(r'^klausur/', include('exam.urls', namespace='exam')),
@@ -14,6 +14,6 @@ urlpatterns = [
     url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', django.contrib.auth.views.login, {'template_name': 'admin/login.html'}, name='login'),
-    url(r'^accounts/logout/$', django.contrib.auth.views.logout, {'next_page': reverse_lazy('ophasebase:welcome')}, name='logout'),
+    url(r'^accounts/logout/$', django.contrib.auth.views.logout, {'next_page': reverse_lazy('website:homepage')}, name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]

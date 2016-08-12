@@ -1,0 +1,29 @@
+{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% block title %}Master DSS{% endblock %}
+{% block heading %}DSS Masters orientation week{% endblock %}
+{% block language-switcher %}{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumbs">
+    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Master DSS
+</div>
+
+<h3>Content and Schedule</h3>
+<p>The Ophase starts with the welcome meeting for all new computer science students. After the welcome meeting, the students starting a Master's degree will gather into several groups. These groups provide the space for explaining different important topics and answering your questions. Topics are for example how to create an examination plan (Prüfungsplan) , how to select courses and anything else you need to know for a successful start at the TU Darmstadt. Especially important is the presentation from the student advisory service (Studienberatung) with information about examination regulations, TUCaN, and other relevant topics.</p>
+<img src="{% static 'website/stundenplan-master-dss.png' %}" class="img-responsive" />
+
+<p>The Master Ophase is aimed at students who come from another university. The information on the general page about the Ophase is also valid for the Master Ophase (but unfortunately only available in German): We show you Darmstadt, the TU Darmstadt and the Computer Science department, but since you already have completed a Bachelor's degree or the like, we offer you an adapted schedule with more room for individual questions.</p>
+
+<h3>Am I In The Right Place?</h3>
+<p>The Master Ophase is meant for students from the following programmes at the TU Darmstadt:</p>
+<ul>
+    <li>Master of Science Informatik</li>
+    <li>Master of Science Autonome Systeme</li>
+    <li>Master of Science Distributed Software Systems</li>
+    <li>Master of Science IT Security</li>
+    <li>Master of Science Internet und Web-basierte Systeme</li>
+    <li>Master of Science Visual Computing</li>
+</ul>
+
+{% endblock %}

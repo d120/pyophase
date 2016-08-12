@@ -1,0 +1,31 @@
+/*
+ * pyophase common styles
+ */
+
+html {
+    position: relative;
+    min-height: 100.1%;
+}
+
+.text-muted {
+    margin: 5px 0;
+}
+
+a {
+    color: #1141c5 !important;
+}
+
+a.no-underline:hover {
+    text-decoration: none;
+}
+
+.breadcrumbs {
+    font-style: italic;
+    color: #888;
+    margin-bottom: 2rem;
+}
+
+.language-switcher {
+    padding: .5rem 0;
+    background-color: #eee;
+}
