@@ -10,6 +10,13 @@ class Settings(models.Model):
         verbose_name_plural = _("Einstellungen")
 
     helpdesk_phone_number = models.CharField(max_length=50)
+    vorkurs_start_date = models.DateField()
+    vorkurs_end_date = models.DateField()
+    vorkurs_url = models.CharField(max_length=2000)
+    vorkurs_forum_url = models.CharField(max_length=2000)
+    vorkurs_slides_url = models.CharField(max_length=2000)
+    accounts_url = models.CharField(max_length=2000)
+    einforz_url = models.CharField(max_length=2000)
 
     @staticmethod
     def get_name():
