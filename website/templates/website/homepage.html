@@ -5,21 +5,25 @@
 {% block content %}
 
 
-<div style="margin-top: 1rem; border-left: 3px solid #8e44ad; padding-left: 1.5rem; background-color: #ecdef2;">
-    <div style="padding: 1rem 0;">
-        <h3 style="margin: 0;">Helfer*innen gesucht!</h3>
-        <p style="margin: 0; padding-top: .6rem; font-size: 1.8rem;">
-            Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'website:helfen' %}">hier</a>!
-        </p>
+{% if any_staff_registration_enabled %}
+    <div style="margin-top: 1rem; border-left: 3px solid #8e44ad; padding-left: 1.5rem; background-color: #ecdef2;">
+        <div style="padding: 1rem 0;">
+            <h3 style="margin: 0;">Helfer*innen gesucht!</h3>
+            <p style="margin: 0; padding-top: .6rem; font-size: 1.8rem;">
+                Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'website:helfen' %}">hier</a>!
+            </p>
+        </div>
     </div>
-</div>
+{% endif %}
 
-<div style="margin-top: 3rem; border-left: 3px solid #666; padding-left: 1.5rem; background-color: #dfdfdf;">
-    <div style="padding: 1rem 0;">
-        <h3 style="margin: 0;">{% trans "Für Tutorinnen und Tutoren während der Ophase" %}</h3>
-        <p style="margin: 0;"><a href="{% url 'students:registration' %}">{% trans "Die Erstsemester deiner Kleingruppe registrieren" %}</a></p>
+{% if student_registration_enabled %}
+    <div style="margin-top: 3rem; border-left: 3px solid #666; padding-left: 1.5rem; background-color: #dfdfdf;">
+        <div style="padding: 1rem 0;">
+            <h3 style="margin: 0;">{% trans "Für Tutorinnen und Tutoren während der Ophase" %}</h3>
+            <p style="margin: 0;"><a href="{% url 'students:registration' %}">{% trans "Die Erstsemester deiner Kleingruppe registrieren" %}</a></p>
+        </div>
     </div>
-</div>
+{% endif %}
 
 <div class="row" style="margin-top: 3rem;">
     <div class="col-lg-6">
@@ -74,14 +78,14 @@
                 <div class="col-sm-4" style="text-align: center;">
                     <span class="fa fa-calendar" style="font-size:30pt"></span>
                     <p>
-                        11. - 13. Oktober<br />
-                        <a href="{% url 'website:master-dss' %}">zum Stundenplan</a>
+                        October 11th - 13th<br />
+                        <a href="{% url 'website:master-dss' %}">to the schedule</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
                     <span class="fa fa-map-marker" style="font-size:30pt"></span>
-                    <p>Gebäude S2|02 <br />
-                        <a rel="nofollow" class="external text" target="_blank" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">Lageplan der Uni</a>
+                    <p>Building S2|02 <br />
+                        <a rel="nofollow" class="external text" target="_blank" href="http://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">University map</a>
                     </p>
                 </div>
                 <div class="col-sm-4" style="text-align: center;">
