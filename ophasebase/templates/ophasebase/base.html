@@ -56,6 +56,7 @@
             {% trans "Angemeldet als" %} {{ user.username }}
             {% if user.is_staff %}
             &bull; <a href="{% url 'admin:index' %}">{% trans "Zum Adminbereich" %}</a>
+            &bull; <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
             {% endif %}
             &bull; <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
             {% else %}
