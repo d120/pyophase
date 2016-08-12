@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ObjectDoesNotExist
 
 from dashboard.components import TemplateWidgetComponent
 from exam.models import Assignment
@@ -20,9 +21,8 @@ class ExamWidget(TemplateWidgetComponent):
 
     def _get_latest_assignment(self):
         try:
-            latest = Assignment.objects.latest()
-            return latest
-        except:
+            return Assignment.objects.latest()
+        except ObjectDoesNotExist:
             return None
 
     def _correct_count(self, assignment):
