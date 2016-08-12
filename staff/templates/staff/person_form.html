@@ -1,39 +1,43 @@
 {% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
 {% block title %}{% trans "Mitmachen" %}{% endblock %}
+{% block heading %}Bei der Ophase mithelfen{% endblock %}
 
 {% block content %}
 
-<h1>{{ ophase_title }}</h1>
 {% if any_registration_enabled %}
-<p>
-	{% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> werden {{staff_vacancies}} gesucht.{% endblocktrans %}
-</p>
-{% if tutor_registration_enabled %}
-<p>
-    {% trans "Als Tutor betreust du eine Kleingruppe von Ersties und hilfst bei der Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze Schulung sowie eine Einführung in das Programm der Ophase geplant." %}
-</p>
-{% endif %}
-{% if orga_registration_enabled %}
-<p>
-    {% trans "Als Orga bist du für die Organisation eines bestimmten Programmpunktes verantwortlich. Dazu zählt die Planung und Vorbereitung vor der Ophase, sowie die eigentliche Durchführung in der Woche." %}
-</p>
-{% endif %}
-{% if tutor_registration_enabled or orga_registration_enabled %}
-<p>
-    {% trans "Tutoren und Organisatoren erhalten dabei wie immer ein kostenloses Ophasen-T-Shirt ;-)" %}
-</p>
-{% endif %}
-{% if helper_registration_enabled %}
-<p>
-    {% trans "Als Helfer hilfst du bei der Durchführung bestimmter Programmpunkte, die dringend helfende Hände benötigen." %}
-</p>
-{% endif %}
-<p>
-    {% trans "Die Jobs, die unten nicht mehr auswählbar sind, sind bereits ausreichend mit Personen besetzt." %}
-</p>
-<p style="text-align:right;">
-    <i>{% trans "Die Ophasen-Leitung" %}</i>
-</p>
+<div style="margin-top: 1rem; border-left: 3px solid #8e44ad; padding: 1.5rem 1.5rem 0 1.5rem; margin-bottom: 2rem; background-color: #ecdef2;">
+    <div style="padding: 1rem 0;">
+        <p>
+            {% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> werden {{staff_vacancies}} gesucht.{% endblocktrans %}
+        </p>
+        {% if tutor_registration_enabled %}
+        <p>
+            {% trans "Als Tutor betreust du eine Kleingruppe von Ersties und hilfst bei der Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze Schulung sowie eine Einführung in das Programm der Ophase geplant." %}
+        </p>
+        {% endif %}
+        {% if orga_registration_enabled %}
+        <p>
+            {% trans "Als Orga bist du für die Organisation eines bestimmten Programmpunktes verantwortlich. Dazu zählt die Planung und Vorbereitung vor der Ophase, sowie die eigentliche Durchführung in der Woche." %}
+        </p>
+        {% endif %}
+        {% if tutor_registration_enabled or orga_registration_enabled %}
+        <p>
+            {% trans "Tutoren und Organisatoren erhalten dabei wie immer ein kostenloses Ophasen-T-Shirt ;-)" %}
+        </p>
+        {% endif %}
+        {% if helper_registration_enabled %}
+        <p>
+            {% trans "Als Helfer hilfst du bei der Durchführung bestimmter Programmpunkte, die dringend helfende Hände benötigen." %}
+        </p>
+        {% endif %}
+        <p>
+            {% trans "Die Jobs, die unten nicht mehr auswählbar sind, sind bereits ausreichend mit Personen besetzt." %}
+        </p>
+        <p style="text-align:right;">
+            <i>{% trans "Die Ophasen-Leitung" %}</i>
+        </p>
+    </div>
+</div>
 
 <div id="mainForm">
 
@@ -52,8 +56,10 @@
 
 </div>
 {% else %}
-<p>{% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> ist die Anmeldung momentan nicht geöffnet.{% endblocktrans %}</p>
-<p style="text-align:right"><i>{% trans "Die Ophasen-Leitung" %}</i></p>
+<div class="jumbotron" style="margin-top: 1rem;">
+    <p>{% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> ist die Anmeldung momentan nicht geöffnet.{% endblocktrans %}</p>
+    <p style="text-align:right"><i>{% trans "Die Ophasen-Leitung" %}</i></p>
+</div>
 {% endif %}
 {% endblock %}
 {% block bottom_script %}
