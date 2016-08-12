@@ -19,7 +19,11 @@ class ExamWidget(TemplateWidgetComponent):
     template_name = "exam/dashboard/widget_exam.html"
 
     def _get_latest_assignment(self):
-        return Assignment.objects.latest()
+        try:
+            latest = Assignment.objects.latest()
+            return latest
+        except:
+            return None
 
     def _correct_count(self, assignment):
         return assignment.count == Student.get_current(want_exam=True, tutor_group__group_category=assignment.group_category).count()
@@ -62,4 +66,5 @@ class ExamWidget(TemplateWidgetComponent):
 
         if self._correct_count(assignment):
             return "success"
+
         return "danger"
