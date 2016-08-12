@@ -1,9 +1,9 @@
 {% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
 {% block title %}{% trans "Workshopregistrierung" %}{% endblock %}
+{% block heading %}Workshopregistrierung{% endblock %}
 
 {% block content %}
-<h1>{{ ophase_title }}</h1>
-<h2>{% trans "Workshopregistrierung" %}</h2>
+
 {% if workshop_submission_enabled %}
 <div id="mainForm">
     <form role="form" action="{{action}}" method="POST">
@@ -20,8 +20,8 @@
     </form>
 </div>
 {% else %}
-<p>
+<div class="jumbotron" style="margin-top: 1rem;">
   {% trans "Derzeit ist die Registrierung nicht freigeschaltet." %}
-</p>
+</div>
 {% endif %}
 {% endblock %}
