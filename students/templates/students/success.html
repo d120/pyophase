@@ -9,8 +9,10 @@ for(var i = 1; i < 100; i++) {
     history.pushState(null, null, '');
 }
 </script>
-<p>{% bootstrap_icon "ok" %} {% trans "Deine Daten wurden erfolgreich gespeichert." %}</p>
 
-<p><a href="{% url 'students:registration' %}">{% trans "Nächsten Eintrag hinzufügen" %}</a></p>
+<div class="jumbotron" style="margin-top: 1rem;">
+    <p>{% bootstrap_icon "ok" %} {% trans "Deine Daten wurden erfolgreich gespeichert." %}</p>
+    <p><a href="{% url 'students:registration' %}">{% trans "Nächsten Eintrag hinzufügen" %}</a></p>
+</div>
 
 {% endblock %}
