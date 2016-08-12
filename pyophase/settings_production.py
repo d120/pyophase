@@ -26,8 +26,8 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/ophasehq/static/'
-LOGIN_URL = '/ophasehq/accounts/login/'
+STATIC_URL = '/ophase/static/'
+LOGIN_URL = '/ophase/accounts/login/'
 
 SESSION_COOKIE_SECURE = True
 
