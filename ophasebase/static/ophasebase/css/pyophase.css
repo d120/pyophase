@@ -24,3 +24,8 @@ a.no-underline:hover {
     color: #888;
     margin-bottom: 2rem;
 }
+
+.language-switcher {
+    padding: .5rem 0;
+    background-color: #eee;
+}

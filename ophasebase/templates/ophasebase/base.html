@@ -8,28 +8,33 @@
     <link rel="stylesheet" href="{% static 'ophasebase/components/font-awesome/css/font-awesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'ophasebase/css/pyophase.css' %}" media="screen" />
 </head>
-<body style="background-colosr: #eee; margin-bottom: 0;">
-    <div class="container" style="background-color: #fff; box-shsadow: 10px 0px 50px 5px rgba(100,100,100,0.75), -10px 0px 50px 5px rgba(100,100,100,0.75);">
+<body>
 
-        <!--
-        <span class="navbar-text" style="margin-top:10px; margin-bottom:0px;">
-            <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ request.path }}" />
-                <select name="language" class="form-control input-sm" style="width:initial;">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                            {{ language.code | upper }}
-                        </option>
-                    {% endfor %}
-                </select>
-                <input type="submit" value="{% trans 'Sprache ändern' %}" class="btn btn-default btn-sm" />
-            </form>
-        </span>
-        -->
+    {% block language-switcher %}
+        <!-- language switcher -->
+        <div class="language-switcher">
+            <div class="container">
+                <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}" />
+                    Switch languages:
+                    <select name="language" class="form-control input-sm" style="width:initial;">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                {{ language.code | upper }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="{% trans 'Sprache ändern' %}" class="btn btn-default btn-sm" />
+                </form>
+            </div>
+        </div>
+    {% endblock %}
+
+    <div class="container">
 
         <!-- Header -->
         <div class="row">
