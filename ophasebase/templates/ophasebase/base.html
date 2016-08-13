@@ -17,7 +17,7 @@
                 <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ request.path }}" />
-                    Switch languages:
+                    Switch language:
                     <select name="language" class="form-control input-sm" style="width:initial;">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
@@ -40,13 +40,13 @@
         <div class="row">
             <div class="col-sm-8">
                 <h1>
-                    <a href="{% url 'website:homepage' %}" class="no-underline">
+                    <a href="{% url 'website:homepage' %}" class="no-underline hidden-xs">
                         <img src="{% static 'website/OPhasenWesen_2016.png' %}" style="height: 9rem;" />
                     </a>
                     {% block heading %}{% endblock %}
                 </h1>
             </div>
-            <div class="col-sm-4" style="text-align: right;">
+            <div class="col-sm-4 hidden-xs" style="text-align: right;">
                 <img src="{% static 'website/logo_ohne_rand.png' %}" class="pull-right" style="height: 7rem; margin-top: 3rem;" />
             </div>
         </div>
