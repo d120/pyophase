@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-02 18:34+0200\n"
+"POT-Creation-Date: 2016-08-13 11:40+0200\n"
 "PO-Revision-Date: 2016-04-18 19:04+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -458,16 +458,16 @@ msgstr ""
 "It only makes sense and is possible to create one instance of the settings "
 "object."
 
-#: templates/staff/already_registered.html:3
+#: templates/staff/already_registered.html:2
 msgid "Fehler"
 msgstr "Error"
 
-#: templates/staff/already_registered.html:3 templates/staff/job_list.html:3
+#: templates/staff/already_registered.html:2 templates/staff/job_list.html:3
 #: templates/staff/person_form.html:2 templates/staff/success.html:3
 msgid "Mitmachen"
 msgstr "Participate"
 
-#: templates/staff/already_registered.html:7
+#: templates/staff/already_registered.html:8
 msgid "Fehler: E-Mail-Adresse bereits registriert."
 msgstr "Error: E-mail address already registered"
 
@@ -494,12 +494,12 @@ msgid "Mehrere Kleingruppen auf einmal erstellen"
 msgstr "Create several tutored groups at once"
 
 #: templates/staff/dashboard/group_mass_create.html:13
-#: templates/staff/person_form.html:45
+#: templates/staff/person_form.html:49
 msgid "Zurücksetzen"
 msgstr "Reset"
 
 #: templates/staff/dashboard/group_mass_create.html:16
-#: templates/staff/person_form.html:48
+#: templates/staff/person_form.html:52
 msgid "Abschicken"
 msgstr "Submit"
 
@@ -636,7 +636,7 @@ msgstr "%(persons|length)s people selected"
 msgid "Orga-Übersicht"
 msgstr "Helper overview"
 
-#: templates/staff/person_form.html:9
+#: templates/staff/person_form.html:11
 #, python-format
 msgid ""
 "Für die %(ophase_title)s <b>%(ophase_duration)s</b> werden "
@@ -645,7 +645,7 @@ msgstr ""
 "For the %(ophase_title)s <b>%(ophase_duration)s</b> we are looking for "
 "%(staff_vacancies)s."
 
-#: templates/staff/person_form.html:13
+#: templates/staff/person_form.html:15
 msgid ""
 "Als Tutor betreust du eine Kleingruppe von Ersties und hilfst bei der "
 "Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze "
@@ -655,7 +655,7 @@ msgstr ""
 "activities. In the week before the Ophase as short training and an "
 "introductory meeting is scheduled."
 
-#: templates/staff/person_form.html:18
+#: templates/staff/person_form.html:20
 msgid ""
 "Als Orga bist du für die Organisation eines bestimmten Programmpunktes "
 "verantwortlich. Dazu zählt die Planung und Vorbereitung vor der Ophase, "
@@ -665,20 +665,20 @@ msgstr ""
 "the Ophase. That includes the planning and preparation prior to the Ophase "
 "as well as the actual execution during the week."
 
-#: templates/staff/person_form.html:23
+#: templates/staff/person_form.html:25
 msgid ""
 "Tutoren und Organisatoren erhalten dabei wie immer ein kostenloses Ophasen-T-"
 "Shirt ;-)"
 msgstr "Tutors and organizers, as always, get a free Ophase t-shirt ;-)"
 
-#: templates/staff/person_form.html:28
+#: templates/staff/person_form.html:30
 msgid ""
 "Als Helfer hilfst du bei der Durchführung bestimmter Programmpunkte, die "
 "dringend helfende Hände benötigen."
 msgstr ""
 "As helper you assist during certain activities, which need helping hands."
 
-#: templates/staff/person_form.html:32
+#: templates/staff/person_form.html:34
 msgid ""
 "Die Jobs, die unten nicht mehr auswählbar sind, sind bereits ausreichend mit "
 "Personen besetzt."
@@ -686,11 +686,11 @@ msgstr ""
 "For tasks, which are no longer selectable below, enough people have already "
 "signed up."
 
-#: templates/staff/person_form.html:35 templates/staff/person_form.html:56
+#: templates/staff/person_form.html:37 templates/staff/person_form.html:61
 msgid "Die Ophasen-Leitung"
 msgstr "Head of Ophase"
 
-#: templates/staff/person_form.html:55
+#: templates/staff/person_form.html:60
 #, python-format
 msgid ""
 "Für die %(ophase_title)s <b>%(ophase_duration)s</b> ist die Anmeldung "
@@ -703,7 +703,7 @@ msgstr ""
 msgid "Daten gespeichert"
 msgstr "Data saved"
 
-#: templates/staff/success.html:7
+#: templates/staff/success.html:8
 msgid "Deine Daten wurden erfolgreich gespeichert."
 msgstr "Your data has been saved successfully."
 

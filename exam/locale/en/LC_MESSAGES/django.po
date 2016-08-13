@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 11:13+0200\n"
+"POT-Creation-Date: 2016-08-13 11:40+0200\n"
 "PO-Revision-Date: 2016-02-28 17:28+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de\n"
@@ -19,28 +19,28 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dashboard_widgets.py:17 models.py:39
+#: dashboard_widgets.py:18 models.py:39
 msgid "Klausurzuteilung"
 msgstr "Exam room assignment"
 
-#: dashboard_widgets.py:34
+#: dashboard_widgets.py:38
 msgid "Keine Ophase, keine Zuteilung"
 msgstr "No Ophase, no assignment"
 
-#: dashboard_widgets.py:38
+#: dashboard_widgets.py:42
 msgid "Noch keine gültige Zuteilung"
 msgstr "No valid assignment yet"
 
-#: dashboard_widgets.py:42
+#: dashboard_widgets.py:46
 msgid "Gültige Zuteilung"
 msgstr "Valid assignment"
 
-#: dashboard_widgets.py:45
+#: dashboard_widgets.py:49
 #, python-format
 msgid "Erstellt am %(formated_datetime)s"
 msgstr "Created at %(formated_datetime)s"
 
-#: dashboard_widgets.py:48
+#: dashboard_widgets.py:52
 msgid "Achtung: Zuteilung ist ungültig"
 msgstr "Caution: Assignment is not valid"
 

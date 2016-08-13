@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-11 15:06+0200\n"
+"POT-Creation-Date: 2016-08-13 11:40+0200\n"
 "PO-Revision-Date: 2016-07-11 15:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -186,13 +186,11 @@ msgid "Daten gespeichert"
 msgstr "Data saved"
 
 #: templates/workshops/create_success.html:2
-#: templates/workshops/create_success.html:6
 #: templates/workshops/workshop_form.html:2
-#: templates/workshops/workshop_form.html:6
 msgid "Workshopregistrierung"
 msgstr "Workshop submission"
 
-#: templates/workshops/create_success.html:8
+#: templates/workshops/create_success.html:7
 msgid ""
 "Vielen Dank, der Workshop wurde gespeichert. Der Workshoporga wird sich zu "
 "gegebener Zeit mit dir in Verbindung setzen."
@@ -200,7 +198,7 @@ msgstr ""
 "Thank you, your workshop submission is saved. The workshop organizer will "
 "contact you at the appropriate time."
 
-#: templates/workshops/create_success.html:10
+#: templates/workshops/create_success.html:9
 msgid ""
 "Eine E-Mail wurde an die von dir angegebene E-Mail-Adresse gesendet. Sollte "
 "sie nicht angekommen sein, oder sollten sich Änderungen am Workshop ergeben, "
