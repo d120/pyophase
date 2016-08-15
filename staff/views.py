@@ -34,7 +34,7 @@ class StaffAdd(CreateView):
             context = super().get_context_data(**kwargs)
             context['ophase_title'] = str(current_ophase)
             context['ophase_duration'] = current_ophase.get_human_duration()
-            context['any_registration_enabled'] = settings.tutor_registration_enabled or settings.orga_registration_enabled or settings.helper_registration_enabled
+            context['any_registration_enabled'] = settings.any_registration_enabled()
             context['tutor_registration_enabled'] = settings.tutor_registration_enabled
             context['orga_registration_enabled'] = settings.orga_registration_enabled
             context['helper_registration_enabled'] = settings.helper_registration_enabled

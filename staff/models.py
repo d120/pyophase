@@ -166,6 +166,10 @@ class Settings(models.Model):
         if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
             raise ValidationError(_("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen."))
 
+    def any_registration_enabled(self):
+        """Returns true if any of tutor, orga or helper registration is set to True. Otherwise False"""
+        return self.tutor_registration_enabled or self.orga_registration_enabled or self.helper_registration_enabled
+
     @staticmethod
     def instance():
         try:
