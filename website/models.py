@@ -36,3 +36,19 @@ class Settings(models.Model):
             return Settings.objects.get()
         except Settings.DoesNotExist:
             return None
+
+class Schedule(models.Model):
+    """A Schedule for a Degree during the Ophase"""
+    class Meta:
+        verbose_name = _("Stundenplan")
+        verbose_name_plural = _("Stundenpläne")
+
+    DEGREE_CHOICES = (
+        ('BSC', _('Bachelor')),
+        ('MSC', _('Master Deutsch')),
+        ('DSS', _('Distributed Software Systems')),
+    )
+
+    degree = models.CharField(max_length=3, choices=DEGREE_CHOICES, verbose_name=_('Abschluss'), unique=True)
+    image = models.ImageField(upload_to='website/schedule/', verbose_name=_('Stundenplan Bild'))
+    stand = models.DateField(verbose_name=_('Stand des Stundenplans'))

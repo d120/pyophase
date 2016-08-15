@@ -2,6 +2,9 @@ from django.conf.urls import include, url
 from django.urls import reverse_lazy
 import django.contrib.auth.views
 
+from django.conf import settings
+from django.views.static import serve
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -17,3 +20,10 @@ urlpatterns = [
     url(r'^accounts/logout/$', django.contrib.auth.views.logout, {'next_page': reverse_lazy('website:homepage')}, name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT,
+        }),
+    ]

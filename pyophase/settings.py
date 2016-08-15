@@ -120,6 +120,9 @@ LANGUAGES = [
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'
+
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 

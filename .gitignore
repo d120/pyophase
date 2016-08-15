@@ -31,3 +31,6 @@ settings_secrets.py
 
 # virtualenv
 venv/
+
+# media
+media/
