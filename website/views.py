@@ -21,13 +21,11 @@ class HomepageView(TemplateView):
         context['current_ophase'] = current_ophase
         context['website_settings'] = website_settings
 
-        if current_ophase is not None and students_settings is not None:
-            context['student_registration_enabled'] = students_settings.student_registration_enabled
-        else:
-            context['student_registration_enabled'] = False
-
+        context['student_registration_enabled'] = False
         context['any_staff_registration_enabled'] = False
         if current_ophase is not None:
+            if students_settings is not None:
+                context['student_registration_enabled'] = students_settings.student_registration_enabled
             if staff_settings is not None:
                 context['any_staff_registration_enabled'] = staff_settings.any_registration_enabled()
             if workshop_settings is not None:
