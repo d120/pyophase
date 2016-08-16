@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.template.defaultfilters import date as _date
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -52,3 +53,6 @@ class Schedule(models.Model):
     degree = models.CharField(max_length=3, choices=DEGREE_CHOICES, verbose_name=_('Abschluss'), unique=True)
     image = models.ImageField(upload_to='website/schedule/', verbose_name=_('Stundenplan Bild'))
     stand = models.DateField(verbose_name=_('Stand des Stundenplans'))
+
+    def __str__(self):
+        return '{} {}'.format(self.get_degree_display(), _date(self.stand, 'SHORT_DATE_FORMAT'))
