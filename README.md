@@ -49,19 +49,11 @@ bower install
 
 ### Updates
 
-When executing the `manage.py` commands in production, do not forget to either pass the `--settings pyophase.settings_production` flag oder set it as an environment variable like `export DJANGO_SETTINGS_MODULE=pyophase.settings_production`.
+When manually executing `manage.py` commands in production, do not forget to either pass the `--settings pyophase.settings_production` flag oder set it as an environment variable like `export DJANGO_SETTINGS_MODULE=pyophase.settings_production`.
 
-* `git pull`
-* `bower install` when the `bower.json` file changed
-* `source venv/bin/activate` when some of the `pip` or `./manage.py` steps are necessary
-* `pip install -r requirements.txt` when the `requirements.txt` file changed
-* `export DJANGO_SETTINGS_MODULE=pyophase.settings_production` when some of the `./manage.py` steps are necessary
-* `./manage.py migrate` when a new migrations file is available
-* `./manage.py collectstatic` when a static file changed (or `bower install` was run)
-* `./manage.py compilemessages` when a message file (`*.po`) changed
-* `deactivate` when virtualenv was activated
-* `chown -R django:django .`
-* `touch pyophase/wsgi.py`
+To update an instance of pyophase, one can use the includes update script `script/update`.
+
+For production instances, one should use something like `sudo -u django script/update --prod`.
 
 ## Usage
 
