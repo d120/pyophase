@@ -51,7 +51,7 @@ bower install
 
 When manually executing `manage.py` commands in production, do not forget to either pass the `--settings pyophase.settings_production` flag oder set it as an environment variable like `export DJANGO_SETTINGS_MODULE=pyophase.settings_production`.
 
-To update an instance of pyophase, one can use the includes update script `script/update`.
+To update an instance of pyophase, one can use the included update script `script/update`.
 
 For production instances, one should use something like `sudo -u django script/update --prod`.
 
