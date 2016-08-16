@@ -118,8 +118,9 @@ def job_overview(jobtype, modeladmin, request, queryset):
     for person in persons:
         job_interest = []
         for j in jobs:
-            if person.helper_jobs.filter(id=j.id).exists():
-                job_interest.append(True)
+            if jobtype == 'helper' and person.helper_jobs.filter(id=j.id).exists() or \
+               jobtype == 'orga' and person.orga_jobs.filter(id=j.id).exists():
+                    job_interest.append(True)
             else:
                 job_interest.append(False)
         person.job_interest = job_interest
