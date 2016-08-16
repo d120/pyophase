@@ -8,6 +8,8 @@ from django.utils.translation import ugettext as _
 
 from staff.models import HelperJob, OrgaJob, DressSize
 
+from collections import namedtuple
+
 import odswriter
 
 
@@ -63,35 +65,34 @@ staff_nametag_export.short_description = _('Namensschilderexport')
 def staff_overview_export(modeladmin, request, queryset):
     """Exports an overview of the staff containing contact data and field of duty.
     """
-    orgas = []
     tutors = []
+    orgas = []
     helpers = []
+
+    queryset = queryset.order_by('name', 'prename')
+
+    common_header = [_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'),]
+
     for person in queryset:
         row = [person.prename, person.name, person.email, person.phone]
-        if person.is_orga:
-            jobs = ' / '.join(sorted([str(job) for job in person.orga_jobs.all()]))
-            orgas.append(row + [jobs])
         if person.is_tutor:
             tutors.append(row + [str(person.tutor_for)])
+        if person.is_orga:
+            jobs = ' / '.join([str(job) for job in person.orga_jobs.all()])
+            orgas.append(row + [jobs])
         if person.is_helper:
-            jobs = ' / '.join(sorted([str(job) for job in person.helper_jobs.all()]))
+            jobs = ' / '.join([str(job) for job in person.helper_jobs.all()])
             helpers.append(row + [jobs])
-
-    orgas.sort(key=lambda row: row[1])
-    tutors.sort(key=lambda row: row[1])
-    helpers.sort(key=lambda row: row[1])
 
     out_stream = io.BytesIO()
     with odswriter.writer(out_stream) as out:
-        orga_sheet = out.new_sheet(_('Orgas'))
-        orga_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Verantwortlich für ...')])
-        orga_sheet.writerows(orgas)
-        tutor_sheet = out.new_sheet(_('Tutoren'))
-        tutor_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Betreut ...')])
-        tutor_sheet.writerows(tutors)
-        helper_sheet = out.new_sheet(_('Helfer'))
-        helper_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Hilft bei ...')])
-        helper_sheet.writerows(helpers)
+        Sheetdata = namedtuple('Sheetdata', 'title extra_header rows')
+        for data in (Sheetdata(_('Orgas'), _('Verantwortlich für ...'), orgas),
+            Sheetdata(_('Tutoren'), _('Betreut ...'), tutors),
+            Sheetdata(_('Helfer'), _('Hilft bei ...'), helpers), ):
+                sheet = out.new_sheet(data.title)
+                sheet.writerow(common_header + [data.extra_header])
+                sheet.writerows(data.rows)
 
     response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")
     response['Content-Disposition'] = 'attachment; filename="Personal.ods"'
