@@ -7,7 +7,7 @@
 <h2>{% trans "Übersicht der Kleidergrößen" %}</h2>
 
 <p>
-{% blocktrans %}Es wurden {{ data | length }} Größen ausgewertet.{% endblocktrans %}
+{% blocktrans %}Es wurden {{ dress_size | length }} Größen ausgewertet.{% endblocktrans %}
 {% if notallowed != 0 %}
     <p>
         <b>{% trans "Achtung:" %}</b>
@@ -27,11 +27,11 @@
 {% endif %}
 </p>
 
-{% for size in data %}
+{% for size in dress_size %}
 <fieldset>
     <legend>{% trans "Größe" %}: {{ size.name }}</legend>
     <ul>
-    {% for person in size.persons %}
+    {% for person in size.person_set.all %}
         <li>{{ person.prename }} {{ person.name }}</li>
         {% empty %}
         <li><i>{% trans "Keine Einträge vorhanden" %}</i></li>

@@ -182,17 +182,17 @@ def group_by_dresssize(modeladmin, request, queryset):
     """groups all selected orgas and tutors by their dresssize
     """
     template = loader.get_template("staff/dresssize.html")
+
     person_temp = queryset.filter(Q(is_tutor=True) | Q(is_orga=True))
     persons = person_temp.filter(dress_size__isnull=False)
     persons_without_size = person_temp.filter(dress_size__isnull=True)
-    dress_size_temp = DressSize.objects.all()
-    for size in dress_size_temp:
-        persons_with_this_size = []
-        for person in persons:
-            if person.dress_size.id == size.id:
-                persons_with_this_size.append(person)
-        size.persons = persons_with_this_size
-    context = {'data' : dress_size_temp, 'notallowed': (len(queryset) - len(person_temp)), 'unknown': persons_without_size, 'unknown_length': len(persons_without_size)}
+    dress_size = DressSize.objects.all()
+    context = {'dress_size' : dress_size,
+               'notallowed': (queryset.count() - person_temp.count()),
+               'unknown': persons_without_size,
+               'unknown_length': persons_without_size.count(),
+              }
+
     return SimpleTemplateResponse(template, context)
 
 group_by_dresssize.short_description = _('Kleidergrößenübersicht')
