@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-13 11:40+0200\n"
-"PO-Revision-Date: 2016-04-18 19:04+0200\n"
+"POT-Creation-Date: 2016-08-16 18:59+0200\n"
+"PO-Revision-Date: 2016-08-16 19:10+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:22
@@ -123,23 +123,23 @@ msgstr "Helps with ..."
 msgid "Übersicht exportieren"
 msgstr "Export overview"
 
-#: admin_actions.py:127
+#: admin_actions.py:139
 msgid "Helfer-Übersicht anzeigen"
 msgstr "Show helper overview"
 
-#: admin_actions.py:154
+#: admin_actions.py:147
 #, fuzzy
 #| msgid "Helfer-Übersicht anzeigen"
 msgid "Orga-Übersicht anzeigen"
 msgstr "Show helper overview"
 
-#: admin_actions.py:184
+#: admin_actions.py:177
 #, fuzzy
 #| msgid "Kleingruppen"
 msgid "Kleingruppen exportieren"
 msgstr "Export tutored groups"
 
-#: admin_actions.py:204 templates/staff/dresssize.html:3
+#: admin_actions.py:197 templates/staff/dresssize.html:3
 #, fuzzy
 #| msgid "Kleidergrößen"
 msgid "Kleidergrößenübersicht"
@@ -606,10 +606,12 @@ msgid "Keine Einträge vorhanden"
 msgstr "No existing entries"
 
 #: templates/staff/helper_matrix.html:3 templates/staff/helper_matrix.html:27
+#: templates/staff/job_matrix.html:3 templates/staff/job_matrix.html:27
 msgid "Helfer-Übersicht"
 msgstr "Helper overview"
 
-#: templates/staff/helper_matrix.html:59 templates/staff/orga_matrix.html:59
+#: templates/staff/helper_matrix.html:59 templates/staff/job_matrix.html:61
+#: templates/staff/orga_matrix.html:59
 msgid "Gesamt"
 msgstr "Total"
 
@@ -625,16 +627,22 @@ msgstr "Help needed"
 msgid "Keine Aufgaben vorhanden"
 msgstr "No existing tasks"
 
+#: templates/staff/job_matrix.html:28 templates/staff/orga_matrix.html:3
+#: templates/staff/orga_matrix.html:27
+#| msgid "Helfer-Übersicht"
+msgid "Orga-Übersicht"
+msgstr "Orga overview"
+
 #: templates/staff/mail_export.html:10
 #, python-format
 msgid " Es wurden %(persons|length)s Personen ausgewählt."
 msgstr "%(persons|length)s people selected"
 
-#: templates/staff/orga_matrix.html:3 templates/staff/orga_matrix.html:27
+#: templates/staff/person_form.html:3
 #, fuzzy
-#| msgid "Helfer-Übersicht"
-msgid "Orga-Übersicht"
-msgstr "Helper overview"
+#| msgid "Warum möchtest du bei der Ophase mitmachen?"
+msgid "Bei der Ophase mitmachen"
+msgstr "Why would you like to participate in the Ophase?"
 
 #: templates/staff/person_form.html:11
 #, python-format

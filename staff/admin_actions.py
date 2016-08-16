@@ -100,29 +100,41 @@ def staff_overview_export(modeladmin, request, queryset):
 staff_overview_export.short_description = _('Übersicht exportieren')
 
 
-def helper_job_overview(modeladmin, request, queryset):
-    """Display a matrix to show helpers with associated helper jobs.
+def job_overview(jobtype, modeladmin, request, queryset):
+    """Display a matrix to show persons with associated jobs.
     """
-    template = loader.get_template("staff/helper_matrix.html")
+    template = loader.get_template("staff/job_matrix.html")
 
-    helper = queryset.filter(is_helper=True)
-    jobs = HelperJob.objects.all().annotate(num_helper=Count(Case(When(person__is_helper=True, then=1)))).order_by('label')
+    if jobtype == 'helper':
+        persons = queryset.filter(is_helper=True)
+        jobs = HelperJob.objects.all().annotate(num_helper=Count(Case(When(person__is_helper=True, then=1))))
+    elif jobtype == 'orga':
+        persons = queryset.filter(is_orga=True)
+        jobs = OrgaJob.objects.all().annotate(num_orgas=Count(Case(When(person__is_orga=True, then=1))))
 
-    for h in helper:
+    jobs.order_by('label')
+
+    for person in persons:
         job_interest = []
         for j in jobs:
-            if h.helper_jobs.filter(id=j.id).exists():
+            if person.helper_jobs.filter(id=j.id).exists():
                 job_interest.append(True)
             else:
                 job_interest.append(False)
-        h.job_interest = job_interest
+        person.job_interest = job_interest
 
     context = {
-        'helper' : helper,
+        'jobtype' : jobtype,
+        'persons' : persons,
         'jobs' : jobs,
     }
 
     return SimpleTemplateResponse(template, context)
+
+def helper_job_overview(modeladmin, request, queryset):
+    """Display a matrix to show helpers with associated helper jobs.
+    """
+    return job_overview('helper', modeladmin, request, queryset)
 
 helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
 
@@ -130,26 +142,7 @@ helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
 def orga_job_overview(modeladmin, request, queryset):
     """Display a matrix to show orga with associated orga jobs.
     """
-    template = loader.get_template("staff/orga_matrix.html")
-
-    orgas = queryset.filter(is_orga=True)
-    jobs = OrgaJob.objects.all().annotate(num_orgas=Count(Case(When(person__is_orga=True, then=1)))).order_by('label')
-
-    for o in orgas:
-        job_interest = []
-        for j in jobs:
-            if o.orga_jobs.filter(id=j.id).exists():
-                job_interest.append(True)
-            else:
-                job_interest.append(False)
-        o.job_interest = job_interest
-
-    context = {
-        'orgas' : orgas,
-        'jobs' : jobs,
-    }
-
-    return SimpleTemplateResponse(template, context)
+    return job_overview('orga', modeladmin, request, queryset)
 
 orga_job_overview.short_description = _('Orga-Übersicht anzeigen')
 

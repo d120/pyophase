@@ -24,7 +24,9 @@
     }
 </style>
 
-<h2>{% trans "Helfer-Übersicht" %}</h2>
+<h2>{% if jobtype == "helper" %}{% trans "Helfer-Übersicht" %}{% endif %}
+    {% if jobtype == "orga" %}{% trans "Orga-Übersicht" %}{% endif %}
+</h2>
 
 <table>
     <thead>
@@ -37,11 +39,11 @@
         </tr>
     </thead>
     <tbody>
-        {% for h in helper %}
+        {% for p in persons %}
         <tr>
-            <td>{{ h.prename }} {{ h.name }}</td>
-            <td>{% if h.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
-            {% for j in h.job_interest %}
+            <td>{{ p.prename }} {{ p.name }}</td>
+            <td>{% if p.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
+            {% for j in p.job_interest %}
             <td>{% if j == True %}<i class="fa fa-check"></i>{% endif %}</td>
             {% endfor %}
         </tr>
