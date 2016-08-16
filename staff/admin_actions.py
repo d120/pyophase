@@ -108,10 +108,10 @@ def job_overview(jobtype, modeladmin, request, queryset):
 
     if jobtype == 'helper':
         persons = queryset.filter(is_helper=True)
-        jobs = HelperJob.objects.all().annotate(num_helper=Count(Case(When(person__is_helper=True, then=1))))
+        jobs = HelperJob.objects.all().annotate(num_person=Count(Case(When(person__is_helper=True, then=1))))
     elif jobtype == 'orga':
         persons = queryset.filter(is_orga=True)
-        jobs = OrgaJob.objects.all().annotate(num_orgas=Count(Case(When(person__is_orga=True, then=1))))
+        jobs = OrgaJob.objects.all().annotate(num_person=Count(Case(When(person__is_orga=True, then=1))))
 
     jobs.order_by('label')
 
