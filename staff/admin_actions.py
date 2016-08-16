@@ -27,29 +27,29 @@ def staff_nametag_export(modeladmin, request, queryset):
     The produced ods file is the input for the name tag Java aplication.
     """
     table = []
-    empty = '~'
+    EMPTY = '~'
+    rowlength = None
+
     for person in queryset.filter(Q(is_tutor=True) | Q(is_orga=True)):
-        row = [person.prename, person.name]
+        tutor = EMPTY
+        orga = EMPTY
         if person.is_tutor:
             if "master" in str(person.tutor_for).lower():
-                row.append('M')
-                row.append('MASTER')
+                tutor = 'MASTER'
             else:
-                row.append('T')
-                row.append('TUTOR')
-        else:
-            row.extend([empty]*2)
+                tutor = 'TUTOR'
         if person.is_orga:
-            row.append('ORGA')
-        else:
-            row.append(empty)
-        row.extend([empty]*4)
+            orga = 'ORGA'
+        row = [person.prename, person.name, tutor, tutor[0], orga,] + [EMPTY] * 4
         table.append(row)
+
+        if rowlength is None:
+            rowlength = len(row)
 
     out_stream = io.BytesIO()
     with odswriter.writer(out_stream) as out:
         # need to specify number of columns for jOpenDocument compatibility
-        sheet = out.new_sheet("Staff", cols=9)
+        sheet = out.new_sheet("Staff", cols=rowlength)
         sheet.writerows(table)
 
     response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")
