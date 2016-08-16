@@ -28,6 +28,7 @@ DATABASES = {
 
 STATIC_URL = '/ophase/static/'
 LOGIN_URL = '/ophase/accounts/login/'
+MEDIA_URL = '/ophase/media/'
 
 SESSION_COOKIE_SECURE = True
 

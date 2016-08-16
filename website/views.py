@@ -1,10 +1,11 @@
 from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404
 from ophasebase.models import Ophase
 from students.models import Settings as StudentsSettings
 from staff.models import Settings as StaffSettings
 from workshops.models import Settings as WorkshopSettings
 from website.models import Settings as WebsiteSettings
-
+from website.models import Schedule
 
 class HomepageView(TemplateView):
     template_name = "website/homepage.html"
@@ -40,18 +41,32 @@ class WebsiteView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['current_ophase'] = Ophase.current()
+        current_ophase = Ophase.current()
+        context['current_ophase'] = current_ophase
+        context['ophase_title'] = str(current_ophase)
+        context['ophase_duration'] = current_ophase.get_human_duration()
         return context
 
-class BachelorView(WebsiteView):
-    template_name = "website/bachelor.html"
+class ScheduleView(WebsiteView):
+    """Extends the django TemplateView by adding the Ophase.current() object
+    to the context data as current_ophase"""
 
-class MasterDeView(WebsiteView):
-    template_name = "website/master-de.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['schedule'] = get_object_or_404(Schedule, degree=self.kwargs['degree'])
+        return context
 
-class MasterDssView(WebsiteView):
-    template_name = "website/master-dss.html"
+    def get_template_names(self):
+        degree = self.kwargs['degree']
+
+        if degree == 'BSC':
+            return 'website/bachelor.html'
+        elif degree == 'MSC':
+            return 'website/master-de.html'
+        elif degree == 'DSS':
+            return 'website/master-dss.html'
 
 class HelfenView(WebsiteView):
+
     template_name = "website/helfen.html"
 

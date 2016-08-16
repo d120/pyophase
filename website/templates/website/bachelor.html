@@ -10,11 +10,11 @@
 </div>
 
 <p>
-    Hier ist der Stundenplan für Bachelor-Erstsemester für die Ophase zum Wintersemester 2016 vom 10. bis 14. Oktober.
-    Änderungen sind bis kurz vor Beginn der Ophase möglich. (Stand: 12.08.2016)
+    Hier ist der Stundenplan für Bachelor-Erstsemester für die {{ ophase_title }} {{ ophase_duration }}.
+    Änderungen sind bis kurz vor Beginn der Ophase möglich. (Stand: {{ schedule.stand|date:"SHORT_DATE_FORMAT" }})
 </p>
 
-<img src="{% static 'website/stundenplan-bachelor.png' %}" class="img-responsive" />
+<img src="{{ schedule.image.url }}" class="img-responsive" />
 
 <div style="padding-top: 1rem;"></div>
 <p>
