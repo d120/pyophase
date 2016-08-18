@@ -7,6 +7,45 @@ from django.contrib import messages
 
 from django.utils.translation import ugettext_lazy as _
 
+from datetime import date
+
+from ophasebase.models import Ophase
+from staff.models import Person, DressSize
+
+class MailExport(TestCase):
+    def setUp(self):
+        # Create the testuser
+        self.__testuser = 'testuser'
+        self.__testpw = 'test'
+
+        u = User.objects.create_superuser(username=self.__testuser,
+                                     password=self.__testpw,
+                                     email='test@example.com')
+
+        u.save()
+
+    def test_export(self):
+        Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
+        d = DressSize.objects.create(name="S", sort_key=0)
+        p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        
+        Person.objects.create(prename="John", name="Doe", email="john@example.com", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+
+        c = Client()
+
+        # login returns True on success
+        self.assertTrue(c.login(username=self.__testuser, password=self.__testpw))
+
+        # the url of the view
+        change_url = reverse('admin:staff_person_changelist')
+
+        self.assertEquals(len(mail.outbox), 0)
+        users = [1,2]
+        response = c.post(change_url, {'action': 'mail_export',
+                                       '_selected_action': users},
+                          follow=True)
+        self.assertEqual(response.status_code, 200)
+
 class SendFillformMail(TestCase):
     fixtures = ['ophasebase.json', 'staff.json', 'students.json', 'persons.json']
 
