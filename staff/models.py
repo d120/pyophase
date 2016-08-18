@@ -108,10 +108,11 @@ class Person(models.Model):
 
         user_values = ''
         for key in allowed_keys:
-            value = getattr(self, key).__str__()
-            user_values += ("&%s=%s" % (key, quote(value)))
+            value = str(getattr(self, key))
+            if value:
+                user_values += ("&{}={}".format(key, quote(value)))
 
-        return prefix+user_values
+        return '{}{}'.format(prefix, user_values)
 
     def __str__(self):
         return self.get_name()

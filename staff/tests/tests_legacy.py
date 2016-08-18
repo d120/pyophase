@@ -37,6 +37,9 @@ class PersonSave(TestCase):
         p = Person.objects.get(pk=p.pk)
         self.assertEqual(p.ophase.start_date, date(2014, 4, 7))
         self.assertEqual(p.email, "doe@example.net")
+        self.assertEqual(p.get_fillform(), '#fillform&v=1&prename=John&'\
+            'name=Doe&email=doe%40example.net&phone=0123456789'\
+            '&matriculated_since=2011&degree_course=B.Sc.')
         
 class AppendDescriptionTestCase(TestCase):
     """Test append of a link to a field Label"""
