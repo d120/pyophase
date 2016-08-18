@@ -6,7 +6,7 @@ from django.templatetags.static import static
 from django.contrib.admin.templatetags.admin_list import _boolean_icon
 
 from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
-from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, group_by_dresssize
+from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, group_by_dresssize, send_fillform_mail
 
 
 admin.site.register(DressSize)
@@ -51,7 +51,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
     readonly_fields = ('created_at', 'updated_at')
-    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, group_by_dresssize]
+    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, group_by_dresssize, send_fillform_mail]
 
     fieldsets = [
         (_('Personendaten'), {'fields':

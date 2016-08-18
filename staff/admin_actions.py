@@ -5,6 +5,10 @@ from django.template.response import SimpleTemplateResponse
 from django.http import HttpResponse
 from django.db.models import Q, Count, Case, When
 from django.utils.translation import ugettext as _
+from django.utils.translation import ungettext
+from django.urls import reverse
+from django.contrib import messages
+from django.core.mail import send_mass_mail
 
 from staff.models import HelperJob, OrgaJob, DressSize
 
@@ -197,3 +201,52 @@ def group_by_dresssize(modeladmin, request, queryset):
     return SimpleTemplateResponse(template, context)
 
 group_by_dresssize.short_description = _('Kleidergrößenübersicht')
+
+def __get_fillform_email(register_view_url, person):
+    """Create the mass_mail tuple for one person"""
+
+    fillform_link = '{}{}'.format(register_view_url, person.get_fillform())
+
+    values = {'user_prename': person.prename,
+             'user_name':  person.name,
+             'user_email': person.email,
+             'fillform_link': fillform_link,
+             }
+
+    subject = _('Erneute Anmeldung bei der nächsten Ophase').format(**values)
+    to = ['{user_prename} {user_name} <{user_email}>'.format(**values)]
+
+    message = _("""Hallo {user_prename},
+
+vielen Dank dass du bei dieser Ophase mitgeholfen hast. Wir würden uns freuen,
+wenn du uns auch bei der nächsten Ophase wieder unterstützt.
+
+Mit dem folgenden Link kannst die Registrierung für die nächste Ophase
+beschleunigen:
+
+{fillform_link}
+
+Viele Grüße,
+Die Ophasen-Leitung""").format(**values)
+
+    return (subject, message, None, to)
+
+def send_fillform_mail(modeladmin, request, queryset):
+    """Send fillform informations to the user"""
+
+    register_view_url = request.build_absolute_uri(reverse('staff:registration'))
+
+    mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
+    
+    send_mass_mail(mails)
+
+    count = queryset.count()
+    admin_msg = ungettext(
+        'Die Fillform E-Mail wurde an %(count)d Person verschickt.',
+        'Die Fillform E-Mails wurden an %(count)d Personen verschickt.',
+        count) % {
+        'count': count,
+    }
+    modeladmin.message_user(request, admin_msg, messages.SUCCESS)
+    
+send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')
