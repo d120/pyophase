@@ -34,6 +34,8 @@ before_script:
 
 # command to run tests
 script:
+  - export PYTHONWARNINGS=all
+  - python manage.py check 
   - python manage.py test 
   - coverage run --omit="*/migrations*" --source=dashboard,exam,ophasebase,staff,students,workshops,website manage.py test
 
