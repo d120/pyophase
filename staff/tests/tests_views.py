@@ -14,11 +14,11 @@ class StaffAddView(TestCase):
 
         register_view = reverse('staff:registration')
 
-        self.assertEquals(len(mail.outbox), 0)
+        self.assertEqual(len(mail.outbox), 0)
 
         testdata = {'prename': 'Leah',
                     'name': 'Bayer',
-                    'email': 'leah.bayer@testadress.de',
+                    'email': 'leah.bayer@example.com',
                     'phone': '016031368212',
                     'matriculated_since': 'today',
                     'degree_course': 'Bachelor',
@@ -31,7 +31,7 @@ class StaffAddView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, 'form', 'why_participate', _('This field is required.'))
         
-        self.assertEquals(len(mail.outbox), 0)
+        self.assertEqual(len(mail.outbox), 0)
         
         # a complete form should send one email
         testdata['why_participate'] = 'You need testdata'
@@ -40,7 +40,7 @@ class StaffAddView(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.redirect_chain, [(reverse('staff:registration_success'), 302)])
         
-        self.assertEquals(len(mail.outbox), 1)
+        self.assertEqual(len(mail.outbox), 1)
         smail = mail.outbox[0]
         self.assertEqual(len(smail.to), 1)
-        self.assertEqual(smail.to[0], 'Leah Bayer <leah.bayer@testadress.de>')
+        self.assertEqual(smail.to[0], 'Leah Bayer <leah.bayer@example.com>')

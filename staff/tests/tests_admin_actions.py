@@ -39,7 +39,7 @@ class MailExport(TestCase):
         # the url of the view
         change_url = reverse('admin:staff_person_changelist')
 
-        self.assertEquals(len(mail.outbox), 0)
+        self.assertEqual(len(mail.outbox), 0)
         users = [1,2]
         response = c.post(change_url, {'action': 'mail_export',
                                        '_selected_action': users},
@@ -70,7 +70,7 @@ class SendFillformMail(TestCase):
         # the url of the view
         change_url = reverse('admin:staff_person_changelist')
 
-        self.assertEquals(len(mail.outbox), 0)
+        self.assertEqual(len(mail.outbox), 0)
         recipient = [5,6,7]
         response = c.post(change_url, {'action': 'send_fillform_mail',
                                        '_selected_action': recipient},
@@ -81,11 +81,11 @@ class SendFillformMail(TestCase):
         self.assertRedirects(response, change_url)
 
         # One email per recipient was sent
-        self.assertEquals(len(mail.outbox), len(recipient))
+        self.assertEqual(len(mail.outbox), len(recipient))
         # Registerview url is in the email message body
         self.assertTrue(reverse('staff:registration') in mail.outbox[0].body)
 
         # that the message was displayed to the admin
         msgs = list(response.context['messages'])
-        self.assertEquals(len(msgs), 1)
-        self.assertEquals(msgs[0].level, messages.SUCCESS)
+        self.assertEqual(len(msgs), 1)
+        self.assertEqual(msgs[0].level, messages.SUCCESS)

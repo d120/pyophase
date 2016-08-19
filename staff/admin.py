@@ -72,7 +72,6 @@ class PersonAdmin(admin.ModelAdmin):
         else:
             return ""
     orga_annotation_status.short_description = _('Orga-Notiz')
-    orga_annotation_status.allow_tags = True
 
     def is_tutor_with_title(self, obj):
         """If the person is a tutor the tutor_for tag is set as image title"""
@@ -84,7 +83,6 @@ class PersonAdmin(admin.ModelAdmin):
             return _boolean_icon(obj.is_tutor)
 
     is_tutor_with_title.short_description = _('Tutor')
-    is_tutor_with_title.allow_tags = True
 
 
 @admin.register(TutorGroup)
