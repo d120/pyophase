@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-13 11:40+0200\n"
-"PO-Revision-Date: 2016-07-11 15:06+0200\n"
+"POT-Creation-Date: 2016-08-19 16:23+0200\n"
+"PO-Revision-Date: 2016-08-19 16:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -215,24 +215,44 @@ msgstr "Filled slots"
 msgid "Workshoptutoren"
 msgstr "Workshop tutors"
 
-#: templates/workshops/workshop_form.html:14
+#: templates/workshops/workshop_form.html:12
+msgid "Interessiert welche Workshops bereits angeboten werden?"
+msgstr "Interested in a list of already offered workshops?"
+
+#: templates/workshops/workshop_form.html:13
+msgid "Workshops ein-/ausblenden"
+msgstr "Show/hide workshop list"
+
+#: templates/workshops/workshop_form.html:15
+msgid ""
+"Workshops können auch mehrfach oder gemeinsam angeboten werden. Bei "
+"Interesse, schreib eine E-Mail an"
+msgstr ""
+"Workshops can be offered multiple times or cooperatively. If you are "
+"interested, write an email to"
+
+#: templates/workshops/workshop_form.html:26
+msgid "Einen neuen Workshop anmelden:"
+msgstr "Submit a new workshop:"
+
+#: templates/workshops/workshop_form.html:33
 msgid "Zurücksetzen"
 msgstr "Reset"
 
-#: templates/workshops/workshop_form.html:17
+#: templates/workshops/workshop_form.html:36
 msgid "Abschicken"
 msgstr "Submit"
 
-#: templates/workshops/workshop_form.html:24
+#: templates/workshops/workshop_form.html:43
 msgid "Derzeit ist die Registrierung nicht freigeschaltet."
 msgstr "Workshop submission is currently disabled."
 
-#: views.py:37
+#: views.py:40
 #, python-format
 msgid "Workshop in der %(ophase)s"
 msgstr "Workshop in the %(ophase)s"
 
-#: views.py:38
+#: views.py:41
 #, python-format
 msgid ""
 "Hallo %(name)s,\n"
