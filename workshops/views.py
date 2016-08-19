@@ -21,9 +21,12 @@ class WorkshopCreate(CreateView):
         if current_ophase is not None and settings is not None:
             context['ophase_title'] = str(current_ophase)
             context['workshop_submission_enabled'] = settings.workshop_submission_enabled
+            context['orga_email'] = settings.orga_email
         else:
             context['ophase_title'] = 'Ophase'
             context['workshop_submission_enabled'] = False
+            context['orga_email'] = ""
+        context['other_workshops'] = Workshop.objects.all()
         return context
 
     def form_valid(self, form):

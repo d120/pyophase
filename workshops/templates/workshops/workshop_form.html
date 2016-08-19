@@ -5,6 +5,25 @@
 {% block content %}
 
 {% if workshop_submission_enabled %}
+
+{% if other_workshops|length != 0 %}
+<div style="margin-top: 3rem; margin-bottom: 3rem; border-left: 3px solid #0089a7; padding-left: 1.5rem; background-color: #cdf2ff;">
+    <div style="padding: 1rem 0;">
+        <h4 style="margin: 0;">{% trans "Interessiert welche Workshops bereits angeboten werden?" %}</h4>
+        <a href="#otherworkshops" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-right"></span> {% trans "Workshops ein-/ausblenden" %}</a>
+        <div id="otherworkshops" class="collapse" style="margin-top: 1rem;">
+            {% trans "Workshops können auch mehrfach oder gemeinsam angeboten werden. Bei Interesse, schreib eine E-Mail an" %} <a href="mailto:{{ orga_email }}">{{ orga_email }}</a>.
+            <ul style="margin-top: 1rem;">
+            {% for workshop in other_workshops %}
+                <li>{{ workshop.title }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<h3>{% trans "Einen neuen Workshop anmelden:" %}</h3>
 <div id="mainForm">
     <form role="form" action="{{action}}" method="POST">
         {% csrf_token %}
@@ -23,5 +42,7 @@
 <div class="jumbotron" style="margin-top: 1rem;">
   {% trans "Derzeit ist die Registrierung nicht freigeschaltet." %}
 </div>
+
 {% endif %}
+
 {% endblock %}
