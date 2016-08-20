@@ -72,7 +72,7 @@ class Person(models.Model):
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
-    email = models.EmailField(verbose_name=_("E-Mail-Adresse"), unique=True)
+    email = models.EmailField(verbose_name=_("E-Mail-Adresse"))
     phone = models.CharField(max_length=30, verbose_name=_("Handynummer"), help_text=_("Deine Handynummer brauchen wir um dich schnell erreichen zu können."))
     matriculated_since = models.CharField(max_length=30, verbose_name=_("An der Uni seit"), help_text=_("Seit wann studierst du an der TU Darmstadt?"))
     degree_course = models.CharField(max_length=50, verbose_name=_("Aktuell angestrebter Abschluss"), help_text=_("Bachelor, Master, Joint Bachelor of Arts, etc."))
@@ -135,11 +135,15 @@ class Person(models.Model):
         return Person.objects.filter(ophase=Ophase.current(), **kwargs)
 
     @staticmethod
-    def get_by_email_address(address):
+    def get_by_email_address(address, ophase):
         try:
-            return Person.objects.get(email__iexact=address)
+            return Person.objects.get(email__iexact=address, ophase=ophase)
         except Person.DoesNotExist:
             return None
+
+    @staticmethod
+    def get_by_email_address_current(address):
+        return Person.get_by_email_address(address, Ophase.current())
 
 
 class TutorGroup(models.Model):
