@@ -1,0 +1,7 @@
+{% load i18n %}<table class="table" id="staff_table">
+    <tbody>
+        <tr><td>{% trans "Bestellungen" %}:</td><td>{{ count_orders }}</td></tr>
+        <tr><td>{% trans "Kostenlos / Berechtigte" %}:</td><td>{{ count_orders_free }} / {{ count_eligible }}</td></tr>
+        <tr><td>{% trans "Zusätzlich" %}:</td><td>{{ count_orders_additional }}</td></tr>
+    </tbody>
+</table>

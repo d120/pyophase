@@ -1,3 +1,4 @@
+from clothing.dashboard_widgets import ClothingOrderWidget
 from exam.dashboard_widgets import ExamWidget
 from ophasebase.dashboard_components import CountdownWidget
 from staff.dashboard_widgets import StaffCountWidget
@@ -11,5 +12,6 @@ class DashboardWidgets():
         StaffCountWidget(),
         StudentCountWidget(),
         WorkshopCountWidget(),
-        ExamWidget()
+        ExamWidget(),
+        ClothingOrderWidget()
     ]
