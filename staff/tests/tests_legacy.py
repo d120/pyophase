@@ -51,10 +51,15 @@ class PersonSaveDuplicate(TransactionTestCase):
         p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
         with self.assertRaises(IntegrityError):
             p2 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+
         o2 = Ophase.objects.create(start_date=date(2014, 10, 6), end_date=date(2014, 10, 10), is_active=True)
+        o1 = Ophase.objects.get(pk=o1.pk)
         self.assertEqual(o2.is_active, True)
+        self.assertEqual(o1.is_active, False)
+
         p3 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
         self.assertEqual(p3.ophase, o2)
+
 class AppendDescriptionTestCase(TestCase):
     """Test append of a link to a field Label"""
     
