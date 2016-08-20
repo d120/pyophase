@@ -1,0 +1,33 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Grundbestellung" %} | {% trans "Kleidung" %}{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>{% trans "Grundbestellung" %}</h3>
+
+<table class="table table-striped">
+<thead>
+<tr>
+    <th>{% trans "Wer" %}</th>
+    <th>{% trans "Bestellt?" %}</th>
+    <th></th>
+</tr>
+</thead>
+{% for person in persons %}
+    {% if person.eligible_for_clothing %}
+    <tr class="{% if person.num_free_orders == 1 %}success{% else %}danger{% endif %}">
+        <td>{{ person.prename }} {{ person.name }}</td>
+        <td>{{ person.num_free_orders }}</td>
+        <td>{% if person.num_free_orders == 1 %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %}
+    </tr>
+    {% endif %}
+{% empty %}
+    <tr><td>{% trans "Bisher keine Bestellungen" %}</td><td></td><td></td></tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}
