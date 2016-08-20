@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'students',
     'exam',
     'workshops',
+    'clothing',
     'bootstrap3',
 )
 
