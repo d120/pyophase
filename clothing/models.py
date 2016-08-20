@@ -11,6 +11,7 @@ class Type(models.Model):
 
     name = models.CharField(max_length=75, verbose_name=_("Art"), unique=True)
     price = models.FloatField(verbose_name=_("Preis"))
+    additional_only = models.BooleanField(verbose_name=_("Nur als zusätzliches Kleidungsstück möglich"), default=False)
 
     def __str__(self):
         return self.name
