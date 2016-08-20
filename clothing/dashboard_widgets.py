@@ -1,3 +1,5 @@
+from django.urls import reverse_lazy
+
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase
 from .models import Person, Order
@@ -8,6 +10,7 @@ class ClothingOrderWidget(TemplateWidgetComponent):
     permissions = ['clothing.add_order']
     name = _('Kleidung')
     template_name = "clothing/dashboard/widget_orders.html"
+    link_target = reverse_lazy('dashboard:clothing:order_overview')
 
     def get_context_data(self):
         context = super().get_context_data()

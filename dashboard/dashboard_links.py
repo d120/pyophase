@@ -18,6 +18,7 @@ class DashboardLinks():
             (_("Personal"), reverse_lazy('dashboard:staff:group_mass_create')),
             (_("Ersties"), reverse_lazy('dashboard:students:index')),
             (_("Klausur"), reverse_lazy('dashboard:exam:assignment')),
+            (_("Kleidung"), reverse_lazy('dashboard:clothing:order_overview')),
         ]
 
     @classmethod
