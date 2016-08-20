@@ -47,10 +47,10 @@ class Order(models.Model):
         verbose_name = _("Bestellung")
         verbose_name_plural = _("Bestellungen")
 
-    person = models.ForeignKey(Person)
-    type = models.ForeignKey(Type)
-    size = models.ForeignKey(Size)
-    color = models.ForeignKey(Color)
+    person = models.ForeignKey(Person, verbose_name=_("Person"))
+    type = models.ForeignKey(Type, verbose_name=_("Art"))
+    size = models.ForeignKey(Size, verbose_name=_("Größe"))
+    color = models.ForeignKey(Color, verbose_name=_("Farbe"))
     additional = models.BooleanField(verbose_name=_("Zusätzliches Kleidungsstück"))
 
     def __str__(self):
