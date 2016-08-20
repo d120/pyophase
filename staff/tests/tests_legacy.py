@@ -1,6 +1,8 @@
-from django.test import TestCase, tag
+from django.test import TransactionTestCase, TestCase, tag
 from django.utils.safestring import SafeText
 from unittest import skip
+
+from django.db import IntegrityError
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.firefox.webdriver import WebDriver
@@ -40,7 +42,19 @@ class PersonSave(TestCase):
         self.assertEqual(p.get_fillform(), '#fillform&v=1&prename=John&'\
             'name=Doe&email=doe%40example.net&phone=0123456789'\
             '&matriculated_since=2011&degree_course=B.Sc.')
-        
+
+class PersonSaveDuplicate(TransactionTestCase):
+    """A Person can register only once per ophase instance"""
+    def test_person_register_once_per_ophase(self):
+        o1 = Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
+        d = DressSize.objects.create(name="S", sort_key=0)
+        p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        with self.assertRaises(IntegrityError):
+            p2 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        o2 = Ophase.objects.create(start_date=date(2014, 10, 6), end_date=date(2014, 10, 10), is_active=True)
+        self.assertEqual(o2.is_active, True)
+        p3 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        self.assertEqual(p3.ophase, o2)
 class AppendDescriptionTestCase(TestCase):
     """Test append of a link to a field Label"""
     
