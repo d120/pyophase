@@ -42,8 +42,8 @@ class Workshop(models.Model):
     max_participants = models.PositiveSmallIntegerField(verbose_name=_('Max. Teilnehmerzahl'), help_text=_('Maximale Teilnehmeranzahl (auf 0 lassen für volle Raumkapazität).'))
     equipment = models.CharField(blank=True, max_length=200, verbose_name=_('Benötigtes Material'), help_text=_('Wird etwas benötigt das wir zur Verfügung stellen sollen?'))
     participant_requirements = models.TextField(blank=True, verbose_name=_('Teilnahmevoraussetzungen'), help_text=_('Benötigen die Teilnehmer Vorkenntnisse oder müssen sie etwas mitbringen?'))
-    description = models.TextField(verbose_name=_('Beschreibungstext'), help_text=_('Eine kurze Beschreibung um was es geht und was die Teilnehmer erwartet.'))
-    remarks = models.TextField(blank=True, verbose_name=_('Anmerkungen'), help_text=_('Sonstige Informationen'))
+    description = models.TextField(verbose_name=_('Beschreibungstext'), help_text=_('Eine kurze Beschreibung für OInforz und Aushänge um was es geht und was die Teilnehmer erwartet.'))
+    remarks = models.TextField(blank=True, verbose_name=_('Anmerkungen'), help_text=_('Sonstige Informationen für den Orga'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
 
