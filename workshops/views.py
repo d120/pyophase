@@ -26,7 +26,7 @@ class WorkshopCreate(CreateView):
             context['ophase_title'] = 'Ophase'
             context['workshop_submission_enabled'] = False
             context['orga_email'] = ""
-        context['other_workshops'] = Workshop.objects.all()
+        context['other_workshops'] = Workshop.get_current()
         return context
 
     def form_valid(self, form):
