@@ -1,4 +1,6 @@
 from django.db import models
+
+from ophasebase.models import Ophase
 from staff.models import Person
 from django.utils.translation import ugettext_lazy as _
 
@@ -58,3 +60,7 @@ class Order(models.Model):
             self.size.size,
             self.color.name
         )
+
+    @staticmethod
+    def get_current(**kwargs):
+        return Order.objects.filter(person__ophase=Ophase.current(), **kwargs)

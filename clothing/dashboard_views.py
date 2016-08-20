@@ -24,4 +24,4 @@ class OrderOverView(ClothingAppMixin, ListView):
     template_name = "clothing/dashboard/orders_overview.html"
 
     def get_queryset(self):
-        return Order.objects.filter(person__ophase=Ophase.current())
+        return Order.get_current()

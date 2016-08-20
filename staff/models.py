@@ -131,6 +131,10 @@ class Person(models.Model):
         return self.is_orga or self.is_tutor
 
     @staticmethod
+    def get_current(**kwargs):
+        return Person.objects.filter(ophase=Ophase.current(), **kwargs)
+
+    @staticmethod
     def get_by_email_address(address):
         try:
             return Person.objects.get(email__iexact=address)

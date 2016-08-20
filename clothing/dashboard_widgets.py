@@ -20,10 +20,10 @@ class ClothingOrderWidget(TemplateWidgetComponent):
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
 
-            staff = Person.objects.filter(ophase=current_ophase)
+            staff = Person.get_current()
             context['count_eligible'] = sum(1 for s in staff.all() if s.eligible_for_clothing)
 
-            orders = Order.objects.filter(person__ophase=current_ophase)
+            orders = Order.get_current()
             context['count_orders'] = orders.count()
             context['count_orders_additional'] = orders.filter(additional=True).count()
             context['count_orders_free'] = context['count_orders'] - context['count_orders_additional']
