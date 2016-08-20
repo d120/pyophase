@@ -1,0 +1,22 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
+
+{% block content %}
+<h3>{% trans "Kleidung bestellen" %}</h3>
+<div id="mainForm">
+
+    <form role="form" action="{{action}}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+    {% buttons %}
+        <button type="reset" class="btn btn-danger">
+            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+        </button>
+        <button type="submit" class="btn btn-success pull-right">
+            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+        </button>
+    {% endbuttons %}
+    </form>
+</div>
+{% endblock %}
+
