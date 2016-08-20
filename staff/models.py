@@ -72,7 +72,7 @@ class Person(models.Model):
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
-    email = models.EmailField(verbose_name=_("E-Mail-Adresse"))
+    email = models.EmailField(verbose_name=_("E-Mail-Adresse"), unique=True)
     phone = models.CharField(max_length=30, verbose_name=_("Handynummer"), help_text=_("Deine Handynummer brauchen wir um dich schnell erreichen zu können."))
     matriculated_since = models.CharField(max_length=30, verbose_name=_("An der Uni seit"), help_text=_("Seit wann studierst du an der TU Darmstadt?"))
     degree_course = models.CharField(max_length=50, verbose_name=_("Aktuell angestrebter Abschluss"), help_text=_("Bachelor, Master, Joint Bachelor of Arts, etc."))
@@ -125,6 +125,18 @@ class Person(models.Model):
         if self.tutor_for is not None:
             self.is_tutor = True
         super().save(*args, **kwargs)
+
+    @property
+    def eligible_for_clothing(self):
+        return self.is_orga or self.is_tutor
+
+    @staticmethod
+    def get_by_email_address(address):
+        try:
+            return Person.objects.get(email__iexact=address)
+        except Person.DoesNotExist:
+            return None
+
 
 class TutorGroup(models.Model):
     """A group of students guided by tutors."""
