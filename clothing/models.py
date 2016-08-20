@@ -7,10 +7,13 @@ class Type(models.Model):
     class Meta:
         verbose_name = _("Art")
         verbose_name_plural = _("Arten")
-        ordering = ['-preis', 'name']
+        ordering = ['-price', 'name']
 
     name = models.CharField(max_length=75, verbose_name=_("Art"), unique=True)
     price = models.FloatField(verbose_name=_("Preis"))
+
+    def __str__(self):
+        return self.name
 
 
 class Size(models.Model):
@@ -20,6 +23,9 @@ class Size(models.Model):
 
     size = models.CharField(max_length=75, verbose_name=_("Größe"), unique=True)
 
+    def __str__(self):
+        return self.size
+
 
 class Color(models.Model):
     class Meta:
@@ -28,6 +34,9 @@ class Color(models.Model):
 
     name = models.CharField(max_length=75, verbose_name=_("Farbe"), unique=True)
     color_code = models.CharField(max_length=7, verbose_name=_("Farbcode"), default="#FFFFFF")
+
+    def __str__(self):
+        return self.name
 
 
 class Order(models.Model):
@@ -39,3 +48,12 @@ class Order(models.Model):
     type = models.ForeignKey(Type)
     size = models.ForeignKey(Size)
     color = models.ForeignKey(Color)
+    additional = models.BooleanField(verbose_name=_("Zusätzliches Kleidungsstück"))
+
+    def __str__(self):
+        return "{}: {} {} {}".format(
+            self.person.name,
+            self.type.name,
+            self.size.size,
+            self.color.name
+        )
