@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 from django.db import models
+from django.db.models import Count
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView
 from django.views.generic import TemplateView
@@ -74,9 +75,17 @@ class OrderAggregatedView(ClothingAppMixin, TemplateView):
                     for size in sizes:
                         context['orders'][additional_name][color.name][type.name][size.size] = 0
 
-            # Store orders
-            orders = Order.get_current(additional=additional_type)
-            for order in orders:
-                context['orders'][additional_name][order.color.name][order.type.name][order.size.size] += 1
+        # Store orders
+        orders = Order.objects.values('additional', 'type__name','size__size','color__name')
+        orders = orders.annotate(count=Count('pk'))
+        for order in orders:
+            additional_name = _('Kostenlos')
+            if order['additional'] == True:
+                additional_name = _('Zusätzlich')
+
+            c = order['color__name']
+            t = order['type__name']
+            s = order['size__size']
+            context['orders'][additional_name][c][t][s] = order['count']
 
         return context
