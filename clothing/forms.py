@@ -27,7 +27,7 @@ class OrderClothingForm(forms.ModelForm):
         elif not person.eligible_for_clothing and not cleaned_data.get("additional"):
             self.add_error('additional', ValidationError(
                 _('Du bist nicht berechtigt, kostenfrei Kleidungsstücke zu bestellen. Du kannst aber zusäztliche Kleidungsstücke bestellen, die du dann selbst bezahlen musst.')))
-        elif not cleaned_data.get("additional") and Order.get_current().filter(person=person, additional=False).count() > 0:
+        elif not cleaned_data.get("additional") and Order.get_current(person=person, additional=False).count() > 0:
             self.add_error('additional', ValidationError(
                 _('Du hast bereits ein kostenloses Kleidungsstück bestellt. Du kannst aber zusäztliche Kleidungsstücke bestellen, die du dann selbst bezahlen musst.')))
         else:

@@ -75,10 +75,8 @@ class OrderAggregatedView(ClothingAppMixin, TemplateView):
                         context['orders'][additional_name][color.name][type.name][size.size] = 0
 
             # Store orders
-            orders = Order.get_current().filter(additional=additional_type)
+            orders = Order.get_current(additional=additional_type)
             for order in orders:
                 context['orders'][additional_name][order.color.name][order.type.name][order.size.size] += 1
-
-        print(context['orders'])
 
         return context
