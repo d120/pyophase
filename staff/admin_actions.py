@@ -3,11 +3,12 @@ from collections import namedtuple
 
 import odswriter
 from django.contrib import messages
+from django.contrib.admin import helpers
 from django.core.mail import send_mass_mail
 from django.db.models import Q, Case, Count, When
 from django.http import HttpResponse
 from django.template import loader
-from django.template.response import SimpleTemplateResponse
+from django.template.response import SimpleTemplateResponse, TemplateResponse
 from django.urls import reverse
 from django.utils.translation import ugettext as _, ungettext
 from staff.models import DressSize, HelperJob, OrgaJob
@@ -234,20 +235,31 @@ Die Ophasen-Leitung""").format(**values)
 
 def send_fillform_mail(modeladmin, request, queryset):
     """Send fillform informations to the user"""
+    if request.POST.get('post'):
+        register_view_url = request.build_absolute_uri(reverse('staff:registration'))
 
-    register_view_url = request.build_absolute_uri(reverse('staff:registration'))
+        mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
 
-    mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
+        send_mass_mail(mails)
 
-    send_mass_mail(mails)
+        count = queryset.count()
+        admin_msg = ungettext(
+            'Die Fillform E-Mail wurde an %(person)s verschickt.',
+            'Die Fillform E-Mails wurden an %(count)d Personen verschickt.',
+            count) % {
+            'count': count,
+            'person': str(queryset[0])
+        }
+        modeladmin.message_user(request, admin_msg, messages.SUCCESS)
+    else:
+        context = {
+            'queryset': queryset,
+            'opts' : modeladmin.opts,
+            'title': _("Fillform E-Mail verschicken"),
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+        }
+        template = loader.get_template("staff/fillform_email_confirm.html")
 
-    count = queryset.count()
-    admin_msg = ungettext(
-        'Die Fillform E-Mail wurde an %(count)d Person verschickt.',
-        'Die Fillform E-Mails wurden an %(count)d Personen verschickt.',
-        count) % {
-        'count': count,
-    }
-    modeladmin.message_user(request, admin_msg, messages.SUCCESS)
+        return TemplateResponse(request, template, context)
 
 send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')
