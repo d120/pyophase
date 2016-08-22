@@ -11,7 +11,6 @@ class OrderClothingForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['email', 'type', 'size', 'color', 'additional']
-        exclude = ['person']
 
     email = forms.EmailField(label=_('E-Mail-Adresse (bei der Registrierung angegeben)'))
 
