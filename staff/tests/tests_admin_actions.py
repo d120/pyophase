@@ -73,6 +73,7 @@ class SendFillformMail(TestCase):
         self.assertEqual(len(mail.outbox), 0)
         recipient = [5,6,7]
         response = c.post(change_url, {'action': 'send_fillform_mail',
+                                       'post': 'yes',
                                        '_selected_action': recipient},
                           follow=True)
 
