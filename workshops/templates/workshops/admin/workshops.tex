@@ -1,5 +1,6 @@
-{% for w in workshops %}
-\textbf{{ '{' }}{{ w.title }}{{ '}' }}\\
-{{ w.description }}
-\autor{{ '{' }}{{ w.tutor_name }}{{ '}' }}
-{% endfor %}
+{% load tex_escape %}
+{% autoescape off %}{% for w in workshops %}
+\textbf{{ '{' }}{{ w.title|tex_escape }}{{ '}' }}\\
+{{ w.description|tex_escape }}
+\autor{{ '{' }}{{ w.tutor_name|tex_escape }}{{ '}' }}
+{% endfor %}{% endautoescape %}

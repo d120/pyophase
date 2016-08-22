@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.utils.translation import ugettext as _
 
 def oinforz_export(modeladmin, request, queryset):
+    """Create a tex file for the OInforz containing workshop information.
+    """
     template = loader.get_template("workshops/admin/workshops.tex")
     context = {'workshops' : queryset}
     output = template.render(context)
