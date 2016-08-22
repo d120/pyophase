@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
+from django.http import HttpResponseForbidden
 
 from ophasebase.models import Ophase
 from students.forms import StudentRegisterForm
@@ -35,6 +36,10 @@ class StudentAdd(CreateView):
         return initial
 
     def form_valid(self, form):
+        settings = Settings.instance()
+        if settings is None or not settings.student_registration_enabled:
+            return HttpResponseForbidden()
+
         self.request.session['previous_tutor_group'] = form.data['tutor_group']
         return super().form_valid(form)
 

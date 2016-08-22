@@ -7,9 +7,12 @@ from django.db.models.query import QuerySet
 from django.template import loader
 from django.template.response import TemplateResponse
 from django.utils.translation import ugettext as _
+from django.http import HttpResponseForbidden
+
 from ophasebase.models import Ophase
 from staff.models import Settings, GroupCategory, OrgaJob, HelperJob
 from staff.forms import PersonForm
+
 
 class StaffAdd(CreateView):
     form_class = PersonForm
@@ -48,6 +51,10 @@ class StaffAdd(CreateView):
             return context
 
     def form_valid(self, form):
+        settings = Settings.instance()
+        if settings is None or not settings.any_registration_enabled():
+            return HttpResponseForbidden()
+
         try:
             super_return = super().form_valid(form)
         except IntegrityError:
@@ -65,7 +72,7 @@ class StaffAdd(CreateView):
         for field in form.fields:
             label = form[field].label
             # remove html from label
-            label = label.split('<',1)[0].strip()
+            label = label.split('<', 1)[0].strip()
 
             content = form.cleaned_data[field]
             #Remove all fields that are not set
@@ -88,19 +95,19 @@ class StaffAdd(CreateView):
                  'email_changedata': 'ophase-leitung@d120.de',
                  'form_content': form_content,
                  }
-        
+
         email = EmailMessage()
         email.subject = _('{ophasen_title} Registrierung').format(**values)
         email.to = ['{user_prename} {user_name} <{user_email}>'.format(**values)]
 
         email.body = _("""Hallo {user_prename},
 
-vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich 
-gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden, 
-sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter 
+vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich
+gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden,
+sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter
 Umständen noch ein paar Wochen dauern.
 
-Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte eine 
+Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte eine
 E-Mail an {email_changedata}.
 
 Hier nochmal die von dir eingetragenen Daten:
@@ -109,7 +116,7 @@ Hier nochmal die von dir eingetragenen Daten:
 
 Viele Grüße,
 Die Ophasen-Leitung""").format(**values)
-        
+
         email.send()
 
         return super_return
