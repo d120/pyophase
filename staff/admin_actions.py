@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.core.mail import send_mass_mail
 
-from staff.models import HelperJob, OrgaJob, DressSize
+from staff.models import HelperJob, OrgaJob
 
 from collections import namedtuple
 
@@ -183,25 +183,6 @@ def tutorgroup_export(modeladmin, request, queryset):
 tutorgroup_export.short_description = _('Kleingruppen exportieren')
 
 
-def group_by_dresssize(modeladmin, request, queryset):
-    """groups all selected orgas and tutors by their dresssize
-    """
-    template = loader.get_template("staff/dresssize.html")
-
-    person_temp = queryset.filter(Q(is_tutor=True) | Q(is_orga=True))
-    persons = person_temp.filter(dress_size__isnull=False)
-    persons_without_size = person_temp.filter(dress_size__isnull=True)
-    dress_size = DressSize.objects.all()
-    context = {'dress_size' : dress_size,
-               'notallowed': (queryset.count() - person_temp.count()),
-               'unknown': persons_without_size,
-               'unknown_length': persons_without_size.count(),
-              }
-
-    return SimpleTemplateResponse(template, context)
-
-group_by_dresssize.short_description = _('Kleidergrößenübersicht')
-
 def __get_fillform_email(register_view_url, person):
     """Create the mass_mail tuple for one person"""
 
@@ -237,7 +218,7 @@ def send_fillform_mail(modeladmin, request, queryset):
     register_view_url = request.build_absolute_uri(reverse('staff:registration'))
 
     mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
-    
+
     send_mass_mail(mails)
 
     count = queryset.count()
@@ -248,5 +229,5 @@ def send_fillform_mail(modeladmin, request, queryset):
         'count': count,
     }
     modeladmin.message_user(request, admin_msg, messages.SUCCESS)
-    
+
 send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')
