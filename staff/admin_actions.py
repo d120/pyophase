@@ -1,4 +1,7 @@
 import io
+from collections import namedtuple
+
+import odswriter
 
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
@@ -11,10 +14,6 @@ from django.contrib import messages
 from django.core.mail import send_mass_mail
 
 from staff.models import HelperJob, OrgaJob, DressSize
-
-from collections import namedtuple
-
-import odswriter
 
 
 def mail_export(modeladmin, request, queryset):
@@ -237,7 +236,7 @@ def send_fillform_mail(modeladmin, request, queryset):
     register_view_url = request.build_absolute_uri(reverse('staff:registration'))
 
     mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
-    
+
     send_mass_mail(mails)
 
     count = queryset.count()
@@ -248,5 +247,5 @@ def send_fillform_mail(modeladmin, request, queryset):
         'count': count,
     }
     modeladmin.message_user(request, admin_msg, messages.SUCCESS)
-    
+
 send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')

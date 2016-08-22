@@ -1,0 +1,5 @@
+{% for w in workshops %}
+\textbf{{ '{' }}{{ w.title }}{{ '}' }}\\
+{{ w.description }}
+\autor{{ '{' }}{{ w.tutor_name }}{{ '}' }}
+{% endfor %}
