@@ -73,11 +73,19 @@ class SendFillformMail(TestCase):
         self.assertEqual(len(mail.outbox), 0)
         recipient = [5,6,7]
         response = c.post(change_url, {'action': 'send_fillform_mail',
+                                       '_selected_action': recipient},)
+        
+        # If the post work we get to the confirmation page
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'staff/fillform_email_confirm.html')
+
+        # Send the post again with confirmation
+        response = c.post(change_url, {'action': 'send_fillform_mail',
                                        'post': 'yes',
                                        '_selected_action': recipient},
                           follow=True)
 
-        # If the post work we get back to the view via a redirect
+        # If the post work we get back to the changelist via a redirect
         self.assertEqual(response.status_code, 200)
         self.assertRedirects(response, change_url)
 
