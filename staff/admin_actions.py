@@ -2,18 +2,15 @@ import io
 from collections import namedtuple
 
 import odswriter
-
-from django.template import loader
-from django.template.response import SimpleTemplateResponse
-from django.http import HttpResponse
-from django.db.models import Q, Count, Case, When
-from django.utils.translation import ugettext as _
-from django.utils.translation import ungettext
-from django.urls import reverse
 from django.contrib import messages
 from django.core.mail import send_mass_mail
-
-from staff.models import HelperJob, OrgaJob, DressSize
+from django.db.models import Q, Case, Count, When
+from django.http import HttpResponse
+from django.template import loader
+from django.template.response import SimpleTemplateResponse
+from django.urls import reverse
+from django.utils.translation import ugettext as _, ungettext
+from staff.models import DressSize, HelperJob, OrgaJob
 
 
 def mail_export(modeladmin, request, queryset):
@@ -21,7 +18,9 @@ def mail_export(modeladmin, request, queryset):
     This should be suitable for mass subscription and similar purposes.
     """
     template = loader.get_template("staff/mail_export.html")
-    context = {'persons' : queryset}
+    context = {'persons' : queryset,
+        'opts' : modeladmin.opts,
+        'title' : _('E-Mail Mass Subscription Export')}
     return SimpleTemplateResponse(template, context)
 
 mail_export.short_description = _('E-Mail Mass Subscription Export')
@@ -103,7 +102,6 @@ def staff_overview_export(modeladmin, request, queryset):
 
 staff_overview_export.short_description = _('Übersicht exportieren')
 
-
 def job_overview(jobtype, modeladmin, request, queryset):
     """Display a matrix to show persons with associated jobs.
     """
@@ -112,9 +110,11 @@ def job_overview(jobtype, modeladmin, request, queryset):
     if jobtype == 'helper':
         persons = queryset.filter(is_helper=True)
         jobs = HelperJob.objects.all().annotate(num_person=Count(Case(When(person__is_helper=True, then=1))))
+        title = ('Helfer-Übersicht')
     elif jobtype == 'orga':
         persons = queryset.filter(is_orga=True)
         jobs = OrgaJob.objects.all().annotate(num_person=Count(Case(When(person__is_orga=True, then=1))))
+        title = ('Orga-Übersicht')
 
     jobs.order_by('label')
 
@@ -132,6 +132,8 @@ def job_overview(jobtype, modeladmin, request, queryset):
         'jobtype' : jobtype,
         'persons' : persons,
         'jobs' : jobs,
+        'opts' : modeladmin.opts,
+        'title' : title,
     }
 
     return SimpleTemplateResponse(template, context)

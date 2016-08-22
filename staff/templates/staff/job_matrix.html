@@ -1,7 +1,4 @@
-{% extends "admin/base_site.html" %}{% load staticfiles %}{% load i18n %}
-
-{% block title %}{% if jobtype == "helper" %}{% trans "Helfer-Übersicht" %}{% endif %}
-{% if jobtype == "orga" %}{% trans "Orga-Übersicht" %}{% endif %} {{ block.super }}{% endblock %}
+{% extends "ophasebase/breadcrumbs_adminaction.html" %}{% load staticfiles i18n %}
 
 {% block content %}
 
@@ -24,10 +21,6 @@
         color: #048704;
     }
 </style>
-
-<h2>{% if jobtype == "helper" %}{% trans "Helfer-Übersicht" %}{% endif %}
-    {% if jobtype == "orga" %}{% trans "Orga-Übersicht" %}{% endif %}
-</h2>
 
 <table>
     <thead>
