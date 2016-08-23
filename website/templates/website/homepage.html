@@ -1,4 +1,4 @@
-{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% extends "ophasebase/base.html" %}{% load staticfiles i18n %}
 {% block title %}Startseite{% endblock %}
 {% block heading %}Willkommen zur Ophase Informatik!{% endblock %}
 {% block language-switcher %}{% endblock %}
@@ -36,7 +36,7 @@
                 <div class="col-sm-4" style="text-align: center;">
                     <span class="fa fa-calendar" style="font-size:30pt"></span>
                     <p style="padding-top: 0.2rem;">
-                        {{ current_ophase.start_date | date:"d." }} - {{ current_ophase.end_date | date:"d. F" }}<br />
+                        {{ current_ophase.get_human_short_duration }}<br />
                         <a href="{% url 'website:bachelor' %}">zum Stundenplan</a>
                     </p>
                 </div>
@@ -64,7 +64,7 @@
                 Studium und Universität und wir werden Dir den Campus und Darmstadt zeigen. So weißt Du dann im Studium,
                 wohin Du gehen musst, wenn Du an der Uni etwas lernen willst - und wohin, wenn Du außerhalb der
                 Vorlesungen auch noch was erleben willst. Los geht es mit der Begrüßung am
-                {{ current_ophase.start_date | date:"l, d. F Y" }}. Was Dich in dieser Woche sonst noch an Programm
+                {{ current_ophase.start_date | date:"l, j. F Y" }}. Was Dich in dieser Woche sonst noch an Programm
                 erwartet, kannst Du dir auf dem <a href="{% url 'website:bachelor' %}">Stundenplan</a> anschauen.
             </p>
             <p>
@@ -133,7 +133,7 @@
                 completed a Bachelor's degree or the like, we offer you an adapted schedule with more room for individual
                 questions.
             </p>
-            <p><a href="{% url 'website:master-dss' %}">Further information...</a></p>
+            <p><a href="{% url 'website:master-dss' %}">Further information</a></p>
         </div>
 
         <div style="background-color: #83d3fc; margin-top: 3rem; padding: 1rem;">
@@ -173,7 +173,7 @@
                 Der Termin mit der Studienberatung ist auch für Master-Erstsemester gedacht, die an der TU Darmstadt
                 ihren Bachelor in Informatik gemacht haben.
             </p>
-            <p><a href="{% url 'website:master-de' %}">Weitere Informationen...</a></p>
+            <p><a href="{% url 'website:master-de' %}">Weitere Informationen</a></p>
         </div>
     </div>
 </div>
