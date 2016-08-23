@@ -14,7 +14,11 @@ class StudentRegisterForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        exam_enabled = kwargs.pop('exam_enabled', False)
         super().__init__(*args, **kwargs)
+
+        if exam_enabled == False:
+            del self.fields['want_exam']
 
     def clean(self):
         cleaned_data = super().clean()

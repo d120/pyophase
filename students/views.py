@@ -35,12 +35,18 @@ class StudentAdd(CreateView):
 
         return initial
 
+    def get_form_kwargs(self, **kwargs):
+        form_kwargs = super(StudentAdd, self).get_form_kwargs(**kwargs)
+        form_kwargs['exam_enabled'] = self.kwargs.get('exam_enabled', True)
+        return form_kwargs
+
     def form_valid(self, form):
         settings = Settings.instance()
         if settings is None or not settings.student_registration_enabled:
             return HttpResponseForbidden()
 
         self.request.session['previous_tutor_group'] = form.data['tutor_group']
+        self.request.session['exam_enabled'] = self.kwargs.get('exam_enabled', True)
         return super().form_valid(form)
 
     @method_decorator(permission_required('students.add_student'))
@@ -60,4 +66,9 @@ class StudentAddSuccess(TemplateView):
         context['ophase_title'] = 'Ophase'
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
+
+        context['registration_form'] = 'students:registration'
+        if 'exam_enabled' in self.request.session and \
+            self.request.session['exam_enabled'] == False:
+            context['registration_form'] = 'students:registration-master'
         return context
