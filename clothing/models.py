@@ -1,8 +1,8 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Ophase
 from staff.models import Person
-from django.utils.translation import ugettext_lazy as _
 
 
 class Type(models.Model):
@@ -13,7 +13,7 @@ class Type(models.Model):
 
     name = models.CharField(max_length=75, verbose_name=_("Art"), unique=True)
     price = models.FloatField(verbose_name=_("Preis"))
-    additional_only = models.BooleanField(verbose_name=_("Nur als zusätzliches Kleidungsstück möglich"), default=False)
+    additional_only = models.BooleanField(verbose_name=_("Nur als selbst bezahltes Kleidungsstück möglich"), default=False)
 
     def __str__(self):
         return self.name
@@ -51,7 +51,7 @@ class Order(models.Model):
     type = models.ForeignKey(Type, verbose_name=_("Art"))
     size = models.ForeignKey(Size, verbose_name=_("Größe"))
     color = models.ForeignKey(Color, verbose_name=_("Farbe"))
-    additional = models.BooleanField(verbose_name=_("Zusätzliches Kleidungsstück"))
+    additional = models.BooleanField(verbose_name=_("Selbst bezahltes Kleidungsstück"))
 
     def __str__(self):
         return "{}: {} {} {}".format(

@@ -2,21 +2,24 @@
 {% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
 
 {% block content %}
-<h3>{% trans "Kleidung bestellen" %}</h3>
+<h2>{% trans "Kleidung bestellen" %}</h2>
 <div id="mainForm">
-
     <form role="form" action="{{action}}" method="POST">
         {% csrf_token %}
-        {% bootstrap_form form %}
+        <table>
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+            {% bootstrap_formset wizard.form layout='horizontal' %}
+        {% else %}
+            {% bootstrap_form wizard.form %}
+        {% endif %}
+        </table>
     {% buttons %}
-        <button type="reset" class="btn btn-danger">
-            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
-        </button>
         <button type="submit" class="btn btn-success pull-right">
-            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+            {% bootstrap_icon "ok" %} {% trans "Weiter" %}
         </button>
     {% endbuttons %}
     </form>
+    <div class="clearfix"></div>
 </div>
 {% endblock %}
-
