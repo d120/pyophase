@@ -40,17 +40,16 @@ class PersonSaveDuplicate(TransactionTestCase):
     """A Person can register only once per ophase instance"""
     def test_person_register_once_per_ophase(self):
         o1 = Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
-        d = DressSize.objects.create(name="S", sort_key=0)
-        p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)
         with self.assertRaises(IntegrityError):
-            p2 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+            p2 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)
 
         o2 = Ophase.objects.create(start_date=date(2014, 10, 6), end_date=date(2014, 10, 10), is_active=True)
         o1 = Ophase.objects.get(pk=o1.pk)
         self.assertEqual(o2.is_active, True)
         self.assertEqual(o1.is_active, False)
 
-        p3 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        p3 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)
         self.assertEqual(p3.ophase, o2)
 
 
