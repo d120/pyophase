@@ -1,5 +1,4 @@
-from django.urls import reverse
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.mail import EmailMessage
