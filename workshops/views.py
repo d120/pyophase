@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
 from django.utils.translation import ugettext_lazy as _
+from django.http import HttpResponseForbidden
 
 from ophasebase.models import Ophase
 from workshops.models import Workshop, Settings
@@ -26,11 +27,14 @@ class WorkshopCreate(CreateView):
             context['ophase_title'] = 'Ophase'
             context['workshop_submission_enabled'] = False
             context['orga_email'] = ""
-        context['other_workshops'] = Workshop.get_current()
+        context['other_workshops'] = Workshop.get_current().order_by('title')
         return context
 
     def form_valid(self, form):
         settings = Settings.instance()
+        if settings is None or not settings.workshop_submission_enabled:
+            return HttpResponseForbidden()
+
         context = self.get_context_data()
         form_content = ''
         for field in form.fields:

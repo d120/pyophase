@@ -12,17 +12,15 @@ from django.core.mail import send_mass_mail
 
 from staff.models import HelperJob, OrgaJob
 
-from collections import namedtuple
-
-import odswriter
-
 
 def mail_export(modeladmin, request, queryset):
     """Creates a list of email addresses in "prename lastname <email@example.net>" format.
     This should be suitable for mass subscription and similar purposes.
     """
     template = loader.get_template("staff/mail_export.html")
-    context = {'persons' : queryset}
+    context = {'persons' : queryset,
+        'opts' : modeladmin.opts,
+        'title' : _('E-Mail Mass Subscription Export')}
     return SimpleTemplateResponse(template, context)
 
 mail_export.short_description = _('E-Mail Mass Subscription Export')
@@ -104,7 +102,6 @@ def staff_overview_export(modeladmin, request, queryset):
 
 staff_overview_export.short_description = _('Übersicht exportieren')
 
-
 def job_overview(jobtype, modeladmin, request, queryset):
     """Display a matrix to show persons with associated jobs.
     """
@@ -113,9 +110,11 @@ def job_overview(jobtype, modeladmin, request, queryset):
     if jobtype == 'helper':
         persons = queryset.filter(is_helper=True)
         jobs = HelperJob.objects.all().annotate(num_person=Count(Case(When(person__is_helper=True, then=1))))
+        title = ('Helfer-Übersicht')
     elif jobtype == 'orga':
         persons = queryset.filter(is_orga=True)
         jobs = OrgaJob.objects.all().annotate(num_person=Count(Case(When(person__is_orga=True, then=1))))
+        title = ('Orga-Übersicht')
 
     jobs.order_by('label')
 
@@ -133,6 +132,8 @@ def job_overview(jobtype, modeladmin, request, queryset):
         'jobtype' : jobtype,
         'persons' : persons,
         'jobs' : jobs,
+        'opts' : modeladmin.opts,
+        'title' : title,
     }
 
     return SimpleTemplateResponse(template, context)
@@ -214,20 +215,32 @@ Die Ophasen-Leitung""").format(**values)
 
 def send_fillform_mail(modeladmin, request, queryset):
     """Send fillform informations to the user"""
+    if request.POST.get('post'):
+        register_view_url = request.build_absolute_uri(reverse('staff:registration'))
 
-    register_view_url = request.build_absolute_uri(reverse('staff:registration'))
+        mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
+        send_mass_mail(mails)
+        count = len(mails)
 
-    mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
+        data = {'count': count,
+                'person': str(queryset[0]),}
 
-    send_mass_mail(mails)
+        admin_msg = ungettext(
+            'Die Fillform E-Mail wurde an {person} verschickt.',
+            'Die Fillform E-Mails wurden an {count} Personen verschickt.',
+            count).format(**data)
 
-    count = queryset.count()
-    admin_msg = ungettext(
-        'Die Fillform E-Mail wurde an %(count)d Person verschickt.',
-        'Die Fillform E-Mails wurden an %(count)d Personen verschickt.',
-        count) % {
-        'count': count,
-    }
-    modeladmin.message_user(request, admin_msg, messages.SUCCESS)
+        modeladmin.message_user(request, admin_msg, messages.SUCCESS)
+    else:
+        context = {
+            'queryset': queryset,
+            'opts' : modeladmin.opts,
+            'title': _("Fillform E-Mail verschicken"),
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+        }
+        template = loader.get_template("staff/fillform_email_confirm.html")
+
+        return TemplateResponse(request, template, context)
+
 
 send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')

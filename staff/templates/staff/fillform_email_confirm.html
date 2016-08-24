@@ -1,0 +1,24 @@
+{% extends "ophasebase/breadcrumbs_adminaction.html" %}{% load i18n l10n %}
+
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <p>
+{% blocktrans count counter=queryset|length %}
+Eine Fillform E-Mail wird an folgende Person geschickt:
+{% plural %}
+Eine Fillform E-Mail wird an folgende {{counter}} Personen geschickt:
+{% endblocktrans %}</p>
+
+    <ul>{{ queryset|unordered_list }}</ul>
+
+    <div>
+    {% for obj in queryset %}
+    <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}" />
+    {% endfor %}
+    <input type="hidden" name="action" value="send_fillform_mail" />
+    <input type="hidden" name="post" value="yes" />
+    <input type="submit" value="{% trans "Fillform E-Mail verschicken" %}" />
+    <a href=".">Abbrechen</a>
+    </div>
+</form>
+{% endblock %}

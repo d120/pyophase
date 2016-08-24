@@ -1,22 +1,17 @@
-from django.test import TestCase, tag
-from django.utils.safestring import SafeText
-from unittest import skip
-
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from selenium.webdriver.firefox.webdriver import WebDriver
-
 from datetime import date
 
-from ophasebase.models import Ophase
-from staff.models import Person
-from staff.forms import PersonForm
-
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.db import IntegrityError
+from django.test import TransactionTestCase, TestCase, tag
+from django.utils.safestring import SafeText
 from selenium.common.exceptions import NoAlertPresentException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.firefox.webdriver import WebDriver
+
+from ophasebase.models import Ophase
+from staff.forms import PersonForm
+from staff.models import Person
+
 
 # Create your tests here.
 
@@ -39,6 +34,25 @@ class PersonSave(TestCase):
         self.assertEqual(p.get_fillform(), '#fillform&v=1&prename=John&'\
             'name=Doe&email=doe%40example.net&phone=0123456789'\
             '&matriculated_since=2011&degree_course=B.Sc.')
+
+
+class PersonSaveDuplicate(TransactionTestCase):
+    """A Person can register only once per ophase instance"""
+    def test_person_register_once_per_ophase(self):
+        o1 = Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
+        d = DressSize.objects.create(name="S", sort_key=0)
+        p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        with self.assertRaises(IntegrityError):
+            p2 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+
+        o2 = Ophase.objects.create(start_date=date(2014, 10, 6), end_date=date(2014, 10, 10), is_active=True)
+        o1 = Ophase.objects.get(pk=o1.pk)
+        self.assertEqual(o2.is_active, True)
+        self.assertEqual(o1.is_active, False)
+
+        p3 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, dress_size=d)
+        self.assertEqual(p3.ophase, o2)
+
 
 class AppendDescriptionTestCase(TestCase):
     """Test append of a link to a field Label"""

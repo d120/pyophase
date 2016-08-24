@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-20 16:02+0200\n"
-"PO-Revision-Date: 2016-08-20 16:03+0200\n"
+"POT-Creation-Date: 2016-08-21 11:47+0200\n"
+"PO-Revision-Date: 2016-08-21 11:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -228,10 +228,14 @@ msgstr "Show/hide workshop list"
 #: templates/workshops/workshop_form.html:15
 msgid ""
 "Workshops können auch mehrfach oder gemeinsam angeboten werden. Bei "
-"Interesse, schreib eine E-Mail an"
+"Interesse, schreib eine E-Mail an den"
 msgstr ""
 "Workshops can be offered multiple times or cooperatively. If you are "
-"interested, write an email to"
+"interested, write an email to the"
+
+#: templates/workshops/workshop_form.html:15
+msgid "Workshop-Orga"
+msgstr "workshop organizer"
 
 #: templates/workshops/workshop_form.html:26
 msgid "Einen neuen Workshop anmelden:"
