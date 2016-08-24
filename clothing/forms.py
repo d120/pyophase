@@ -11,6 +11,8 @@ class OrderAskMailForm(forms.Form):
 
     def clean(self):
         cleaned_data = super().clean()
+        if any(self.errors):
+            return
         person = Person.get_by_email_address_current(cleaned_data["email"])
         if person is None:
             self.add_error('email', ValidationError(_('Die E-Mail-Adresse gehört nicht zu einer registrierten Person.')))
