@@ -62,6 +62,14 @@ class Order(models.Model):
             self.color.name
         )
 
+    def info(self):
+        return "{} {} {} ({})".format(
+            self.type.name,
+            self.size.size,
+            self.color.name,
+            _("selbst bezahlt") if self.additional else _("kostenlos")
+        )
+
     @staticmethod
     def get_current(**kwargs):
         return Order.objects.filter(person__ophase=Ophase.current(), **kwargs)
