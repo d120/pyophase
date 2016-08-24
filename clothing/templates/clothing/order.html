@@ -5,17 +5,22 @@
 {% block content %}
 
 {% if clothing_ordering_enabled %}
+
+<div class="well">
+    {% trans "Du kannst mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
+</div>
+
 <div id="mainForm">
     <form role="form" action="{{action}}" method="POST">
         {% csrf_token %}
-        <table>
+        <div class="padded-form">
         {{ wizard.management_form }}
         {% if wizard.form.forms %}
             {% bootstrap_formset wizard.form layout='horizontal' %}
         {% else %}
             {% bootstrap_form wizard.form %}
         {% endif %}
-        </table>
+        </div>
     {% buttons %}
         <button type="submit" class="btn btn-success pull-right">
             {% bootstrap_icon "ok" %} {% trans "Weiter" %}
