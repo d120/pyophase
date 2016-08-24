@@ -1,4 +1,4 @@
-from clothing.models import Type, Size, Color, Order
+from clothing.models import Type, Size, Color, Order, Settings
 from django.contrib import admin
 
 
@@ -25,3 +25,7 @@ class OrderAdmin(admin.ModelAdmin):
     ordering = ['person', 'type', 'size']
     list_display_links = ['type', 'size', 'color']
     list_filter = ['additional', 'color']
+
+@admin.register(Settings)
+class SettingsAdmin(admin.ModelAdmin):
+    list_display = ('clothing_ordering_enabled',)

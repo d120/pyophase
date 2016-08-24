@@ -3,6 +3,8 @@
 
 {% block content %}
 <h2>{% trans "Kleidung bestellen" %}</h2>
+
+{% if clothing_ordering_enabled %}
 <div id="mainForm">
     <form role="form" action="{{action}}" method="POST">
         {% csrf_token %}
@@ -22,4 +24,10 @@
     </form>
     <div class="clearfix"></div>
 </div>
+{% else %}
+<p>
+    {% trans "Aktuell ist die Kleiderbestellung nicht geöffnet." %}
+</p>
+{% endif %}
+
 {% endblock %}

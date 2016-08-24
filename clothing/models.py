@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
 
 from ophasebase.models import Ophase
 from staff.models import Person
@@ -64,3 +65,30 @@ class Order(models.Model):
     @staticmethod
     def get_current(**kwargs):
         return Order.objects.filter(person__ophase=Ophase.current(), **kwargs)
+
+
+class Settings(models.Model):
+    """Configuration for clothing app."""
+    class Meta:
+        verbose_name = _("Einstellungen")
+        verbose_name_plural = _("Einstellungen")
+
+    clothing_ordering_enabled = models.BooleanField(default=False, verbose_name=_("Kleiderbestellung aktiv"))
+
+    def get_name(self):
+        return '%s' % _("Clothing Einstellungen")
+
+    def __str__(self):
+        return self.get_name()
+
+    def clean(self, *args, **kwargs):
+        super().clean(*args, **kwargs)
+        if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
+            raise ValidationError(_("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen."))
+
+    @staticmethod
+    def instance():
+        try:
+            return Settings.objects.get()
+        except Settings.DoesNotExist:
+            return None
