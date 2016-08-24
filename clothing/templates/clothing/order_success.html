@@ -1,0 +1,8 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
+{% block heading %}{% trans "Kleidung bestellen" %}{% endblock %}
+
+{% block content %}
+<p>{% trans "Bestellung erfolgreich gespeichert" %}</p>
+<a href="{% url 'clothing:order_new' %}">{% trans 'Weitere Bestellung aufgeben' %}</a>
+{% endblock %}

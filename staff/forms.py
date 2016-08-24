@@ -43,10 +43,6 @@ class PersonForm(forms.ModelForm):
             if not settings.helper_registration_enabled:
                 fields_to_del.extend(['is_helper', 'helper_jobs'])
 
-            #fields only required for a registration as tutor or orga
-            if not settings.tutor_registration_enabled and not settings.orga_registration_enabled:
-                fields_to_del.extend(['dress_size'])
-
             #delete all fields not required
             for item in fields_to_del:
                 del self.fields[item]
@@ -63,8 +59,6 @@ class PersonForm(forms.ModelForm):
                   'is_orga', 'orga_jobs',
                   #fields only required for a registration as helper
                   'is_helper', 'helper_jobs',
-                  #fields only required for a registration as tutor or orga
-                  'dress_size',
                   #fields that are always required at the end of the form
                   'remarks']
 
@@ -88,11 +82,8 @@ class PersonForm(forms.ModelForm):
         if cleaned_data.get("is_helper") and cleaned_data.get("helper_jobs").count() == 0:
             self.add_error('helper_jobs', ValidationError(_('Um Helfer zu sein muss ausgewählt werden, bei welchen Aufgaben geholfen werden soll.')))
 
-        if (cleaned_data.get("is_tutor") or cleaned_data.get("is_orga")) and cleaned_data.get("dress_size") is None:
-            self.add_error('dress_size', ValidationError(_('Tutoren und Orgas bekommen ein kostenloses Kleidungsstück, wofür die Größe benötigt wird.')))
-
         if cleaned_data.get('is_tutor') != True and cleaned_data.get('is_helper') != True and cleaned_data.get('is_orga') != True:
             self.add_error(None, ValidationError(_('Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus.')))
 
-            for field in ('is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'dress_size', 'is_helper', 'helper_jobs'):
+            for field in ('is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs'):
                 self.add_error(field, None)

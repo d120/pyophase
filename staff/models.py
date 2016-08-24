@@ -46,21 +46,6 @@ class HelperJob(Job):
         ordering = ['label']
 
 
-class DressSize(models.Model):
-    """A dress size for a Person"""
-    class Meta:
-        verbose_name = _("Kleidergröße")
-        verbose_name_plural = _("Kleidergrößen")
-        unique_together = ("name", "sort_key")
-        ordering = ["sort_key"]
-
-    name = models.CharField(max_length=75, verbose_name=_("Kleidergröße"), unique=True)
-    sort_key = models.PositiveSmallIntegerField(verbose_name=_("Position in Auflistung"), unique=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Person(models.Model):
     """A person which supports the Ophase."""
     class Meta:
@@ -84,7 +69,6 @@ class Person(models.Model):
     tutor_for = models.ForeignKey(GroupCategory, models.SET_NULL, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
     orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name=_("Orgaaufgaben"), help_text=_("Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"))
     helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name=_("Helferaufgaben"), help_text=_("Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"))
-    dress_size = models.ForeignKey(DressSize, models.SET_NULL, null=True, blank=True, verbose_name=_("Kleidergröße"), help_text=_("Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt passt brauchen wir deine Größe."))
     remarks = models.TextField(blank=True, verbose_name=_("Anmerkungen"), help_text=_("Was sollten wir noch wissen?"))
     orga_annotation = models.TextField(blank=True, verbose_name=_("Orga-Anmerkungen"), help_text=_("Notizen von Leitung und Orgas."))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
@@ -125,6 +109,26 @@ class Person(models.Model):
         if self.tutor_for is not None:
             self.is_tutor = True
         super().save(*args, **kwargs)
+
+    @property
+    def eligible_for_clothing(self):
+        return self.is_orga or self.is_tutor
+
+    @staticmethod
+    def get_current(**kwargs):
+        return Person.objects.filter(ophase=Ophase.current(), **kwargs)
+
+    @staticmethod
+    def get_by_email_address(address, ophase):
+        try:
+            return Person.objects.get(email__iexact=address, ophase=ophase)
+        except Person.DoesNotExist:
+            return None
+
+    @staticmethod
+    def get_by_email_address_current(address):
+        return Person.get_by_email_address(address, Ophase.current())
+
 
 class TutorGroup(models.Model):
     """A group of students guided by tutors."""

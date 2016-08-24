@@ -75,6 +75,7 @@ class Ophase(models.Model):
     start_date = models.DateField(verbose_name=_('Beginn'))
     end_date = models.DateField(verbose_name=_('Ende'))
     is_active = models.BooleanField(default=False, verbose_name=_('Aktiv?'))
+    contact_email_address = models.CharField(max_length=100, verbose_name=_('Kontaktadresse Leitung'))
 
     def get_name(self):
         term = _('Ophase')

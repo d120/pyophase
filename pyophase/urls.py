@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^klausur/', include('exam.urls', namespace='exam')),
     url(r'^workshops/', include('workshops.urls', namespace='workshops')),
     url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
+    url(r'^clothing/', include('clothing.urls', namespace='clothing')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', django.contrib.auth.views.login, {'template_name': 'admin/login.html'}, name='login'),

@@ -29,3 +29,7 @@ a.no-underline:hover {
     padding: .5rem 0;
     background-color: #eee;
 }
+
+.padded-form .form-group {
+    padding-bottom: 3.5rem;
+}

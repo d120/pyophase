@@ -40,6 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap3',
+    'formtools',
     'ophasebase',
     'website',
     'dashboard',
@@ -47,7 +49,7 @@ INSTALLED_APPS = (
     'students',
     'exam',
     'workshops',
-    'bootstrap3',
+    'clothing',
 )
 
 MIDDLEWARE = (
