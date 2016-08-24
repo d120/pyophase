@@ -242,14 +242,16 @@ def send_fillform_mail(modeladmin, request, queryset):
 
         send_mass_mail(mails)
 
-        count = queryset.count()
+        count = len(mails)
+
+        data = {'count': count,
+                'person': str(queryset[0]),}
+
         admin_msg = ungettext(
-            'Die Fillform E-Mail wurde an %(person)s verschickt.',
-            'Die Fillform E-Mails wurden an %(count)d Personen verschickt.',
-            count) % {
-            'count': count,
-            'person': str(queryset[0])
-        }
+            'Die Fillform E-Mail wurde an {person} verschickt.',
+            'Die Fillform E-Mails wurden an {count} Personen verschickt.',
+            count).format(**data)
+
         modeladmin.message_user(request, admin_msg, messages.SUCCESS)
     else:
         context = {
