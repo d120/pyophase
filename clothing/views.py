@@ -41,7 +41,13 @@ class OrderClothingView(SessionWizardView):
 
         for form in form_dict.get('1'):
             if 'type' in form.cleaned_data:
-                form.save()
+                # TODO: there has to be a better way to do this
+                if form.cleaned_data['DELETE']:
+                    # id attribute really does contain the actual Order object :D
+                    form.cleaned_data['id'].delete()
+                else:
+                    form.save()
+
 
         email_addr = self.get_cleaned_data_for_step("0")['email']
         person = Person.get_by_email_address_current(email_addr)

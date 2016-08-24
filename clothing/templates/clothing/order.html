@@ -7,7 +7,7 @@
 {% if clothing_ordering_enabled %}
 
 <div class="well">
-    {% trans "Du kannst mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
+    {% trans "Du kannst nach der Anmeldung mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
 </div>
 
 <div id="mainForm">
@@ -16,7 +16,11 @@
         <div class="padded-form">
         {{ wizard.management_form }}
         {% if wizard.form.forms %}
-            {% bootstrap_formset wizard.form layout='horizontal' %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+                {% bootstrap_form form layout='horizontal' %}
+                <hr />
+            {% endfor %}
         {% else %}
             {% bootstrap_form wizard.form %}
         {% endif %}

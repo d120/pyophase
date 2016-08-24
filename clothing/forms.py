@@ -50,4 +50,4 @@ class BaseOrderClothingFormSet(forms.BaseModelFormSet):
             raise ValidationError(_('Du kannst nur ein kostenloses Kleidungsstück bestellen. Du kannst aber zusäztlich Kleidungsstücke bestellen, die du selbst bezahlst.'))
 
 
-OrderClothingFormSet = forms.modelformset_factory(Order, form=OrderClothingForm, formset=BaseOrderClothingFormSet, min_num=1, extra=2)
+OrderClothingFormSet = forms.modelformset_factory(Order, form=OrderClothingForm, formset=BaseOrderClothingFormSet, min_num=1, extra=2, can_delete=True)
