@@ -64,9 +64,7 @@ class Order(models.Model):
 
     def info(self):
         return "{} {} {} ({})".format(
-            self.type.name,
-            self.size.size,
-            self.color.name,
+            str(self.type), str(self.size), str(self.color),
             _("selbst bezahlt") if self.additional else _("kostenlos")
         )
 

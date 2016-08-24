@@ -3,6 +3,7 @@ from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.mail import EmailMessage
 from django.utils.translation import ugettext_lazy as _
+from django.template import loader, Context
 
 from formtools.wizard.views import SessionWizardView
 
@@ -47,28 +48,20 @@ class OrderClothingView(SessionWizardView):
                 else:
                     form.save()
 
-
-        email_addr = self.get_cleaned_data_for_step("0")['email']
-        person = Person.get_by_email_address_current(email_addr)
+        email_address = self.get_cleaned_data_for_step("0")['email']
+        person = Person.get_by_email_address_current(email_address)
         orders = '\n'.join(o.info() for o in Order.get_current(person=person))
 
         email = EmailMessage()
         email.subject = _("Kleiderbestellung %(ophase)s") % {'ophase': str(Ophase.current())}
-        email.body = _("""Hallo %(name)s,
-
-deine Kleiderbestellung für die Ophase wurde aktualisiert.
-Aktuell ist folgendes für dich vermerkt:
-
-%(orders)s
-
-Du kannst deine Bestellung unter der folgenden Adresse bearbeiten oder ergänzen:
-
-%(editurl)s
-
-Liebe Grüße
-die Ophasenleitung
-""") % {'name': person.prename, 'orders': orders, 'editurl': self.request.build_absolute_uri(reverse('clothing:order_new'))}
-        email.to = [email_addr]
+        email_template = loader.get_template('clothing/mail.html')
+        email_context = Context({
+            'name': person.prename,
+            'orders': orders,
+            'editurl': self.request.build_absolute_uri(reverse('clothing:order_new'))
+        })
+        email.body = email_template.render(email_context)
+        email.to = [email_address]
         email.reply_to = ["ophase-leitung@fachschaft.informatik.tu-darmstadt.de"]
         email.send()
 
