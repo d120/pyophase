@@ -62,7 +62,7 @@ class OrderClothingView(SessionWizardView):
         })
         email.body = email_template.render(email_context)
         email.to = [email_address]
-        email.reply_to = ["ophase-leitung@fachschaft.informatik.tu-darmstadt.de"]
+        email.reply_to = [Ophase.current().contact_email_address]
         email.send()
 
         return HttpResponseRedirect(reverse_lazy('clothing:order_success'))
