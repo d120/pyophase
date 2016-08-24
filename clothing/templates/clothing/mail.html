@@ -1,13 +1,12 @@
-Hallo {{ name }},
+{% load i18n %}
+{% trans "Hallo" %} {{ name }},
 
-deine Kleiderbestellung für die Ophase wurde aktualisiert.
-Aktuell ist folgendes für dich vermerkt:
+{% trans "deine Kleiderbestellung für die Ophase wurde aktualisiert. Aktuell ist folgendes für dich vermerkt:" %}
 
 {{ orders }}
 
-Du kannst deine Bestellung unter der folgenden Adresse bearbeiten oder ergänzen:
-
+{% trans "Du kannst deine Bestellung unter der folgenden Adresse bearbeiten oder ergänzen:" %}
 {{ editurl }}
 
-Liebe Grüße
-die Ophasenleitung
+{% trans "Liebe Grüße" %}
+{% trans "die Ophasenleitung" %}

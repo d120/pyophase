@@ -7,7 +7,7 @@ from staff.models import Person
 
 
 class OrderAskMailForm(forms.Form):
-    email = forms.EmailField(label=_('E-Mail-Adresse (bei der Registrierung angegeben)'))
+    email = forms.EmailField(label=_('E-Mail-Adresse wie bei der Registrierung angegeben'))
 
     def clean(self):
         cleaned_data = super().clean()
@@ -32,7 +32,7 @@ class OrderClothingForm(forms.ModelForm):
         if cleaned_data['type'].additional_only and not cleaned_data['additional']:
             self.add_error('additional', ValidationError(_('Dieses Kleidungsstück ist nur als selbst bezahltes Kleidungsstück bestellbar.')))
         elif not self.person.eligible_for_clothing and not cleaned_data['additional']:
-            self.add_error('additional', ValidationError(_('Nur Tutoren und Orgas bekommen ein kostenloses Kleidungsstück. Du kannst aber zusäztlich Kleidungsstücke bestellen, die du selbst bezahlst.')))
+            self.add_error('additional', ValidationError(_('Nur Tutoren und Orgas bekommen ein kostenloses Kleidungsstück. Du kannst aber zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst.')))
         else:
             self.instance.person = self.person
 
@@ -47,7 +47,7 @@ class BaseOrderClothingFormSet(forms.BaseModelFormSet):
             return
         num_non_additional = sum(1 for form in self.forms if 'type' in form.cleaned_data and not form.cleaned_data['additional'])
         if num_non_additional > 1:
-            raise ValidationError(_('Du kannst nur ein kostenloses Kleidungsstück bestellen. Du kannst aber zusäztlich Kleidungsstücke bestellen, die du selbst bezahlst.'))
+            raise ValidationError(_('Du kannst nur ein kostenloses Kleidungsstück bestellen. Du kannst aber zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst.'))
 
 
 OrderClothingFormSet = forms.modelformset_factory(Order, form=OrderClothingForm, formset=BaseOrderClothingFormSet, min_num=1, extra=2, can_delete=True)
