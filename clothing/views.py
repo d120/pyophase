@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect, HttpResponseForbidden
@@ -55,9 +56,13 @@ Aktuell ist folgendes für dich vermerkt:
 
 %(orders)s
 
+Du kannst deine Bestellung unter der folgenden Adresse bearbeiten oder ergänzen:
+
+%(editurl)s
+
 Liebe Grüße
 die Ophasenleitung
-""") % {'name': person.prename, 'orders': orders}
+""") % {'name': person.prename, 'orders': orders, 'editurl': self.request.build_absolute_uri(reverse('clothing:order_new'))}
         email.to = [email_addr]
         email.reply_to = ["ophase-leitung@fachschaft.informatik.tu-darmstadt.de"]
         email.send()
