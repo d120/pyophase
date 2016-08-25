@@ -4,44 +4,39 @@
 
 {% block content %}
 
+<div class="margin-top-1"></div>
 
 {% if any_staff_registration_enabled %}
-    <div style="margin-top: 1rem; border-left: 3px solid #8e44ad; padding-left: 1.5rem; background-color: #ecdef2;">
-        <div style="padding: 1rem 0;">
-            <h3 style="margin: 0;">Helfer*innen gesucht!</h3>
-            <p style="margin: 0; padding-top: .6rem; font-size: 1.8rem;">
-                Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'website:helfen' %}">hier</a>!
-            </p>
-        </div>
+    <div class="box box-highlight box-lilac">
+        <h3>Helfer*innen gesucht!</h3>
+        <p class="box-big">Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'website:helfen' %}">hier</a>!</p>
     </div>
 {% endif %}
 
 {% if student_registration_enabled %}
-    <div style="margin-top: 3rem; border-left: 3px solid #666; padding-left: 1.5rem; background-color: #dfdfdf;">
-        <div style="padding: 1rem 0;">
-            <h3 style="margin: 0;">{% trans "Für Tutorinnen und Tutoren während der Ophase" %}</h3>
-            <p style="margin: 0;"><a href="{% url 'students:registration' %}">{% trans "Die Erstsemester deiner Kleingruppe registrieren" %}</a></p>
-        </div>
+    <div class="box box-highlight box-gray">
+        <h3>{% trans "Für Tutorinnen und Tutoren während der Ophase" %}</h3>
+        <p class="box-big"><a href="{% url 'students:registration' %}">{% trans "Die Erstsemester deiner Kleingruppe registrieren" %}</a></p>
     </div>
 {% endif %}
 
-<div class="row" style="margin-top: 3rem;">
+<div class="row margin-top-3">
     <div class="col-lg-6">
-        <div style="background-color: #feee95; padding: 1rem;">
-            <h2 style="margin-top: .5rem;">Bachelor</h2>
+        <div class="box box-yellow">
+            <h2>Bachelor</h2>
         </div>
-        <div style="background-color: #fef7c8; padding: 1.3rem .7rem; border-left: 3px solid #ffcc00;">
+        <div class="box box-highlight box-light-yellow">
             <div class="row">
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-calendar" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>
                         {{ current_ophase.get_human_short_duration }}<br />
                         <a href="{% url 'website:bachelor' %}">zum Stundenplan</a>
                     </p>
                 </div>
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-map-marker" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
                         Gebäude S2|02 <br />
                         <a rel="nofollow" class="external text" target="_blank"
                            href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
@@ -49,13 +44,13 @@
                         </a>
                     </p>
                 </div>
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-phone" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
                 </div>
             </div>
         </div>
-        <div style="background-color: #feee95; padding: 1.5rem 1rem 1rem 1rem;">
+        <div class="box box-yellow">
             <p>
                 Die Orientierungsphase, kurz Ophase genannt, ist die Woche vor dem eigentlichen Beginn der Vorlesungen.
                 In dieser Woche werden wir Dir und vielen anderen Erstsemestern die Universität und das Leben als
@@ -99,18 +94,18 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div style="background-color: #79e7d1; padding: 1rem;">
-            <h2 style="margin-top: .5rem;">Master DSS</h2>
+        <div class="box box-teal">
+            <h2>Master DSS</h2>
         </div>
-        <div style="background-color: #baf2e7; padding: 1.3rem .7rem; border-left: 3px solid #17826d;">
+        <div class="box box-highlight box-light-teal">
             <div class="row">
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-calendar" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">October 11th - 13th<br /><a href="{% url 'website:master-dss' %}">to the schedule</a></p>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>October 11th - 13th<br /><a href="{% url 'website:master-dss' %}">to the schedule</a></p>
                 </div>
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-map-marker" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
                         Building S2|02 <br />
                         <a rel="nofollow" class="external text" target="_blank"
                            href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
@@ -118,13 +113,13 @@
                         </a>
                     </p>
                 </div>
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-phone" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
                 </div>
             </div>
         </div>
-        <div style="background-color: #79e7d1; padding: 1rem;">
+        <div class="box box-teal">
             <p>
                 The Master Ophase is aimed at students who come from another university. The information on the general
                 page about the Ophase is also valid for the Master Ophase (but unfortunately only available in German):
@@ -135,18 +130,18 @@
             <p><a href="{% url 'website:master-dss' %}">Further information</a></p>
         </div>
 
-        <div style="background-color: #83d3fc; margin-top: 3rem; padding: 1rem;">
-            <h2 style="margin-top: .5rem;">Andere Master</h2>
+        <div class="box box-blue margin-top-3">
+            <h2>Andere Master</h2>
         </div>
-        <div style="background-color: #b9e7fd; padding: 1.3rem .7rem; border-left: 3px solid #046190;">
+        <div class="box box-highlight box-light-blue">
             <div class="row">
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-calendar" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">13. - 14. Oktober<br /><a href="{% url 'website:master-de' %}">zum Stundenplan</a></p>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>13. - 14. Oktober<br /><a href="{% url 'website:master-de' %}">zum Stundenplan</a></p>
                 </div>
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-map-marker" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
                         Gebäude S2|02 <br />
                         <a rel="nofollow" class="external text" target="_blank"
                            href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
@@ -154,13 +149,13 @@
                         </a>
                     </p>
                 </div>
-                <div class="col-sm-4" style="text-align: center;">
-                    <span class="fa fa-phone" style="font-size:30pt"></span>
-                    <p style="padding-top: 0.2rem;">Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
                 </div>
             </div>
         </div>
-        <div style="background-color: #83d3fc; padding: 1rem;">
+        <div class="box box-blue">
             <p>
                 Die Master-Ophase ist für Master-Erstsemester gedacht, die von einer anderen Hochschule kommen. Die
                 generellen Informationen auf der allgemeinen Ophasen-Seite gelten auch für die Master-Ophase: Prinzipiell

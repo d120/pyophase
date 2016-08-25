@@ -18,7 +18,7 @@
                     {% csrf_token %}
                     <input name="next" type="hidden" value="{{ request.path }}" />
                     Switch language:
-                    <select name="language" class="form-control input-sm" style="width:initial;">
+                    <select name="language" class="form-control input-sm w-initial">
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_available_languages as LANGUAGES %}
                         {% get_language_info_list for LANGUAGES as languages %}
@@ -41,13 +41,13 @@
             <div class="col-sm-8">
                 <h1>
                     <a href="{% url 'website:homepage' %}" class="no-underline hidden-xs">
-                        <img src="{% static 'website/ophasen-wesen.svg' %}" style="height: 9rem;" />
+                        <img src="{% static 'website/ophasen-wesen.svg' %}" class="header-img-wesen" />
                     </a>
                     {% block heading %}{% endblock %}
                 </h1>
             </div>
-            <div class="col-sm-4 hidden-xs" style="text-align: right;">
-                <img src="{% static 'website/logo_ohne_rand.svg' %}" class="pull-right" style="height: 7rem; margin-top: 3rem;" />
+            <div class="col-sm-4 hidden-xs right">
+                <img src="{% static 'website/logo_ohne_rand.svg' %}" class="pull-right header-img-logo" />
             </div>
         </div>
 
@@ -55,7 +55,7 @@
         {% block content %}{% endblock %}
 
         <!-- Footer menu -->
-        <p class="text-muted" style="padding: 3rem 0 2rem 0;">
+        <p class="text-muted footer">
             <span class="pull-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>&nbsp;&bull;
             {% if user.is_authenticated %}
             {% trans "Angemeldet als" %} {{ user.username }}

@@ -2,22 +2,67 @@
  * pyophase common styles
  */
 
+/* general helper classes ---------------------------------------- */
+
+.margin-top-1 { margin-top: 1rem; }
+.margin-top-3 { margin-top: 3rem; }
+
+.padding-top-1 { padding-top: 1rem; }
+.padding-top-3 { padding-top: 3rem; }
+
+.right { text-align: right; }
+
+.w-initial { width: initial; }
+
+
+/* common formatting primitives ---------------------------------- */
+
+.text-muted { margin: 5px 0; }
+
+.box { padding: 1rem 1rem; }
+.box-highlight { border-left: 3px solid #fff; }
+.box h2, .box h3 { margin: .5rem 0; }
+.box p { margin: 0; padding-top: .6rem; }
+.box .box-big { font-size: 1.8rem; }
+
+.box-gray { background-color: #dfdfdf; border-color: #666; }
+.box-lilac { background-color: #ecdef2; border-color: #8e44ad; }
+.box-yellow { background-color: #feee95; border-color: #ffcc00; }
+.box-light-yellow { background-color: #fef7c8; border-color: #ffcc00; }
+.box-teal { background-color: #79e7d1; border-color: #17826d; }
+.box-light-teal { background-color: #baf2e7; border-color: #17826d; }
+.box-blue { background-color: #83d3fc; border-color: #046190; }
+.box-light-blue { background-color: #b9e7fd; border-color: #046190; }
+
+.focus-item { text-align: center; }
+.focus-item .fa { font-size: 30pt; }
+.focus-item p { padding-top: .2rem; }
+
+.dotted-border { border: 1px dotted silver; }
+
+.dashboard-panel {
+    width:240px;
+    float:left;
+    margin-right:20px
+}
+.dashboard-panel .panel-body { height:150px }
+
+
+/* top level element styles -------------------------------------- */
+
 html {
     position: relative;
     min-height: 100.1%;
 }
 
-.text-muted {
-    margin: 5px 0;
-}
+a { color: #1141c5 !important; }
+a.no-underline:hover { text-decoration: none; }
 
-a {
-    color: #1141c5 !important;
-}
 
-a.no-underline:hover {
-    text-decoration: none;
-}
+/* header -------------------------------------------------------- */
+
+.header-img-wesen { height: 9rem; }
+.header-img-logo { height: 7rem; margin-top: 3rem; }
 
 .breadcrumbs {
     font-style: italic;
@@ -30,6 +75,13 @@ a.no-underline:hover {
     background-color: #eee;
 }
 
-.padded-form .form-group {
-    padding-bottom: 3.5rem;
-}
+
+/* footer -------------------------------------------------------- */
+
+.footer { padding: 3rem 0 2rem 0; }
+
+
+/* mixed layout adjustments -------------------------------------- */
+
+.padded-form .form-group { padding-bottom: 3.5rem; }
+.quite-big { font-size: 1.8em; line-height: 180%; }

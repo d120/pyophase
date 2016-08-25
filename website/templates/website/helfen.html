@@ -8,22 +8,20 @@
     Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Mithelfen
 </div>
 
-<div style="margin-top: 1rem; border-left: 3px solid #8e44ad; padding-left: 1.5rem; background-color: #ecdef2;">
-    <div style="padding: 1rem 0;">
-        <div class="row">
-            <div class="col-md-6">
-                <h2>{% trans "Für engagierte Studierende" %}</h2>
-                <p><a href="{% url 'staff:registration' %}">{% trans "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken" %}</a></p>
-            </div>
-            <div class="col-md-6">
-                <h2>{% trans "Für Workshopleiter" %}</h2>
-                <p><a href="{% url 'workshops:create' %}">{% trans "Bei der nächsten Ophase einen Workshop anbieten" %}</a></p>
-            </div>
+<div class="box box-highlight box-lilac">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>{% trans "Für engagierte Studierende" %}</h2>
+            <p><a href="{% url 'staff:registration' %}">{% trans "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken" %}</a></p>
+        </div>
+        <div class="col-md-6">
+            <h2>{% trans "Für Workshopleiter" %}</h2>
+            <p><a href="{% url 'workshops:create' %}">{% trans "Bei der nächsten Ophase einen Workshop anbieten" %}</a></p>
         </div>
     </div>
 </div>
 
-<div style="padding-top: 3rem;"></div>
+<div class="padding-top-3"></div>
 
 <p>Die Ophase lebt davon, dass viele Studenten ehrenamtlich daran mitarbeiten. Hier wollen wir die Möglichkeiten vorstellen, wie du dich an der Organisation der Ophase beteiligen kannst. Grundsätzlich gibt es vier verschiedene Möglichkeiten, die sich alle im Zeitaufwand unterscheiden.</p>
 
