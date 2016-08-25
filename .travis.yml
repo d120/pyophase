@@ -37,7 +37,7 @@ script:
   - export PYTHONWARNINGS=all
   - python manage.py check 
   - python manage.py test 
-  - coverage run --omit="*/migrations*" --source=dashboard,exam,ophasebase,staff,students,workshops,website manage.py test
+  - coverage run --omit="*/migrations*" --source=clothing,dashboard,exam,ophasebase,staff,students,workshops,website manage.py test
 
 after_success:
   coveralls
