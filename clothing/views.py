@@ -1,16 +1,16 @@
-from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView
-from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.core.mail import EmailMessage
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.template import Context, loader
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.template import loader, Context
-
+from django.views.generic import TemplateView
 from formtools.wizard.views import SessionWizardView
 
-from clothing.forms import OrderAskMailForm, OrderClothingFormSet
-from clothing.models import Settings, Order
-from staff.models import Person
 from ophasebase.models import Ophase
+from staff.models import Person
+
+from .forms import OrderAskMailForm, OrderClothingFormSet
+from .models import Order, Settings
 
 
 class OrderClothingView(SessionWizardView):

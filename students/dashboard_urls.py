@@ -1,7 +1,12 @@
 from django.conf.urls import url
 
-from students.dashboard_views import StudentStatsView, ExportCertificateView, ExportNewsletterSubscriptionView, \
-    NewsletterOverviewView
+from .dashboard_views import (
+    ExportCertificateView,
+    ExportNewsletterSubscriptionView,
+    NewsletterOverviewView,
+    StudentStatsView,
+)
+
 
 app_name = 'students'
 urlpatterns = [

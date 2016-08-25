@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from . import dashboard_views
 
+
 app_name = 'exam'
 urlpatterns = [
     url(r'^assignment/$', dashboard_views.AssignmentIndexView.as_view(), name='assignment'),

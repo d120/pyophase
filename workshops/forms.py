@@ -1,6 +1,7 @@
 from django import forms
 
-from workshops.models import Workshop, WorkshopSlot
+from .models import Workshop, WorkshopSlot
+
 
 class WorkshopSubmissionForm(forms.ModelForm):
     class Meta:

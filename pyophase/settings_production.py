@@ -4,8 +4,10 @@ First, it imports all default settings, then overrides respective ones.
 Secrets are stored in and imported from an additional file, not set under version control.
 """
 
-from pyophase.settings import *
-import pyophase.settings_secrets as secrets
+from pyophase import settings_secrets as secrets
+
+from .settings import *
+
 
 SECRET_KEY = secrets.SECRET_KEY
 

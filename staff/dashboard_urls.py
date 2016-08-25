@@ -1,6 +1,11 @@
 from django.conf.urls import url
 
-from staff.dashboard_views import GroupMassCreateView, TutorPairingView, TutorPairingSuccess
+from .dashboard_views import (
+    GroupMassCreateView,
+    TutorPairingSuccess,
+    TutorPairingView,
+)
+
 
 app_name = 'staff'
 urlpatterns = [

@@ -1,12 +1,13 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ObjectDoesNotExist
 
 from dashboard.components import TemplateWidgetComponent
-from exam.models import Assignment
 from ophasebase.models import Ophase
 from students.models import Student
+
+from .models import Assignment
 
 
 class ExamWidget(TemplateWidgetComponent):

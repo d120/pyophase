@@ -12,7 +12,7 @@ from django.template.response import SimpleTemplateResponse, TemplateResponse
 from django.urls import reverse
 from django.utils.translation import ugettext as _, ungettext
 
-from staff.models import HelperJob, OrgaJob
+from .models import HelperJob, OrgaJob
 
 
 def mail_export(modeladmin, request, queryset):

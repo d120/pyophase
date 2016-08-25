@@ -1,9 +1,10 @@
 from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase
-from .models import Person, Order
-from django.utils.translation import ugettext_lazy as _
+
+from .models import Order, Person
 
 
 class ClothingOrderWidget(TemplateWidgetComponent):

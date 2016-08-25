@@ -1,19 +1,22 @@
-from django.test import TestCase, tag
+import re
+import time
+import unittest
 
-from django.contrib.auth.models import User, Permission
-
+from django.contrib.auth.models import Permission, User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-
-from students.models import Newsletter
-
+from django.test import TestCase, tag
 from selenium import webdriver
+from selenium.common.exceptions import (
+    NoAlertPresentException,
+    NoSuchElementException,
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+
+from students.models import Newsletter
+
 
 class StudentSeleniumTests(StaticLiveServerTestCase):
     fixtures = ['ophasebase.json', 'staff.json', 'students.json']

@@ -1,13 +1,14 @@
-from django.views.generic import FormView, TemplateView
 from django.template import loader
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
+from django.views.generic import FormView, TemplateView
 
-from ophasebase.models import Ophase
 from dashboard.components import DashboardAppMixin
-from staff.models import TutorGroup, GroupCategory, Person
-from staff.dashboard_forms import GroupMassCreateForm, TutorPairingForm
+from ophasebase.models import Ophase
+
+from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
+from .models import GroupCategory, Person, TutorGroup
 
 
 class StaffAppMixin(DashboardAppMixin):

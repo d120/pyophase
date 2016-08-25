@@ -1,6 +1,11 @@
 from django.conf.urls import url
 
-from clothing.dashboard_views import OrderOverView, FreeClothingView, OrderAggregatedView
+from .dashboard_views import (
+    FreeClothingView,
+    OrderAggregatedView,
+    OrderOverView,
+)
+
 
 app_name = 'clothing'
 urlpatterns = [

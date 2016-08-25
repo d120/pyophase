@@ -1,13 +1,14 @@
+from django.core.mail import EmailMessage
+from django.http import HttpResponseForbidden
+from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
-from django.core.mail import EmailMessage
-from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponseForbidden
 
 from ophasebase.models import Ophase
-from workshops.models import Workshop, Settings
-from workshops.forms import WorkshopSubmissionForm
+
+from .forms import WorkshopSubmissionForm
+from .models import Settings, Workshop
 
 
 class WorkshopCreate(CreateView):

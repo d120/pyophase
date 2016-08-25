@@ -1,14 +1,12 @@
-from django.test import TestCase
-
-from django.core.exceptions import ValidationError
-
-from django.utils.translation import ugettext_lazy as _
-
 from datetime import date
 
-from students.models import Newsletter, Student, Settings
-from staff.models import GroupCategory, TutorGroup
+from django.core.exceptions import ValidationError
+from django.test import TestCase
+from django.utils.translation import ugettext_lazy as _
+
 from ophasebase.models import Ophase
+from staff.models import GroupCategory, TutorGroup
+from students.models import Newsletter, Settings, Student
 
 
 class NewsletterModelTests(TestCase):

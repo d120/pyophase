@@ -1,12 +1,26 @@
 from django.contrib import admin
-from django.utils.translation import ugettext as _
-from django.utils.html import format_html
-
-from django.templatetags.static import static
 from django.contrib.admin.templatetags.admin_list import _boolean_icon
+from django.templatetags.static import static
+from django.utils.html import format_html
+from django.utils.translation import ugettext as _
 
-from staff.models import Person, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
-from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, send_fillform_mail
+from .admin_actions import (
+    helper_job_overview,
+    mail_export,
+    orga_job_overview,
+    send_fillform_mail,
+    staff_nametag_export,
+    staff_overview_export,
+    tutorgroup_export,
+)
+from .models import (
+    GroupCategory,
+    HelperJob,
+    OrgaJob,
+    Person,
+    Settings,
+    TutorGroup,
+)
 
 
 @admin.register(OrgaJob)

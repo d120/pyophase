@@ -1,10 +1,10 @@
 from datetime import date
 
+from django.contrib import messages
+from django.contrib.auth.models import User
 from django.core import mail
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
-from django.contrib import messages
 
 from ophasebase.models import Ophase
 from staff.models import Person

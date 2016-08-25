@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from exam.models import ExamRoom, Assignment, PersonToExamRoomAssignment
+from .models import Assignment, ExamRoom, PersonToExamRoomAssignment
 
 
 @admin.register(ExamRoom)

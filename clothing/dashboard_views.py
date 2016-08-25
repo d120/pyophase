@@ -3,12 +3,12 @@ from collections import OrderedDict
 from django.db import models
 from django.db.models import Count
 from django.utils.translation import ugettext as _
-from django.views.generic import ListView
-from django.views.generic import TemplateView
+from django.views.generic import ListView, TemplateView
 
-from clothing.models import Order, Type, Color, Size
 from dashboard.components import DashboardAppMixin
 from staff.models import Person
+
+from .models import Color, Order, Size, Type
 
 
 class ClothingAppMixin(DashboardAppMixin):

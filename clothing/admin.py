@@ -1,5 +1,6 @@
-from clothing.models import Type, Size, Color, Order, Settings
 from django.contrib import admin
+
+from .models import Color, Order, Settings, Size, Type
 
 
 @admin.register(Type)

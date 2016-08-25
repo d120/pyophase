@@ -1,8 +1,9 @@
 from django import forms
 from django.utils.translation import ugettext as _
 
-from staff.models import GroupCategory, Person, TutorGroup
 from ophasebase.models import Ophase
+
+from .models import GroupCategory, Person, TutorGroup
 
 
 class GroupMassCreateForm(forms.Form):

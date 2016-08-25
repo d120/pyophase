@@ -1,9 +1,10 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, ListView, DetailView
-from dashboard.components import DashboardAppMixin
+from django.views.generic import CreateView, DetailView, ListView, TemplateView
 
-from exam.models import ExamRoom, Assignment, PersonToExamRoomAssignment
+from dashboard.components import DashboardAppMixin
 from students.models import Student
+
+from .models import Assignment, ExamRoom, PersonToExamRoomAssignment
 
 
 class ExamAppMixin(DashboardAppMixin):

@@ -1,12 +1,12 @@
 from datetime import date
 
+from django.contrib.auth.models import Permission, User
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User, Permission
 from django.utils.translation import ugettext_lazy as _
 
-from staff.models import GroupCategory, TutorGroup
 from ophasebase.models import Ophase
+from staff.models import GroupCategory, TutorGroup
 
 
 class StudentAddViewTest(TestCase):

@@ -1,9 +1,10 @@
-from django.test import TestCase
-from django.core.exceptions import ValidationError
-
 from datetime import date
 
-from ophasebase.models import Ophase
+from django.core.exceptions import ValidationError
+from django.test import TestCase
+
+from .models import Ophase
+
 
 # Create your tests here.
 

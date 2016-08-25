@@ -1,9 +1,10 @@
-from django.db import models
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.template.defaultfilters import date as _date
 from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Ophase
+
 
 class WorkshopSlot(models.Model):
     """Date and time of a workshop slot."""

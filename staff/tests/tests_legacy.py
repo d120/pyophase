@@ -2,10 +2,12 @@ from datetime import date
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.db import IntegrityError
-from django.test import TransactionTestCase, TestCase, tag
+from django.test import TestCase, TransactionTestCase, tag
 from django.utils.safestring import SafeText
-from selenium.common.exceptions import NoAlertPresentException
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import (
+    NoAlertPresentException,
+    NoSuchElementException,
+)
 from selenium.webdriver.firefox.webdriver import WebDriver
 
 from ophasebase.models import Ophase

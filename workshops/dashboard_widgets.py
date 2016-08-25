@@ -2,7 +2,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase
-from workshops.models import Workshop
+
+from .models import Workshop
+
 
 class WorkshopCountWidget(TemplateWidgetComponent):
     name = _('Workshops')

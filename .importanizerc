@@ -1,0 +1,32 @@
+{
+    "exclude": [
+        "*/migrations/*",
+        "manage.py"
+    ],
+    "formatter": "grouped",
+    "groups": [
+        {
+            "type": "stdlib"
+        },
+        {
+            "type": "remainder"
+        },
+        {
+            "type": "packages",
+            "packages": [
+                "clothing",
+                "dashboard",
+                "exam",
+                "ophasebase",
+                "pyophase",
+                "staff",
+                "students",
+                "website",
+                "workshops"
+            ]
+        },
+        {
+            "type": "local"
+        }
+    ]
+}

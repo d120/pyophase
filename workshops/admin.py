@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from workshops.models import WorkshopSlot, Workshop, Settings
-from workshops.admin_actions import oinforz_export
+from .admin_actions import oinforz_export
+from .models import Settings, Workshop, WorkshopSlot
+
 
 admin.site.register(WorkshopSlot)
 

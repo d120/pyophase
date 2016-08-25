@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Building, Ophase, Room
+from .models import Building, Ophase, Room
+
 
 @admin.register(Ophase)
 class OphaseAdmin(admin.ModelAdmin):

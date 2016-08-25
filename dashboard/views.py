@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 
-from .dashboard_widgets import DashboardWidgets
 from .components import DashboardBaseMixin
+from .dashboard_widgets import DashboardWidgets
 from .shortcuts import check_permissions
 
 

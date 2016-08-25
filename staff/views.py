@@ -1,17 +1,18 @@
-from django.views.generic.edit import CreateView
-from django.views.generic import TemplateView, ListView
-from django.urls import reverse_lazy
 from django.core.mail import EmailMessage
 from django.db import IntegrityError
 from django.db.models.query import QuerySet
+from django.http import HttpResponseForbidden
 from django.template import loader
 from django.template.response import TemplateResponse
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
-from django.http import HttpResponseForbidden
+from django.views.generic import ListView, TemplateView
+from django.views.generic.edit import CreateView
 
 from ophasebase.models import Ophase
-from staff.models import Settings, GroupCategory, OrgaJob, HelperJob
-from staff.forms import PersonForm
+
+from .forms import PersonForm
+from .models import GroupCategory, HelperJob, OrgaJob, Settings
 
 
 class StaffAdd(CreateView):

@@ -1,11 +1,13 @@
-from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView
+
 from ophasebase.models import Ophase
-from students.models import Settings as StudentsSettings
 from staff.models import Settings as StaffSettings
+from students.models import Settings as StudentsSettings
 from workshops.models import Settings as WorkshopSettings
-from website.models import Settings as WebsiteSettings
-from website.models import Schedule
+
+from .models import Schedule, Settings as WebsiteSettings
+
 
 class HomepageView(TemplateView):
     template_name = "website/homepage.html"

@@ -1,13 +1,14 @@
-from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 from django.http import HttpResponseForbidden
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
 
 from ophasebase.models import Ophase
-from students.forms import StudentRegisterForm
-from students.models import Student, Settings
+
+from .forms import StudentRegisterForm
+from .models import Settings, Student
 
 
 class StudentAdd(CreateView):

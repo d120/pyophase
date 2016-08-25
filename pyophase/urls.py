@@ -1,11 +1,11 @@
-from django.conf.urls import include, url
-from django.urls import reverse_lazy
 import django.contrib.auth.views
-
 from django.conf import settings
+from django.conf.urls import include, url
+from django.contrib import admin
+from django.urls import reverse_lazy
 from django.views.static import serve
 
-from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = [

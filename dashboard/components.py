@@ -1,9 +1,9 @@
-from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
+from django.urls import reverse_lazy
 
-from dashboard.dashboard_links import DashboardLinks
-from dashboard.shortcuts import check_permissions
+from .dashboard_links import DashboardLinks
+from .shortcuts import check_permissions
 
 
 class WidgetComponent():

@@ -1,3 +1,5 @@
+import os
+
 from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.db import models
@@ -6,7 +8,6 @@ from django.dispatch import receiver
 from django.template.defaultfilters import date as _date
 from django.utils.translation import ugettext_lazy as _
 
-import os
 
 class Settings(models.Model):
     """Configuration for Website App."""

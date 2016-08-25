@@ -1,6 +1,7 @@
-from django.template import loader
 from django.http import HttpResponse
+from django.template import loader
 from django.utils.translation import ugettext as _
+
 
 def oinforz_export(modeladmin, request, queryset):
     """Create a tex file for the OInforz containing workshop information.

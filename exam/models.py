@@ -8,6 +8,7 @@ from ophasebase.models import Ophase
 from staff.models import GroupCategory
 from students.models import Student
 
+
 class ExamRoom(models.Model):
     """A room which is suitable for the exam."""
     class Meta:

@@ -1,12 +1,13 @@
 import datetime
 
-from django.utils.safestring import SafeText
-from django.utils.translation import ugettext as _
-from django.utils.translation import ungettext
 from django.utils.dateformat import DateFormat
+from django.utils.safestring import SafeText
+from django.utils.translation import ugettext as _, ungettext
 
 from dashboard.components import WidgetComponent
+
 from .models import Ophase
+
 
 class CountdownWidget(WidgetComponent):
     name = _('Ophasenstatus')

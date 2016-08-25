@@ -1,8 +1,8 @@
 from django.core import mail
 from django.test import Client, TestCase
 from django.urls import reverse
-
 from django.utils.translation import ugettext_lazy as _
+
 
 class StaffAddView(TestCase):
     fixtures = ['ophasebase.json', 'staff.json', 'students.json']

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from website.models import Settings, Schedule
+
+from .models import Schedule, Settings
 
 
 @admin.register(Settings)

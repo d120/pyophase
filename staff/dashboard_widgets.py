@@ -1,7 +1,9 @@
+from django.utils.translation import ugettext_lazy as _
+
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase
+
 from .models import Person
-from django.utils.translation import ugettext_lazy as _
 
 
 class StaffCountWidget(TemplateWidgetComponent):

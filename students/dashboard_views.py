@@ -1,11 +1,12 @@
-from django.views.generic import TemplateView, ListView
 from django.db.models import Count, Sum
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic import ListView, TemplateView
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
 from staff.models import TutorGroup
-from students.models import Student, Newsletter
+
+from .models import Newsletter, Student
 
 
 class StudentsAppMixin(DashboardAppMixin):

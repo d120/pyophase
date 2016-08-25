@@ -1,10 +1,11 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-from django.utils.html import format_html, escape
+from django.utils.html import escape, format_html
 from django.utils.translation import ugettext as _
 
-from staff.models import Person, Settings, GroupCategory, HelperJob, OrgaJob
+from .models import GroupCategory, HelperJob, OrgaJob, Person, Settings
+
 
 class PersonForm(forms.ModelForm):
 
