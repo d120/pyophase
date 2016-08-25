@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-25 11:24+0200\n"
+"POT-Creation-Date: 2016-08-25 11:39+0200\n"
 "PO-Revision-Date: 2016-08-25 11:24+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,11 +224,11 @@ msgstr ""
 "pieces of clothing by filling several form sections. Just leave the "
 "remaining ones blank."
 
-#: templates/clothing/order.html:30
+#: templates/clothing/order.html:31
 msgid "Weiter"
 msgstr "Next"
 
-#: templates/clothing/order.html:38
+#: templates/clothing/order.html:39
 msgid "Aktuell ist die Kleiderbestellung nicht geöffnet."
 msgstr "Ordering clothes is currently not possible."
 
@@ -240,7 +240,7 @@ msgstr "Order successfully saved."
 msgid "Weitere Bestellung aufgeben"
 msgstr "Order another piece of clothing"
 
-#: views.py:49
+#: views.py:48
 msgid "Keine Bestellungen"
 msgstr "No orders"
 
