@@ -49,7 +49,7 @@ class OrderClothingView(SessionWizardView):
 
         email = EmailMessage()
         email.subject = _("Kleiderbestellung %(ophase)s") % {'ophase': str(Ophase.current())}
-        email_template = loader.get_template('clothing/mail.html')
+        email_template = loader.get_template('clothing/mail.txt')
         email_context = Context({
             'name': person.prename,
             'orders': orders,
