@@ -1,14 +1,14 @@
 from django.core.mail import EmailMessage
 from django.http import HttpResponseForbidden
+from django.template import loader
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
 from ophasebase.models import Ophase
-
-from .forms import WorkshopSubmissionForm
-from .models import Settings, Workshop
+from workshops.forms import WorkshopSubmissionForm
+from workshops.models import Settings, Workshop
 
 
 class WorkshopCreate(CreateView):
@@ -43,20 +43,13 @@ class WorkshopCreate(CreateView):
 
         email = EmailMessage()
         email.subject = _("Workshop in der %(ophase)s") % {'ophase': context['ophase_title']}
-        email.body = _("""Hallo %(name)s,
-
-vielen Dank, dass du den Workshop "%(title)s" in der kommenden %(ophase)s anbieten möchtest.
-Diese E-Mail dient hauptsächlich dazu, deine Eintragung zu bestätigen.
-Der Workshoporga wird sich zu gegebener Zeit mit dir in Verbindung setzen.
-Wenn sich etwas ändern sollte, antworte einfach auf diese E-Mail.
-
-Hier nochmal die von dir eingetragenen Daten:
-
-%(form_content)s
-
-Liebe Grüße
-das Orga-Team
-""") % {'name': form.cleaned_data['tutor_name'], 'title': form.cleaned_data['title'], 'ophase': context['ophase_title'], 'form_content': form_content}
+        email_template = loader.get_template('workshops/mail/submission.txt')
+        email.body = email_template.render({
+            'name': form.cleaned_data['tutor_name'],
+            'title': form.cleaned_data['title'],
+            'ophase': context['ophase_title'],
+            'form_content': form_content
+        })
         email.to = [form.cleaned_data['tutor_mail']]
         if settings is not None:
             email.reply_to = [settings.orga_email]

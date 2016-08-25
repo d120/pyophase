@@ -12,14 +12,14 @@ from django.template.response import SimpleTemplateResponse, TemplateResponse
 from django.urls import reverse
 from django.utils.translation import ugettext as _, ungettext
 
-from .models import HelperJob, OrgaJob
+from staff.models import HelperJob, OrgaJob
 
 
 def mail_export(modeladmin, request, queryset):
     """Creates a list of email addresses in "prename lastname <email@example.net>" format.
     This should be suitable for mass subscription and similar purposes.
     """
-    template = loader.get_template("staff/mail_export.html")
+    template = loader.get_template("staff/admin/mail_export.html")
     context = {'persons' : queryset,
         'opts' : modeladmin.opts,
         'title' : _('E-Mail Mass Subscription Export')}
@@ -107,7 +107,7 @@ staff_overview_export.short_description = _('Übersicht exportieren')
 def job_overview(jobtype, modeladmin, request, queryset):
     """Display a matrix to show persons with associated jobs.
     """
-    template = loader.get_template("staff/job_matrix.html")
+    template = loader.get_template("staff/admin/job_matrix.html")
 
     if jobtype == 'helper':
         persons = queryset.filter(is_helper=True)
@@ -197,21 +197,10 @@ def __get_fillform_email(register_view_url, person):
              'fillform_link': fillform_link,
              }
 
-    subject = _('Erneute Anmeldung bei der nächsten Ophase').format(**values)
+    subject = _('Erneute Anmeldung bei der nächsten Ophase')
     to = ['{user_prename} {user_name} <{user_email}>'.format(**values)]
-
-    message = _("""Hallo {user_prename},
-
-vielen Dank dass du bei dieser Ophase mitgeholfen hast. Wir würden uns freuen,
-wenn du uns auch bei der nächsten Ophase wieder unterstützt.
-
-Mit dem folgenden Link kannst die Registrierung für die nächste Ophase
-beschleunigen:
-
-{fillform_link}
-
-Viele Grüße,
-Die Ophasen-Leitung""").format(**values)
+    mail_template = loader.get_template("staff/mail/fillform.txt")
+    message = mail_template.render(values)
 
     return (subject, message, None, to)
 
@@ -240,7 +229,7 @@ def send_fillform_mail(modeladmin, request, queryset):
             'title': _("Fillform E-Mail verschicken"),
             'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
         }
-        template = loader.get_template("staff/fillform_email_confirm.html")
+        template = loader.get_template("staff/admin/fillform_email_confirm.html")
 
         return TemplateResponse(request, template, context)
 

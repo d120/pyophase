@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-25 11:24+0200\n"
-"PO-Revision-Date: 2016-08-22 16:50+0200\n"
+"POT-Creation-Date: 2016-08-25 19:26+0200\n"
+"PO-Revision-Date: 2016-08-25 19:12+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
@@ -18,43 +18,43 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:20
+#: admin.py:34
 msgid "Tutorenstatus"
 msgstr "Tutor status"
 
-#: admin.py:24
+#: admin.py:38
 msgid "Alle Tutoren"
 msgstr "All tutors"
 
-#: admin.py:27
+#: admin.py:41
 msgid "Keine Tutoren"
 msgstr "No tutors"
 
-#: admin.py:55
+#: admin.py:69
 msgid "Personendaten"
 msgstr "Personal data"
 
-#: admin.py:57
+#: admin.py:71
 msgid "Bewerbung"
 msgstr "Application"
 
-#: admin.py:59
+#: admin.py:73
 msgid "In der Ophase"
 msgstr "During the Ophase"
 
-#: admin.py:61
+#: admin.py:75
 msgid "Sonstiges"
 msgstr "Miscellaneous"
 
-#: admin.py:72
+#: admin.py:86
 msgid "Orga-Notiz"
 msgstr "Organizers' notes"
 
-#: admin.py:83 models.py:66
+#: admin.py:97 models.py:66
 msgid "Tutor"
 msgstr "Tutor"
 
-#: admin.py:94 admin_actions.py:95 models.py:143
+#: admin.py:108 admin_actions.py:95 models.py:143
 #: templates/staff/dashboard/widget_staff.html:3 views.py:29
 msgid "Tutoren"
 msgstr "Tutors"
@@ -122,99 +122,81 @@ msgstr "Export tutored groups"
 
 #: admin_actions.py:200
 msgid "Erneute Anmeldung bei der nächsten Ophase"
-msgstr ""
+msgstr "Reregistration for the next Ophase"
 
-#: admin_actions.py:203
-#, python-brace-format
-msgid ""
-"Hallo {user_prename},\n"
-"\n"
-"vielen Dank dass du bei dieser Ophase mitgeholfen hast. Wir würden uns "
-"freuen,\n"
-"wenn du uns auch bei der nächsten Ophase wieder unterstützt.\n"
-"\n"
-"Mit dem folgenden Link kannst die Registrierung für die nächste Ophase\n"
-"beschleunigen:\n"
-"\n"
-"{fillform_link}\n"
-"\n"
-"Viele Grüße,\n"
-"Die Ophasen-Leitung"
-msgstr ""
-
-#: admin_actions.py:231
+#: admin_actions.py:220
 #, python-brace-format
 msgid "Die Fillform E-Mail wurde an {person} verschickt."
 msgid_plural "Die Fillform E-Mails wurden an {count} Personen verschickt."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "The fillform email was sent to {person}."
+msgstr[1] "The fillform email was sent to {count} persons."
 
-#: admin_actions.py:240 templates/staff/fillform_email_confirm.html:20
+#: admin_actions.py:229 templates/staff/admin/fillform_email_confirm.html:20
 msgid "Fillform E-Mail verschicken"
-msgstr ""
+msgstr "Send fillform email"
 
-#: admin_actions.py:248
+#: admin_actions.py:237
 msgid "Fillform E-Mail an Person senden"
-msgstr ""
+msgstr "Send fillform email to persons"
 
-#: dashboard_forms.py:12 dashboard_forms.py:28 models.py:13 models.py:144
+#: dashboard_forms.py:13 dashboard_forms.py:29 models.py:13 models.py:144
 msgid "Gruppenkategorie"
 msgstr "Group categories"
 
-#: dashboard_forms.py:13
+#: dashboard_forms.py:14
 msgid "Gruppennamen"
 msgstr "Group name"
 
-#: dashboard_forms.py:13
+#: dashboard_forms.py:14
 msgid "Einen Gruppennamen pro Zeile eintragen."
 msgstr "Enter one group name per line."
 
-#: dashboard_views.py:14
+#: dashboard_views.py:15
 msgid "Personal"
 msgstr "Staff"
 
-#: dashboard_views.py:21 templates/staff/dashboard/group_mass_create.html:3
+#: dashboard_views.py:22 templates/staff/dashboard/group_mass_create.html:3
 msgid "Kleingruppen erstellen"
 msgstr "Create tutored groups"
 
-#: dashboard_views.py:22 templates/staff/dashboard/tutor_pairing.html:3
+#: dashboard_views.py:23 templates/staff/dashboard/tutor_pairing.html:3
 msgid "Tutoren paaren"
 msgstr "Pair tutors"
 
-#: dashboard_widgets.py:9
+#: dashboard_widgets.py:11
 msgid "Ophasenpersonal"
 msgstr "Staff of Ophase"
 
-#: dashboard_widgets.py:16
+#: dashboard_widgets.py:18
 msgid "Ophase"
 msgstr "Ophase"
 
-#: forms.py:14
+#: forms.py:15
 msgid "Aufgabenbeschreibung"
 msgstr "Task description"
 
-#: forms.py:77
+#: forms.py:78
 msgid ""
 "Um Tutor zu sein muss ausgewählt werden, welche Art Gruppe betreut werden "
 "soll."
 msgstr ""
 "To be tutor it has to be selected what kind of group should be taken care of."
 
-#: forms.py:80
+#: forms.py:81
 msgid ""
 "Um Orga zu sein muss ausgewählt werden, welche Aufgaben übernommen werden "
 "sollen."
 msgstr ""
 "To be organizer it has to be selected what kind of task should be adopted."
 
-#: forms.py:83
+#: forms.py:84
 msgid ""
 "Um Helfer zu sein muss ausgewählt werden, bei welchen Aufgaben geholfen "
 "werden soll."
 msgstr ""
 "To be helper it has to be selected what kind of tasks should be helped with."
 
-#: forms.py:86
+#: forms.py:87
 msgid ""
 "Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder "
 "Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus."
@@ -228,7 +210,7 @@ msgstr "Group categories"
 
 #: models.py:17 models.py:28
 msgid "Bezeichnung"
-msgstr ""
+msgstr "Description"
 
 #: models.py:29
 msgid "Beschreibung"
@@ -432,6 +414,40 @@ msgstr ""
 "It only makes sense and is possible to create one instance of the settings "
 "object."
 
+#: templates/staff/admin/fillform_email_confirm.html:6
+#, python-format
+msgid ""
+"\n"
+"Eine Fillform E-Mail wird an folgende Person geschickt:\n"
+msgid_plural ""
+"\n"
+"Eine Fillform E-Mail wird an folgende %(counter)s Personen geschickt:\n"
+msgstr[0] ""
+"\n"
+"A fillform email will be sent to the following person:\n"
+msgstr[1] ""
+"\n"
+"A fillform email will be sent to the following %(counter)s persons:\n"
+
+#: templates/staff/admin/job_matrix.html:55
+msgid "Gesamt"
+msgstr "Total"
+
+#: templates/staff/admin/mail_export.html:5
+#, python-format
+msgid ""
+"\n"
+"Es wurde eine Person ausgewählt.\n"
+msgid_plural ""
+"\n"
+"Es wurden %(counter)s Personen ausgewählt.\n"
+msgstr[0] ""
+"\n"
+"One person was selected.\n"
+msgstr[1] ""
+"\n"
+"%(counter)s persons were selected.\n"
+
 #: templates/staff/already_registered.html:2
 msgid "Fehler"
 msgstr "Error"
@@ -519,17 +535,6 @@ msgstr "Assignments saved succesfully"
 msgid "Weitere Paarungen vornehmen"
 msgstr "Create further pairs"
 
-#: templates/staff/fillform_email_confirm.html:6
-#, python-format
-msgid ""
-"\n"
-"Eine Fillform E-Mail wird an folgende Person geschickt:\n"
-msgid_plural ""
-"\n"
-"Eine Fillform E-Mail wird an folgende %(counter)s Personen geschickt:\n"
-msgstr[0] ""
-msgstr[1] ""
-
 #: templates/staff/job_list.html:10
 msgid "Hilfe vorhanden"
 msgstr "No more help needed"
@@ -542,24 +547,64 @@ msgstr "Help needed"
 msgid "Keine Aufgaben vorhanden"
 msgstr "No existing tasks"
 
-#: templates/staff/job_matrix.html:55
-msgid "Gesamt"
-msgstr "Total"
+#: templates/staff/mail/fillform.txt:1 templates/staff/mail/register.txt:1
+msgid "Hallo"
+msgstr "Hello"
 
-#: templates/staff/mail_export.html:5
-#, python-format
+#: templates/staff/mail/fillform.txt:3
 msgid ""
-"\n"
-"Es wurde eine Person ausgewählt.\n"
-msgid_plural ""
-"\n"
-"Es wurden %(counter)s Personen ausgewählt.\n"
-msgstr[0] ""
-"\n"
-"One person was selected.\n"
-msgstr[1] ""
-"\n"
-"%(counter)s persons were selected.\n"
+"vielen Dank dass du bei dieser Ophase mitgeholfen hast. Wir würden uns "
+"freuen, wenn du uns auch bei der nächsten Ophase wieder unterstützt."
+msgstr ""
+"thank you very much for helping out during the last Ophase. We would be "
+"glad, if you would like to support us again in the next Ophase."
+
+#: templates/staff/mail/fillform.txt:5
+msgid ""
+"Mit dem folgenden Link kannst die Registrierung für die nächste Ophase "
+"beschleunigen:"
+msgstr ""
+"With the following link, you can speed up the registration process for the "
+"next Ophase:"
+
+#: templates/staff/mail/fillform.txt:9
+msgid "Viele Grüße,"
+msgstr "Best regards"
+
+#: templates/staff/mail/fillform.txt:10 templates/staff/person_form.html:36
+#: templates/staff/person_form.html:56
+msgid "Die Ophasen-Leitung"
+msgstr "Head of Ophase"
+
+#: templates/staff/mail/register.txt:3
+msgid ""
+"vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich "
+"gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden, "
+"sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter "
+"Umständen noch ein paar Wochen dauern."
+msgstr ""
+"Thank you very much for wanting to help. The head of Ophase will contact you "
+"in time, once certain organizational things or deadlines become relevant. "
+"This might take up to a few weeks."
+
+#: templates/staff/mail/register.txt:5
+msgid ""
+"Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte "
+"eine E-Mail an"
+msgstr ""
+"If you want to change your data in the meantime, please send us an email to"
+
+#: templates/staff/mail/register.txt:7
+msgid "Hier nochmal die von dir eingetragenen Daten:"
+msgstr "Here, the data you have submitted:"
+
+#: templates/staff/mail/register.txt:11
+msgid "Liebe Grüße"
+msgstr "Best regards"
+
+#: templates/staff/mail/register.txt:12
+msgid "die Ophasenleitung"
+msgstr "Head of Ophase"
 
 #: templates/staff/person_form.html:3
 msgid "Bei der Ophase mitmachen"
@@ -615,10 +660,6 @@ msgstr ""
 "For tasks, which are no longer selectable below, enough people have already "
 "signed up."
 
-#: templates/staff/person_form.html:36 templates/staff/person_form.html:56
-msgid "Die Ophasen-Leitung"
-msgstr "Head of Ophase"
-
 #: templates/staff/person_form.html:55
 #, python-format
 msgid ""
@@ -642,7 +683,7 @@ msgid ""
 "geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder "
 "Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern."
 msgstr ""
-"Thank you very much for watning to help. The head of Ophase will contact you "
+"Thank you very much for wanting to help. The head of Ophase will contact you "
 "in time, once certain organizational things or deadlines become relevant. "
 "This might take up to a few weeks."
 
@@ -658,47 +699,48 @@ msgstr "Organizers"
 msgid "und"
 msgstr "and"
 
-#: views.py:85
+#: views.py:83
 msgid "Ja"
-msgstr ""
+msgstr "Yes"
 
-#: views.py:100
+#: views.py:98
 #, python-brace-format
-msgid "{ophasen_title} Registrierung"
-msgstr "{ophasen_title} Registration"
+msgid "{ophase_title} Registrierung"
+msgstr "{ophase_title} Registration"
 
-#: views.py:103
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Vielen Dank dass du mithelfen möchtest. Die Ophasenleitung wird sich in "
-#| "geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder "
-#| "Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern."
-msgid ""
-"Hallo {user_prename},\n"
-"\n"
-"vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich\n"
-"gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden,\n"
-"sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter\n"
-"Umständen noch ein paar Wochen dauern.\n"
-"\n"
-"Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte "
-"eine\n"
-"E-Mail an {email_changedata}.\n"
-"\n"
-"Hier nochmal die von dir eingetragenen Daten:\n"
-"\n"
-"{form_content}\n"
-"\n"
-"Viele Grüße,\n"
-"Die Ophasen-Leitung"
-msgstr ""
-"Thank you very much for watning to help. The head of Ophase will contact you "
-"in time, once certain organizational things or deadlines become relevant. "
-"This might take up to a few weeks."
-
-#: views.py:132
+#: views.py:115
 msgid "Aufgabenliste"
 msgstr "List of tasks"
+
+#, fuzzy
+#~| msgid ""
+#~| "Vielen Dank dass du mithelfen möchtest. Die Ophasenleitung wird sich in "
+#~| "geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder "
+#~| "Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern."
+#~ msgid ""
+#~ "Hallo {user_prename},\n"
+#~ "\n"
+#~ "vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich\n"
+#~ "gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir "
+#~ "melden,\n"
+#~ "sobald erste organisatorische Dinge oder Termine anstehen. Dies kann "
+#~ "unter\n"
+#~ "Umständen noch ein paar Wochen dauern.\n"
+#~ "\n"
+#~ "Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte "
+#~ "eine\n"
+#~ "E-Mail an {email_changedata}.\n"
+#~ "\n"
+#~ "Hier nochmal die von dir eingetragenen Daten:\n"
+#~ "\n"
+#~ "{form_content}\n"
+#~ "\n"
+#~ "Viele Grüße,\n"
+#~ "Die Ophasen-Leitung"
+#~ msgstr ""
+#~ "Thank you very much for watning to help. The head of Ophase will contact "
+#~ "you in time, once certain organizational things or deadlines become "
+#~ "relevant. This might take up to a few weeks."
 
 #~ msgid "Helfer-Übersicht"
 #~ msgstr "Helper overview"

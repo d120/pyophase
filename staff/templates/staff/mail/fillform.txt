@@ -1,0 +1,10 @@
+{% load i18n %}{% autoescape off %}{% trans "Hallo" %} {{user_prename}},
+
+{% trans "vielen Dank dass du bei dieser Ophase mitgeholfen hast. Wir würden uns freuen, wenn du uns auch bei der nächsten Ophase wieder unterstützt." %}
+
+{% trans "Mit dem folgenden Link kannst die Registrierung für die nächste Ophase beschleunigen:" %}
+
+{{fillform_link}}
+
+{% trans "Viele Grüße," %}
+{% trans "Die Ophasen-Leitung" %}{% endautoescape %}

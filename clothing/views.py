@@ -1,6 +1,6 @@
 from django.core.mail import EmailMessage
 from django.http import HttpResponseForbidden, HttpResponseRedirect
-from django.template import Context, loader
+from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
@@ -8,9 +8,8 @@ from formtools.wizard.views import SessionWizardView
 
 from ophasebase.models import Ophase
 from staff.models import Person
-
-from .forms import OrderAskMailForm, OrderClothingFormSet
-from .models import Order, Settings
+from clothing.forms import OrderAskMailForm, OrderClothingFormSet
+from clothing.models import Order, Settings
 
 
 class OrderClothingView(SessionWizardView):
@@ -49,13 +48,12 @@ class OrderClothingView(SessionWizardView):
 
         email = EmailMessage()
         email.subject = _("Kleiderbestellung %(ophase)s") % {'ophase': str(Ophase.current())}
-        email_template = loader.get_template('clothing/mail.txt')
-        email_context = Context({
+        email_template = loader.get_template('clothing/mail/order.txt')
+        email.body = email_template.render({
             'name': person.prename,
             'orders': orders,
             'editurl': self.request.build_absolute_uri(reverse('clothing:order_new'))
         })
-        email.body = email_template.render(email_context)
         email.to = [email_address]
         email.reply_to = [Ophase.current().contact_email_address]
         email.send()

@@ -10,9 +10,8 @@ from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
 
 from ophasebase.models import Ophase
-
-from .forms import PersonForm
-from .models import GroupCategory, HelperJob, OrgaJob, Settings
+from staff.forms import PersonForm
+from staff.models import GroupCategory, HelperJob, OrgaJob, Settings
 
 
 class StaffAdd(CreateView):
@@ -62,8 +61,6 @@ class StaffAdd(CreateView):
             # this should happen when unique constraints fail
             template = loader.get_template("staff/already_registered.html")
             return TemplateResponse(self.request, template)
-        except:
-            return super_return
 
         # the enumeration symbol
         esym = '\n * '
@@ -89,35 +86,20 @@ class StaffAdd(CreateView):
 
         form_content = '\n'.join(form_list)
 
-        values = {'ophasen_title': str(Ophase.current()),
+        values = {'ophase_title': str(Ophase.current()),
                  'user_prename': form.cleaned_data['prename'],
                  'user_name':  form.cleaned_data['name'],
                  'user_email': form.cleaned_data['email'],
-                 'email_changedata': 'ophase-leitung@d120.de',
+                 'email_changedata': Ophase.current().contact_email_address,
                  'form_content': form_content,
                  }
 
         email = EmailMessage()
-        email.subject = _('{ophasen_title} Registrierung').format(**values)
+        email.subject = _('{ophase_title} Registrierung').format(**values)
         email.to = ['{user_prename} {user_name} <{user_email}>'.format(**values)]
-
-        email.body = _("""Hallo {user_prename},
-
-vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich
-gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden,
-sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter
-Umständen noch ein paar Wochen dauern.
-
-Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte eine
-E-Mail an {email_changedata}.
-
-Hier nochmal die von dir eingetragenen Daten:
-
-{form_content}
-
-Viele Grüße,
-Die Ophasen-Leitung""").format(**values)
-
+        email_template = loader.get_template('staff/mail/register.txt')
+        email.body = email_template.render(values)
+        email.reply_to = [Ophase.current().contact_email_address]
         email.send()
 
         return super_return

@@ -1,0 +1,12 @@
+{% load i18n %}{% autoescape off %}{% trans "Hallo" %} {{user_prename}},
+
+{% trans "vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern." %}
+
+{% trans "Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte eine E-Mail an" %} {{email_changedata}}.
+
+{% trans "Hier nochmal die von dir eingetragenen Daten:" %}
+
+{{form_content}}
+
+{% trans "Liebe Grüße" %}
+{% trans "die Ophasenleitung" %}{% endautoescape %}

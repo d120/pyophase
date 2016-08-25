@@ -1,4 +1,4 @@
-{% load i18n %}{% trans "Hallo" %} {{ name }},
+{% load i18n %}{% autoescape off %}{% trans "Hallo" %} {{ name }},
 
 {% trans "deine Kleiderbestellung für die Ophase wurde aktualisiert. Aktuell ist folgendes für dich vermerkt:" %}
 
@@ -8,4 +8,4 @@
 {{ editurl }}
 
 {% trans "Liebe Grüße" %}
-{% trans "die Ophasenleitung" %}
+{% trans "die Ophasenleitung" %}{% endautoescape %}

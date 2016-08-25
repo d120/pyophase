@@ -71,10 +71,10 @@ class SendFillformMail(TestCase):
         recipient = [5, 6, 7]
         response = c.post(change_url, {'action': 'send_fillform_mail',
                                        '_selected_action': recipient},)
-        
+
         # If the post work we get to the confirmation page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'staff/fillform_email_confirm.html')
+        self.assertTemplateUsed(response, 'staff/admin/fillform_email_confirm.html')
 
         # Send the post again with confirmation
         response = c.post(change_url, {'action': 'send_fillform_mail',

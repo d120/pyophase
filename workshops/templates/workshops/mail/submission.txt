@@ -1,0 +1,10 @@
+{% load i18n %}{% autoescape off %}{% trans "Hallo" %} {{name}},
+
+{% blocktrans %}vielen Dank, dass du den Workshop "{{title}}" in der kommenden {{ophase}} anbieten möchtest. Diese E-Mail dient hauptsächlich dazu, deine Eintragung zu bestätigen. Der Workshoporga wird sich zu gegebener Zeit mit dir in Verbindung setzen. Wenn sich etwas ändern sollte, antworte einfach auf diese E-Mail.{% endblocktrans %}
+
+{% trans "Hier nochmal die von dir eingetragenen Daten:" %}
+
+{{form_content}}
+
+{% trans "Liebe Grüße" %}
+{% trans "das Orga-Team" %}{% endautoescape %}
