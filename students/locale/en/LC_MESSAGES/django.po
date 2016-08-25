@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-13 11:40+0200\n"
+"POT-Creation-Date: 2016-08-25 11:24+0200\n"
 "PO-Revision-Date: 2016-05-29 17:06+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -39,7 +39,7 @@ msgstr "Newsletter"
 msgid "Erstie-Anmeldestatus"
 msgstr "Freshman sign-up status"
 
-#: forms.py:23 tests/tests_views.py:95
+#: forms.py:27 tests/tests_views.py:95
 msgid "Um Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden."
 msgstr "To subscribe to newsletters an e-mail address is necessary."
 
@@ -170,9 +170,8 @@ msgid "Eingetragene Gruppen:"
 msgstr "Signed-up groups:"
 
 #: templates/students/exam_base.html:2 templates/students/student_form.html:2
-#: templates/students/success.html:3
-msgid "Klausuranmeldung"
-msgstr "Exam registration"
+msgid "Ophasenregistrierung"
+msgstr ""
 
 #: templates/students/student_form.html:13
 msgid "Zurücksetzen"
@@ -189,6 +188,10 @@ msgstr "The registration is currently not active."
 #: templates/students/success.html:3
 msgid "Daten gespeichert"
 msgstr "Data saved"
+
+#: templates/students/success.html:3
+msgid "Klausuranmeldung"
+msgstr "Exam registration"
 
 #: templates/students/success.html:14
 msgid "Deine Daten wurden erfolgreich gespeichert."

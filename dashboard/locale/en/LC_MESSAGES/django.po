@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-30 13:43+0200\n"
+"POT-Creation-Date: 2016-08-25 11:24+0200\n"
 "PO-Revision-Date: 2016-02-28 18:03+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -35,6 +35,10 @@ msgstr "Freshmen"
 #: dashboard_links.py:20
 msgid "Klausur"
 msgstr "Exam"
+
+#: dashboard_links.py:21
+msgid "Kleidung"
+msgstr ""
 
 #: templates/dashboard/action.html:3 templates/dashboard/overview.html:3
 #: templates/dashboard/permission_required.html:3

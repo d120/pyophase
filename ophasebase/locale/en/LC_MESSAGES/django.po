@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-13 11:40+0200\n"
+"POT-Creation-Date: 2016-08-25 11:24+0200\n"
 "PO-Revision-Date: 2016-07-10 17:24+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -150,7 +150,7 @@ msgstr "Longitude"
 msgid "Name"
 msgstr "Name"
 
-#: models.py:72 models.py:80 models.py:87
+#: models.py:72 models.py:81 models.py:88
 msgid "Ophase"
 msgstr "Ophase"
 
@@ -170,20 +170,24 @@ msgstr "End"
 msgid "Aktiv?"
 msgstr "Active?"
 
-#: models.py:82
+#: models.py:78
+msgid "Kontaktadresse Leitung"
+msgstr ""
+
+#: models.py:83
 msgid "Sommerophase"
 msgstr "Summer term Ophase"
 
-#: models.py:84
+#: models.py:85
 msgid "Winterophase"
 msgstr "Winter term Ophase"
 
-#: models.py:93
+#: models.py:96
 #, python-format
 msgid "vom %(begin)s bis %(end)s"
 msgstr "from %(begin)s to %(end)s"
 
-#: models.py:100
+#: models.py:114
 msgid "Ende der Ophase kann nicht vor ihrem Anfang liegen."
 msgstr "The end of the Ophase cannot be before its beginning."
 
@@ -210,6 +214,10 @@ msgstr "Logout"
 #: templates/ophasebase/base.html:68
 msgid "Login"
 msgstr "Login"
+
+#: templates/ophasebase/breadcrumbs_adminaction.html:5
+msgid "Home"
+msgstr ""
 
 #~ msgid "Willkommen"
 #~ msgstr "Welcome"

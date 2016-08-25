@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-22 16:42+0200\n"
+"POT-Creation-Date: 2016-08-25 11:24+0200\n"
 "PO-Revision-Date: 2016-08-22 16:50+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -55,12 +55,11 @@ msgid "Tutor"
 msgstr "Tutor"
 
 #: admin.py:94 admin_actions.py:95 models.py:143
-#: templates/staff/dashboard/widget_staff.html:3 views.py:26
+#: templates/staff/dashboard/widget_staff.html:3 views.py:29
 msgid "Tutoren"
 msgstr "Tutors"
 
-#: admin_actions.py:28 templates/staff/mail_export.html:3
-#: templates/staff/mail_export.html:7
+#: admin_actions.py:25 admin_actions.py:28
 msgid "E-Mail Mass Subscription Export"
 msgstr "E-mail mass subscription export"
 
@@ -97,7 +96,7 @@ msgid "Betreut ..."
 msgstr "Takes care of ..."
 
 #: admin_actions.py:96 models.py:68
-#: templates/staff/dashboard/widget_staff.html:5 views.py:30
+#: templates/staff/dashboard/widget_staff.html:5 views.py:33
 msgid "Helfer"
 msgstr "Helper"
 
@@ -109,23 +108,23 @@ msgstr "Helps with ..."
 msgid "Übersicht exportieren"
 msgstr "Export overview"
 
-#: admin_actions.py:145
+#: admin_actions.py:148
 msgid "Helfer-Übersicht anzeigen"
 msgstr "Show helper overview"
 
-#: admin_actions.py:153
+#: admin_actions.py:156
 msgid "Orga-Übersicht anzeigen"
 msgstr "Show organizer overview"
 
-#: admin_actions.py:183
+#: admin_actions.py:186
 msgid "Kleingruppen exportieren"
 msgstr "Export tutored groups"
 
-#: admin_actions.py:197
+#: admin_actions.py:200
 msgid "Erneute Anmeldung bei der nächsten Ophase"
 msgstr ""
 
-#: admin_actions.py:200
+#: admin_actions.py:203
 #, python-brace-format
 msgid ""
 "Hallo {user_prename},\n"
@@ -143,14 +142,18 @@ msgid ""
 "Die Ophasen-Leitung"
 msgstr ""
 
-#: admin_actions.py:226
-#, python-format
-msgid "Die Fillform E-Mail wurde an %(count)d Person verschickt."
-msgid_plural "Die Fillform E-Mails wurden an %(count)d Personen verschickt."
+#: admin_actions.py:231
+#, python-brace-format
+msgid "Die Fillform E-Mail wurde an {person} verschickt."
+msgid_plural "Die Fillform E-Mails wurden an {count} Personen verschickt."
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin_actions.py:233
+#: admin_actions.py:240 templates/staff/fillform_email_confirm.html:20
+msgid "Fillform E-Mail verschicken"
+msgstr ""
+
+#: admin_actions.py:248
 msgid "Fillform E-Mail an Person senden"
 msgstr ""
 
@@ -465,12 +468,12 @@ msgid "Mehrere Kleingruppen auf einmal erstellen"
 msgstr "Create several tutored groups at once"
 
 #: templates/staff/dashboard/group_mass_create.html:13
-#: templates/staff/person_form.html:49
+#: templates/staff/person_form.html:45
 msgid "Zurücksetzen"
 msgstr "Reset"
 
 #: templates/staff/dashboard/group_mass_create.html:16
-#: templates/staff/person_form.html:52
+#: templates/staff/person_form.html:48
 msgid "Abschicken"
 msgstr "Submit"
 
@@ -516,6 +519,17 @@ msgstr "Assignments saved succesfully"
 msgid "Weitere Paarungen vornehmen"
 msgstr "Create further pairs"
 
+#: templates/staff/fillform_email_confirm.html:6
+#, python-format
+msgid ""
+"\n"
+"Eine Fillform E-Mail wird an folgende Person geschickt:\n"
+msgid_plural ""
+"\n"
+"Eine Fillform E-Mail wird an folgende %(counter)s Personen geschickt:\n"
+msgstr[0] ""
+msgstr[1] ""
+
 #: templates/staff/job_list.html:10
 msgid "Hilfe vorhanden"
 msgstr "No more help needed"
@@ -528,19 +542,11 @@ msgstr "Help needed"
 msgid "Keine Aufgaben vorhanden"
 msgstr "No existing tasks"
 
-#: templates/staff/job_matrix.html:3 templates/staff/job_matrix.html:28
-msgid "Helfer-Übersicht"
-msgstr "Helper overview"
-
-#: templates/staff/job_matrix.html:4 templates/staff/job_matrix.html:29
-msgid "Orga-Übersicht"
-msgstr "Orga overview"
-
-#: templates/staff/job_matrix.html:62
+#: templates/staff/job_matrix.html:55
 msgid "Gesamt"
 msgstr "Total"
 
-#: templates/staff/mail_export.html:10
+#: templates/staff/mail_export.html:5
 #, python-format
 msgid ""
 "\n"
@@ -559,7 +565,7 @@ msgstr[1] ""
 msgid "Bei der Ophase mitmachen"
 msgstr "Participate in the Ophase"
 
-#: templates/staff/person_form.html:11
+#: templates/staff/person_form.html:10
 #, python-format
 msgid ""
 "Für die %(ophase_title)s <b>%(ophase_duration)s</b> werden "
@@ -568,7 +574,7 @@ msgstr ""
 "For the %(ophase_title)s <b>%(ophase_duration)s</b> we are looking for "
 "%(staff_vacancies)s."
 
-#: templates/staff/person_form.html:15
+#: templates/staff/person_form.html:14
 msgid ""
 "Als Tutor betreust du eine Kleingruppe von Ersties und hilfst bei der "
 "Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze "
@@ -578,7 +584,7 @@ msgstr ""
 "activities. In the week before the Ophase as short training and an "
 "introductory meeting is scheduled."
 
-#: templates/staff/person_form.html:20
+#: templates/staff/person_form.html:19
 msgid ""
 "Als Orga bist du für die Organisation eines bestimmten Programmpunktes "
 "verantwortlich. Dazu zählt die Planung und Vorbereitung vor der Ophase, "
@@ -588,20 +594,20 @@ msgstr ""
 "the Ophase. That includes the planning and preparation prior to the Ophase "
 "as well as the actual execution during the week."
 
-#: templates/staff/person_form.html:25
+#: templates/staff/person_form.html:24
 msgid ""
 "Tutoren und Organisatoren erhalten dabei wie immer ein kostenloses Ophasen-T-"
 "Shirt ;-)"
 msgstr "Tutors and organizers, as always, get a free Ophase t-shirt ;-)"
 
-#: templates/staff/person_form.html:30
+#: templates/staff/person_form.html:29
 msgid ""
 "Als Helfer hilfst du bei der Durchführung bestimmter Programmpunkte, die "
 "dringend helfende Hände benötigen."
 msgstr ""
 "As helper you assist during certain activities, which need helping hands."
 
-#: templates/staff/person_form.html:34
+#: templates/staff/person_form.html:33
 msgid ""
 "Die Jobs, die unten nicht mehr auswählbar sind, sind bereits ausreichend mit "
 "Personen besetzt."
@@ -609,11 +615,11 @@ msgstr ""
 "For tasks, which are no longer selectable below, enough people have already "
 "signed up."
 
-#: templates/staff/person_form.html:37 templates/staff/person_form.html:61
+#: templates/staff/person_form.html:36 templates/staff/person_form.html:56
 msgid "Die Ophasen-Leitung"
 msgstr "Head of Ophase"
 
-#: templates/staff/person_form.html:60
+#: templates/staff/person_form.html:55
 #, python-format
 msgid ""
 "Für die %(ophase_title)s <b>%(ophase_duration)s</b> ist die Anmeldung "
@@ -644,35 +650,39 @@ msgstr ""
 msgid "This field is required."
 msgstr ""
 
-#: views.py:28
+#: views.py:31
 msgid "Organisatoren"
 msgstr "Organizers"
 
-#: views.py:33
+#: views.py:36
 msgid "und"
 msgstr "and"
 
-#: views.py:78
+#: views.py:85
 msgid "Ja"
 msgstr ""
 
-#: views.py:93
+#: views.py:100
 #, python-brace-format
 msgid "{ophasen_title} Registrierung"
 msgstr "{ophasen_title} Registration"
 
-#: views.py:96
-#, python-brace-format
+#: views.py:103
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Vielen Dank dass du mithelfen möchtest. Die Ophasenleitung wird sich in "
+#| "geraumer Zeit bei dir melden, sobald erste organisatorische Dinge oder "
+#| "Termine anstehen. Dies kann unter Umständen noch ein paar Wochen dauern."
 msgid ""
 "Hallo {user_prename},\n"
 "\n"
-"vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich \n"
-"gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden, \n"
-"sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter \n"
+"vielen Dank dass du mithelfen möchtest. Deine Daten wurden erfolgreich\n"
+"gespeichert. Die Ophasenleitung wird sich in geraumer Zeit bei dir melden,\n"
+"sobald erste organisatorische Dinge oder Termine anstehen. Dies kann unter\n"
 "Umständen noch ein paar Wochen dauern.\n"
 "\n"
 "Falls sich in der Zwischenzeit Daten von dir ändern sende uns doch bitte "
-"eine \n"
+"eine\n"
 "E-Mail an {email_changedata}.\n"
 "\n"
 "Hier nochmal die von dir eingetragenen Daten:\n"
@@ -682,10 +692,19 @@ msgid ""
 "Viele Grüße,\n"
 "Die Ophasen-Leitung"
 msgstr ""
+"Thank you very much for watning to help. The head of Ophase will contact you "
+"in time, once certain organizational things or deadlines become relevant. "
+"This might take up to a few weeks."
 
-#: views.py:125
+#: views.py:132
 msgid "Aufgabenliste"
 msgstr "List of tasks"
+
+#~ msgid "Helfer-Übersicht"
+#~ msgstr "Helper overview"
+
+#~ msgid "Orga-Übersicht"
+#~ msgstr "Orga overview"
 
 #, fuzzy
 #~| msgid "Kleidergrößen"
