@@ -17,6 +17,7 @@
         {{ wizard.management_form }}
         {% if wizard.form.forms %}
             {{ wizard.form.management_form }}
+            {% bootstrap_formset_errors wizard.form %}
             {% for form in wizard.form.forms %}
                 {% bootstrap_form form layout='horizontal' %}
                 <hr />
