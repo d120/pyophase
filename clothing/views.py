@@ -44,6 +44,8 @@ class OrderClothingView(SessionWizardView):
         email_address = self.get_cleaned_data_for_step("0")['email']
         person = Person.get_by_email_address_current(email_address)
         orders = '\n'.join(o.info() for o in Order.get_current(person=person))
+        if orders == "":
+            orders = _("Keine Bestellungen")
 
         email = EmailMessage()
         email.subject = _("Kleiderbestellung %(ophase)s") % {'ophase': str(Ophase.current())}
