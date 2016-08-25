@@ -11,13 +11,16 @@ python:
   - "3.5"
 
 env:
-  - $DJANGO_ENV=""
-  - $DJANGO_ENV="pip install --upgrade Django"
-  - $DJANGO_ENV="pip install --upgrade --pre Django"
+    # the Django version from requirements.txt is used
+  - $DENV=""
+    # the latest Django stable version is used
+  - $DENV="pip install --upgrade Django"
+    # the latest Django development version is used
+  - $DENV="pip install --upgrade --pre Django"
 
 install:
   - pip install -r requirements.txt
-  - $DJANGO_ENV
+  - $DENV
   - django-admin --version
   - pip install coveralls
   - npm install -g bower
@@ -31,8 +34,10 @@ before_script:
 
 # command to run tests
 script:
-  - python manage.py test
-  - coverage run --omit="*/migrations*" --source=dashboard,exam,ophasebase,staff,students manage.py test
+  - export PYTHONWARNINGS=all
+  - python manage.py check 
+  - python manage.py test 
+  - coverage run --omit="*/migrations*" --source=dashboard,exam,ophasebase,staff,students,workshops,website manage.py test
 
 after_success:
   coveralls

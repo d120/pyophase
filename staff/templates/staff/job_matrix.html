@@ -1,6 +1,4 @@
-{% extends "admin/base_site.html" %}{% load staticfiles %}{% load i18n %}
-
-{% block title %}{% trans "Helfer-Übersicht" %} {{ block.super }}{% endblock %}
+{% extends "ophasebase/breadcrumbs_adminaction.html" %}{% load staticfiles i18n %}
 
 {% block content %}
 
@@ -24,8 +22,6 @@
     }
 </style>
 
-<h2>{% trans "Helfer-Übersicht" %}</h2>
-
 <table>
     <thead>
         <tr>
@@ -37,11 +33,11 @@
         </tr>
     </thead>
     <tbody>
-        {% for h in helper %}
+        {% for p in persons %}
         <tr>
-            <td>{{ h.prename }} {{ h.name }}</td>
-            <td>{% if h.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
-            {% for j in h.job_interest %}
+            <td>{{ p.prename }} {{ p.name }}</td>
+            <td>{% if p.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
+            {% for j in p.job_interest %}
             <td>{% if j == True %}<i class="fa fa-check"></i>{% endif %}</td>
             {% endfor %}
         </tr>
@@ -59,7 +55,7 @@
             <td>{% trans "Gesamt" %}</td>
             <td></td>
             {% for j in jobs %}
-            <td>{{ j.num_helper }}</td>
+            <td>{{ j.num_person }}</td>
             {% endfor %}
         </tr>
     </tfoot>

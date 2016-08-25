@@ -1,9 +1,8 @@
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, ListView, DetailView
 from dashboard.components import DashboardAppMixin
 
-from .models import ExamRoom, Assignment, PersonToExamRoomAssignment
-from ophasebase.models import Ophase
+from exam.models import ExamRoom, Assignment, PersonToExamRoomAssignment
 from students.models import Student
 
 
@@ -44,9 +43,9 @@ class MakeAssignmentView(ExamAppMixin, CreateView):
     success_url = reverse_lazy('dashboard:exam:assignment_success')
 
     def get_context_data(self, **kwargs):
-        context = super(MakeAssignmentView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         exam_rooms = ExamRoom.objects.filter(available=True)
-        context['student_count'] = Student.objects.filter(ophase=Ophase.current(), want_exam=True).order_by('name', 'prename').count()
+        context['student_count'] = Student.get_current(want_exam=True).order_by('name', 'prename').count()
         context['free_places_1'] = sum([exam_room.capacity(1) for exam_room in exam_rooms])
         context['free_places_2'] = sum([exam_room.capacity(2) for exam_room in exam_rooms])
         return context

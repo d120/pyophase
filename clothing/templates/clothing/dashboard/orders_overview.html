@@ -1,0 +1,37 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Bestellungen" %} | {% trans "Kleidung" %}{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>{% trans "Bestellungen" %}</h3>
+
+<table class="table table-striped">
+<thead>
+<tr>
+    <th>{% trans "Wer" %}</th>
+    <th>{% trans "Kleidungsstück" %}</th>
+    <th>{% trans "Farbe" %}</th>
+    <th></th>
+</tr>
+</thead>
+{% for order in orders %}
+    <tr>
+        <td>{{ order.person.prename }} {{ order.person.name }}</td>
+        <td>{{ order.type }} {{ order.size }}</td>
+        <td>{{ order.color }}</td>
+        <td>
+            {% if order.additional %}
+                <i class="fa fa-money" aria-hidden="true"></i>
+            {% endif %}
+        </td>
+    </tr>
+{% empty %}
+    <tr><td>{% trans "Bisher keine Bestellungen" %}</td><td></td><td></td></tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}

@@ -50,7 +50,7 @@ class Room(models.Model):
         ("SO", _('Sonstiges'))
     )
 
-    building = models.ForeignKey(Building, verbose_name=_('Gebäude'))
+    building = models.ForeignKey(Building, models.CASCADE, verbose_name=_('Gebäude'))
     number = models.CharField(max_length=50, verbose_name=_('Nummer'))
     type = models.CharField(max_length=2, choices=ROOM_TYPE_CHOICES, verbose_name=_('Typ'))
     has_beamer = models.BooleanField(default=False, verbose_name=_('Beamer vorhanden?'))
@@ -75,6 +75,7 @@ class Ophase(models.Model):
     start_date = models.DateField(verbose_name=_('Beginn'))
     end_date = models.DateField(verbose_name=_('Ende'))
     is_active = models.BooleanField(default=False, verbose_name=_('Aktiv?'))
+    contact_email_address = models.CharField(max_length=100, verbose_name=_('Kontaktadresse Leitung'))
 
     def get_name(self):
         term = _('Ophase')
@@ -90,12 +91,25 @@ class Ophase(models.Model):
         return self.get_name()
 
     def get_human_duration(self):
+        """Returns the start_date and end_date of the ophase as human readable 
+e.g. vom 3. April 2014 bis 6. April 2016"""
         return _('vom %(begin)s bis %(end)s') % {
           'begin': formats.date_format(self.start_date, 'DATE_FORMAT'),
           'end': formats.date_format(self.end_date, 'DATE_FORMAT'),}
 
+    def get_human_short_duration(self):
+        """Returns the start_date and end_date of the ophase as 
+human readable e.g. 3. - 6. April"""
+        beginformat = 'j. '
+        if self.start_date.month != self.end_date.month:
+            beginformat +='F'
+        endformat = 'j. F'
+        return '%(begin)s - %(end)s' % {
+          'begin': formats.date_format(self.start_date, beginformat),
+          'end': formats.date_format(self.end_date, endformat),}
+
     def clean(self, *args, **kwargs):
-        super(Ophase, self).clean(*args, **kwargs)
+        super().clean(*args, **kwargs)
         if self.start_date > self.end_date:
             raise ValidationError({'end_date': _('Ende der Ophase kann nicht vor ihrem Anfang liegen.')})
 
@@ -103,7 +117,7 @@ class Ophase(models.Model):
         # ensure is_active is only set for one Ophase at the same time
         if self.is_active:
             Ophase.objects.filter(is_active=True).exclude(pk=self.pk).update(is_active=False)
-        super(Ophase, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     @staticmethod
     def current():

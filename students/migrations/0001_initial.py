@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('want_newsletter', models.BooleanField(verbose_name='Newsletter abonnieren?', default=False)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
-                ('ophase', models.ForeignKey(to='ophasebase.Ophase')),
+                ('ophase', models.ForeignKey(to='ophasebase.Ophase', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Erstie',
@@ -47,8 +47,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(verbose_name='Gruppenname', max_length=50)),
-                ('group_category', models.ForeignKey(verbose_name='Gruppenkategorie', to='staff.GroupCategory')),
-                ('ophase', models.ForeignKey(to='ophasebase.Ophase')),
+                ('group_category', models.ForeignKey(verbose_name='Gruppenkategorie', to='staff.GroupCategory', on_delete=models.CASCADE)),
+                ('ophase', models.ForeignKey(to='ophasebase.Ophase', on_delete=models.CASCADE)),
                 ('tutors', models.ManyToManyField(verbose_name='Tutoren', to='staff.Person')),
             ],
             options={
@@ -60,6 +60,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='student',
             name='tutor_group',
-            field=models.ForeignKey(verbose_name='Kleingruppe', to='students.TutorGroup'),
+            field=models.ForeignKey(verbose_name='Kleingruppe', to='students.TutorGroup', on_delete=models.CASCADE),
         ),
     ]

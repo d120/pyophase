@@ -1,0 +1,11 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% block title %}{% trans "Daten gespeichert" %} | {% trans "Workshopregistrierung" %}{% endblock %}
+{% block heading %}Workshopregistrierung{% endblock %}
+
+{% block content %}
+<div class="alert alert-success margin-top-1" role="alert">
+    {% trans "Vielen Dank, der Workshop wurde gespeichert. Der Workshoporga wird sich zu gegebener Zeit mit dir in Verbindung setzen." %}
+    <br />
+    {% trans "Eine E-Mail wurde an die von dir angegebene E-Mail-Adresse gesendet. Sollte sie nicht angekommen sein, oder sollten sich Änderungen am Workshop ergeben, schreib bitte eine Mail an" %} <a href="mailto:{{ orga_email }}">{{ orga_email }}</a>.
+</div>
+{% endblock %}

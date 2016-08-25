@@ -1,0 +1,46 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% block title %}{% trans "Workshopregistrierung" %}{% endblock %}
+{% block heading %}Workshopregistrierung{% endblock %}
+
+{% block content %}
+
+{% if workshop_submission_enabled %}
+
+{% if other_workshops|length != 0 %}
+<div class="box box-highlight box-light-blue margin-top-1">
+    <h3>{% trans "Interessiert welche Workshops bereits angeboten werden?" %}</h3>
+    <a href="#otherworkshops" data-toggle="collapse"><span class="glyphicon glyphicon-chevron-right"></span> {% trans "Workshops ein-/ausblenden" %}</a>
+    <div id="otherworkshops" class="collapse margin-top-1">
+        {% trans "Workshops können auch mehrfach oder gemeinsam angeboten werden. Bei Interesse, schreib eine E-Mail an den" %} <a href="mailto:{{ orga_email }}">{% trans "Workshop-Orga" %}</a>.
+        <ul class="margin-top-1">
+        {% for workshop in other_workshops %}
+            <li>{{ workshop.title }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+<h3>{% trans "Einen neuen Workshop anmelden:" %}</h3>
+<div id="mainForm">
+    <form role="form" action="{{action}}" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+    {% buttons %}
+        <button type="reset" class="btn btn-danger">
+            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+        </button>
+        <button type="submit" class="btn btn-success pull-right">
+            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+        </button>
+    {% endbuttons %}
+    </form>
+</div>
+{% else %}
+<div class="jumbotron margin-top-1">
+  {% trans "Derzeit ist die Registrierung nicht freigeschaltet." %}
+</div>
+
+{% endif %}
+
+{% endblock %}

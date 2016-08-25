@@ -15,7 +15,7 @@ class NewsletterModelTests(TestCase):
     def test_newsletter_create(self):
         """Ensure creating of newsletter object works"""
         # check that there is no newsletter at the beginning
-        self.assertEquals(Newsletter.objects.count(), 0)
+        self.assertEqual(Newsletter.objects.count(), 0)
 
         # first newsletter Object
         n1 = Newsletter(name='Test Newsletter',
@@ -23,14 +23,14 @@ class NewsletterModelTests(TestCase):
         n1.save()
 
         # check that the newsletter is stored
-        self.assertEquals(Newsletter.objects.count(), 1)
+        self.assertEqual(Newsletter.objects.count(), 1)
 
         # check that save do only store the data
-        self.assertEquals(n1.name, 'Test Newsletter')
-        self.assertEquals(n1.description, 'This newsletter is only for test')
+        self.assertEqual(n1.name, 'Test Newsletter')
+        self.assertEqual(n1.description, 'This newsletter is only for test')
 
         # Check that the default of active is True
-        self.assertEquals(n1.active, True)
+        self.assertEqual(n1.active, True)
 
         # Check that get return the same object
         n1_get = Newsletter.objects.all()[0]
@@ -47,12 +47,12 @@ class NewsletterModelTests(TestCase):
         n2.save()
 
         # check that the newsletter is stored
-        self.assertEquals(Newsletter.objects.count(), 2)
+        self.assertEqual(Newsletter.objects.count(), 2)
 
         # check that save do only store the data
-        self.assertEquals(n2.name, 'The new letter')
-        self.assertEquals(n2.description, 'another fu bar')
-        self.assertEquals(n2.active, False)
+        self.assertEqual(n2.name, 'The new letter')
+        self.assertEqual(n2.description, 'another fu bar')
+        self.assertEqual(n2.active, False)
 
         # check that they both are different
         self.assertNotEqual(n1, n2)
@@ -60,7 +60,7 @@ class NewsletterModelTests(TestCase):
     def test_newsletter_modify(self):
         """Ensure modifying of a newsletter object works"""
         # check that there is no newsletter at the beginning
-        self.assertEquals(Newsletter.objects.count(), 0)
+        self.assertEqual(Newsletter.objects.count(), 0)
 
         # first newsletter Object
         n1 = Newsletter(name='Test Newsletter',
@@ -68,11 +68,11 @@ class NewsletterModelTests(TestCase):
         n1.save()
 
         # check that save do only store the data
-        self.assertEquals(n1.name, 'Test Newsletter')
-        self.assertEquals(n1.description, 'This newsletter is only for test')
+        self.assertEqual(n1.name, 'Test Newsletter')
+        self.assertEqual(n1.description, 'This newsletter is only for test')
 
         # Check that the default of active is True
-        self.assertEquals(n1.active, True)
+        self.assertEqual(n1.active, True)
 
         # Change the data
         n1.name = 'New Name'
@@ -81,9 +81,9 @@ class NewsletterModelTests(TestCase):
         n1.save()
 
         # check that save do only store the data
-        self.assertEquals(n1.name, 'New Name')
-        self.assertEquals(n1.description, 'some description')
-        self.assertEquals(n1.active, False)
+        self.assertEqual(n1.name, 'New Name')
+        self.assertEqual(n1.description, 'some description')
+        self.assertEqual(n1.active, False)
 
 
 class StudentModelTests(TestCase):
@@ -126,7 +126,7 @@ class StudentModelTests(TestCase):
 
         # test __str__
         tg_string = self.tg.__str__()
-        self.assertEquals(stud1.__str__(), 'Nickerson, Cora (%s)' % (tg_string))
+        self.assertEqual(stud1.__str__(), 'Nickerson, Cora (%s)' % (tg_string))
 
         # The E-Mail is stored even if the student did not select any
         # newsletter
@@ -197,15 +197,15 @@ class SettingsModelTests(TestCase):
     def test_settings_create(self):
         """Ensure creating of a settings object works"""
         
-        self.assertEquals(Settings.objects.count(), 0)
+        self.assertEqual(Settings.objects.count(), 0)
 
         self.assertEqual(Settings.instance(), None)
 
         set = Settings(student_registration_enabled=True)
         set.save()
 
-        self.assertEquals(Settings.objects.count(), 1)
-        self.assertEquals(set.student_registration_enabled, True)
+        self.assertEqual(Settings.objects.count(), 1)
+        self.assertEqual(set.student_registration_enabled, True)
 
         self.assertEqual(set, Settings.instance())
 
@@ -214,8 +214,8 @@ class SettingsModelTests(TestCase):
 
         self.assertEqual(set.__str__(), _('Students Einstellungen'))
 
-        self.assertEquals(Settings.objects.count(), 1)
-        self.assertEquals(set.student_registration_enabled, False)
+        self.assertEqual(Settings.objects.count(), 1)
+        self.assertEqual(set.student_registration_enabled, False)
 
         set2 = Settings(student_registration_enabled=True)
 

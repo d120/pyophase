@@ -1,9 +1,9 @@
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
-from dashboard.dashboard_links import DashboardLinks
 
-from .shortcuts import check_permissions
+from dashboard.dashboard_links import DashboardLinks
+from dashboard.shortcuts import check_permissions
 
 
 class WidgetComponent():
@@ -77,10 +77,10 @@ class DashboardBaseMixin:
     def dispatch(self, request, *args, **kwargs):
         if not check_permissions(request.user, self.permissions):
             return redirect(self.redirect_target)
-        return super(DashboardBaseMixin, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
-        context = super(DashboardBaseMixin, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         return self.add_context_data(context)
 
 

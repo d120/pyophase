@@ -1,14 +1,18 @@
 import io
-
-from django.template import loader
-from django.template.response import SimpleTemplateResponse
-from django.http import HttpResponse
-from django.db.models import Q, Count, Case, When
-from django.utils.translation import ugettext as _
-
-from staff.models import HelperJob, OrgaJob, DressSize
+from collections import namedtuple
 
 import odswriter
+from django.contrib import messages
+from django.contrib.admin import helpers
+from django.core.mail import send_mass_mail
+from django.db.models import Q, Case, Count, When
+from django.http import HttpResponse
+from django.template import loader
+from django.template.response import SimpleTemplateResponse, TemplateResponse
+from django.urls import reverse
+from django.utils.translation import ugettext as _, ungettext
+
+from staff.models import HelperJob, OrgaJob
 
 
 def mail_export(modeladmin, request, queryset):
@@ -16,7 +20,9 @@ def mail_export(modeladmin, request, queryset):
     This should be suitable for mass subscription and similar purposes.
     """
     template = loader.get_template("staff/mail_export.html")
-    context = {'persons' : queryset}
+    context = {'persons' : queryset,
+        'opts' : modeladmin.opts,
+        'title' : _('E-Mail Mass Subscription Export')}
     return SimpleTemplateResponse(template, context)
 
 mail_export.short_description = _('E-Mail Mass Subscription Export')
@@ -27,29 +33,29 @@ def staff_nametag_export(modeladmin, request, queryset):
     The produced ods file is the input for the name tag Java aplication.
     """
     table = []
-    empty = '~'
+    EMPTY = '~'
+    rowlength = None
+
     for person in queryset.filter(Q(is_tutor=True) | Q(is_orga=True)):
-        row = [person.prename, person.name]
+        tutor = EMPTY
+        orga = EMPTY
         if person.is_tutor:
             if "master" in str(person.tutor_for).lower():
-                row.append('M')
-                row.append('MASTER')
+                tutor = 'MASTER'
             else:
-                row.append('T')
-                row.append('TUTOR')
-        else:
-            row.extend([empty]*2)
+                tutor = 'TUTOR'
         if person.is_orga:
-            row.append('ORGA')
-        else:
-            row.append(empty)
-        row.extend([empty]*4)
+            orga = 'ORGA'
+        row = [person.prename, person.name, tutor, tutor[0], orga,] + [EMPTY] * 4
         table.append(row)
+
+        if rowlength is None:
+            rowlength = len(row)
 
     out_stream = io.BytesIO()
     with odswriter.writer(out_stream) as out:
         # need to specify number of columns for jOpenDocument compatibility
-        sheet = out.new_sheet("Staff", cols=9)
+        sheet = out.new_sheet("Staff", cols=rowlength)
         sheet.writerows(table)
 
     response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")
@@ -63,35 +69,34 @@ staff_nametag_export.short_description = _('Namensschilderexport')
 def staff_overview_export(modeladmin, request, queryset):
     """Exports an overview of the staff containing contact data and field of duty.
     """
-    orgas = []
     tutors = []
+    orgas = []
     helpers = []
+
+    queryset = queryset.order_by('name', 'prename')
+
+    common_header = [_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'),]
+
     for person in queryset:
         row = [person.prename, person.name, person.email, person.phone]
-        if person.is_orga:
-            jobs = ' / '.join(sorted([str(job) for job in person.orga_jobs.all()]))
-            orgas.append(row + [jobs])
         if person.is_tutor:
             tutors.append(row + [str(person.tutor_for)])
+        if person.is_orga:
+            jobs = ' / '.join([str(job) for job in person.orga_jobs.all()])
+            orgas.append(row + [jobs])
         if person.is_helper:
-            jobs = ' / '.join(sorted([str(job) for job in person.helper_jobs.all()]))
+            jobs = ' / '.join([str(job) for job in person.helper_jobs.all()])
             helpers.append(row + [jobs])
-
-    orgas.sort(key=lambda row: row[1])
-    tutors.sort(key=lambda row: row[1])
-    helpers.sort(key=lambda row: row[1])
 
     out_stream = io.BytesIO()
     with odswriter.writer(out_stream) as out:
-        orga_sheet = out.new_sheet(_('Orgas'))
-        orga_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Verantwortlich für ...')])
-        orga_sheet.writerows(orgas)
-        tutor_sheet = out.new_sheet(_('Tutoren'))
-        tutor_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Betreut ...')])
-        tutor_sheet.writerows(tutors)
-        helper_sheet = out.new_sheet(_('Helfer'))
-        helper_sheet.writerow([_('Vorname'), _('Nachname'), _('E-Mail'), _('Handy'), _('Hilft bei ...')])
-        helper_sheet.writerows(helpers)
+        Sheetdata = namedtuple('Sheetdata', 'title extra_header rows')
+        for data in (Sheetdata(_('Orgas'), _('Verantwortlich für ...'), orgas),
+            Sheetdata(_('Tutoren'), _('Betreut ...'), tutors),
+            Sheetdata(_('Helfer'), _('Hilft bei ...'), helpers), ):
+                sheet = out.new_sheet(data.title)
+                sheet.writerow(common_header + [data.extra_header])
+                sheet.writerows(data.rows)
 
     response = HttpResponse(out_stream.getvalue(), content_type="application/vnd.oasis.opendocument.spreadsheet")
     response['Content-Disposition'] = 'attachment; filename="Personal.ods"'
@@ -99,30 +104,46 @@ def staff_overview_export(modeladmin, request, queryset):
 
 staff_overview_export.short_description = _('Übersicht exportieren')
 
+def job_overview(jobtype, modeladmin, request, queryset):
+    """Display a matrix to show persons with associated jobs.
+    """
+    template = loader.get_template("staff/job_matrix.html")
+
+    if jobtype == 'helper':
+        persons = queryset.filter(is_helper=True)
+        jobs = HelperJob.objects.all().annotate(num_person=Count(Case(When(person__is_helper=True, then=1))))
+        title = ('Helfer-Übersicht')
+    elif jobtype == 'orga':
+        persons = queryset.filter(is_orga=True)
+        jobs = OrgaJob.objects.all().annotate(num_person=Count(Case(When(person__is_orga=True, then=1))))
+        title = ('Orga-Übersicht')
+
+    jobs.order_by('label')
+
+    for person in persons:
+        job_interest = []
+        for j in jobs:
+            if jobtype == 'helper' and person.helper_jobs.filter(id=j.id).exists() or \
+               jobtype == 'orga' and person.orga_jobs.filter(id=j.id).exists():
+                    job_interest.append(True)
+            else:
+                job_interest.append(False)
+        person.job_interest = job_interest
+
+    context = {
+        'jobtype' : jobtype,
+        'persons' : persons,
+        'jobs' : jobs,
+        'opts' : modeladmin.opts,
+        'title' : title,
+    }
+
+    return SimpleTemplateResponse(template, context)
 
 def helper_job_overview(modeladmin, request, queryset):
     """Display a matrix to show helpers with associated helper jobs.
     """
-    template = loader.get_template("staff/helper_matrix.html")
-
-    helper = queryset.filter(is_helper=True)
-    jobs = HelperJob.objects.all().annotate(num_helper=Count(Case(When(person__is_helper=True, then=1)))).order_by('label')
-
-    for h in helper:
-        job_interest = []
-        for j in jobs:
-            if h.helper_jobs.filter(id=j.id).exists():
-                job_interest.append(True)
-            else:
-                job_interest.append(False)
-        h.job_interest = job_interest
-
-    context = {
-        'helper' : helper,
-        'jobs' : jobs,
-    }
-
-    return SimpleTemplateResponse(template, context)
+    return job_overview('helper', modeladmin, request, queryset)
 
 helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
 
@@ -130,26 +151,7 @@ helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
 def orga_job_overview(modeladmin, request, queryset):
     """Display a matrix to show orga with associated orga jobs.
     """
-    template = loader.get_template("staff/orga_matrix.html")
-
-    orgas = queryset.filter(is_orga=True)
-    jobs = OrgaJob.objects.all().annotate(num_orgas=Count(Case(When(person__is_orga=True, then=1)))).order_by('label')
-
-    for o in orgas:
-        job_interest = []
-        for j in jobs:
-            if o.orga_jobs.filter(id=j.id).exists():
-                job_interest.append(True)
-            else:
-                job_interest.append(False)
-        o.job_interest = job_interest
-
-    context = {
-        'orgas' : orgas,
-        'jobs' : jobs,
-    }
-
-    return SimpleTemplateResponse(template, context)
+    return job_overview('orga', modeladmin, request, queryset)
 
 orga_job_overview.short_description = _('Orga-Übersicht anzeigen')
 
@@ -184,21 +186,63 @@ def tutorgroup_export(modeladmin, request, queryset):
 tutorgroup_export.short_description = _('Kleingruppen exportieren')
 
 
-def group_by_dresssize(modeladmin, request, queryset):
-    """groups all selected orgas and tutors by their dresssize
-    """
-    template = loader.get_template("staff/dresssize.html")
-    person_temp = queryset.filter(Q(is_tutor=True) | Q(is_orga=True))
-    persons = person_temp.filter(dress_size__isnull=False)
-    persons_without_size = person_temp.filter(dress_size__isnull=True)
-    dress_size_temp = DressSize.objects.all()
-    for size in dress_size_temp:
-        persons_with_this_size = []
-        for person in persons:
-            if person.dress_size.id == size.id:
-                persons_with_this_size.append(person)
-        size.persons = persons_with_this_size
-    context = {'data' : dress_size_temp, 'notallowed': (len(queryset) - len(person_temp)), 'unknown': persons_without_size, 'unknown_length': len(persons_without_size)}
-    return SimpleTemplateResponse(template, context)
+def __get_fillform_email(register_view_url, person):
+    """Create the mass_mail tuple for one person"""
 
-group_by_dresssize.short_description = _('Kleidergrößenübersicht')
+    fillform_link = '{}{}'.format(register_view_url, person.get_fillform())
+
+    values = {'user_prename': person.prename,
+             'user_name':  person.name,
+             'user_email': person.email,
+             'fillform_link': fillform_link,
+             }
+
+    subject = _('Erneute Anmeldung bei der nächsten Ophase').format(**values)
+    to = ['{user_prename} {user_name} <{user_email}>'.format(**values)]
+
+    message = _("""Hallo {user_prename},
+
+vielen Dank dass du bei dieser Ophase mitgeholfen hast. Wir würden uns freuen,
+wenn du uns auch bei der nächsten Ophase wieder unterstützt.
+
+Mit dem folgenden Link kannst die Registrierung für die nächste Ophase
+beschleunigen:
+
+{fillform_link}
+
+Viele Grüße,
+Die Ophasen-Leitung""").format(**values)
+
+    return (subject, message, None, to)
+
+def send_fillform_mail(modeladmin, request, queryset):
+    """Send fillform informations to the user"""
+    if request.POST.get('post'):
+        register_view_url = request.build_absolute_uri(reverse('staff:registration'))
+
+        mails = tuple(__get_fillform_email(register_view_url, p) for p in queryset)
+        send_mass_mail(mails)
+        count = len(mails)
+
+        data = {'count': count,
+                'person': str(queryset[0]),}
+
+        admin_msg = ungettext(
+            'Die Fillform E-Mail wurde an {person} verschickt.',
+            'Die Fillform E-Mails wurden an {count} Personen verschickt.',
+            count).format(**data)
+
+        modeladmin.message_user(request, admin_msg, messages.SUCCESS)
+    else:
+        context = {
+            'queryset': queryset,
+            'opts' : modeladmin.opts,
+            'title': _("Fillform E-Mail verschicken"),
+            'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
+        }
+        template = loader.get_template("staff/fillform_email_confirm.html")
+
+        return TemplateResponse(request, template, context)
+
+
+send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')

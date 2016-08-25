@@ -1,19 +1,12 @@
+from datetime import date
+
 from django.test import Client, TestCase
-
-from django.core.urlresolvers import reverse
-
+from django.urls import reverse
 from django.contrib.auth.models import User, Permission
-
 from django.utils.translation import ugettext_lazy as _
 
 from staff.models import GroupCategory, TutorGroup
-
-from datetime import date
-
-
-
 from ophasebase.models import Ophase
-from students.views import StudentAdd, StudentAddSuccess
 
 
 class StudentAddViewTest(TestCase):
@@ -126,7 +119,7 @@ class StudentAddViewTest(TestCase):
         # Test whitout a ophase object
         response = c.get(reverse('students:registration_success'))
         self.assertEqual(response.status_code, 200)
-        self.assertEquals(response.context['ophase_title'], 'Ophase')
+        self.assertEqual(response.context['ophase_title'], 'Ophase')
 
         # Create a ophase object
         o1 = Ophase.objects.create(
@@ -134,4 +127,4 @@ class StudentAddViewTest(TestCase):
 
         response = c.get(reverse('students:registration_success'))
         self.assertEqual(response.status_code, 200)
-        self.assertEquals(response.context['ophase_title'], str(o1))
+        self.assertEqual(response.context['ophase_title'], str(o1))

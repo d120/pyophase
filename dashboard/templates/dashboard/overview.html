@@ -4,28 +4,15 @@
 
 {% block content_dashboard %}
 
-<style>
-.panel {
-    width:240px;
-    float:left;
-    margin-right:20px
-}
-
-.panel-body {
-    height:150px
-}
-
-</style>
-
-<div style="margin-right:-20px">
+<div>
 {% for widget in widgets %}
-    <div class="panel panel-{{ widget.get_status }}">
+    <div class="dashboard-panel panel panel-{{ widget.get_status }}">
       <div class="panel-body">
         {{ widget.render }}
       </div>
       <div class="panel-heading">
           {% if widget.link_target != "" %}
-              <span style="float:right;">
+              <span class="pull-right">
                 <a href="{{ widget.link_target }}">{% bootstrap_icon "new-window" %}</a>
               </span>
           {% endif %}
@@ -35,6 +22,6 @@
 {% endfor %}
 </div>
 
-<div style="clear:both"></div>
+<div class="clearfix"></div>
 
 {% endblock %}

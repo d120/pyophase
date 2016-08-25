@@ -1,0 +1,38 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Aggregierte Bestellungen" %} | {% trans "Kleidung" %}{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>{% trans "Aggregierte Bestellungen" %}</h3>
+
+{% for additonal_type, colors in orders.items %}
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>{{ additonal_type }}</h4>
+        </div>
+        <div class="panel-body">
+            {% for color, types in colors.items %}
+                {% for type, sizes in types.items %}
+                    <h4>{{ type }} ({{ color }})</h4>
+                    <table class="table">
+                        <thead><tr>
+                            {% for size, count in sizes.items %}
+                                <th>{{ size }}</th>
+                            {% endfor %}
+                        </tr></thead>
+                        <tr>
+                            {% for size, count in sizes.items %}
+                                <td>{{ count }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}

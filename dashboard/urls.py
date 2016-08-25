@@ -2,6 +2,7 @@ from django.conf.urls import url, include
 
 from . import views
 
+app_name = 'dashboard'
 urlpatterns = [
     #url(r'^$', views.index, name='index'),
     url(r'^$', views.IndexView.as_view(), name='index'),
@@ -9,4 +10,5 @@ urlpatterns = [
     url(r'^staff/', include('staff.dashboard_urls', namespace='staff')),
     url(r'^students/', include('students.dashboard_urls', namespace='students')),
     url(r'^exam/', include('exam.dashboard_urls', namespace='exam')),
+    url(r'^clothing/', include('clothing.dashboard_urls', namespace='clothing')),
 ]

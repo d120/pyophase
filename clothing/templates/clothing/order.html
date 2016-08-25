@@ -1,0 +1,42 @@
+{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
+{% block heading %}{% trans "Kleidung bestellen" %}{% endblock %}
+
+{% block content %}
+
+{% if clothing_ordering_enabled %}
+
+<div class="well">
+    {% trans "Du kannst nach der Anmeldung mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
+</div>
+
+<div id="mainForm">
+    <form role="form" action="{{action}}" method="POST">
+        {% csrf_token %}
+        <div class="padded-form">
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for form in wizard.form.forms %}
+                {% bootstrap_form form layout='horizontal' %}
+                <hr />
+            {% endfor %}
+        {% else %}
+            {% bootstrap_form wizard.form %}
+        {% endif %}
+        </div>
+    {% buttons %}
+        <button type="submit" class="btn btn-success pull-right">
+            {% bootstrap_icon "ok" %} {% trans "Weiter" %}
+        </button>
+    {% endbuttons %}
+    </form>
+    <div class="clearfix"></div>
+</div>
+{% else %}
+<p>
+    {% trans "Aktuell ist die Kleiderbestellung nicht geöffnet." %}
+</p>
+{% endif %}
+
+{% endblock %}

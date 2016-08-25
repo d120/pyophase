@@ -1,9 +1,24 @@
-#!/bin/sh
+#!/bin/bash
+# perform necessary actions to update an instance of pyophase
 
 set -e
 
-source venv/bin/activate
-pip install -r requirements.txt
+# only source the virtual env if we are not already in it
+if [ -z ${VIRTUAL_ENV+x} ]; then
+    source venv/bin/activate
+fi
+
+# set environment variable when we want to update a production instance
+if [ "$1" = "--prod" ]; then
+    export DJANGO_SETTINGS_MODULE=pyophase.settings_production
+fi
+
+git pull
 bower install
+pip install -r requirements.txt
 ./manage.py compilemessages
+if [ "$1" = "--prod" ]; then
+    ./manage.py collectstatic --noinput
+fi
 ./manage.py migrate
+touch pyophase/wsgi.py

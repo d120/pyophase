@@ -17,8 +17,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
                 ('name', models.CharField(verbose_name='Gruppenname', max_length=50)),
-                ('group_category', models.ForeignKey(verbose_name='Gruppenkategorie', to='staff.GroupCategory')),
-                ('ophase', models.ForeignKey(to='ophasebase.Ophase')),
+                ('group_category', models.ForeignKey(verbose_name='Gruppenkategorie', to='staff.GroupCategory', on_delete=models.CASCADE)),
+                ('ophase', models.ForeignKey(to='ophasebase.Ophase', on_delete=models.CASCADE)),
                 ('tutors', models.ManyToManyField(verbose_name='Tutoren', blank=True, to='staff.Person')),
             ],
             options={

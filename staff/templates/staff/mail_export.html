@@ -1,13 +1,12 @@
-{% extends "admin/base_site.html" %}{% load i18n %}
-
-{% block title %}{% trans "E-Mail Mass Subscription Export" %} {{ block.super }}{% endblock %}
+{% extends "ophasebase/breadcrumbs_adminaction.html" %}{% load i18n %}
 
 {% block content %}
-
-<h2>{% trans "E-Mail Mass Subscription Export" %}</h2>
-
 <p>
-{% blocktrans %} Es wurden {{ persons|length }} Personen ausgewählt.{% endblocktrans %}
+{% blocktrans count counter=persons|length %}
+Es wurde eine Person ausgewählt.
+{% plural %}
+Es wurden {{ counter }} Personen ausgewählt.
+{% endblocktrans %}
 </p>
 
 <textarea cols="60" rows="25">

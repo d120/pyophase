@@ -1,5 +1,5 @@
 {% extends "students/exam_base.html" %}{% load bootstrap3 %}{% load i18n %}
-{% block title %}{% trans "Klausuranmeldung" %}{% endblock %}
+{% block title %}{% trans "Ophasenregistrierung" %}{% endblock %}
 
 {% block content_exam %}
 {% if student_registration_enabled %}
@@ -19,9 +19,9 @@
     </form>
 </div>
 {% else %}
-<p>
+<div class="jumbotron margin-top-1">
   {% trans "Derzeit ist die Registrierung nicht freigeschaltet." %}
-</p>
+</div>
 {% endif %}
 {% endblock %}
 {% block bottom_script %}{% load staticfiles %}

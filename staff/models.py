@@ -1,8 +1,8 @@
+from urllib.parse import quote
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-
-from urllib.parse import quote
 
 from ophasebase.models import Ophase
 
@@ -56,21 +56,6 @@ class HelperJob(Job):
         ordering = ['label']
 
 
-class DressSize(models.Model):
-    """A dress size for a Person"""
-    class Meta:
-        verbose_name = _("Kleidergröße")
-        verbose_name_plural = _("Kleidergrößen")
-        unique_together = ("name", "sort_key")
-        ordering = ["sort_key"]
-
-    name = models.CharField(max_length=75, verbose_name=_("Kleidergröße"), unique=True)
-    sort_key = models.PositiveSmallIntegerField(verbose_name=_("Position in Auflistung"), unique=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Person(models.Model):
     """A person which supports the Ophase."""
     class Meta:
@@ -79,7 +64,7 @@ class Person(models.Model):
         ordering = ['prename', 'name']
         unique_together = ('ophase', 'email')
 
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
     email = models.EmailField(verbose_name=_("E-Mail-Adresse"))
@@ -91,10 +76,9 @@ class Person(models.Model):
     is_tutor = models.BooleanField(default=False, verbose_name=_("Tutor"), help_text=_("Möchtest du als Tutor bei der Ophase mitmachen?"))
     is_orga = models.BooleanField(default=False, verbose_name=_("Orga"), help_text=_("Möchtest du als Orga bei der Ophase mitmachen?"))
     is_helper = models.BooleanField(default=False, verbose_name=_("Helfer"), help_text=_("Möchtest du als Helfer bei der Ophase mitmachen?"))
-    tutor_for = models.ForeignKey(GroupCategory, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
+    tutor_for = models.ForeignKey(GroupCategory, models.SET_NULL, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
     orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name=_("Orgaaufgaben"), help_text=_("Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"))
     helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name=_("Helferaufgaben"), help_text=_("Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"))
-    dress_size = models.ForeignKey(DressSize, null=True, blank=True, verbose_name=_("Kleidergröße"), help_text=_("Mitwirkende bekommen T-Shirts um sie besser zu erkennen. Damit dein T-Shirt passt brauchen wir deine Größe."))
     remarks = models.TextField(blank=True, verbose_name=_("Anmerkungen"), help_text=_("Was sollten wir noch wissen?"))
     orga_annotation = models.TextField(blank=True, verbose_name=_("Orga-Anmerkungen"), help_text=_("Notizen von Leitung und Orgas."))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
@@ -110,7 +94,7 @@ class Person(models.Model):
         To build a one click registration the full path to the
         staff registration view must be added at the beginning"""
 
-        allowed_keys = ['prename','name','email','phone', 'matriculated_since',
+        allowed_keys = ['prename', 'name', 'email', 'phone', 'matriculated_since',
                          'degree_course', 'experience_ophase',
                          'why_participate', 'remarks']
 
@@ -118,10 +102,11 @@ class Person(models.Model):
 
         user_values = ''
         for key in allowed_keys:
-            value = getattr(self,key).__str__()
-            user_values += ("&%s=%s" % (key, quote(value)) )
+            value = str(getattr(self, key))
+            if value:
+                user_values += ("&{}={}".format(key, quote(value)))
 
-        return prefix+user_values
+        return '{}{}'.format(prefix, user_values)
 
     def __str__(self):
         return self.get_name()
@@ -133,7 +118,27 @@ class Person(models.Model):
         # ensure tutor flag is set when group is selected
         if self.tutor_for is not None:
             self.is_tutor = True
-        super(Person, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+    @property
+    def eligible_for_clothing(self):
+        return self.is_orga or self.is_tutor
+
+    @staticmethod
+    def get_current(**kwargs):
+        return Person.objects.filter(ophase=Ophase.current(), **kwargs)
+
+    @staticmethod
+    def get_by_email_address(address, ophase):
+        try:
+            return Person.objects.get(email__iexact=address, ophase=ophase)
+        except Person.DoesNotExist:
+            return None
+
+    @staticmethod
+    def get_by_email_address_current(address):
+        return Person.get_by_email_address(address, Ophase.current())
+
 
 class TutorGroup(models.Model):
     """A group of students guided by tutors."""
@@ -143,10 +148,10 @@ class TutorGroup(models.Model):
         ordering = ['group_category', 'name']
         unique_together = ('ophase', 'name')
 
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     name = models.CharField(max_length=50, verbose_name=_("Gruppenname"))
     tutors = models.ManyToManyField(Person, blank=True, verbose_name=_("Tutoren"))
-    group_category = models.ForeignKey(GroupCategory, verbose_name=_("Gruppenkategorie"))
+    group_category = models.ForeignKey(GroupCategory, models.CASCADE, verbose_name=_("Gruppenkategorie"))
 
     def __str__(self):
         return self.name
@@ -172,9 +177,13 @@ class Settings(models.Model):
         return self.get_name()
 
     def clean(self, *args, **kwargs):
-        super(Settings, self).clean(*args, **kwargs)
+        super().clean(*args, **kwargs)
         if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
             raise ValidationError(_("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen."))
+
+    def any_registration_enabled(self):
+        """Returns true if any of tutor, orga or helper registration is set to True. Otherwise False"""
+        return self.tutor_registration_enabled or self.orga_registration_enabled or self.helper_registration_enabled
 
     @staticmethod
     def instance():

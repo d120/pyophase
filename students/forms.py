@@ -1,8 +1,8 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Student
 from django.utils.translation import ugettext_lazy as _
 
+from students.models import Student
 
 class StudentRegisterForm(forms.ModelForm):
     class Meta:
@@ -14,10 +14,14 @@ class StudentRegisterForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(StudentRegisterForm, self).__init__(*args, **kwargs)
+        exam_enabled = kwargs.pop('exam_enabled', False)
+        super().__init__(*args, **kwargs)
+
+        if exam_enabled == False:
+            del self.fields['want_exam']
 
     def clean(self):
-        cleaned_data = super(StudentRegisterForm, self).clean()
+        cleaned_data = super().clean()
 
         if cleaned_data.get("newsletters").count() > 0 and cleaned_data.get("email") == "":
             self.add_error('email', ValidationError(_('Um Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden.')))

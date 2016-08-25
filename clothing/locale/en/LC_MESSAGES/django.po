@@ -1,0 +1,245 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-25 01:03+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: dashboard_views.py:15 dashboard_widgets.py:11
+#: templates/clothing/dashboard/orders_aggregated.html:4
+#: templates/clothing/dashboard/orders_overview.html:4
+#: templates/clothing/dashboard/orders_person_free.html:4
+msgid "Kleidung"
+msgstr "Clothing"
+
+#: dashboard_views.py:22
+msgid "Übersicht"
+msgstr "Overview"
+
+#: dashboard_views.py:23 templates/clothing/dashboard/orders_person_free.html:4
+#: templates/clothing/dashboard/orders_person_free.html:7
+msgid "Grundbestellung"
+msgstr "Main order"
+
+#: dashboard_views.py:24 templates/clothing/dashboard/orders_aggregated.html:4
+#: templates/clothing/dashboard/orders_aggregated.html:7
+msgid "Aggregierte Bestellungen"
+msgstr "Aggregated orders"
+
+#: dashboard_views.py:68 dashboard_views.py:82
+msgid "Kostenlos"
+msgstr "For free"
+
+#: dashboard_views.py:68 dashboard_views.py:84
+#: templates/clothing/dashboard/widget_orders.html:5
+msgid "Zusätzlich"
+msgstr "Additional"
+
+#: dashboard_widgets.py:19
+msgid "Ophase"
+msgstr "Ophase"
+
+#: forms.py:10
+msgid "E-Mail-Adresse wie bei der Registrierung angegeben"
+msgstr "E-mail-address as specified at registration"
+
+#: forms.py:18
+msgid "Die E-Mail-Adresse gehört nicht zu einer registrierten Person."
+msgstr "This e-mail-address does not match a registered person."
+
+#: forms.py:33
+msgid ""
+"Dieses Kleidungsstück ist nur als selbst bezahltes Kleidungsstück bestellbar."
+msgstr "This piece of clothing is only available when you pay self."
+
+#: forms.py:35
+msgid ""
+"Nur Tutoren und Orgas bekommen ein kostenloses Kleidungsstück. Du kannst "
+"aber zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst."
+msgstr ""
+"Only tutors and organizers get a free piece of clothing. However, you can "
+"order an additional piece if you pay for it"
+
+#: forms.py:50
+msgid ""
+"Du kannst nur ein kostenloses Kleidungsstück bestellen. Du kannst aber "
+"zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst."
+msgstr ""
+"You can only order one free piece of clothing. However, you can order "
+"additional pieces if you pay for them."
+
+#: models.py:11 models.py:15 models.py:52
+msgid "Art"
+msgstr "Type"
+
+#: models.py:12
+msgid "Arten"
+msgstr "Types"
+
+#: models.py:16
+msgid "Preis"
+msgstr "Price"
+
+#: models.py:17
+msgid "Nur als selbst bezahltes Kleidungsstück möglich"
+msgstr "Only available as self-paid piece of clothing"
+
+#: models.py:25 models.py:28 models.py:53
+msgid "Größe"
+msgstr "Size"
+
+#: models.py:26
+msgid "Größen"
+msgstr "Sizes"
+
+#: models.py:36 models.py:39 models.py:54
+#: templates/clothing/dashboard/orders_overview.html:14
+msgid "Farbe"
+msgstr "Color"
+
+#: models.py:37
+msgid "Farben"
+msgstr "Colors"
+
+#: models.py:40
+msgid "Farbcode"
+msgstr "Color-code"
+
+#: models.py:48
+msgid "Bestellung"
+msgstr "Order"
+
+#: models.py:49 templates/clothing/dashboard/orders_overview.html:4
+#: templates/clothing/dashboard/orders_overview.html:7
+#: templates/clothing/dashboard/widget_orders.html:3
+msgid "Bestellungen"
+msgstr "Orders"
+
+#: models.py:51
+msgid "Person"
+msgstr "Person"
+
+#: models.py:55
+msgid "Selbst bezahltes Kleidungsstück"
+msgstr "Self-paid piece of clothing"
+
+#: models.py:68
+msgid "selbst bezahlt"
+msgstr "self-paid"
+
+#: models.py:68
+msgid "kostenlos"
+msgstr "free"
+
+#: models.py:79 models.py:80
+msgid "Einstellungen"
+msgstr "Settings"
+
+#: models.py:82
+msgid "Kleiderbestellung aktiv"
+msgstr "Ordering is currently active"
+
+#: models.py:85
+msgid "Clothing Einstellungen"
+msgstr "Clothing Settings"
+
+#: models.py:93
+msgid ""
+"Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
+"anzulegen."
+msgstr ""
+"It is not possible to create more than one instance of the settings object."
+
+#: templates/clothing/dashboard/orders_overview.html:12
+#: templates/clothing/dashboard/orders_person_free.html:12
+msgid "Wer"
+msgstr "Who"
+
+#: templates/clothing/dashboard/orders_overview.html:13
+msgid "Kleidungsstück"
+msgstr "Piece of clothing"
+
+#: templates/clothing/dashboard/orders_overview.html:30
+#: templates/clothing/dashboard/orders_person_free.html:26
+msgid "Bisher keine Bestellungen"
+msgstr "No orders yet"
+
+#: templates/clothing/dashboard/orders_person_free.html:13
+msgid "Bestellt?"
+msgstr "Ordered?"
+
+#: templates/clothing/dashboard/widget_orders.html:4
+msgid "Kostenlos / Berechtigte"
+msgstr "For free / Eligible persons"
+
+#: templates/clothing/mail.html:2
+msgid "Hallo"
+msgstr "Hello"
+
+#: templates/clothing/mail.html:4
+msgid ""
+"deine Kleiderbestellung für die Ophase wurde aktualisiert. Aktuell ist "
+"folgendes für dich vermerkt:"
+msgstr "you order for Ophase clothes was updated. Your current order is:"
+
+#: templates/clothing/mail.html:8
+msgid ""
+"Du kannst deine Bestellung unter der folgenden Adresse bearbeiten oder "
+"ergänzen:"
+msgstr "You can change your order at the following website:"
+
+#: templates/clothing/mail.html:11
+msgid "Liebe Grüße"
+msgstr "Kind regards"
+
+#: templates/clothing/mail.html:12
+msgid "die Ophasenleitung"
+msgstr "Head of Ophase"
+
+#: templates/clothing/order.html:2 templates/clothing/order.html:3
+#: templates/clothing/order_success.html:2
+#: templates/clothing/order_success.html:3
+msgid "Kleidung bestellen"
+msgstr "Order clothes"
+
+#: templates/clothing/order.html:10
+msgid ""
+"Du kannst nach der Anmeldung mehrere Kleidungsstücke bestellen, indem du "
+"mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer."
+msgstr ""
+"After logging in with your e-mail-address you can order one or several "
+"pieces of clothing by filling several form sections. Just leave the "
+"remaining ones blank."
+
+#: templates/clothing/order.html:30
+msgid "Weiter"
+msgstr "Next"
+
+#: templates/clothing/order.html:38
+msgid "Aktuell ist die Kleiderbestellung nicht geöffnet."
+msgstr "Ordering clothes is currently not possible."
+
+#: templates/clothing/order_success.html:6
+msgid "Bestellung erfolgreich gespeichert"
+msgstr "Order successfully saved."
+
+#: templates/clothing/order_success.html:7
+msgid "Weitere Bestellung aufgeben"
+msgstr "Order another piece of clothing"
+
+#: views.py:56
+#, python-format
+msgid "Kleiderbestellung %(ophase)s"
+msgstr "Clothing order %(ophase)s"

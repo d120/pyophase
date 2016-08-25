@@ -1,11 +1,11 @@
-from django.views.generic import TemplateView, DetailView, ListView
+from django.views.generic import TemplateView, ListView
 from django.db.models import Count, Sum
 from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
 from staff.models import TutorGroup
-from .models import Student, Newsletter
+from students.models import Student, Newsletter
 
 
 class StudentsAppMixin(DashboardAppMixin):
@@ -33,16 +33,24 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
 
-            Students = Student.objects.filter(ophase=current_ophase)
+            students = Student.get_current()
 
-            context['count_student'] = Students.count()
-            context['count_exam'] = Students.filter(want_exam=True).count()
+            context['count_student'] = students.count()
+            context['count_exam'] = students.filter(want_exam=True).count()
 
-            context['tutor_groups'] = TutorGroup.objects\
-                                                    .annotate(
-                                                        num=Count('student'),
-                                                        num_exam=Sum('student__want_exam'))\
-                                                    .order_by('group_category', 'name')
+            t_groups = TutorGroup.objects
+            t_groups = t_groups.annotate(num=Count('student'))
+            t_groups = t_groups.annotate(num_exam=Sum('student__want_exam'))
+            t_groups = t_groups.order_by('group_category', 'name')
+
+            # With some DB Backends Sum returns True instead of 1
+            # int() fixes it.
+            # see https://github.com/d120/pyophase/issues/47
+            for group in t_groups:
+                if group.num_exam is not None:
+                    group.num_exam = int(group.num_exam)
+
+            context['tutor_groups'] = t_groups
         return context
 
 
@@ -51,7 +59,7 @@ class ExportCertificateView(StudentsAppMixin, ListView):
     template_name = "students/dashboard/view_certificate.html"
 
     def get_queryset(self):
-        return Student.objects.filter(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
+        return Student.get_current(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
 
 
 class NewsletterOverviewView(StudentsAppMixin, ListView):
@@ -67,7 +75,7 @@ class ExportNewsletterSubscriptionView(StudentsAppMixin, ListView):
     template_name = "students/dashboard/view_export_newsletter.html"
 
     def get_queryset(self):
-        return Student.objects.filter(newsletters__id=self.kwargs['newsletter_id'])
+        return Student.get_current(newsletters__id=self.kwargs['newsletter_id'])
 
     def add_context_data(self, context):
         context = super().add_context_data(context)

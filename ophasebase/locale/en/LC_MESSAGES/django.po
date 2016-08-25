@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-02 00:05+0200\n"
-"PO-Revision-Date: 2016-03-21 16:33+0100\n"
+"POT-Creation-Date: 2016-08-13 11:40+0200\n"
+"PO-Revision-Date: 2016-07-10 17:24+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin.py:24
@@ -187,50 +187,53 @@ msgstr "from %(begin)s to %(end)s"
 msgid "Ende der Ophase kann nicht vor ihrem Anfang liegen."
 msgstr "The end of the Ophase cannot be before its beginning."
 
-#: templates/ophasebase/base.html:22
-msgid "Angemeldet als"
-msgstr "Registered as"
-
-#: templates/ophasebase/base.html:24
-msgid "Zum Adminbereich"
-msgstr "Adminarea"
-
-#: templates/ophasebase/base.html:26
-msgid "Logout"
-msgstr "Logout"
-
-#: templates/ophasebase/base.html:28
-msgid "Login"
-msgstr "Login"
-
-#: templates/ophasebase/base.html:44
+#: templates/ophasebase/base.html:31
 msgid "Sprache ändern"
 msgstr "Switch language"
 
-#: templates/ophasebase/welcome.html:6
-msgid "Willkommen"
-msgstr "Welcome"
+#: templates/ophasebase/base.html:61
+msgid "Angemeldet als"
+msgstr "Registered as"
 
-#: templates/ophasebase/welcome.html:9
-msgid "Für engagierte Studierende"
-msgstr "For dedicated students"
+#: templates/ophasebase/base.html:63
+msgid "Zum Adminbereich"
+msgstr "Adminarea"
 
-#: templates/ophasebase/welcome.html:10
-msgid "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken"
-msgstr "Participate in the Ophase as organizer, tutor or helper"
+#: templates/ophasebase/base.html:64
+msgid "Dashboard"
+msgstr ""
 
-#: templates/ophasebase/welcome.html:13
-msgid "Für Tutorinnen und Tutoren"
-msgstr "For tutors"
+#: templates/ophasebase/base.html:66
+msgid "Logout"
+msgstr "Logout"
 
-#: templates/ophasebase/welcome.html:14
-msgid "Die Erstsemester deiner Kleingruppe registrieren"
-msgstr "Register freshmen of your tutored group"
+#: templates/ophasebase/base.html:68
+msgid "Login"
+msgstr "Login"
 
-#: templates/ophasebase/welcome.html:17
-msgid "Für Orgas"
-msgstr "For organizers"
+#~ msgid "Willkommen"
+#~ msgstr "Welcome"
 
-#: templates/ophasebase/welcome.html:18
-msgid "Das Dashboard aufrufen"
-msgstr "Access the dashboard"
+#~ msgid "Für engagierte Studierende"
+#~ msgstr "For dedicated students"
+
+#~ msgid "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken"
+#~ msgstr "Participate in the Ophase as organizer, tutor or helper"
+
+#~ msgid "Für Tutorinnen und Tutoren"
+#~ msgstr "For tutors"
+
+#~ msgid "Die Erstsemester deiner Kleingruppe registrieren"
+#~ msgstr "Register freshmen of your tutored group"
+
+#~ msgid "Für Workshopleiter"
+#~ msgstr "For workshop tutors"
+
+#~ msgid "Bei der nächsten Ophase einen Workshop anbieten"
+#~ msgstr "Offer a workshop in the next Ophase"
+
+#~ msgid "Für Orgas"
+#~ msgstr "For organizers"
+
+#~ msgid "Das Dashboard aufrufen"
+#~ msgstr "Access the dashboard"

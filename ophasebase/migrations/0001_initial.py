@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('capacity', models.IntegerField(verbose_name='Anzahl Plätze')),
                 ('lat', models.FloatField(verbose_name='Latitude', blank=True, default=0)),
                 ('lng', models.FloatField(verbose_name='Longitude', blank=True, default=0)),
-                ('building', models.ForeignKey(verbose_name='Gebäude', to='ophasebase.Building')),
+                ('building', models.ForeignKey(verbose_name='Gebäude', to='ophasebase.Building', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Raum',

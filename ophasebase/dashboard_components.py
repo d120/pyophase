@@ -30,7 +30,7 @@ class CountdownWidget(WidgetComponent):
         else:
             df = DateFormat(datetime.datetime.now())
             msg = _('Es ist Ophase<br /> <b>%(weekday)s</b>') % {'weekday' : df.format('l'),}
-        return SafeText("<p class='text-center' style='font-size:2em; line-height:180%;'>{}</p>".format(msg))
+        return SafeText("<p class='text-center quite-big'>{}</p>".format(msg))
 
     @property
     def get_status(self):

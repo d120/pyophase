@@ -5,11 +5,9 @@ from django.utils.html import format_html
 from django.templatetags.static import static
 from django.contrib.admin.templatetags.admin_list import _boolean_icon
 
-from staff.models import Person, DressSize, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
-from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, group_by_dresssize
+from staff.models import Person, Settings, GroupCategory, OrgaJob, HelperJob, TutorGroup
+from staff.admin_actions import mail_export, staff_nametag_export, staff_overview_export, helper_job_overview, orga_job_overview, tutorgroup_export, send_fillform_mail
 
-
-admin.site.register(DressSize)
 
 @admin.register(OrgaJob)
 @admin.register(HelperJob)
@@ -51,11 +49,11 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
     readonly_fields = ('created_at', 'updated_at')
-    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, group_by_dresssize]
+    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, send_fillform_mail]
 
     fieldsets = [
         (_('Personendaten'), {'fields':
-            ['ophase', 'prename', 'name', 'email', 'phone', 'dress_size', 'orga_annotation']}),
+            ['ophase', 'prename', 'name', 'email', 'phone', 'orga_annotation']}),
         (_('Bewerbung'), {'fields':
             ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
         (_('In der Ophase'), {'fields':
@@ -72,11 +70,10 @@ class PersonAdmin(admin.ModelAdmin):
         else:
             return ""
     orga_annotation_status.short_description = _('Orga-Notiz')
-    orga_annotation_status.allow_tags = True
 
     def is_tutor_with_title(self, obj):
         """If the person is a tutor the tutor_for tag is set as image title"""
-        if obj.is_tutor == True and obj.tutor_for != None:
+        if obj.is_tutor == True and obj.tutor_for is not None:
             icon_url = static('admin/img/icon-yes.svg')
             return format_html('<img src="{}" alt="{}" title="{}" />',
                                icon_url, obj.is_tutor, obj.tutor_for.label)
@@ -84,7 +81,6 @@ class PersonAdmin(admin.ModelAdmin):
             return _boolean_icon(obj.is_tutor)
 
     is_tutor_with_title.short_description = _('Tutor')
-    is_tutor_with_title.allow_tags = True
 
 
 @admin.register(TutorGroup)

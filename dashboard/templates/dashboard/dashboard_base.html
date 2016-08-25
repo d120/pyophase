@@ -1,14 +1,15 @@
 {% extends "ophasebase/base.html" %}
-{% block content %}
-<h2 style="float:left; margin-right:50px;">Dash&shy;board</h2>
+{% block heading %}OphaseHQ Dashboard{% endblock %}
 
-<ul class="nav nav-pills" style="margin-top: 17px;">
+{% block content %}
+
+<ul class="nav nav-pills">
     {% for title, target in navigation_links %}
         <li><a href="{{ target }}">{{ title }}</a></li>
     {% endfor %}
 </ul>
 
-<hr style="margin-top: 5px;">
+<hr class="margin-top-1">
 
 {% block content_dashboard %}{% endblock %}
 

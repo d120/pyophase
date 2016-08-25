@@ -59,3 +59,7 @@ pyophase hilft bei der Organisation der Ophasenklausur. Im **Admin-Bereich** mü
 Im **Dashboard** ist es dann möglich:
 * eine automatische Zuteilung von Erstsemestern auf Klausurräume zu veranlassen
 * die Anwesenheitsliste für die Klausurräume zu exportieren
+
+## Workshops
+
+Auch Angebote für Workshops können über pyophase gesammelt werden. Im **Admin-Bereich** müssen zunächst die zur Verfügung stehenden Zeitslots angelegt und die Registrierung in den Einstellungen freigeschaltet werden. Danach ist das Einreichen von Workshops über das Frontend möglich.

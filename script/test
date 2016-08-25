@@ -1,0 +1,13 @@
+#!/bin/bash
+# wrapper script to run the tests
+
+# activate virtualenv when necessary
+if [ -z ${VIRTUAL_ENV+x} ]; then
+    source venv/bin/activate
+fi
+
+# enable deprecation warnings which are silenced by default
+export PYTHONWARNINGS=all
+
+./manage.py check
+./manage.py test

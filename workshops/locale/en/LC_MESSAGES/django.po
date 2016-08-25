@@ -1,0 +1,293 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-21 11:47+0200\n"
+"PO-Revision-Date: 2016-08-21 11:48+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#: dashboard_widgets.py:8 models.py:32
+#: templates/workshops/dashboard/widget_workshops.html:3
+msgid "Workshops"
+msgstr "Workshops"
+
+#: models.py:11
+msgid "Workshopslot"
+msgstr "Workshop slot"
+
+#: models.py:12
+msgid "Workshopslots"
+msgstr "Workshop slots"
+
+#: models.py:16
+msgid "Datum"
+msgstr "Date"
+
+#: models.py:17
+msgid "Beginn"
+msgstr "Start"
+
+#: models.py:18
+msgid "Ende"
+msgstr "End"
+
+#: models.py:31
+msgid "Workshop"
+msgstr "Workshop"
+
+#: models.py:35
+msgid "Name"
+msgstr "Name"
+
+#: models.py:36
+msgid "E-Mail-Adresse"
+msgstr "Email address"
+
+#: models.py:37
+msgid "Workshoptitel"
+msgstr "Workshop title"
+
+#: models.py:37
+msgid "Unter welcher Überschrift steht der Workshop?"
+msgstr "What is the topic of the workshop?"
+
+#: models.py:38
+msgid "Art des Workshops"
+msgstr "Type of workshop"
+
+#: models.py:38
+msgid ""
+"Welche Art Veranstaltung ist das? Vortrag, Vortrag mit Hands-on, Workshop, "
+"Sport, Ausflug, ..."
+msgstr ""
+"What kind of session is this? Presentation, presentation with hands-on, "
+"workshop, sports, excursion, ..."
+
+#: models.py:39
+msgid "Mögliche Zeitslots"
+msgstr "Possible time slots"
+
+#: models.py:39
+msgid ""
+"Welche Slots sind zeitlich möglich (unabhängig davon wie oft der Workshop "
+"stattfinden kann)?"
+msgstr ""
+"Which time slots are possible for you (independent from how often the "
+"workshop takes place)"
+
+#: models.py:40
+msgid "Anzahl"
+msgstr "How often"
+
+#: models.py:40
+msgid "Wie oft kann dieser Workshop angeboten werden?"
+msgstr "How often can you offer this Workshop?"
+
+#: models.py:41
+msgid "Raumbedarf"
+msgstr "Location"
+
+#: models.py:41
+msgid "Wo soll der Workshop stattfinden (Hörsaal, Gruppenraum, Poolraum, ...)?"
+msgstr ""
+"Where should the workshop take place (lecture hall, seminar room, computer "
+"pool, ...)?"
+
+#: models.py:42
+msgid "Max. Teilnehmerzahl"
+msgstr "Max. participants"
+
+#: models.py:42
+msgid "Maximale Teilnehmeranzahl (auf 0 lassen für volle Raumkapazität)."
+msgstr "Maximum number of participants (0 for full room capacity)."
+
+#: models.py:43
+msgid "Benötigtes Material"
+msgstr "Required material"
+
+#: models.py:43
+msgid "Wird etwas benötigt das wir zur Verfügung stellen sollen?"
+msgstr "Should we provide additional material for the workshop?"
+
+#: models.py:44
+msgid "Teilnahmevoraussetzungen"
+msgstr "Participation requirements"
+
+#: models.py:44
+msgid ""
+"Benötigen die Teilnehmer Vorkenntnisse oder müssen sie etwas mitbringen?"
+msgstr ""
+"Do the participants need prior knowledge or do they need to bring certain "
+"equipment?"
+
+#: models.py:45
+msgid "Beschreibungstext"
+msgstr "Description text"
+
+#: models.py:45
+msgid ""
+"Eine kurze Beschreibung für OInforz und Aushänge um was es geht und was die "
+"Teilnehmer erwartet."
+msgstr ""
+"A short description for OInforz and postings (what is this workshop about, "
+"what should the participants expect)."
+
+#: models.py:46
+msgid "Anmerkungen"
+msgstr "Remarks"
+
+#: models.py:46
+msgid "Sonstige Informationen für den Orga"
+msgstr "Further comments for the organizer"
+
+#: models.py:47
+msgid "Eingetragen am"
+msgstr "Created at"
+
+#: models.py:48
+msgid "Verändert am"
+msgstr "Updated at"
+
+#: models.py:67 models.py:68
+msgid "Einstellungen"
+msgstr "Settings"
+
+#: models.py:70
+msgid "Workshop-Einreichung aktiv"
+msgstr "Workshop submission enabled"
+
+#: models.py:71
+msgid "E-Mail-Adresse des Workshop-Orgas"
+msgstr "Email address of workshop organizer"
+
+#: models.py:74
+msgid "Workshops Einstellungen"
+msgstr "Workshop settings"
+
+#: models.py:82
+msgid ""
+"Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
+"anzulegen."
+msgstr ""
+"It is only reasonable and possible to create a single instance of the "
+"settings object."
+
+#: templates/workshops/create_success.html:2
+msgid "Daten gespeichert"
+msgstr "Data saved"
+
+#: templates/workshops/create_success.html:2
+#: templates/workshops/workshop_form.html:2
+msgid "Workshopregistrierung"
+msgstr "Workshop submission"
+
+#: templates/workshops/create_success.html:7
+msgid ""
+"Vielen Dank, der Workshop wurde gespeichert. Der Workshoporga wird sich zu "
+"gegebener Zeit mit dir in Verbindung setzen."
+msgstr ""
+"Thank you, your workshop submission is saved. The workshop organizer will "
+"contact you at the appropriate time."
+
+#: templates/workshops/create_success.html:9
+msgid ""
+"Eine E-Mail wurde an die von dir angegebene E-Mail-Adresse gesendet. Sollte "
+"sie nicht angekommen sein, oder sollten sich Änderungen am Workshop ergeben, "
+"schreib bitte eine Mail an"
+msgstr ""
+"An email was sent to the submitted address. If you do not receive the email "
+"or when there are changes regarding your workshop, please write an email to"
+
+#: templates/workshops/dashboard/widget_workshops.html:4
+msgid "Gefüllte Slots"
+msgstr "Filled slots"
+
+#: templates/workshops/dashboard/widget_workshops.html:5
+msgid "Workshoptutoren"
+msgstr "Workshop tutors"
+
+#: templates/workshops/workshop_form.html:12
+msgid "Interessiert welche Workshops bereits angeboten werden?"
+msgstr "Interested in a list of already offered workshops?"
+
+#: templates/workshops/workshop_form.html:13
+msgid "Workshops ein-/ausblenden"
+msgstr "Show/hide workshop list"
+
+#: templates/workshops/workshop_form.html:15
+msgid ""
+"Workshops können auch mehrfach oder gemeinsam angeboten werden. Bei "
+"Interesse, schreib eine E-Mail an den"
+msgstr ""
+"Workshops can be offered multiple times or cooperatively. If you are "
+"interested, write an email to the"
+
+#: templates/workshops/workshop_form.html:15
+msgid "Workshop-Orga"
+msgstr "workshop organizer"
+
+#: templates/workshops/workshop_form.html:26
+msgid "Einen neuen Workshop anmelden:"
+msgstr "Submit a new workshop:"
+
+#: templates/workshops/workshop_form.html:33
+msgid "Zurücksetzen"
+msgstr "Reset"
+
+#: templates/workshops/workshop_form.html:36
+msgid "Abschicken"
+msgstr "Submit"
+
+#: templates/workshops/workshop_form.html:43
+msgid "Derzeit ist die Registrierung nicht freigeschaltet."
+msgstr "Workshop submission is currently disabled."
+
+#: views.py:40
+#, python-format
+msgid "Workshop in der %(ophase)s"
+msgstr "Workshop in the %(ophase)s"
+
+#: views.py:41
+#, python-format
+msgid ""
+"Hallo %(name)s,\n"
+"\n"
+"vielen Dank, dass du den Workshop \"%(title)s\" in der kommenden %(ophase)s "
+"anbieten möchtest.\n"
+"Diese E-Mail dient hauptsächlich dazu, deine Eintragung zu bestätigen.\n"
+"Der Workshoporga wird sich zu gegebener Zeit mit dir in Verbindung setzen.\n"
+"Wenn sich etwas ändern sollte, antworte einfach auf diese E-Mail.\n"
+"\n"
+"Hier nochmal die von dir eingetragenen Daten:\n"
+"\n"
+"%(form_content)s\n"
+"\n"
+"Liebe Grüße\n"
+"das Orga-Team\n"
+msgstr ""
+"Hello %(name)s,\n"
+"\n"
+"thank you for offering the workshop \"%(title)s\" in the upcoming "
+"%(ophase)s.\n"
+"This email is mainly for the purpose of confirming your submission.\n"
+"The workshop organizer will contact you at the appropriate time.\n"
+"If you want to communicate any changes regarding your workshop, you can "
+"simply answer to this email.\n"
+"\n"
+"For convenience, you find your submitted information below:\n"
+"\n"
+"%(form_content)s\n"
+"\n"
+"Best regards,\n"
+"the organizer team\n"

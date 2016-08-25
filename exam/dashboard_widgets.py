@@ -1,10 +1,12 @@
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
+from django.utils import formats
+from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ObjectDoesNotExist
+
 from dashboard.components import TemplateWidgetComponent
 from exam.models import Assignment
 from ophasebase.models import Ophase
 from students.models import Student
-from django.utils.translation import ugettext_lazy as _
-from django.utils import formats
 
 
 class ExamWidget(TemplateWidgetComponent):
@@ -18,11 +20,13 @@ class ExamWidget(TemplateWidgetComponent):
     template_name = "exam/dashboard/widget_exam.html"
 
     def _get_latest_assignment(self):
-        return Assignment.objects.latest()
+        try:
+            return Assignment.objects.latest()
+        except ObjectDoesNotExist:
+            return None
 
     def _correct_count(self, assignment):
-        current_ophase = Ophase.current()
-        return assignment.count == Student.objects.filter(ophase=current_ophase, want_exam=True, tutor_group__group_category=assignment.group_category).count()
+        return assignment.count == Student.get_current(want_exam=True, tutor_group__group_category=assignment.group_category).count()
 
     def get_context_data(self):
         context = super().get_context_data()
@@ -62,4 +66,5 @@ class ExamWidget(TemplateWidgetComponent):
 
         if self._correct_count(assignment):
             return "success"
+
         return "danger"

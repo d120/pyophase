@@ -1,42 +1,42 @@
 {% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
 {% block title %}{% trans "Mitmachen" %}{% endblock %}
+{% block heading %}{% trans "Bei der Ophase mitmachen" %}{% endblock %}
 
 {% block content %}
 
-<h1>{{ ophase_title }}</h1>
 {% if any_registration_enabled %}
-<p>
-	{% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> werden {{staff_vacancies}} gesucht.{% endblocktrans %}
-</p>
-{% if tutor_registration_enabled %}
-<p>
-    {% trans "Als Tutor betreust du eine Kleingruppe von Ersties und hilfst bei der Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze Schulung sowie eine Einführung in das Programm der Ophase geplant." %}
-</p>
-{% endif %}
-{% if orga_registration_enabled %}
-<p>
-    {% trans "Als Orga bist du für die Organisation eines bestimmten Programmpunktes verantwortlich. Dazu zählt die Planung und Vorbereitung vor der Ophase, sowie die eigentliche Durchführung in der Woche." %}
-</p>
-{% endif %}
-{% if tutor_registration_enabled or orga_registration_enabled %}
-<p>
-    {% trans "Tutoren und Organisatoren erhalten dabei wie immer ein kostenloses Ophasen-T-Shirt ;-)" %}
-</p>
-{% endif %}
-{% if helper_registration_enabled %}
-<p>
-    {% trans "Als Helfer hilfst du bei der Durchführung bestimmter Programmpunkte, die dringend helfende Hände benötigen." %}
-</p>
-{% endif %}
-<p>
-    {% trans "Die Jobs, die unten nicht mehr auswählbar sind, sind bereits ausreichend mit Personen besetzt." %}
-</p>
-<p style="text-align:right;">
-    <i>{% trans "Die Ophasen-Leitung" %}</i>
-</p>
-
-<div id="mainForm">
-
+<div class="box box-highlight box-lilac margin-top-1">
+    <p>
+        {% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> werden {{staff_vacancies}} gesucht.{% endblocktrans %}
+    </p>
+    {% if tutor_registration_enabled %}
+    <p>
+        {% trans "Als Tutor betreust du eine Kleingruppe von Ersties und hilfst bei der Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze Schulung sowie eine Einführung in das Programm der Ophase geplant." %}
+    </p>
+    {% endif %}
+    {% if orga_registration_enabled %}
+    <p>
+        {% trans "Als Orga bist du für die Organisation eines bestimmten Programmpunktes verantwortlich. Dazu zählt die Planung und Vorbereitung vor der Ophase, sowie die eigentliche Durchführung in der Woche." %}
+    </p>
+    {% endif %}
+    {% if tutor_registration_enabled or orga_registration_enabled %}
+    <p>
+        {% trans "Tutoren und Organisatoren erhalten dabei wie immer ein kostenloses Ophasen-T-Shirt ;-)" %}
+    </p>
+    {% endif %}
+    {% if helper_registration_enabled %}
+    <p>
+        {% trans "Als Helfer hilfst du bei der Durchführung bestimmter Programmpunkte, die dringend helfende Hände benötigen." %}
+    </p>
+    {% endif %}
+    <p>
+        {% trans "Die Jobs, die unten nicht mehr auswählbar sind, sind bereits ausreichend mit Personen besetzt." %}
+    </p>
+    <p class="right">
+        <i>{% trans "Die Ophasen-Leitung" %}</i>
+    </p>
+</div>
+<div id="mainForm" class="margin-top-3">
     <form role="form" action="{{action}}" method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
@@ -49,13 +49,15 @@
         </button>
     {% endbuttons %}
     </form>
-
 </div>
 {% else %}
-<p>{% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> ist die Anmeldung momentan nicht geöffnet.{% endblocktrans %}</p>
-<p style="text-align:right"><i>{% trans "Die Ophasen-Leitung" %}</i></p>
+<div class="jumbotron margin-top-1">
+    <p>{% blocktrans %}Für die {{ ophase_title }} <b>{{ ophase_duration }}</b> ist die Anmeldung momentan nicht geöffnet.{% endblocktrans %}</p>
+    <p class="right"><i>{% trans "Die Ophasen-Leitung" %}</i></p>
+</div>
 {% endif %}
 {% endblock %}
+
 {% block bottom_script %}
 {% load staticfiles %}
 <script src="{% static "ophasebase/js/dependent_input_visibility.js" %}"></script>
@@ -66,7 +68,6 @@ fillform();
 dependent_input_visibility('id_is_tutor','id_tutor_for');
 dependent_input_visibility('id_is_orga','id_orga_jobs');
 dependent_input_visibility('id_is_helper','id_helper_jobs');
-dependent_two_input_visibility('id_is_tutor','id_is_orga','id_dress_size');
 });
 window.addEventListener("hashchange", fillform, false);
 </script>

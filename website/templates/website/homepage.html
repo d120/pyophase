@@ -1,0 +1,180 @@
+{% extends "ophasebase/base.html" %}{% load staticfiles i18n %}
+{% block title %}Startseite{% endblock %}
+{% block heading %}Willkommen zur Ophase Informatik!{% endblock %}
+
+{% block content %}
+
+<div class="margin-top-1"></div>
+
+{% if any_staff_registration_enabled %}
+    <div class="box box-highlight box-lilac">
+        <h3>Helfer*innen gesucht!</h3>
+        <p class="box-big">Du hast Lust, uns bei der Ophase zu unterstützen? Super, klicke direkt <a href="{% url 'website:helfen' %}">hier</a>!</p>
+    </div>
+{% endif %}
+
+{% if student_registration_enabled %}
+    <div class="box box-highlight box-gray">
+        <h3>{% trans "Für Tutorinnen und Tutoren während der Ophase" %}</h3>
+        <p class="box-big"><a href="{% url 'students:registration' %}">{% trans "Die Erstsemester deiner Kleingruppe registrieren" %}</a></p>
+    </div>
+{% endif %}
+
+<div class="row margin-top-3">
+    <div class="col-lg-6">
+        <div class="box box-yellow">
+            <h2>Bachelor</h2>
+        </div>
+        <div class="box box-highlight box-light-yellow">
+            <div class="row">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>
+                        {{ current_ophase.get_human_short_duration }}<br />
+                        <a href="{% url 'website:bachelor' %}">zum Stundenplan</a>
+                    </p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
+                        Gebäude S2|02 <br />
+                        <a rel="nofollow" class="external text" target="_blank"
+                           href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
+                            Lageplan der Uni
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="box box-yellow">
+            <p>
+                Die Orientierungsphase, kurz Ophase genannt, ist die Woche vor dem eigentlichen Beginn der Vorlesungen.
+                In dieser Woche werden wir Dir und vielen anderen Erstsemestern die Universität und das Leben als
+                Student vorstellen. Du wirst viel über Dein Informatik-Studium erfahren, über die Organisation von
+                Studium und Universität und wir werden Dir den Campus und Darmstadt zeigen. So weißt Du dann im Studium,
+                wohin Du gehen musst, wenn Du an der Uni etwas lernen willst - und wohin, wenn Du außerhalb der
+                Vorlesungen auch noch was erleben willst. Los geht es mit der Begrüßung am
+                {{ current_ophase.start_date | date:"l, j. F Y" }}. Was Dich in dieser Woche sonst noch an Programm
+                erwartet, kannst Du dir auf dem <a href="{% url 'website:bachelor' %}">Stundenplan</a> anschauen.
+            </p>
+            <p>
+                Die Ophase ist nicht verpflichtend für Dein Studium, aber aus unseren Erfahrungen ist sie eines der
+                wichtigsten Ereignisse in Deinem Studium. Darum nimm Dir die Zeit und besuche die Ophase.
+            </p>
+
+            <h3>Programmiervorkurs</h3>
+            <p>
+                Noch keine Ahnung vom Programmieren? Dann komm zum Vorkurs! Alle relevanten Infos findest du auf der
+                <a href="{{ website_settings.vorkurs_url }}">Webseite</a> und im
+                <a href="{{ website_settings.vorkurs_forum_url }}">Forum</a>.
+                (Termin: {{ website_settings.vorkurs_start_date }} - {{ website_settings.vorkurs_end_date }})
+            </p>
+            <p>
+                Wenn dir Begriffe wie Rekursion, Iteration, Klassen oder Methoden schon geläufig sind, reicht es dir
+                vielleicht einfach die <a href="{{ website_settings.vorkurs_slides_url }}">Vorkursfolien</a> anzuschauen,
+                um dein Wissen aufzufrischen (<a href="{{ website_settings.accounts_url }}">noch keinen Account?</a>)
+            </p>
+
+            <h3>Einschreibe-Inforz</h3>
+            <p>
+                Auch dieses Semester haben wir ein Einschreibe-Inforz mit allen Informationen kurz vor
+                Studienbeginn veröffentlicht. Ihr könnt das <a href="{{ website_settings.einforz_url }}">E-Inforz hier
+                herunterladen</a>.
+            </p>
+
+            <h3>Semesterticket</h3>
+            <p>
+                Tipp: Das Semesterticket ist bereits einen Monat vor Semesterbeginn, also ab März (Sommersemester), bzw.
+                September (Wintersemester) gültig.
+            </p>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="box box-teal">
+            <h2>Master DSS</h2>
+        </div>
+        <div class="box box-highlight box-light-teal">
+            <div class="row">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>October 11th - 13th<br /><a href="{% url 'website:master-dss' %}">to the schedule</a></p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
+                        Building S2|02 <br />
+                        <a rel="nofollow" class="external text" target="_blank"
+                           href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
+                            University map
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="box box-teal">
+            <p>
+                The Master Ophase is aimed at students who come from another university. The information on the general
+                page about the Ophase is also valid for the Master Ophase (but unfortunately only available in German):
+                We show you Darmstadt, the TU Darmstadt and the Computer Science department, but since you already have
+                completed a Bachelor's degree or the like, we offer you an adapted schedule with more room for individual
+                questions.
+            </p>
+            <p><a href="{% url 'website:master-dss' %}">Further information</a></p>
+        </div>
+
+        <div class="box box-blue margin-top-3">
+            <h2>Andere Master</h2>
+        </div>
+        <div class="box box-highlight box-light-blue">
+            <div class="row">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>13. - 14. Oktober<br /><a href="{% url 'website:master-de' %}">zum Stundenplan</a></p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
+                        Gebäude S2|02 <br />
+                        <a rel="nofollow" class="external text" target="_blank"
+                           href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
+                            Lageplan der Uni
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="box box-blue">
+            <p>
+                Die Master-Ophase ist für Master-Erstsemester gedacht, die von einer anderen Hochschule kommen. Die
+                generellen Informationen auf der allgemeinen Ophasen-Seite gelten auch für die Master-Ophase: Prinzipiell
+                bringen wir euch hier auch Darmstadt, die TU und das Studium am Fachbereich Informatik näher, da ihr aber
+                schon ein Studium hinter euch habt, bieten wir euch einen angepassten Stundenplan mit mehr Raum für
+                individuelle Fragen an.
+            </p>
+            <p>
+                Der Termin mit der Studienberatung ist auch für Master-Erstsemester gedacht, die an der TU Darmstadt
+                ihren Bachelor in Informatik gemacht haben.
+            </p>
+            <p><a href="{% url 'website:master-de' %}">Weitere Informationen</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block bottom_script %}
+    {% include "website/semantics.html" %}
+{% endblock %}

@@ -1,6 +1,8 @@
 # pyophase
 [![Build Status](https://travis-ci.org/d120/pyophase.svg?branch=master)](https://travis-ci.org/d120/pyophase)
+[![Requirements Status](https://requires.io/github/d120/pyophase/requirements.svg?branch=master)](https://requires.io/github/d120/pyophase/requirements/?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/d120/pyophase/badge.svg?branch=master)](https://coveralls.io/github/d120/pyophase?branch=master)
+[![Code Climate](https://codeclimate.com/github/d120/pyophase/badges/gpa.svg)](https://codeclimate.com/github/d120/pyophase)
 
 pyophase is our management application used for organizing an introductory week for new students. Such an introductory week is called Ophase.
 
@@ -36,31 +38,22 @@ bower install
 
 ### Installation
 
-* Install `python3`, `python3-pip`, `python3-virtualenv` and `bower` (the latter maybe via `npm`)
+* Install `python3`, `python3-pip`, `virtualenv` and `bower` (the latter maybe via `npm`)
 * Maybe create a user for Django/WSGI applications (e.g. `django`)
 * Clone this repository into a proper directory (e.g. `/srv/pyophase`)
 * Maybe create MySQL database and proper user
 * Create the file `pyophase/settings_secrets.py` and fill it with the credentials needed in `settings_production.py`
 * Create a virtualenv (e.g. `virtualenv -p python3 venv`)
-* For serving WSGI applications, one can install `uwsgi`, create an ini file under `/etc/uwsgi/` with the proper configuration and configure the webserver to use mod-proxy-uwsgi to make the application accessible. The webserver should also serve the static files. Make sure the application server (uwsgi) sets the proper environment variable for production settings (`DJANGO_SETTINGS_MODULE=pyophase.settings_production`).
+* For serving WSGI applications, one can install `uwsgi`, create an ini file under `/etc/uwsgi` with a proper configuration and configure the webserver to use mod-proxy-uwsgi to make the application accessible. The webserver should also serve the static files. Make sure the application server (uwsgi) sets the proper environment variable for production settings (`DJANGO_SETTINGS_MODULE=pyophase.settings_production`).
 * Run all the relevant commands from the Updates section
 
 ### Updates
 
-When executing the `manage.py` commands in production, do not forget to either pass the `--settings pyophase.settings_production` flag oder set it as an environment variable like `export DJANGO_SETTINGS_MODULE=pyophase.settings_production`.
+When manually executing `manage.py` commands in production, do not forget to either pass the `--settings pyophase.settings_production` flag oder set it as an environment variable like `export DJANGO_SETTINGS_MODULE=pyophase.settings_production`.
 
-* `systemctl stop uwsgi`
-* `git pull`
-* `bower install` when the `bower.json` file changed
-* `source venv/bin/activate` when some of the `pip` or `./manage.py` steps are necessary
-* `pip install -r requirements.txt` when the `requirements.txt` file changed
-* `export DJANGO_SETTINGS_MODULE=pyophase.settings_production` when some of the `./manage.py` steps are necessary
-* `./manage.py migrate` when a new migrations file is available
-* `./manage.py collectstatic` when a static file changed (or `bower install` was run)
-* `./manage.py compilemessages` when a message file (`*.po`) changed
-* `deactivate` when virtualenv was activated
-* `chown -R django:django .`
-* `systemctl start uwsgi`
+To update an instance of pyophase, one can use the included update script `script/update`.
+
+For production instances, one should use something like `sudo -u django script/update --prod`.
 
 ## Usage
 

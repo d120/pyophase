@@ -32,10 +32,10 @@ class Student(models.Model):
     prename = models.CharField(max_length=50, verbose_name=_('first name'))
     name = models.CharField(max_length=50, verbose_name=_('last name'))
     email = models.EmailField(verbose_name=_("E-Mail-Adresse"), blank=True)
-    tutor_group = models.ForeignKey(TutorGroup, verbose_name=_("Kleingruppe"))
+    tutor_group = models.ForeignKey(TutorGroup, models.CASCADE, verbose_name=_("Kleingruppe"))
     want_exam = models.BooleanField(default=False, blank=True, verbose_name=_("Klausur mitschreiben?"))
     newsletters = models.ManyToManyField(Newsletter, blank=True, verbose_name=_("Newsletter"), help_text=_("Welche Newsletter willst du abonieren (optional)?"), limit_choices_to={'active': True})
-    ophase = models.ForeignKey(Ophase)
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -49,7 +49,11 @@ class Student(models.Model):
         if self.ophase_id is None:
             # set Ophase to current active one. We assume that there is only one active Ophase at the same time!
             self.ophase = Ophase.current()
-        super(Student, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
+
+    @staticmethod
+    def get_current(**kwargs):
+        return Student.objects.filter(ophase=Ophase.current(), **kwargs)
 
 
 class Settings(models.Model):
@@ -67,7 +71,7 @@ class Settings(models.Model):
         return self.get_name()
 
     def clean(self, *args, **kwargs):
-        super(Settings, self).clean(*args, **kwargs)
+        super().clean(*args, **kwargs)
         if Settings.objects.count() > 0 and self.id != Settings.objects.get().id:
             raise ValidationError(_("Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts anzulegen."))
 

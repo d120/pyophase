@@ -34,20 +34,25 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap3',
+    'formtools',
     'ophasebase',
+    'website',
     'dashboard',
     'staff',
     'students',
     'exam',
-    'bootstrap3',
+    'workshops',
+    'clothing',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,7 +66,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'pyophase.urls'
 
-LOGIN_REDIRECT_URL = 'ophasebase:welcome'
+LOGIN_REDIRECT_URL = 'website:homepage'
 
 TEMPLATES = [
     {
@@ -118,7 +123,13 @@ LANGUAGES = [
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'
+
 SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_BROWSER_XSS_FILTER = True
 
 CSRF_COOKIE_HTTPONLY = True
+
+EMAIL_SUBJECT_PREFIX = "[PYOPHASE] "
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

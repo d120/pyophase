@@ -1,7 +1,3 @@
-from django.conf.urls import url
+app_name = 'ophasebase'
 
-from ophasebase import views
-
-urlpatterns = [
-    url(r'^$', views.WelcomeView.as_view(), name='welcome'),
-]
+urlpatterns = []
