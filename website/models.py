@@ -9,6 +9,7 @@ from django.template.defaultfilters import date as _date
 from django.utils.translation import ugettext_lazy as _
 
 
+
 class Settings(models.Model):
     """Configuration for Website App."""
     class Meta:
@@ -76,7 +77,7 @@ class Schedule(models.Model):
     def __str__(self):
         return '{} {}'.format(self.get_degree_display(), _date(self.stand, 'SHORT_DATE_FORMAT'))
 
-#Register an signal receiver so the image is deletet when the model is deleted
+# Register a signal receiver so the image is deleted when the model is deleted
 @receiver(pre_delete, sender=Schedule)
 def schedule_delete(sender, instance, **kwargs):
     instance.image.delete(False)

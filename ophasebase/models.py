@@ -75,7 +75,7 @@ class Ophase(models.Model):
     start_date = models.DateField(verbose_name=_('Beginn'))
     end_date = models.DateField(verbose_name=_('Ende'))
     is_active = models.BooleanField(default=False, verbose_name=_('Aktiv?'))
-    contact_email_address = models.CharField(max_length=100, verbose_name=_('Kontaktadresse Leitung'))
+    contact_email_address = models.EmailField(verbose_name=_('Kontaktadresse Leitung'))
 
     def get_name(self):
         term = _('Ophase')
@@ -91,15 +91,19 @@ class Ophase(models.Model):
         return self.get_name()
 
     def get_human_duration(self):
-        """Returns the start_date and end_date of the ophase as human readable 
-e.g. vom 3. April 2014 bis 6. April 2016"""
+        """
+        Returns the start_date and end_date of the ophase as human readable
+        e.g. vom 3. April 2014 bis 6. April 2016
+        """
         return _('vom %(begin)s bis %(end)s') % {
           'begin': formats.date_format(self.start_date, 'DATE_FORMAT'),
           'end': formats.date_format(self.end_date, 'DATE_FORMAT'),}
 
     def get_human_short_duration(self):
-        """Returns the start_date and end_date of the ophase as 
-human readable e.g. 3. - 6. April"""
+        """
+        Returns the start_date and end_date of the ophase as
+        human readable e.g. 3. - 6. April
+        """
         beginformat = 'j. '
         if self.start_date.month != self.end_date.month:
             beginformat +='F'
