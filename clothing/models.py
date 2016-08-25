@@ -48,10 +48,10 @@ class Order(models.Model):
         verbose_name = _("Bestellung")
         verbose_name_plural = _("Bestellungen")
 
-    person = models.ForeignKey(Person, verbose_name=_("Person"))
-    type = models.ForeignKey(Type, verbose_name=_("Art"))
-    size = models.ForeignKey(Size, verbose_name=_("Größe"))
-    color = models.ForeignKey(Color, verbose_name=_("Farbe"))
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("Person"))
+    type = models.ForeignKey(Type, on_delete=models.CASCADE, verbose_name=_("Art"))
+    size = models.ForeignKey(Size, on_delete=models.CASCADE, verbose_name=_("Größe"))
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, verbose_name=_("Farbe"))
     additional = models.BooleanField(verbose_name=_("Selbst bezahltes Kleidungsstück"))
 
     def __str__(self):
