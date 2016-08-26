@@ -88,6 +88,47 @@ class SizeModelTests(TestCase):
         with self.assertRaises(IntegrityError):
             s2.save()
 
+    def test_size_sortable_size(self):
+        # Check for common sizes
+        s1 = Size.objects.create(size="S")
+        self.assertEqual(s1.sortable_size(), 10)
+        s1.size = "XS"
+        self.assertEqual(s1.sortable_size(), 9)
+        s1.size = "XXS"
+        self.assertEqual(s1.sortable_size(), 8)
+        s1.size = "3XS"
+        self.assertEqual(s1.sortable_size(), 7)
+        s1.size = "M"
+        self.assertEqual(s1.sortable_size(), 20)
+        s1.size = "XM"
+        self.assertEqual(s1.sortable_size(), 20)
+        s1.size = "L"
+        self.assertEqual(s1.sortable_size(), 30)
+        s1.size = "XL"
+        self.assertEqual(s1.sortable_size(), 31)
+        s1.size = "XXL"
+        self.assertEqual(s1.sortable_size(), 32)
+        s1.size = "3XL"
+        self.assertEqual(s1.sortable_size(), 33)
+
+        # Chars before should not have a effect
+        s1.size = "Girlie-M"
+        self.assertEqual(s1.sortable_size(), 20)
+        s1.size = "Boy M"
+        self.assertEqual(s1.sortable_size(), 20)
+        # A space is ignored
+        s1.size = "Boy X S"
+        self.assertEqual(s1.sortable_size(), 9)
+
+        # end after the first number
+        s1.size = "X9XL"
+        self.assertEqual(s1.sortable_size(), 39)
+        # The 1 dose not have an effect
+        s1.size = "1XL"
+        self.assertEqual(s1.sortable_size(), 31)
+        # more then one Number has no effect
+        s1.size = "12XL"
+        self.assertEqual(s1.sortable_size(), 32)
 
 class ColorModelTests(TestCase):
     def test_color_create(self):

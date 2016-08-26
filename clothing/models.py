@@ -30,6 +30,46 @@ class Size(models.Model):
     def __str__(self):
         return self.size
 
+    def sortable_size(self):
+        """returns a sortable value of the current size.
+           So that XS < S < M < L < XL < XXL < 3XL is true"""
+        # The compution runs on Uppercase without trailing whitespace
+        input = self.size.strip().upper()
+        # Main value is given by the last char
+        last = input[-1]
+
+        # Assign the base value regarding the last char
+        base_value = {'S':10, 'M':20, 'L':30}
+        value = base_value[last]
+
+        # A 'X' before has only a  effect if the last char is 'L' or 'S'
+        x_value = 0
+        if last == 'L':
+            x_value = 1
+        elif last == 'S':
+            x_value = -1
+
+        # If a 'X' before would have an effect
+        if x_value != 0:
+            # Loop from the second to last char
+            for c in reversed(input[:-1]):
+                # ignore space between chars
+                if c.isspace():
+                    continue
+                # if a 'X' occur add the x_value
+                elif c == 'X':
+                    value += x_value
+                # if a number occure add the x_value times the value of c
+                elif c in [str(i) for i in range(2,10)]:
+                    value += x_value * (int(c) - 1)
+                    # a number is the first possible char with an effect
+                    break
+                else:
+                    # If another char occur we end the loop. All following 
+                    # chars will not have an effect on the value
+                    break
+
+        return value
 
 class Color(models.Model):
     class Meta:
