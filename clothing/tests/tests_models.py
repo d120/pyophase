@@ -130,6 +130,10 @@ class SizeModelTests(TestCase):
         s1.size = "12XL"
         self.assertEqual(s1.sortable_size(), 32)
 
+        # Some not expected Notation
+        s1.size = "S (Taliert)"
+        self.assertEqual(s1.sortable_size(), 0)
+
 class ColorModelTests(TestCase):
     def test_color_create(self):
         """Ensure creating a color object works"""

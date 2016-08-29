@@ -40,7 +40,7 @@ class Size(models.Model):
 
         # Assign the base value regarding the last char
         base_value = {'S':10, 'M':20, 'L':30}
-        value = base_value[last]
+        value = base_value.get(last, 0)
 
         # A 'X' before has only a  effect if the last char is 'L' or 'S'
         x_value = 0
