@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-29 19:15+0200\n"
+"POT-Creation-Date: 2016-08-29 20:29+0200\n"
 "PO-Revision-Date: 2016-08-29 19:18+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,7 +137,6 @@ msgid "Selbst bezahltes Kleidungsstück"
 msgstr "Self-paid piece of clothing"
 
 #: models.py:91
-#| msgid "Bestellt?"
 msgid "Erstellt am"
 msgstr "Created at"
 
@@ -239,7 +238,6 @@ msgid "Hallo <b>%(prename)s</b>!"
 msgstr "Hello <b>%(prename)s</b>!"
 
 #: templates/clothing/order.html:19
-#| msgid ""
 msgid ""
 "Du kannst mehrere Kleidungsstücke bestellen, indem du mehrere "
 "Formularabschnitte ausfüllst. Lass die übrigen einfach leer."
