@@ -30,7 +30,7 @@ class OrderClothingForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        if cleaned_data['type'].additional_only and not cleaned_data['additional']:
+        if cleaned_data.get('type', False) and cleaned_data['type'].additional_only and not cleaned_data['additional']:
             self.add_error('additional', ValidationError(_('Dieses Kleidungsstück ist nur als selbst bezahltes Kleidungsstück bestellbar.')))
         elif not self.person.eligible_for_clothing and not cleaned_data['additional']:
             self.add_error('additional', ValidationError(_('Nur Tutoren und Orgas bekommen ein kostenloses Kleidungsstück. Du kannst aber zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst.')))
