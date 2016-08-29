@@ -36,18 +36,13 @@ class Size(models.Model):
         # The compution runs on Uppercase without trailing whitespace
         input = self.size.strip().upper()
         # Main value is given by the last char
-        last = input[-1]
+        last_char = input[-1]
 
         # Assign the base value regarding the last char
-        base_value = {'S':10, 'M':20, 'L':30}
-        value = base_value.get(last, 0)
+        value = {'S':10, 'M':20, 'L':30}.get(last_char, 0)
 
         # A 'X' before has only a  effect if the last char is 'L' or 'S'
-        x_value = 0
-        if last == 'L':
-            x_value = 1
-        elif last == 'S':
-            x_value = -1
+        x_value = {'S':-1, 'L':1}.get(last_char, 0)
 
         # If a 'X' before would have an effect
         if x_value != 0:
