@@ -6,9 +6,19 @@
 
 {% if clothing_ordering_enabled %}
 
+
+{% if wizard.steps.step0 == 0 %}
 <div class="well">
     {% trans "Du kannst nach der Anmeldung mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
 </div>
+{% endif %}
+{% if wizard.steps.step0 >= 1 %}
+<div class="alert alert-info" role="alert">
+    {% blocktrans with prename=person.prename %}Hallo <b>{{ prename }}</b>!{% endblocktrans %}
+    <br>
+    {% trans "Du kannst mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
+</div>
+{% endif %}
 
 <div id="mainForm">
     <form role="form" action="{{action}}" method="POST">

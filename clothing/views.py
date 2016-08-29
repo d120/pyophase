@@ -23,6 +23,10 @@ class OrderClothingView(SessionWizardView):
             context['clothing_ordering_enabled'] = settings.clothing_ordering_enabled
         else:
             context['clothing_ordering_enabled'] = False
+        if context['wizard']['steps'].step0 >= 1:
+            email = self.get_cleaned_data_for_step("0")['email']
+            person = Person.get_by_email_address_current(email)
+            context['person'] = person
         return context
 
     def get_form_kwargs(self, step=None):
