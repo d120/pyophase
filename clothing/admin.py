@@ -24,8 +24,10 @@ class ColorAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['person', 'type', 'size', 'color', 'additional']
     ordering = ['person', 'type', 'size']
-    list_display_links = ['type', 'size', 'color']
+    list_display_links = ['person', 'type', 'size', 'color']
     list_filter = ['additional', 'color']
+    search_fields = ('person__prename', 'person__name')
+    readonly_fields = ('created_at', 'updated_at')
 
 @admin.register(Settings)
 class SettingsAdmin(admin.ModelAdmin):
