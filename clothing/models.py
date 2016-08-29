@@ -88,6 +88,8 @@ class Order(models.Model):
     size = models.ForeignKey(Size, on_delete=models.CASCADE, verbose_name=_("Größe"))
     color = models.ForeignKey(Color, on_delete=models.CASCADE, verbose_name=_("Farbe"))
     additional = models.BooleanField(verbose_name=_("Selbst bezahltes Kleidungsstück"))
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Erstellt am"))
+    updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
 
     def __str__(self):
         return "{}: {} {} {}".format(

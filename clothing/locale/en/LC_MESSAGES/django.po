@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-25 11:39+0200\n"
+"POT-Creation-Date: 2016-08-29 18:10+0200\n"
 "PO-Revision-Date: 2016-08-25 11:24+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dashboard_views.py:15 dashboard_widgets.py:11
+#: dashboard_views.py:15 dashboard_widgets.py:12
 #: templates/clothing/dashboard/orders_aggregated.html:4
 #: templates/clothing/dashboard/orders_overview.html:4
 #: templates/clothing/dashboard/orders_person_free.html:4
@@ -39,33 +39,33 @@ msgstr "Main order"
 msgid "Aggregierte Bestellungen"
 msgstr "Aggregated orders"
 
-#: dashboard_views.py:68 dashboard_views.py:82
+#: dashboard_views.py:69 dashboard_views.py:83
 msgid "Kostenlos"
 msgstr "For free"
 
-#: dashboard_views.py:68 dashboard_views.py:84
+#: dashboard_views.py:69 dashboard_views.py:85
 #: templates/clothing/dashboard/widget_orders.html:5
 msgid "Zusätzlich"
 msgstr "Additional"
 
-#: dashboard_widgets.py:19
+#: dashboard_widgets.py:20
 msgid "Ophase"
 msgstr "Ophase"
 
-#: forms.py:10
+#: forms.py:11
 msgid "E-Mail-Adresse wie bei der Registrierung angegeben"
 msgstr "E-mail-address as specified at registration"
 
-#: forms.py:18
+#: forms.py:19
 msgid "Die E-Mail-Adresse gehört nicht zu einer registrierten Person."
 msgstr "This e-mail-address does not match a registered person."
 
-#: forms.py:33
+#: forms.py:34
 msgid ""
 "Dieses Kleidungsstück ist nur als selbst bezahltes Kleidungsstück bestellbar."
 msgstr "This piece of clothing is only available when you pay self."
 
-#: forms.py:35
+#: forms.py:36
 msgid ""
 "Nur Tutoren und Orgas bekommen ein kostenloses Kleidungsstück. Du kannst "
 "aber zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst."
@@ -73,7 +73,7 @@ msgstr ""
 "Only tutors and organizers get a free piece of clothing. However, you can "
 "order an additional piece if you pay for it"
 
-#: forms.py:50
+#: forms.py:51
 msgid ""
 "Du kannst nur ein kostenloses Kleidungsstück bestellen. Du kannst aber "
 "zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst."
@@ -81,7 +81,7 @@ msgstr ""
 "You can only order one free piece of clothing. However, you can order "
 "additional pieces if you pay for them."
 
-#: models.py:11 models.py:15 models.py:52
+#: models.py:11 models.py:15 models.py:87
 msgid "Art"
 msgstr "Type"
 
@@ -97,7 +97,7 @@ msgstr "Price"
 msgid "Nur als selbst bezahltes Kleidungsstück möglich"
 msgstr "Only available as self-paid piece of clothing"
 
-#: models.py:25 models.py:28 models.py:53
+#: models.py:25 models.py:28 models.py:88
 msgid "Größe"
 msgstr "Size"
 
@@ -105,58 +105,68 @@ msgstr "Size"
 msgid "Größen"
 msgstr "Sizes"
 
-#: models.py:36 models.py:39 models.py:54
+#: models.py:71 models.py:74 models.py:89
 #: templates/clothing/dashboard/orders_overview.html:14
 msgid "Farbe"
 msgstr "Color"
 
-#: models.py:37
+#: models.py:72
 msgid "Farben"
 msgstr "Colors"
 
-#: models.py:40
+#: models.py:75
 msgid "Farbcode"
 msgstr "Color-code"
 
-#: models.py:48
+#: models.py:83
 msgid "Bestellung"
 msgstr "Order"
 
-#: models.py:49 templates/clothing/dashboard/orders_overview.html:4
+#: models.py:84 templates/clothing/dashboard/orders_overview.html:4
 #: templates/clothing/dashboard/orders_overview.html:7
 #: templates/clothing/dashboard/widget_orders.html:3
 msgid "Bestellungen"
 msgstr "Orders"
 
-#: models.py:51
+#: models.py:86
 msgid "Person"
 msgstr "Person"
 
-#: models.py:55
+#: models.py:90
 msgid "Selbst bezahltes Kleidungsstück"
 msgstr "Self-paid piece of clothing"
 
-#: models.py:68
+#: models.py:91
+#, fuzzy
+#| msgid "Bestellt?"
+msgid "Erstellt am"
+msgstr "Ordered?"
+
+#: models.py:92
+msgid "Verändert am"
+msgstr ""
+
+#: models.py:105
 msgid "selbst bezahlt"
 msgstr "self-paid"
 
-#: models.py:68
+#: models.py:105
 msgid "kostenlos"
 msgstr "free"
 
-#: models.py:79 models.py:80
+#: models.py:116 models.py:117
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: models.py:82
+#: models.py:119
 msgid "Kleiderbestellung aktiv"
 msgstr "Ordering is currently active"
 
-#: models.py:85
+#: models.py:122 tests/tests_models.py:30
 msgid "Clothing Einstellungen"
 msgstr "Clothing Settings"
 
-#: models.py:93
+#: models.py:130
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
@@ -185,27 +195,27 @@ msgstr "Ordered?"
 msgid "Kostenlos / Berechtigte"
 msgstr "For free / Eligible persons"
 
-#: templates/clothing/mail.html:2
+#: templates/clothing/mail/order.txt:1
 msgid "Hallo"
 msgstr "Hello"
 
-#: templates/clothing/mail.html:4
+#: templates/clothing/mail/order.txt:3
 msgid ""
 "deine Kleiderbestellung für die Ophase wurde aktualisiert. Aktuell ist "
 "folgendes für dich vermerkt:"
 msgstr "you order for Ophase clothes was updated. Your current order is:"
 
-#: templates/clothing/mail.html:8
+#: templates/clothing/mail/order.txt:7
 msgid ""
 "Du kannst deine Bestellung unter der folgenden Adresse bearbeiten oder "
 "ergänzen:"
 msgstr "You can change your order at the following website:"
 
-#: templates/clothing/mail.html:11
+#: templates/clothing/mail/order.txt:10
 msgid "Liebe Grüße"
 msgstr "Kind regards"
 
-#: templates/clothing/mail.html:12
+#: templates/clothing/mail/order.txt:11
 msgid "die Ophasenleitung"
 msgstr "Head of Ophase"
 
@@ -240,11 +250,11 @@ msgstr "Order successfully saved."
 msgid "Weitere Bestellung aufgeben"
 msgstr "Order another piece of clothing"
 
-#: views.py:48
+#: views.py:47
 msgid "Keine Bestellungen"
 msgstr "No orders"
 
-#: views.py:51
+#: views.py:50
 #, python-format
 msgid "Kleiderbestellung %(ophase)s"
 msgstr "Clothing order %(ophase)s"
