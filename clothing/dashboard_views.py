@@ -31,7 +31,7 @@ class OrderOverView(ClothingAppMixin, ListView):
     template_name = "clothing/dashboard/orders_overview.html"
 
     def get_queryset(self):
-        return Order.get_current()
+        return Order.get_current().select_related('person', 'type', 'size', 'color')
 
 
 class FreeClothingView(ClothingAppMixin, ListView):

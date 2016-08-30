@@ -11,15 +11,15 @@
 <tr>
     <th>{% trans "Wer" %}</th>
     <th>{% trans "Bestellt?" %}</th>
-    <th></th>
+    <th>{% trans "Anzahl kostenloser Bestellungen"%}</th>
 </tr>
 </thead>
 {% for person in persons %}
     {% if person.eligible_for_clothing %}
     <tr class="{% if person.num_free_orders == 1 %}success{% else %}danger{% endif %}">
         <td>{{ person.prename }} {{ person.name }}</td>
-        <td>{{ person.num_free_orders }}</td>
         <td>{% if person.num_free_orders == 1 %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %}
+        <td>{{ person.num_free_orders }}</td>
     </tr>
     {% endif %}
 {% empty %}
