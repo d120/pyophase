@@ -24,8 +24,10 @@ class Size(models.Model):
     class Meta:
         verbose_name = _("Größe")
         verbose_name_plural = _("Größen")
+        ordering = ('size_sortable', 'size')
 
     size = models.CharField(max_length=75, verbose_name=_("Größe"), unique=True)
+    size_sortable = models.PositiveSmallIntegerField(default = 0, verbose_name=_("Sortierbare Größe"), help_text=_("Dieser Wert wird automatisch berechnet"))
 
     def __str__(self):
         return self.size
@@ -65,6 +67,10 @@ class Size(models.Model):
                     break
 
         return value
+
+    def save(self, *args, **kwargs):
+        self.size_sortable = self.sortable_size()
+        super().save(*args, **kwargs)
 
 class Color(models.Model):
     class Meta:

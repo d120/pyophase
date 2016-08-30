@@ -63,7 +63,6 @@ class OrderAggregatedView(ClothingAppMixin, TemplateView):
         types = Type.objects.all()
         colors = Color.objects.all()
         sizes = Size.objects.all()
-        sizes = sorted(sizes, key=lambda x:x.sortable_size())
 
         context['orders'] = OrderedDict()
         for additional_type, additional_name in [(False, _('Kostenlos')), (True, _('Zusätzlich'))]:

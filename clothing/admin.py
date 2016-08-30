@@ -12,6 +12,7 @@ class TypeAdmin(admin.ModelAdmin):
 @admin.register(Size)
 class SizeAdmin(admin.ModelAdmin):
     list_display = ['size']
+    readonly_fields = ('size_sortable',)
 
 
 @admin.register(Color)
