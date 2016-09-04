@@ -217,7 +217,7 @@ msgstr "Hello"
 msgid ""
 "deine Kleiderbestellung für die Ophase wurde aktualisiert. Aktuell ist "
 "folgendes für dich vermerkt:"
-msgstr "you order for Ophase clothes was updated. Your current order is:"
+msgstr "your order for Ophase clothes was updated. Your current order is:"
 
 #: templates/clothing/mail/order.txt:7
 msgid ""
