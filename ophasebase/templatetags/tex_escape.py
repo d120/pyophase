@@ -22,6 +22,8 @@ def tex_escape(value):
         '~': r'\textasciitilde{}',
         '^': r'\^{}',
         '\\': r'\textbackslash{}',
+        '<': r'\textless{}',
+        '>': r'\textgreater{}',
     }
     regex = re.compile('|'.join(re.escape(key) for key in replacements))
     return regex.sub(lambda match: replacements[match.group()], value)
