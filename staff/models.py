@@ -2,6 +2,7 @@ from urllib.parse import quote
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.functional import lazy
 from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Ophase
@@ -199,6 +200,11 @@ class AttendanceEvent(models.Model):
     begin = models.DateTimeField(verbose_name=_("Beginn"))
     end = models.DateTimeField(verbose_name=_("Ende"))
     required_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"))
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
+
+    @staticmethod
+    def get_current(**kwargs):
+        return AttendanceEvent.objects.filter(ophase=Ophase.current(), **kwargs)
 
     def __str__(self):
         return self.name
