@@ -139,14 +139,32 @@ class StaffFilterGroup(models.Model):
         ordering = ['name']
 
     name = models.CharField(max_length=100, verbose_name=_("Name"))
-    is_tutor = models.BooleanField(default=False, verbose_name=_("Tutor?"), help_text=_("Soll der Filter auf Tutoren zutreffen"))
     is_orga = models.BooleanField(default=False, verbose_name=_("Orga?"), help_text=_("Soll der Filter auf Orgas zutreffen"))
     is_helper = models.BooleanField(default=False, verbose_name=_("Helfer?"), help_text=_("Soll der Filter auf Helfer zutreffen"))
-    tutor_for_all = models.BooleanField(default=False, verbose_name=_("Alle Tutorenkategorien?"), help_text=_("Soll der Filter auf alle Tutorengruppen zutreffen (sonst spezifizieren). Nur relevant, wenn Tutoren ausgewählt wurden."))
+    tutor_for_all = models.BooleanField(default=False, verbose_name=_("Alle Tutorenkategorien?"), help_text=_("Soll der Filter auf alle Tutorengruppen zutreffen (sonst spezifizieren)."))
     tutor_for = models.ManyToManyField(GroupCategory, blank=True, verbose_name=_("Tutor für"), help_text=_("Welche Tutorengruppen sollen einbezogen werden?"))
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_tutor(self):
+        return self.tutor_for_all or self.tutor_for.count() > 0
+
+    def get_filtered_staff(self):
+        queryset = Person.objects.none()
+
+        if self.is_tutor:
+            if self.tutor_for_all:
+                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__tutorgroup__isnull=False)
+            else:
+                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__tutorgroup__in=self.tutor_for)
+        if self.is_orga:
+            queryset = queryset | Person.objects.filter(is_orga=True)
+        if self.is_helper:
+            queryset = queryset | Person.objects.filter(is_helper=True)
+
+        return queryset
 
 
 class TutorGroup(models.Model):
