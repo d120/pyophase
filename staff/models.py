@@ -2,10 +2,9 @@ from urllib.parse import quote
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.utils.functional import lazy
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, Room
 
 
 class GroupCategory(models.Model):
@@ -32,12 +31,14 @@ class Job(models.Model):
     def __str__(self):
         return self.label
 
+
 class OrgaJob(Job):
     """Job for an organizer."""
     class Meta:
         verbose_name = _("Orgajob")
         verbose_name_plural = _("Orgajobs")
         ordering = ['label']
+
 
 class HelperJob(Job):
     """Job for a helper."""
@@ -219,9 +220,10 @@ class AttendanceEvent(models.Model):
     end = models.DateTimeField(verbose_name=_("Ende"))
     required_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"))
     ophase = models.ForeignKey(Ophase, models.CASCADE)
+    room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True)
 
     @staticmethod
-    def get_current(**kwargs):
+    def get_current_events(**kwargs):
         return AttendanceEvent.objects.filter(ophase=Ophase.current(), **kwargs)
 
     def __str__(self):
