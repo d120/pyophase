@@ -1,0 +1,42 @@
+{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% block title %}Joint-Bachelor Informatik{% endblock %}
+{% block heading %}Ophase für Joint-Bachelor mit Informatik{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumbs">
+    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Joint-Bachelor
+</div>
+
+<p>
+    Für Erstsemester im Joint-Bachelor of Arts mit Nebenfach Informatik haben wir im Rahmen der Orientierungswoche für
+    reine Informatik-Studierende eine eigene Kleingruppe geplant, in der Du alle wichtigen Informationen zu Deinem
+    Studium erhältst. Aber auch an einigen anderen Veranstaltungen unserer Ophase kannst Du teilnehmen, solange Du keine
+    Überschneidung mit dem Orientierungsprogramm des Fachbereich 2 hast.
+</p>
+
+<p>
+    Das Geländespiel ist das klassische Triell zwischen den Fachbereichen Informatik, Mathematik und Physik, bei dem wir
+    und an verschiedenen Stationen spielerisch messen. Der Aushang zu den Workshops wird ab Montag Nachmittag im Foyer
+    des Robert-Piloty-Gebäudes zu finden sein. Bitte auch dort für die Workshops eintragen, die Du besuchen möchtest.
+</p>
+
+<p>
+    Wende Dich bei Fragen jederzeit gerne an ophase-leitung(at)d120.de oder ruf unseren Helpdesk unter der Nummer
+    +49 (0) 6151 16-25522 an.
+</p>
+
+<p>
+    Hier findest Du den Stundenplan für Joint-Bachelor mit Informatik für die {{ ophase_title }} {{ ophase_duration }}.
+    Änderungen sind bis kurz vor Beginn der Ophase möglich. (Stand: {{ schedule.stand|date:"SHORT_DATE_FORMAT" }})
+</p>
+
+<img src="{{ schedule.image.url }}" class="img-responsive" />
+
+<div class="padding-top-1"></div>
+<p>
+    Gültig sind nur Zeit- und Raumangaben in diesem Stundenplan. Andere Angaben
+    (zum Beispiel im uniweiten Raumbuchungssystem) haben keine Bedeutung.
+</p>
+
+{% endblock %}

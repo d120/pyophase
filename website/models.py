@@ -60,6 +60,8 @@ class Schedule(models.Model):
         ('BSC', _('Bachelor')),
         ('MSC', _('Master Deutsch')),
         ('DSS', _('Distributed Software Systems')),
+        ('JBA', _('Joint-Bachelor of Arts')),
+        ('EDU', _('Lehramt Bachelor of Education')),
     )
 
     def fixedname_upload_to(instance, filename):

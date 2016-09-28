@@ -49,6 +49,7 @@ class WebsiteView(TemplateView):
         context['ophase_duration'] = current_ophase.get_human_duration()
         return context
 
+
 class ScheduleView(WebsiteView):
     """Extends the django TemplateView by adding the Ophase.current() object
     to the context data as current_ophase"""
@@ -67,8 +68,12 @@ class ScheduleView(WebsiteView):
             return 'website/master-de.html'
         elif degree == 'DSS':
             return 'website/master-dss.html'
+        elif degree == 'JBA':
+            return 'website/jba.html'
+        elif degree == 'EDU':
+            return 'website/lehramt.html'
+
 
 class HelfenView(WebsiteView):
-
     template_name = "website/helfen.html"
 
