@@ -44,8 +44,10 @@ class WebsiteView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_ophase = Ophase.current()
+        website_settings = WebsiteSettings.instance()
         context['current_ophase'] = current_ophase
         context['ophase_title'] = str(current_ophase)
+        context['website_settings'] = website_settings
         context['ophase_duration'] = current_ophase.get_human_duration()
         return context
 

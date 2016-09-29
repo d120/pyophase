@@ -16,8 +16,8 @@
 
 <p>
     Du kannst den Stundenplan auch ausgedruckt von unserem Helpdesk im Raum S2|02 D120 erhalten, komm einfach vorbei.
-    Bei Fragen kannst du uns jederzeit eine Mail an ophase-leitung(at)d120.de schreiben oder unter der Nummer +49 (0)
-    6151 16-25522 anrufen.
+    Bei Fragen kannst du uns jederzeit eine Mail an {{ current_ophase.contact_email_address|urlize }} schreiben oder unter der Nummer
+    {{ website_settings.helpdesk_phone_number }} anrufen.
 </p>
 
 <img src="{{ schedule.image.url }}" class="img-responsive padding-top-1" />
