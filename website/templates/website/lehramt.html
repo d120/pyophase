@@ -1,15 +1,15 @@
 {% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
-{% block title %}Lehramt Bachelor of Education{% endblock %}
+{% block title %}Bachelor of Education{% endblock %}
 {% block heading %}Ophase für Bachelor of Education{% endblock %}
 
 {% block content %}
 
 <div class="breadcrumbs">
-    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Lehramt
+    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; B.Ed.
 </div>
 
 <p>
-    Hier findest Du den Stundenplan für Lehramts-Erstsemester im Bachelor of Education für die {{ ophase_title }}
+    Hier findest Du den Stundenplan für Erstsemester im Bachelor of Education für die {{ ophase_title }}
     {{ ophase_duration }}. Änderungen sind bis kurz vor Beginn der Ophase möglich. (Stand:
     {{ schedule.stand|date:"SHORT_DATE_FORMAT" }})
 </p>
