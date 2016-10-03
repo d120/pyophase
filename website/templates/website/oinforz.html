@@ -1,0 +1,15 @@
+{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% block title %}OInforze{% endblock %}
+{% block heading %}OInforze zur Ophase{% endblock %}
+
+{% block content %}
+
+<div class="breadcrumbs">
+    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; OInforze
+</div>
+
+{% for oinforz in oinforze %}
+    <h1>{{ oinforz.get_degree_display }}</h1>
+{% endfor %}
+
+{% endblock %}

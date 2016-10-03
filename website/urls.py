@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^jba/$', views.ScheduleView.as_view(), kwargs={'degree': 'JBA'}, name='jba'),
     url(r'^lehramt/$', views.ScheduleView.as_view(), kwargs={'degree': 'EDU'}, name='lehramt'),
     url(r'^helfen/$', views.HelfenView.as_view(), name='helfen'),
+    url(r'^oinforz/$', views.OInforzView.as_view(), name='oinforz'),
 ]
