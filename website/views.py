@@ -6,7 +6,7 @@ from staff.models import Settings as StaffSettings
 from students.models import Settings as StudentsSettings
 from workshops.models import Settings as WorkshopSettings
 
-from .models import Schedule, Settings as WebsiteSettings
+from .models import Schedule, Settings as WebsiteSettings, OInforz
 
 
 class HomepageView(TemplateView):
@@ -79,3 +79,11 @@ class ScheduleView(WebsiteView):
 class HelfenView(WebsiteView):
     template_name = "website/helfen.html"
 
+
+class OInforzView(WebsiteView):
+    template_name = "website/oinforz.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['oinforze'] = OInforz.objects.all()
+        return context
