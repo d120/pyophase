@@ -62,7 +62,7 @@ class Settings(models.Model):
         verbose_name = _("Einstellungen")
         verbose_name_plural = _("Einstellungen")
 
-    student_registration_enabled = models.BooleanField(default=False, verbose_name=_("Klausuranmeldung aktiv"))
+    student_registration_enabled = models.BooleanField(default=False, verbose_name=_("Studenten Registrierung aktiv"))
 
     def get_name(self):
         return '%s' % _("Students Einstellungen")
