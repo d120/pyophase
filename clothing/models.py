@@ -96,6 +96,7 @@ class Order(models.Model):
     additional = models.BooleanField(verbose_name=_("Selbst bezahltes Kleidungsstück"))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Erstellt am"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
+    paid = models.BooleanField(default=False)
     received_at = models.DateField(null=True, blank=True, verbose_name=_("Ausgegeben am"))
 
     def __str__(self):
