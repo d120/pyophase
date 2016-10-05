@@ -24,6 +24,11 @@
         <td>
             {% if order.additional %}
                 <i class="fa fa-money" aria-hidden="true"></i>
+                {% if order.paid %}
+                    <span title="{% trans 'Bereits bezahlt' %}">{% bootstrap_icon "ok" %}</span>
+                {% else %}
+                    <span title="{% trans 'Noch nicht bezahlt' %}">{% bootstrap_icon "warning-sign" %}</span>
+                {% endif %}
             {% endif %}
         </td>
         <td>{% if order.received_at %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %}</td>
