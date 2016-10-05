@@ -13,10 +13,11 @@
     <th>{% trans "Kleidungsstück" %}</th>
     <th>{% trans "Farbe" %}</th>
     <th></th>
+    <th>{% trans "Erhalten" %}</th>
 </tr>
 </thead>
 {% for order in orders %}
-    <tr>
+    <tr class="{% if order.received_at %}success{% else %}danger{% endif %}">
         <td>{{ order.person.prename }} {{ order.person.name }}</td>
         <td>{{ order.type }} {{ order.size }}</td>
         <td>{{ order.color }}</td>
@@ -25,6 +26,7 @@
                 <i class="fa fa-money" aria-hidden="true"></i>
             {% endif %}
         </td>
+        <td>{% if order.received_at %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %}</td>
     </tr>
 {% empty %}
     <tr><td>{% trans "Bisher keine Bestellungen" %}</td><td></td><td></td></tr>
