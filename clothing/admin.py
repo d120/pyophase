@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .admin_actions import mark_paid, mark_received, mark_paid_and_received
 from .models import Color, Order, Settings, Size, Type
 
 
@@ -29,6 +30,8 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['additional', 'color']
     search_fields = ('person__prename', 'person__name')
     readonly_fields = ('created_at', 'updated_at')
+    actions = [mark_paid, mark_received, mark_paid_and_received]
+
 
 @admin.register(Settings)
 class SettingsAdmin(admin.ModelAdmin):
