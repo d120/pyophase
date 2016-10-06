@@ -120,10 +120,20 @@ class TutorGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
-    list_display = ['person', 'status', 'event']
-    list_filter = ['event']
+    list_display = ['link_person', 'person_phone', 'status', 'event']
+    list_filter = ['event', 'status']
     list_display_links = ['status']
     actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x]
+
+    @staticmethod
+    def link_person(event):
+        return format_html('<a href="{url}">{name}</a>',
+                           url=reverse('admin:staff_person_change',  args=(event.person.id, )),
+                           name=event.person)
+
+    @staticmethod
+    def person_phone(event):
+        return event.person.phone
 
 
 @admin.register(AttendanceEvent)
