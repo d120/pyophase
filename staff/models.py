@@ -205,7 +205,7 @@ class Attendance(models.Model):
     comment = models.TextField(verbose_name=_("Kommentar"), blank=True)
 
     def __str__(self):
-        return "{} @ {}: {}".format(self.person, self.event, self.status)
+        return "{} @ {}: {}".format(self.person, self.event, self.get_status_display())
 
 
 class AttendanceEvent(models.Model):
