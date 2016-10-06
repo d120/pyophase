@@ -157,9 +157,9 @@ class StaffFilterGroup(models.Model):
 
         if self.is_tutor:
             if self.tutor_for_all:
-                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__tutorgroup__isnull=False)
+                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__isnull=False)
             else:
-                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__tutorgroup__in=self.tutor_for)
+                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__in=self.tutor_for.all())
         if self.is_orga:
             queryset = queryset | Person.objects.filter(is_orga=True)
         if self.is_helper:

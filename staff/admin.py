@@ -12,7 +12,7 @@ from .admin_actions import (
     staff_nametag_export,
     staff_overview_export,
     tutorgroup_export,
-)
+    update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e)
 from .models import (
     GroupCategory,
     HelperJob,
@@ -120,11 +120,14 @@ class TutorGroupAdmin(admin.ModelAdmin):
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
     list_display = ['event', 'person', 'status']
+    list_filter = ['event']
+    actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x]
 
 
 @admin.register(AttendanceEvent)
 class AttendanceAdmin(admin.ModelAdmin):
     list_display = ['name', 'begin', 'end', 'required_for']
+    actions = [update_attendees]
 
 
 @admin.register(Settings)

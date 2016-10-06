@@ -12,7 +12,7 @@ from django.template.response import SimpleTemplateResponse, TemplateResponse
 from django.urls import reverse
 from django.utils.translation import ugettext as _, ungettext
 
-from staff.models import HelperJob, OrgaJob
+from staff.models import HelperJob, OrgaJob, Attendance
 
 
 def mail_export(modeladmin, request, queryset):
@@ -235,3 +235,32 @@ def send_fillform_mail(modeladmin, request, queryset):
 
 
 send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')
+
+
+def update_attendees(modeladmin, request, queryset):
+    for event in queryset:
+        existing_pesons = event.attendance_set.values("person")
+        required_for_queryset = event.required_for.get_filtered_staff()
+        new_attendees = required_for_queryset.exclude(pk__in=existing_pesons)
+
+        Attendance.objects.bulk_create([Attendance(event=event, person=person, status='x') for person in new_attendees])
+    modeladmin.message_user(request, _("Teilnehmerliste aktualisiert."))
+update_attendees.short_description = _("Liste der Teilnehmer aktualisieren (anhand des Zielgruppenfilters)")
+
+
+def mark_attendance_x(modeladmin, request, queryset):
+    queryset.update(status='x')
+    modeladmin.message_user(request, _("Als 'nicht anwesend' markiert."))
+mark_attendance_x.short_description = _("Als 'nicht anwesend' markieren")
+
+
+def mark_attendance_a(modeladmin, request, queryset):
+    queryset.update(status='a')
+    modeladmin.message_user(request, _("Als 'anwesend' markiert."))
+mark_attendance_a.short_description = _("Als 'anwesend' markieren")
+
+
+def mark_attendance_e(modeladmin, request, queryset):
+    queryset.update(status='e')
+    modeladmin.message_user(request, _("Als 'entschuldigt' markiert."))
+mark_attendance_e.short_description = _("Als 'entschuldigt' markieren")
