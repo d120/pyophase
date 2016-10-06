@@ -30,12 +30,14 @@
 % #2: Nachname
 % #3: Tutor 1
 % #4: Tutor 2
+% #5: Tutor 3
+% #6: Gruppenname
 
 % Dieser Text kann natuerlich angepasst werden, aber die Variablen #{1..4} sollten an den richtigen
 % Stellen auftauchen :) Beim Aufruf von ``pdflatex scheine.tex'' werden sie mit dem Input aus
 % scheine.tex befuellt
 
-\newcommand{\schein}[4]{
+\newcommand{\schein}[6]{
     \seitenkopf
     
     \vspace{1cm}
@@ -59,12 +61,12 @@
     \noindent mit Erfolg besucht. Als Leistungsnachweis wurde eine Klausur abgelegt sowie
     tutorenbetreute Kleingruppenarbeit erbracht. \\
     
-    \noindent Er/sie hat in der Kleingruppe bei
+    \noindent Er/sie hat in der Kleingruppe #6 bei
 
     \vspace{2.5cm}
 
-    \begin{tabularx}{\textwidth}{p{.1\textwidth}p{.5\textwidth}p{.4\textwidth}}
-     & #3 & #4
+    \begin{tabularx}{\textwidth}{p{.01\textwidth}p{.3\textwidth}p{.3\textwidth}p{.39\textwidth}}
+     & #3 & #4 & #5
     \end{tabularx} \\
     
     \noindent bestanden. \\
