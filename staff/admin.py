@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.templatetags.admin_list import _boolean_icon
 from django.templatetags.static import static
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 
@@ -12,7 +13,7 @@ from .admin_actions import (
     staff_nametag_export,
     staff_overview_export,
     tutorgroup_export,
-)
+    update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e)
 from .models import (
     GroupCategory,
     HelperJob,
@@ -20,6 +21,9 @@ from .models import (
     Person,
     Settings,
     TutorGroup,
+    StaffFilterGroup,
+    Attendance,
+    AttendanceEvent
 )
 
 
@@ -29,6 +33,7 @@ from .models import (
 class LabelSortAdmin(admin.ModelAdmin):
     """Simple ModelAdmin which just shows the field Value in the list view"""
     list_display = ['label']
+
 
 class TutorFilter(admin.SimpleListFilter):
     title = _('Tutorenstatus')
@@ -97,6 +102,11 @@ class PersonAdmin(admin.ModelAdmin):
     is_tutor_with_title.short_description = _('Tutor')
 
 
+@admin.register(StaffFilterGroup)
+class StaffFilterGroupAdmin(admin.ModelAdmin):
+    list_display = ['name', 'is_tutor', 'is_orga', 'is_helper']
+
+
 @admin.register(TutorGroup)
 class TutorGroupAdmin(admin.ModelAdmin):
     list_display = ['name', 'get_tutors', 'group_category']
@@ -106,6 +116,27 @@ class TutorGroupAdmin(admin.ModelAdmin):
     def get_tutors(self, obj):
         return ", ".join([str(t) for t in obj.tutors.all()])
     get_tutors.short_description = _('Tutoren')
+
+
+@admin.register(Attendance)
+class AttendanceAdmin(admin.ModelAdmin):
+    list_display = ['person', 'status', 'event']
+    list_filter = ['event']
+    list_display_links = ['status']
+    actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x]
+
+
+@admin.register(AttendanceEvent)
+class AttendanceAdmin(admin.ModelAdmin):
+    list_display = ['name', 'begin', 'end', 'required_for', 'link_attendance_list']
+    actions = [update_attendees]
+
+    @staticmethod
+    def link_attendance_list(event):
+        return format_html('<a href="{url}?event__id__exact={id}">{name}</a>',
+                           url=reverse('admin:staff_attendance_changelist'),
+                           id=event.pk,
+                           name=_('Teilnehmerliste'))
 
 
 @admin.register(Settings)

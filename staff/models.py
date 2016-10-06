@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, Room
 
 
 class GroupCategory(models.Model):
@@ -31,12 +31,14 @@ class Job(models.Model):
     def __str__(self):
         return self.label
 
+
 class OrgaJob(Job):
     """Job for an organizer."""
     class Meta:
         verbose_name = _("Orgajob")
         verbose_name_plural = _("Orgajobs")
         ordering = ['label']
+
 
 class HelperJob(Job):
     """Job for a helper."""
@@ -130,6 +132,42 @@ class Person(models.Model):
         return Person.get_by_email_address(address, Ophase.current())
 
 
+class StaffFilterGroup(models.Model):
+    """An abstraction mechanism to reference a complicated filter on persons."""
+    class Meta:
+        verbose_name = _("Staff Filtergruppe")
+        verbose_name_plural = _("Staff Filtergruppen")
+        ordering = ['name']
+
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    is_orga = models.BooleanField(default=False, verbose_name=_("Orga?"), help_text=_("Soll der Filter auf Orgas zutreffen"))
+    is_helper = models.BooleanField(default=False, verbose_name=_("Helfer?"), help_text=_("Soll der Filter auf Helfer zutreffen"))
+    tutor_for_all = models.BooleanField(default=False, verbose_name=_("Alle Tutorenkategorien?"), help_text=_("Soll der Filter auf alle Tutorengruppen zutreffen (sonst spezifizieren)."))
+    tutor_for = models.ManyToManyField(GroupCategory, blank=True, verbose_name=_("Tutor für"), help_text=_("Welche Tutorengruppen sollen einbezogen werden?"))
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def is_tutor(self):
+        return self.tutor_for_all or self.tutor_for.count() > 0
+
+    def get_filtered_staff(self):
+        queryset = Person.objects.none()
+
+        if self.is_tutor:
+            if self.tutor_for_all:
+                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__isnull=False)
+            else:
+                queryset = queryset | Person.objects.filter(is_tutor=True, tutor_for__in=self.tutor_for.all())
+        if self.is_orga:
+            queryset = queryset | Person.objects.filter(is_orga=True)
+        if self.is_helper:
+            queryset = queryset | Person.objects.filter(is_helper=True)
+
+        return queryset
+
+
 class TutorGroup(models.Model):
     """A group of students guided by tutors."""
     class Meta:
@@ -142,6 +180,51 @@ class TutorGroup(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Gruppenname"))
     tutors = models.ManyToManyField(Person, blank=True, verbose_name=_("Tutoren"))
     group_category = models.ForeignKey(GroupCategory, models.CASCADE, verbose_name=_("Gruppenkategorie"))
+
+    def __str__(self):
+        return self.name
+
+
+class Attendance(models.Model):
+    """Attendance of a person at an attendance event"""
+    class Meta:
+        verbose_name = _("Anwesenheit")
+        verbose_name_plural = _("Anwesenheiten")
+        ordering = ['event', 'person']
+        unique_together = ('event', 'person')
+
+    STATUS_CHOICES = (
+        ("x", _("Nicht anwesend")),
+        ("a", _("Anwesend")),
+        ("e", _("Entschuldigt"))
+    )
+
+    event = models.ForeignKey("AttendanceEvent", on_delete=models.CASCADE, verbose_name=_("Anwesenheitstermin"))
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("Person"))
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="x", verbose_name=_('Status'))
+    comment = models.TextField(verbose_name=_("Kommentar"), blank=True)
+
+    def __str__(self):
+        return "{} @ {}: {}".format(self.person, self.event, self.status)
+
+
+class AttendanceEvent(models.Model):
+    """An attendance event"""
+    class Meta:
+        verbose_name = _("Anwesenheitstermin")
+        verbose_name_plural = _("Anwesenheitstermine")
+        ordering = ['begin']
+
+    name = models.CharField(max_length=100, verbose_name=_("Name"))
+    begin = models.DateTimeField(verbose_name=_("Beginn"))
+    end = models.DateTimeField(verbose_name=_("Ende"))
+    required_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"))
+    ophase = models.ForeignKey(Ophase, models.CASCADE)
+    room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True)
+
+    @staticmethod
+    def get_current_events(**kwargs):
+        return AttendanceEvent.objects.filter(ophase=Ophase.current(), **kwargs)
 
     def __str__(self):
         return self.name
