@@ -1,0 +1,37 @@
+{% load tex_escape %}{% autoescape off %}
+
+\documentclass{article}
+\usepackage{scheine}
+
+% Pfad zum Ophasen-Wesen
+\newcommand{\wesenBild}{OPhasenWesen.png}
+
+% Ophasen-Termin
+\newcommand{\ophasenTermin}{ {{current_ophase.get_human_short_duration}} {{current_ophase.end_date|date:"Y"}} }
+
+% Semestername
+\newcommand{\semesterName}{ {{current_ophase.get_semester}} }
+
+
+\begin{document}
+
+{% for student in items %}
+%% {{student.prename}} {{student.name}} {{student.tutor_group}}
+\schein{
+  {{student.prename|tex_escape}}
+}{
+  {{student.name|tex_escape}}
+}{
+  {{student.tutor_group.tutors.all.0|default:''|tex_escape}}
+}{
+  {{student.tutor_group.tutors.all.1|default:''|tex_escape}}
+}{
+  {{student.tutor_group.tutors.all.2|default:''|tex_escape}}
+}{
+  {{student.tutor_group.name|tex_escape}}
+}
+{% endfor %}
+
+\end{document}
+
+{% endautoescape %}

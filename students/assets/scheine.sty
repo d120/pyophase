@@ -1,0 +1,77 @@
+  % generelle Pakete
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[noheadfoot,a4paper,top=0.7cm,bottom=0.7cm]{geometry}
+
+\pagestyle{empty}
+
+% Ausgelagerte Erzeugung des Seitenkopfes
+\newcommand{\seitenkopf}[0] {
+
+  \begin{tabularx}{\textwidth}{m{.3\textwidth}m{.6\textwidth}}
+    \includegraphics[width=0.3\textwidth]{\wesenBild}
+    
+    &
+
+    \parbox[b]{9cm}{
+      \textbf{ \begin{center} \huge Fachschaft Informatik\\ TU Darmstadt \end{center} } 
+    } 
+
+    \\
+  \end{tabularx}
+
+}
+
+%% Gibt einen Klausurschein aus
+% #1: Vorname
+% #2: Nachname
+% #3: Tutor 1
+% #4: Tutor 2
+% #5: Tutor 3
+% #6: Gruppenname
+
+% Dieser Text kann natuerlich angepasst werden, aber die Variablen #{1..4} sollten an den richtigen
+% Stellen auftauchen :) Beim Aufruf von ``pdflatex scheine.tex'' werden sie mit dem Input aus
+% scheine.tex befuellt
+
+\newcommand{\schein}[6]{
+    \seitenkopf
+    
+    \vspace{1cm}
+
+    \begin{center}
+      \huge
+      Zeugnis über die Teilnahme an der Orientierungsphase \\
+      vom \ophasenTermin
+    \end{center}
+
+    \vspace{4cm}
+    
+    \noindent Der/die angehende Student/in der Informatik \\
+    
+    \hspace{1.5cm} \textbf{#1 #2} \\
+    
+    \noindent hat im \semesterName \  die \\
+    
+    \hspace{1.5cm} \textbf{Orientierungsphase der Fachschaft Informatik} \\
+    
+    \noindent mit Erfolg besucht. Als Leistungsnachweis wurde eine Klausur abgelegt sowie
+    tutorenbetreute Kleingruppenarbeit erbracht. \\
+    
+    \noindent Er/sie hat in der Kleingruppe #6 bei
+
+    \vspace{2.5cm}
+
+    \begin{tabularx}{\textwidth}{p{.01\textwidth}p{.3\textwidth}p{.3\textwidth}p{.39\textwidth}}
+     & #3 & #4 & #5
+    \end{tabularx} \\
+    
+    \noindent bestanden. \\
+    
+    Wir wünschen zum Studienbeginn viel Erfolg!
+    
+    \newpage
+}

@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from students.admin_actions import generate_part_cert
 from .models import Newsletter, Settings, Student
 
 
@@ -11,6 +12,8 @@ class StudentAdmin(admin.ModelAdmin):
     search_fields = ['name', 'prename']
     readonly_fields = ('created_at', 'updated_at')
     filter_horizontal = ['newsletters']
+    actions = [generate_part_cert]
+
 
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):

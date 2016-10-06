@@ -90,6 +90,14 @@ class Ophase(models.Model):
     def __str__(self):
         return self.get_name()
 
+    def get_semester(self):
+        term = _('Jahr')
+        if self.start_date.month == 4:
+            term = _('Sommersemester')
+        elif self.start_date.month == 10:
+            term = _('Wintersemester')
+        return "%s %d" % (term, self.start_date.year)
+
     def get_human_duration(self):
         """
         Returns the start_date and end_date of the ophase as human readable
