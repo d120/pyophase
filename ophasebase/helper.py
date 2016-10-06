@@ -5,9 +5,10 @@ from django.template.loader import get_template
 
 
 class LaTeX:
-    def render(items, template_name, assets, app='ophasebase'):
+    @staticmethod
+    def render(context, template_name, assets, app='ophasebase'):
         template = get_template(template_name)
-        rendered_tpl = template.render({'items': items}).encode('utf-8')
+        rendered_tpl = template.render(context).encode('utf-8')
         with tempfile.TemporaryDirectory() as tempdir:
             for asset in assets:
                 shutil.copy(os.path.dirname(os.path.realpath(__file__))+'/../'+app+'/assets/'+asset, tempdir)
