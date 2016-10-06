@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin.templatetags.admin_list import _boolean_icon
 from django.templatetags.static import static
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 
@@ -119,15 +120,23 @@ class TutorGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
-    list_display = ['event', 'person', 'status']
+    list_display = ['person', 'status', 'event']
     list_filter = ['event']
+    list_display_links = ['status']
     actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x]
 
 
 @admin.register(AttendanceEvent)
 class AttendanceAdmin(admin.ModelAdmin):
-    list_display = ['name', 'begin', 'end', 'required_for']
+    list_display = ['name', 'begin', 'end', 'required_for', 'link_attendance_list']
     actions = [update_attendees]
+
+    @staticmethod
+    def link_attendance_list(event):
+        return format_html('<a href="{url}?event__id__exact={id}">{name}</a>',
+                           url=reverse('admin:staff_attendance_changelist'),
+                           id=event.pk,
+                           name=_('Teilnehmerliste'))
 
 
 @admin.register(Settings)
