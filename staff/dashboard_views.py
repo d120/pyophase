@@ -2,13 +2,12 @@ from django.template import loader
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, ListView, DetailView
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
-
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
-from .models import GroupCategory, Person, TutorGroup
+from .models import GroupCategory, Person, TutorGroup, AttendanceEvent
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -21,6 +20,7 @@ class StaffAppMixin(DashboardAppMixin):
         return [
             (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
             (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
+            (_('Termine'), self.prefix_reverse_lazy('event_index')),
         ]
 
 
@@ -71,3 +71,17 @@ class TutorPairingView(StaffAppMixin, FormView):
 class TutorPairingSuccess(StaffAppMixin, TemplateView):
     permissions = ['staff.edit_tutorgroup']
     template_name = "staff/dashboard/tutor_pairing_success.html"
+
+
+class AttendanceEventIndexView(StaffAppMixin, ListView):
+    permissions = ['staff.edit_attendance']
+    model = AttendanceEvent
+    template_name = "staff/dashboard/events_overview.html"
+    context_object_name = "events"
+
+
+class AttendanceEventDetailView(StaffAppMixin, DetailView):
+    permissions = ['staff.edit_attendance']
+    model = AttendanceEvent
+    template_name = "staff/dashboard/event.html"
+    context_object_name = "event"

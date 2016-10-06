@@ -1,0 +1,35 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Anwesenheitstermine" %} | {% trans "Personal" %}{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>{% trans "Anwesenheitstermine" %}</h3>
+
+<table class="table table-striped">
+<thead>
+<tr>
+    <th></th>
+    <th>{% trans "Begin" %}</th>
+    <th>{% trans "Ende" %}</th>
+    <th>{% trans "Raum" %}</th>
+    <th>{% trans "Wer?" %}</th>
+</tr>
+</thead>
+{% for event in events %}
+    <tr>
+        <td><a href="{% url "dashboard:staff:event_detail" event.pk %}">{{ event.name }}</a></td>
+        <td>{{ event.begin }}</td>
+        <td>{{ event.end }}</td>
+        <td>{{ event.room }}</td>
+        <td>{{ event.required_for }}</td>
+    </tr>
+{% empty %}
+    <tr><td>{% trans "Bisher keine Termine" %}</td><td></td><td></td><td></td><td></td></tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}

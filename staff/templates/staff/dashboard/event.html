@@ -1,0 +1,48 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Anwesenheitstermin" %} | {% trans "Personal" %}{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>{% trans "Anwesenheitstermin" %}: {{ event.name }}</h3>
+
+<table class="table table-condensed">
+    <tr><td>{% trans "Begin" %}</td><td>{{ event.begin }}</td></tr>
+    <tr><td>{% trans "Ende" %}</td><td>{{ event.end }}</td></tr>
+    <tr><td>{% trans "Raum" %}</td><td>{{ event.room }}</td></tr>
+    <tr><td>{% trans "Wer?" %}</td><td>{{ event.required_for }}</td></tr>
+</table>
+
+<table class="table table-striped">
+<thead>
+<tr>
+    <th>{% trans "Name" %}</th>
+    <th>{% trans "Anwesend" %}</th>
+    <th>{% trans "Kommentar" %}</th>
+    <th>{% trans "Telefonnr" %}</th>
+</tr>
+</thead>
+{% for attendance in event.attendance_set.all %}
+    <tr {% if attendance.status == "x" %}class="danger"{% endif %}>
+        <td>{{ attendance.person }}</td>
+        <td>
+            {% if attendance.status == "x" %}
+                <i class="fa fa-times" aria-hidden="true"></i>
+            {% elif attendance.status == "e" %}
+                <i class="fa fa-user-times" aria-hidden="true"></i>
+            {% else %}
+                <i class="fa fa-check" aria-hidden="true"></i>
+            {% endif %}
+        </td>
+        <td>{{ attendance.comment }}</td>
+        <td>{{ attendance.person.phone }}</td>
+    </tr>
+{% empty %}
+    <tr><td>{% trans "Bisher keine Anwesenheiten" %}</td><td></td><td></td><td></td></tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}
