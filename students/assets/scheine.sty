@@ -1,31 +1,78 @@
-\usepackage{ngerman}
-\usepackage[utf8]{inputenc}
-\usepackage{booktabs}
-\usepackage{eurosym}
+  % generelle Pakete
+\usepackage{graphicx}
 \usepackage{tabularx}
-\usepackage{xifthen}
-\usepackage{url}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[noheadfoot,a4paper,top=0.7cm,bottom=0.7cm]{geometry}
 
-\setkomavar{frominstitution}{Fachschaft Informatik}
-\setkomavar{fromname}{KIF-Orga\linebreak c/o FS Informatik }
-\setkomavar{fromaddress}{Hochschulstr. 10\\64289 Darmstadt}
-\setkomavar{fromphone}{06151 16-25522}
-\setkomavar{fromemail}{kif-orga@d120.de}
-\setkomavar{fromlogo}{\includegraphics[clip,width=0.5\linewidth]{KIFLogo-Schrift}}
+  % "Paket" mit einigen Textvariablen fuer die Scheine
+\usepackage{scheinVorlagen}
 
-\setkomavar{subject}[]{\textbf{Teilnahmebestätigung an der KIF 44,0 in Darmstadt}}
-\setkomavar{shortfromname}{D120}
-\setkomavar{signature}{\\Orga-Team der 44,0ten KIF}
+\pagestyle{empty}
 
-\setlength{\parindent}{0cm}
+% Ausgelagerte Erzeugung des Seitenkopfes
+\newcommand{\seitenkopf}[0] {
 
-\newcommand{\schein}[3]{
+  \begin{tabularx}{\textwidth}{m{.3\textwidth}m{.6\textwidth}}
+    \includegraphics[width=0.3\textwidth]{\wesenBild}
+    
+    &
 
-  \begin{letter}{#1#2\\#3}
-    \opening{Sehr geehrte Damen und Herren,}
-    hiermit bestätigen wir, dass \textbf{#1#2} an der 44,0. Konferenz der Informatikfachschaften (KIF) in Darmstadt teilgenommen hat.\\\\
-    Die Konferenz hat vom 4. bis zum 8. Mai 2016 stattgefunden. Der Teilnahmebeitrag von 25 Euro wurde bezahlt.
-    \closing{Mit freundlichen Grüßen}
-  \end{letter}
+    \parbox[b]{9cm}{
+      \textbf{ \begin{center} \huge Fachschaft Informatik\\ TU Darmstadt \end{center} } 
+    } 
 
+    \\
+  \end{tabularx}
+
+}
+
+%% Gibt einen Klausurschein aus
+% #1: Vorname
+% #2: Nachname
+% #3: Tutor 1
+% #4: Tutor 2
+
+% Dieser Text kann natuerlich angepasst werden, aber die Variablen #{1..4} sollten an den richtigen
+% Stellen auftauchen :) Beim Aufruf von ``pdflatex scheine.tex'' werden sie mit dem Input aus
+% scheine.tex befuellt
+
+\newcommand{\schein}[4]{
+    \seitenkopf
+    
+    \vspace{1cm}
+
+    \begin{center}
+      \huge
+      Zeugnis über die Teilnahme an der Orientierungsphase \\
+      vom \ophasenTermin
+    \end{center}
+
+    \vspace{4cm}
+    
+    \noindent Der/die angehende Student/in der Informatik \\
+    
+    \hspace{1.5cm} \textbf{#1 #2} \\
+    
+    \noindent hat im \semesterName \  die \\
+    
+    \hspace{1.5cm} \textbf{Orientierungsphase der Fachschaft Informatik} \\
+    
+    \noindent mit Erfolg besucht. Als Leistungsnachweis wurde eine Klausur abgelegt sowie
+    tutorenbetreute Kleingruppenarbeit erbracht. \\
+    
+    \noindent Er/sie hat in der Kleingruppe bei
+
+    \vspace{2.5cm}
+
+    \begin{tabularx}{\textwidth}{p{.1\textwidth}p{.5\textwidth}p{.4\textwidth}}
+     & #3 & #4
+    \end{tabularx} \\
+    
+    \noindent bestanden. \\
+    
+    Wir wünschen zum Studienbeginn viel Erfolg!
+    
+    \newpage
 }

@@ -1,6 +1,6 @@
 {% load tex_escape %}{% autoescape off %}
 
-\documentclass[accentcolor=tud3b]{tudletter}
+\documentclass{article}
 \usepackage{scheine}
 
 \begin{document}
@@ -12,7 +12,9 @@
 }{
   {{student.name|tex_escape}}
 }{
-  {{student.tutor_group|tex_escape}}
+  {{student.tutor_group.tutors.all.0|default:''|tex_escape}}
+}{
+  {{student.tutor_group.tutors.all.1|default:''|tex_escape}}
 }
 {% endfor %}
 
