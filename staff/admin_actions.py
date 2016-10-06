@@ -46,7 +46,7 @@ def staff_nametag_export(modeladmin, request, queryset):
                 tutor = 'TUTOR'
         if person.is_orga:
             orga = 'ORGA'
-        row = [person.prename, person.name, tutor, tutor[0], orga,] + [EMPTY] * 4
+        row = [person.prename, person.name, tutor[0], tutor, orga,] + [EMPTY] * 4
         table.append(row)
 
         if rowlength is None:
