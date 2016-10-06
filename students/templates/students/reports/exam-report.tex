@@ -1,0 +1,21 @@
+{% load tex_escape %}{% autoescape off %}
+
+\documentclass[accentcolor=tud3b]{tudletter}
+\usepackage{scheine}
+
+\begin{document}
+
+{% for student in items %}
+%% {{student.prename}} {{student.name}} {{student.tutor_group}}
+\schein{
+  {{student.prename|tex_escape}}
+}{
+  {{student.name|tex_escape}}
+}{
+  {{student.tutor_group|tex_escape}}
+}
+{% endfor %}
+
+\end{document}
+
+{% endautoescape %}

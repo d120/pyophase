@@ -1,0 +1,31 @@
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{eurosym}
+\usepackage{tabularx}
+\usepackage{xifthen}
+\usepackage{url}
+
+\setkomavar{frominstitution}{Fachschaft Informatik}
+\setkomavar{fromname}{KIF-Orga\linebreak c/o FS Informatik }
+\setkomavar{fromaddress}{Hochschulstr. 10\\64289 Darmstadt}
+\setkomavar{fromphone}{06151 16-25522}
+\setkomavar{fromemail}{kif-orga@d120.de}
+\setkomavar{fromlogo}{\includegraphics[clip,width=0.5\linewidth]{KIFLogo-Schrift}}
+
+\setkomavar{subject}[]{\textbf{Teilnahmebestätigung an der KIF 44,0 in Darmstadt}}
+\setkomavar{shortfromname}{D120}
+\setkomavar{signature}{\\Orga-Team der 44,0ten KIF}
+
+\setlength{\parindent}{0cm}
+
+\newcommand{\schein}[3]{
+
+  \begin{letter}{#1#2\\#3}
+    \opening{Sehr geehrte Damen und Herren,}
+    hiermit bestätigen wir, dass \textbf{#1#2} an der 44,0. Konferenz der Informatikfachschaften (KIF) in Darmstadt teilgenommen hat.\\\\
+    Die Konferenz hat vom 4. bis zum 8. Mai 2016 stattgefunden. Der Teilnahmebeitrag von 25 Euro wurde bezahlt.
+    \closing{Mit freundlichen Grüßen}
+  \end{letter}
+
+}
