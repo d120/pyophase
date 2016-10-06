@@ -120,7 +120,7 @@ class TutorGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
-    list_display = ['link_person', 'person_phone', 'status', 'event']
+    list_display = ['link_person', 'status', 'comment', 'event']
     list_filter = ['event', 'status']
     list_display_links = ['status']
     actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x]
