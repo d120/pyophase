@@ -33,7 +33,7 @@ class Student(models.Model):
     name = models.CharField(max_length=50, verbose_name=_('last name'))
     email = models.EmailField(verbose_name=_("E-Mail-Adresse"), blank=True)
     tutor_group = models.ForeignKey(TutorGroup, models.CASCADE, verbose_name=_("Kleingruppe"))
-    want_exam = models.BooleanField(default=False, blank=True, verbose_name=_("Klausur mitschreiben?"))
+    want_exam = models.BooleanField(default=False, blank=True, verbose_name=_("Klausur mitschreiben?"), help_text=_("Die Klausur ist eine Simulation einer Uniklausur, um die Unteschiede zwischen einer Schul- und einer Universitätsklausr zu zeigen. Abgefragt werden hauptsächlich Informationen aus der Ophase. Es ist nicht verpflichtend die Klausur zu bestehen."))
     newsletters = models.ManyToManyField(Newsletter, blank=True, verbose_name=_("Newsletter"), help_text=_("Welche Newsletter willst du abonieren (optional)?"), limit_choices_to={'active': True})
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
