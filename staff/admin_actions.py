@@ -264,3 +264,21 @@ def mark_attendance_e(modeladmin, request, queryset):
     queryset.update(status='e')
     modeladmin.message_user(request, _("Als 'entschuldigt' markiert."))
 mark_attendance_e.short_description = _("Als 'entschuldigt' markieren")
+
+
+def mark_phoned_x(modeladmin, request, queryset):
+    queryset.update(phone_status='x')
+    modeladmin.message_user(request, _("Als 'nicht angerufen' markiert."))
+mark_phoned_x.short_description = _("Als 'nicht angerufen' markieren")
+
+
+def mark_phoned_e(modeladmin, request, queryset):
+    queryset.update(phone_status='e')
+    modeladmin.message_user(request, _("Als 'angerufen + erreicht' markiert."))
+mark_phoned_e.short_description = _("Als 'angerufen + erreicht' markieren")
+
+
+def mark_phoned_n(modeladmin, request, queryset):
+    queryset.update(phone_status='n')
+    modeladmin.message_user(request, _("Als 'angerufen + nicht erreicht' markiert."))
+mark_phoned_n.short_description = _("Als 'angerufen + nicht erreicht' markieren")
