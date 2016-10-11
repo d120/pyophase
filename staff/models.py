@@ -199,13 +199,20 @@ class Attendance(models.Model):
         ("e", _("Entschuldigt"))
     )
 
+    PHONECALL_CHOICES = (
+        ("x", _("nicht angerufen")),
+        ("n", _("angerufen + nicht erreicht")),
+        ("e", _("angerufen + erreicht"))
+    )
+
     event = models.ForeignKey("AttendanceEvent", on_delete=models.CASCADE, verbose_name=_("Anwesenheitstermin"))
     person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("Person"))
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="x", verbose_name=_('Status'))
+    phone_status = models.CharField(max_length=1, choices=PHONECALL_CHOICES, default="x", verbose_name=_('Telefoniestatus'))
     comment = models.TextField(verbose_name=_("Kommentar"), blank=True)
 
     def __str__(self):
-        return "{} @ {}: {}".format(self.person, self.event, self.get_status_display())
+        return "{} @ {}: {} ({})".format(self.person, self.event, self.get_status_display(), self.get_phone_status_display())
 
 
 class AttendanceEvent(models.Model):

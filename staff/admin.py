@@ -13,7 +13,8 @@ from .admin_actions import (
     staff_nametag_export,
     staff_overview_export,
     tutorgroup_export,
-    update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e)
+    update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e, mark_phoned_x, mark_phoned_e,
+    mark_phoned_n)
 from .models import (
     GroupCategory,
     HelperJob,
@@ -120,10 +121,10 @@ class TutorGroupAdmin(admin.ModelAdmin):
 
 @admin.register(Attendance)
 class AttendanceAdmin(admin.ModelAdmin):
-    list_display = ['link_person', 'status', 'comment', 'event']
+    list_display = ['link_person', 'status', 'phone_status', 'comment', 'event']
     list_filter = ['event', 'status']
-    list_display_links = ['status']
-    actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x]
+    list_display_links = ['status', 'phone_status']
+    actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x, mark_phoned_x, mark_phoned_e, mark_phoned_n]
 
     @staticmethod
     def link_person(event):

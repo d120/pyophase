@@ -18,6 +18,7 @@
 <tr>
     <th>{% trans "Name" %}</th>
     <th>{% trans "Anwesend" %}</th>
+    <th>{% trans "Angerufen" %}</th>
     <th>{% trans "Kommentar" %}</th>
     <th>{% trans "Telefonnr" %}</th>
 </tr>
@@ -34,11 +35,18 @@
                 <i class="fa fa-check" aria-hidden="true"></i>
             {% endif %}
         </td>
+        <td>
+            {% if attendance.phone_status == "n" %}
+                <i class="fa fa-phone" aria-hidden="true"></i>
+            {% elif attendance.phone_status == "e" %}
+                <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+            {% endif %}
+        </td>
         <td>{{ attendance.comment }}</td>
         <td>{{ attendance.person.phone }}</td>
     </tr>
 {% empty %}
-    <tr><td>{% trans "Bisher keine Anwesenheiten" %}</td><td></td><td></td><td></td></tr>
+    <tr><td>{% trans "Bisher keine Anwesenheiten" %}</td><td></td><td></td><td></td><td></td></tr>
 {% endfor %}
 </table>
 
