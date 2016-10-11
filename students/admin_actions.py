@@ -8,7 +8,7 @@ from ophasebase.models import Ophase
 def generate_part_cert(modeladmin, request, queryset):
     """ Generates a PDF file with exam certificates for selected students and sends it to the browser """
     current_ophase = Ophase.current()
-    (pdf, pdflatex_output) = LaTeX.render({"items": queryset, "current_ophase": current_ophase},
+    (pdf, pdflatex_output) = LaTeX.render({"items": queryset.prefetch_related('tutor_group', 'tutor_group__tutors', ), "current_ophase": current_ophase},
                                           'students/reports/exam-report.tex', ['scheine.sty', 'OPhasenWesen.png'],
                                           'students')
     if pdf is None:

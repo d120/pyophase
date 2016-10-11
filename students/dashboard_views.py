@@ -60,7 +60,7 @@ class ExportCertificateView(StudentsAppMixin, ListView):
     template_name = "students/dashboard/view_certificate.html"
 
     def get_queryset(self):
-        return Student.get_current(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
+        return Student.get_current(want_exam=True).order_by('tutor_group__name', 'name', 'prename').prefetch_related('tutor_group', 'tutor_group__tutors', )
 
 
 class NewsletterOverviewView(StudentsAppMixin, ListView):
