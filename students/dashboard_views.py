@@ -8,6 +8,7 @@ from staff.models import TutorGroup
 
 from .models import Newsletter, Student
 
+from .reports import generate_cert_response
 
 class StudentsAppMixin(DashboardAppMixin):
     app_name_verbose = _("Ersties")
@@ -55,13 +56,17 @@ class StudentStatsView(StudentsAppMixin, TemplateView):
         return context
 
 
-class ExportCertificateView(StudentsAppMixin, ListView):
-    model = Student
+class ExportCertificateView(StudentsAppMixin, TemplateView):
     template_name = "students/dashboard/view_certificate.html"
 
-    def get_queryset(self):
-        return Student.get_current(want_exam=True).order_by('tutor_group__name', 'name', 'prename').prefetch_related('tutor_group', 'tutor_group__tutors', )
+    def get_context_data(self, **kwargs):
+        context = super(ExportCertificateView, self).get_context_data(**kwargs)
+        context['count_student'] = Student.get_current(want_exam=True).count()
+        return context
 
+    def post(self, request, *args, **kwargs):
+        queryset = Student.get_current(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
+        return generate_cert_response(request, queryset)
 
 class NewsletterOverviewView(StudentsAppMixin, ListView):
     model = Newsletter
