@@ -14,7 +14,7 @@ from .admin_actions import (
     staff_overview_export,
     tutorgroup_export,
     update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e, mark_phoned_x, mark_phoned_e,
-    mark_phoned_n)
+    mark_phoned_n, mark_attendance_v)
 from .models import (
     GroupCategory,
     HelperJob,
@@ -124,7 +124,7 @@ class AttendanceAdmin(admin.ModelAdmin):
     list_display = ['link_person', 'status', 'phone_status', 'comment', 'event']
     list_filter = ['event', 'status']
     list_display_links = ['status', 'phone_status']
-    actions = [mark_attendance_a, mark_attendance_e, mark_attendance_x, mark_phoned_x, mark_phoned_e, mark_phoned_n]
+    actions = [mark_attendance_a, mark_attendance_v, mark_attendance_e, mark_attendance_x, mark_phoned_x, mark_phoned_e, mark_phoned_n]
 
     @staticmethod
     def link_person(event):

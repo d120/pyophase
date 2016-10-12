@@ -196,6 +196,7 @@ class Attendance(models.Model):
     STATUS_CHOICES = (
         ("x", _("Nicht anwesend")),
         ("a", _("Anwesend")),
+        ("v", _("Anwesend, verspätet")),
         ("e", _("Entschuldigt"))
     )
 

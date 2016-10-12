@@ -260,6 +260,12 @@ def mark_attendance_a(modeladmin, request, queryset):
 mark_attendance_a.short_description = _("Als 'anwesend' markieren")
 
 
+def mark_attendance_v(modeladmin, request, queryset):
+    queryset.update(status='v')
+    modeladmin.message_user(request, _("Als 'anwesend, verspätet' markiert."))
+mark_attendance_v.short_description = _("Als 'anwesend, verspätet' markieren")
+
+
 def mark_attendance_e(modeladmin, request, queryset):
     queryset.update(status='e')
     modeladmin.message_user(request, _("Als 'entschuldigt' markiert."))

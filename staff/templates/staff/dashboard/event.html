@@ -31,6 +31,8 @@
                 <i class="fa fa-times" aria-hidden="true"></i>
             {% elif attendance.status == "e" %}
                 <i class="fa fa-user-times" aria-hidden="true"></i>
+            {% elif attendance.status == "v" %}
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
             {% else %}
                 <i class="fa fa-check" aria-hidden="true"></i>
             {% endif %}
