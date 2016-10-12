@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 from django.utils import formats
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import TemplateWidgetComponent
@@ -46,7 +47,7 @@ class ExamWidget(TemplateWidgetComponent):
         elif self._correct_count(assignment):
             context['message'] = _("Gültige Zuteilung")
             context['status_icon'] = "ok"
-            formatted_datetime = formats.date_format(assignment.created_at, 'SHORT_DATETIME_FORMAT')
+            formatted_datetime = formats.date_format(timezone.localtime(assignment.created_at), 'SHORT_DATETIME_FORMAT')
             context['submessage'] = _('Erstellt am %(formated_datetime)s') % {
                      'formated_datetime' : formatted_datetime,}
         else:
