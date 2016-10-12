@@ -31,8 +31,9 @@ class StudentAdd(CreateView):
     def get_initial(self):
         initial = super().get_initial()
 
-        if 'previous_tutor_group' in self.request.session:
-            initial['tutor_group'] = self.request.session['previous_tutor_group']
+        # we use session.pop here to be able to drop the information
+        # about the pervious group by reloading the browser
+        initial['tutor_group'] = self.request.session.pop('previous_tutor_group', None)
 
         return initial
 
