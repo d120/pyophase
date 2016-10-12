@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-25 19:26+0200\n"
+"POT-Creation-Date: 2016-10-12 15:42+0200\n"
 "PO-Revision-Date: 2016-08-25 19:12+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -18,46 +18,50 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:34
+#: admin.py:40
 msgid "Tutorenstatus"
 msgstr "Tutor status"
 
-#: admin.py:38
+#: admin.py:44
 msgid "Alle Tutoren"
 msgstr "All tutors"
 
-#: admin.py:41
+#: admin.py:47
 msgid "Keine Tutoren"
 msgstr "No tutors"
 
-#: admin.py:69
+#: admin.py:75
 msgid "Personendaten"
 msgstr "Personal data"
 
-#: admin.py:71
+#: admin.py:77
 msgid "Bewerbung"
 msgstr "Application"
 
-#: admin.py:73
+#: admin.py:79
 msgid "In der Ophase"
 msgstr "During the Ophase"
 
-#: admin.py:75
+#: admin.py:81
 msgid "Sonstiges"
 msgstr "Miscellaneous"
 
-#: admin.py:86
+#: admin.py:92
 msgid "Orga-Notiz"
 msgstr "Organizers' notes"
 
-#: admin.py:97 models.py:66
+#: admin.py:103 models.py:68
 msgid "Tutor"
 msgstr "Tutor"
 
-#: admin.py:108 admin_actions.py:95 models.py:143
+#: admin.py:119 admin_actions.py:95 models.py:181
 #: templates/staff/dashboard/widget_staff.html:3 views.py:29
 msgid "Tutoren"
 msgstr "Tutors"
+
+#: admin.py:150
+msgid "Teilnehmerliste"
+msgstr ""
 
 #: admin_actions.py:25 admin_actions.py:28
 msgid "E-Mail Mass Subscription Export"
@@ -95,7 +99,7 @@ msgstr "Responsible for ..."
 msgid "Betreut ..."
 msgstr "Takes care of ..."
 
-#: admin_actions.py:96 models.py:68
+#: admin_actions.py:96 models.py:70
 #: templates/staff/dashboard/widget_staff.html:5 views.py:33
 msgid "Helfer"
 msgstr "Helper"
@@ -139,7 +143,71 @@ msgstr "Send fillform email"
 msgid "Fillform E-Mail an Person senden"
 msgstr "Send fillform email to persons"
 
-#: dashboard_forms.py:13 dashboard_forms.py:29 models.py:13 models.py:144
+#: admin_actions.py:247
+msgid "Teilnehmerliste aktualisiert."
+msgstr ""
+
+#: admin_actions.py:248
+msgid "Liste der Teilnehmer aktualisieren (anhand des Zielgruppenfilters)"
+msgstr ""
+
+#: admin_actions.py:253
+msgid "Als 'nicht anwesend' markiert."
+msgstr ""
+
+#: admin_actions.py:254
+msgid "Als 'nicht anwesend' markieren"
+msgstr ""
+
+#: admin_actions.py:259
+msgid "Als 'anwesend' markiert."
+msgstr ""
+
+#: admin_actions.py:260
+msgid "Als 'anwesend' markieren"
+msgstr ""
+
+#: admin_actions.py:265
+msgid "Als 'anwesend, verspätet' markiert."
+msgstr ""
+
+#: admin_actions.py:266
+msgid "Als 'anwesend, verspätet' markieren"
+msgstr ""
+
+#: admin_actions.py:271
+msgid "Als 'entschuldigt' markiert."
+msgstr ""
+
+#: admin_actions.py:272
+msgid "Als 'entschuldigt' markieren"
+msgstr ""
+
+#: admin_actions.py:277
+msgid "Als 'nicht angerufen' markiert."
+msgstr ""
+
+#: admin_actions.py:278
+msgid "Als 'nicht angerufen' markieren"
+msgstr ""
+
+#: admin_actions.py:283
+msgid "Als 'angerufen + erreicht' markiert."
+msgstr ""
+
+#: admin_actions.py:284
+msgid "Als 'angerufen + erreicht' markieren"
+msgstr ""
+
+#: admin_actions.py:289
+msgid "Als 'angerufen + nicht erreicht' markiert."
+msgstr ""
+
+#: admin_actions.py:290
+msgid "Als 'angerufen + nicht erreicht' markieren"
+msgstr ""
+
+#: dashboard_forms.py:13 dashboard_forms.py:29 models.py:13 models.py:182
 msgid "Gruppenkategorie"
 msgstr "Group categories"
 
@@ -151,17 +219,22 @@ msgstr "Group name"
 msgid "Einen Gruppennamen pro Zeile eintragen."
 msgstr "Enter one group name per line."
 
-#: dashboard_views.py:15
+#: dashboard_views.py:14 templates/staff/dashboard/event.html:4
+#: templates/staff/dashboard/events_overview.html:4
 msgid "Personal"
 msgstr "Staff"
 
-#: dashboard_views.py:22 templates/staff/dashboard/group_mass_create.html:3
+#: dashboard_views.py:21 templates/staff/dashboard/group_mass_create.html:3
 msgid "Kleingruppen erstellen"
 msgstr "Create tutored groups"
 
-#: dashboard_views.py:23 templates/staff/dashboard/tutor_pairing.html:3
+#: dashboard_views.py:22 templates/staff/dashboard/tutor_pairing.html:3
 msgid "Tutoren paaren"
 msgstr "Pair tutors"
+
+#: dashboard_views.py:23
+msgid "Termine"
+msgstr ""
 
 #: dashboard_widgets.py:11
 msgid "Ophasenpersonal"
@@ -216,73 +289,73 @@ msgstr "Description"
 msgid "Beschreibung"
 msgstr "Description"
 
-#: models.py:37
+#: models.py:38
 msgid "Orgajob"
 msgstr "Organizer's task"
 
-#: models.py:38
+#: models.py:39
 msgid "Orgajobs"
 msgstr "Organizer's tasks"
 
-#: models.py:44
+#: models.py:46
 msgid "Helferjob"
 msgstr "Helper's tasks"
 
-#: models.py:45
+#: models.py:47
 msgid "Helferjobs"
 msgstr "Helper's tasks"
 
-#: models.py:52
+#: models.py:54 models.py:210
 msgid "Person"
 msgstr "Person"
 
-#: models.py:53
+#: models.py:55
 msgid "Personen"
 msgstr "People"
 
-#: models.py:58
+#: models.py:60
 msgid "first name"
 msgstr "First name"
 
-#: models.py:59
+#: models.py:61
 msgid "last name"
 msgstr "Last name"
 
-#: models.py:60
+#: models.py:62
 msgid "E-Mail-Adresse"
 msgstr "E-mail address"
 
-#: models.py:61
+#: models.py:63
 msgid "Handynummer"
 msgstr "Mobile phone number"
 
-#: models.py:61
+#: models.py:63
 msgid "Deine Handynummer brauchen wir um dich schnell erreichen zu können."
 msgstr ""
 "Your mobile phone number is required to make it possible to contact you "
 "quickly."
 
-#: models.py:62
+#: models.py:64
 msgid "An der Uni seit"
 msgstr "At this university since"
 
-#: models.py:62
+#: models.py:64
 msgid "Seit wann studierst du an der TU Darmstadt?"
 msgstr "Since when do you study at TU Darmstadt?"
 
-#: models.py:63
+#: models.py:65
 msgid "Aktuell angestrebter Abschluss"
 msgstr "Current degree programm"
 
-#: models.py:63
+#: models.py:65
 msgid "Bachelor, Master, Joint Bachelor of Arts, etc."
 msgstr "Bachelor, Master, Joint Bachelor of Arts, etc."
 
-#: models.py:64
+#: models.py:66
 msgid "Bisherige Ophasenerfahrung"
 msgstr "Experience in the Ophase so far"
 
-#: models.py:64
+#: models.py:66
 msgid ""
 "Wenn du schonmal bei einer Ophase geholfen hast, schreib uns wann das war "
 "und was du gemacht hast."
@@ -290,123 +363,247 @@ msgstr ""
 "If you already helped with a previous Ophase, let us know when it was and "
 "what you did."
 
-#: models.py:65
+#: models.py:67
 msgid "Warum möchtest du bei der Ophase mitmachen?"
 msgstr "Why would you like to participate in the Ophase?"
 
-#: models.py:66
+#: models.py:68
 msgid "Möchtest du als Tutor bei der Ophase mitmachen?"
 msgstr "Would you like to participate as a tutor in the Ophase?"
 
-#: models.py:67
+#: models.py:69
 msgid "Orga"
 msgstr "Organizer"
 
-#: models.py:67
+#: models.py:69
 msgid "Möchtest du als Orga bei der Ophase mitmachen?"
 msgstr "Would you like to participate as an organizer in the Ophase?"
 
-#: models.py:68
+#: models.py:70
 msgid "Möchtest du als Helfer bei der Ophase mitmachen?"
 msgstr "Would you like to participate as a helper in the Ophase?"
 
-#: models.py:69
+#: models.py:71 models.py:146
 msgid "Tutor für"
 msgstr "Tutor for"
 
-#: models.py:69
+#: models.py:71
 msgid "Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"
 msgstr "Freshmen of which degree program would you like to take care of?"
 
-#: models.py:70
+#: models.py:72
 msgid "Orgaaufgaben"
 msgstr "Organizer's tasks"
 
-#: models.py:70
+#: models.py:72
 msgid "Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"
 msgstr "Which organizer's tasks would you like to be responsible of?"
 
-#: models.py:71
+#: models.py:73
 msgid "Helferaufgaben"
 msgstr "Helper's tasks"
 
-#: models.py:71
+#: models.py:73
 msgid "Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"
 msgstr "With which tasks could you see yourself helping?"
 
-#: models.py:72
+#: models.py:74
 msgid "Anmerkungen"
 msgstr "Comments"
 
-#: models.py:72
+#: models.py:74
 msgid "Was sollten wir noch wissen?"
 msgstr "What else should we know?"
 
-#: models.py:73
+#: models.py:75
 msgid "Orga-Anmerkungen"
 msgstr "Organizers' notes"
 
-#: models.py:73
+#: models.py:75
 msgid "Notizen von Leitung und Orgas."
 msgstr "Notes by organizers/head of Ophase"
 
-#: models.py:74
+#: models.py:76
 msgid "Eingetragen am"
 msgstr "Created at"
 
-#: models.py:75
+#: models.py:77
 msgid "Verändert am"
 msgstr "Updated at"
 
-#: models.py:79
+#: models.py:81 models.py:142 models.py:226
+#: templates/staff/dashboard/event.html:19
 msgid "Name"
 msgstr "Name"
 
-#: models.py:136
+#: models.py:138
+msgid "Staff Filtergruppe"
+msgstr ""
+
+#: models.py:139
+#, fuzzy
+#| msgid "Staff Einstellungen"
+msgid "Staff Filtergruppen"
+msgstr "Staff settings"
+
+#: models.py:143
+#, fuzzy
+#| msgid "Orga"
+msgid "Orga?"
+msgstr "Organizer"
+
+#: models.py:143
+msgid "Soll der Filter auf Orgas zutreffen"
+msgstr ""
+
+#: models.py:144
+#, fuzzy
+#| msgid "Helfer"
+msgid "Helfer?"
+msgstr "Helper"
+
+#: models.py:144
+msgid "Soll der Filter auf Helfer zutreffen"
+msgstr ""
+
+#: models.py:145
+#, fuzzy
+#| msgid "Alle Tutoren"
+msgid "Alle Tutorenkategorien?"
+msgstr "All tutors"
+
+#: models.py:145
+msgid ""
+"Soll der Filter auf alle Tutorengruppen zutreffen (sonst spezifizieren)."
+msgstr ""
+
+#: models.py:146
+msgid "Welche Tutorengruppen sollen einbezogen werden?"
+msgstr ""
+
+#: models.py:174
 msgid "Kleingruppe"
 msgstr "Tutored group"
 
-#: models.py:137
+#: models.py:175
 msgid "Kleingruppen"
 msgstr "Tutored groups"
 
-#: models.py:142
+#: models.py:180
 msgid "Gruppenname"
 msgstr "Group name"
 
-#: models.py:153 models.py:154
+#: models.py:191
+msgid "Anwesenheit"
+msgstr ""
+
+#: models.py:192
+msgid "Anwesenheiten"
+msgstr ""
+
+#: models.py:197
+msgid "Nicht anwesend"
+msgstr ""
+
+#: models.py:198 templates/staff/dashboard/event.html:20
+msgid "Anwesend"
+msgstr ""
+
+#: models.py:199
+msgid "Anwesend, verspätet"
+msgstr ""
+
+#: models.py:200
+msgid "Entschuldigt"
+msgstr ""
+
+#: models.py:204
+msgid "nicht angerufen"
+msgstr ""
+
+#: models.py:205
+msgid "angerufen + nicht erreicht"
+msgstr ""
+
+#: models.py:206
+msgid "angerufen + erreicht"
+msgstr ""
+
+#: models.py:209 models.py:222 templates/staff/dashboard/event.html:4
+#: templates/staff/dashboard/event.html:7
+msgid "Anwesenheitstermin"
+msgstr ""
+
+#: models.py:211
+msgid "Status"
+msgstr ""
+
+#: models.py:212
+#, fuzzy
+#| msgid "Tutorenstatus"
+msgid "Telefoniestatus"
+msgstr "Tutor status"
+
+#: models.py:213 templates/staff/dashboard/event.html:22
+msgid "Kommentar"
+msgstr ""
+
+#: models.py:223 templates/staff/dashboard/events_overview.html:4
+#: templates/staff/dashboard/events_overview.html:7
+msgid "Anwesenheitstermine"
+msgstr ""
+
+#: models.py:227
+msgid "Beginn"
+msgstr ""
+
+#: models.py:228 templates/staff/dashboard/event.html:11
+#: templates/staff/dashboard/events_overview.html:14
+msgid "Ende"
+msgstr ""
+
+#: models.py:229
+msgid "Filterkriterium: Wer muss anwesend sein?"
+msgstr ""
+
+#: models.py:231 templates/staff/dashboard/event.html:12
+#: templates/staff/dashboard/events_overview.html:15
+msgid "Raum"
+msgstr ""
+
+#: models.py:244 models.py:245
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: models.py:156
+#: models.py:247
 msgid "Tutor Registrierung aktiv"
 msgstr "Tutor registration active"
 
-#: models.py:157
+#: models.py:248
 msgid "Orga Registrierung aktiv"
 msgstr "Organizer registration active"
 
-#: models.py:158
+#: models.py:249
 msgid "Helfer Registrierung aktiv"
 msgstr "Helper registration active"
 
-#: models.py:159
+#: models.py:250
 msgid "Freigeschaltete Kleingruppenkategorien"
 msgstr "Open tutored group categories"
 
-#: models.py:160
+#: models.py:251
 msgid "Freigeschaltete Orgajobs"
 msgstr "Open organizers' tasks"
 
-#: models.py:161
+#: models.py:252
 msgid "Freigeschaltete Helferjobs"
 msgstr "Open helpers' jobs"
 
-#: models.py:164
+#: models.py:255
 msgid "Staff Einstellungen"
 msgstr "Staff settings"
 
-#: models.py:172
+#: models.py:263
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
@@ -470,6 +667,32 @@ msgstr ""
 "Apparently you are already registered for this Ophase. If anything should be "
 "changed in your registration, please write an e-mail to <a href='mailto:"
 "ophase-leitung@d120.de'>ophase-leitung@d120.de</a>."
+
+#: templates/staff/dashboard/event.html:10
+#: templates/staff/dashboard/events_overview.html:13
+msgid "Begin"
+msgstr ""
+
+#: templates/staff/dashboard/event.html:13
+#: templates/staff/dashboard/events_overview.html:16
+msgid "Wer?"
+msgstr ""
+
+#: templates/staff/dashboard/event.html:21
+msgid "Angerufen"
+msgstr ""
+
+#: templates/staff/dashboard/event.html:23
+msgid "Telefonnr"
+msgstr ""
+
+#: templates/staff/dashboard/event.html:51
+msgid "Bisher keine Anwesenheiten"
+msgstr ""
+
+#: templates/staff/dashboard/events_overview.html:28
+msgid "Bisher keine Termine"
+msgstr ""
 
 #: templates/staff/dashboard/group_mass_create.html:3
 #: templates/staff/dashboard/group_mass_create_success.html:3

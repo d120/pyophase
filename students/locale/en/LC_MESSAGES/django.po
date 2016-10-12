@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-29 20:29+0200\n"
+"POT-Creation-Date: 2016-10-12 15:42+0200\n"
 "PO-Revision-Date: 2016-05-29 17:06+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -18,19 +18,20 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dashboard_views.py:13 models.py:29
+#: dashboard_views.py:14 models.py:29
 msgid "Ersties"
 msgstr "Freshmen"
 
-#: dashboard_views.py:20
+#: dashboard_views.py:21
 msgid "Übersicht"
 msgstr "Overview"
 
-#: dashboard_views.py:21
+#: dashboard_views.py:22 templates/students/dashboard/view_certificate.html:3
+#: templates/students/dashboard/view_certificate.html:7
 msgid "Zertifikate erstellen"
 msgstr "Create certificates"
 
-#: dashboard_views.py:22 models.py:13 models.py:14 models.py:17 models.py:37
+#: dashboard_views.py:23 models.py:13 models.py:14 models.py:17 models.py:37
 #: templates/students/dashboard/view_newsletter_overview.html:7
 msgid "Newsletter"
 msgstr "Newsletter"
@@ -75,6 +76,14 @@ msgstr "Tutored group"
 msgid "Klausur mitschreiben?"
 msgstr "Participate in exam?"
 
+#: models.py:36
+msgid ""
+"Die Klausur ist eine Simulation einer Uniklausur, um die Unterschiede "
+"zwischen einer Schul- und einer Universitätsklausur zu zeigen. Abgefragt "
+"werden hauptsächlich Informationen aus der Ophase. Es ist nicht "
+"verpflichtend, die Klausur zu bestehen."
+msgstr ""
+
 #: models.py:37
 msgid "Welche Newsletter willst du abonieren (optional)?"
 msgstr "Which newsletter(s) would you like to subscribe to?"
@@ -84,8 +93,8 @@ msgid "Einstellungen"
 msgstr "Settings"
 
 #: models.py:65
-msgid "Klausuranmeldung aktiv"
-msgstr "Exam registration open"
+msgid "Studenten Registrierung aktiv"
+msgstr ""
 
 #: models.py:68 tests/tests_models.py:213
 msgid "Students Einstellungen"
@@ -103,19 +112,20 @@ msgstr ""
 #: templates/students/dashboard/view_export_newsletter.html:3
 #: templates/students/dashboard/view_newsletter_overview.html:3
 #: templates/students/dashboard/view_stats.html:3
-msgid "Stats"
-msgstr "Stats"
-
-#: templates/students/dashboard/view_certificate.html:3
-#: templates/students/dashboard/view_export_newsletter.html:3
-#: templates/students/dashboard/view_newsletter_overview.html:3
-#: templates/students/dashboard/view_stats.html:3
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: templates/students/dashboard/view_certificate.html:7
-msgid "Zertifikate exportieren"
-msgstr "Export certificates"
+#: templates/students/dashboard/view_certificate.html:9
+#, fuzzy
+#| msgid "Zertifikate erstellen"
+msgid "PDF mit allen Zertifikaten erstellen"
+msgstr "Create certificates"
+
+#: templates/students/dashboard/view_export_newsletter.html:3
+#: templates/students/dashboard/view_newsletter_overview.html:3
+#: templates/students/dashboard/view_stats.html:3
+msgid "Stats"
+msgstr "Stats"
 
 #: templates/students/dashboard/view_export_newsletter.html:7
 msgid "Newsletter Export"
@@ -200,6 +210,12 @@ msgstr "Your data has been saved successfully."
 #: templates/students/success.html:15
 msgid "Nächsten Eintrag hinzufügen"
 msgstr "Add next entry"
+
+#~ msgid "Klausuranmeldung aktiv"
+#~ msgstr "Exam registration open"
+
+#~ msgid "Zertifikate exportieren"
+#~ msgstr "Export certificates"
 
 #~ msgid "Klau&shy;sur&shy;an&shy;mel&shy;dung"
 #~ msgstr "Exam registration"
