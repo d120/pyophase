@@ -16,7 +16,7 @@ fi
 git pull
 bower install
 pip install -r requirements.txt
-./manage.py compilemessages
+./manage.py compilemessages  --locale='de' --locale='en'
 if [ "$1" = "--prod" ]; then
     ./manage.py collectstatic --noinput
 fi
