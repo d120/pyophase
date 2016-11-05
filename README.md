@@ -38,13 +38,13 @@ bower install
 
 ### Installation
 
-* Install `python3`, `python3-pip`, `virtualenv` and `bower` (the latter maybe via `npm`)
-* Maybe create a user for Django/WSGI applications (e.g. `django`)
+* Install `python3`, `python3-pip`, `virtualenv` and `bower` (the latter probably via `npm`)
+* Maybe create a user for the WSGI applications (e.g. `pyophase`)
 * Clone this repository into a proper directory (e.g. `/srv/pyophase`)
-* Maybe create MySQL database and proper user
+* Create MySQL database and proper user
 * Create the file `pyophase/settings_secrets.py` and fill it with the credentials needed in `settings_production.py`
 * Create a virtualenv (e.g. `virtualenv -p python3 venv`)
-* For serving WSGI applications, one can install `uwsgi`, create an ini file under `/etc/uwsgi` with a proper configuration and configure the webserver to use mod-proxy-uwsgi to make the application accessible. The webserver should also serve the static files. Make sure the application server (uwsgi) sets the proper environment variable for production settings (`DJANGO_SETTINGS_MODULE=pyophase.settings_production`).
+* For serving WSGI applications, one can install `uwsgi`, create an ini file under `/etc/uwsgi` with a proper configuration and configure the webserver to use `mod-proxy-uwsgi` to make the application accessible. The webserver should also serve the static files. Make sure the application server (uwsgi) sets the proper environment variable for production settings (`DJANGO_SETTINGS_MODULE=pyophase.settings_production`).
 * Run all the relevant commands from the Updates section
 
 ### Updates
@@ -53,7 +53,7 @@ When manually executing `manage.py` commands in production, do not forget to eit
 
 To update an instance of pyophase, one can use the included update script `script/update`.
 
-For production instances, one should use something like `sudo -u django script/update --prod`.
+For production instances, one should use something like `sudo -u pyophase script/update --prod`.
 
 ## Usage
 
