@@ -14,7 +14,7 @@ from .admin_actions import (
     staff_overview_export,
     tutorgroup_export,
     update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e, mark_phoned_x, mark_phoned_e,
-    mark_phoned_n, mark_attendance_v)
+    mark_phoned_n, mark_attendance_v, generate_orga_cert)
 from .models import (
     GroupCategory,
     HelperJob,
@@ -69,7 +69,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
     readonly_fields = ('created_at', 'updated_at')
-    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, send_fillform_mail]
+    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, send_fillform_mail, generate_orga_cert]
 
     fieldsets = [
         (_('Personendaten'), {'fields':
