@@ -1,0 +1,61 @@
+  % generelle Pakete
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[noheadfoot,a4paper,top=0.7cm,bottom=0.7cm]{geometry}
+
+\pagestyle{empty}
+
+% Ausgelagerte Erzeugung des Seitenkopfes
+\newcommand{\seitenkopf}[0] {
+
+  \begin{tabularx}{\textwidth}{m{.3\textwidth}m{.6\textwidth}}
+    \includegraphics[width=0.3\textwidth]{\wesenBild}
+    
+    &
+
+    \parbox[b]{9cm}{
+      \textbf{ \begin{center} \huge Fachschaft Informatik\\ TU Darmstadt \end{center} } 
+    } 
+
+    \\
+  \end{tabularx}
+
+}
+
+%% Gibt eine Orga-Bestätigung aus
+% #1: Vorname
+% #2: Nachname
+
+% Dieser Text kann natuerlich angepasst werden, aber die Variablen sollten an den richtigen
+% Stellen auftauchen :)
+
+\newcommand{\cert}[2]{
+    \seitenkopf
+    
+    \vspace{1cm}
+
+    \begin{center}
+      \huge
+      Zeugnis über die Organisation der Orientierungsphase \\
+      vom \ophasenTermin
+    \end{center}
+
+    \vspace{4cm}
+    
+    \noindent Der/die Student/in der Informatik \\
+    
+    \hspace{1.5cm} \textbf{#1 #2} \\
+    
+    \noindent hat im \semesterName \  die \\
+    
+    \hspace{1.5cm} \textbf{Orientierungsphase der Fachschaft Informatik} \\
+    
+    \noindent mit Erfolg organisiert.
+
+    Wir wünschen zum weiteren Studium viel Erfolg!
+    
+    \newpage
+}

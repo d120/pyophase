@@ -1,0 +1,28 @@
+{% load tex_escape %}{% autoescape off %}
+
+\documentclass{article}
+\usepackage{orgacerts}
+
+% Pfad zum Ophasen-Wesen
+\newcommand{\wesenBild}{OPhasenWesen.png}
+
+% Ophasen-Termin
+\newcommand{\ophasenTermin}{ {{current_ophase.get_human_short_duration}} {{current_ophase.end_date|date:"Y"}} }
+
+% Semestername
+\newcommand{\semesterName}{ {{current_ophase.get_semester}} }
+
+
+\begin{document}
+
+{% for person in items %}
+\cert{
+  {{person.prename|tex_escape}}
+}{
+  {{person.name|tex_escape}}
+}
+{% endfor %}
+
+\end{document}
+
+{% endautoescape %}
