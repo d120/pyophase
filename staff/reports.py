@@ -9,8 +9,7 @@ def generate_cert(queryset):
     """ Generates a PDF file with orga certificates for staff people in the queryset """
     current_ophase = Ophase.current()
     (pdf, pdflatex_output) = LaTeX.render({"items": queryset, "current_ophase": current_ophase},
-                                          'staff/reports/orga-report.tex', ['orgacerts.sty', 'OPhasenWesen.png',
-                                          'logo_fs.png', 'logo_fb.png', 'logo_tu.png'],
+                                          'staff/reports/orga-report.tex', ['orgacerts.sty', 'logos_combined.png'],
                                           'staff')
     return (pdf, pdflatex_output)
 

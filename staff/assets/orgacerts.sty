@@ -1,22 +1,12 @@
-  % generelle Pakete
+% generelle Pakete
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage[utf8]{inputenc}
 \usepackage[german]{babel}
 \usepackage[T1]{fontenc}
-\usepackage[noheadfoot,a4paper,top=0.7cm,bottom=0.7cm, left=0.7cm, right=0.7cm]{geometry}
 
-\pagestyle{empty}
+\pagenumbering{gobble}
 
-% Ausgelagerte Erzeugung des Seitenkopfes
-\newcommand{\seitenkopf}[0] {
-    ~\\
-    \begin{center}
-        \includegraphics[height=1.7cm]{\logoFS} \hspace{1.4cm}
-        \includegraphics[height=1.8cm]{\logoFB} \hspace{1cm}
-        \includegraphics[height=3.0cm]{\logoTU} \hspace{1cm}
-    \end{center}
-}
 
 %% Gibt eine Orga-Bestätigung aus
 % #1: Vorname
@@ -26,9 +16,14 @@
 % Stellen auftauchen :)
 
 \newcommand{\cert}[2]{
-    \seitenkopf
-    
-    \vspace{2cm}
+
+    ~\\
+
+    \begin{center}
+        \includegraphics[width=17.0cm]{\logosALL}
+    \end{center}
+
+    \vspace{3.5cm}
 
     \begin{center}
       \huge
@@ -36,25 +31,23 @@
       vom \ophasenTermin
     \end{center}
 
-    \vspace{0.7cm}
-    \center \includegraphics[height=5cm]{\wesenBild}
-    \vspace{1.2cm}
+    \vspace{2.5cm}
     
     \begin{center}
         \Large Wir danken\\
-        \vspace{0.7cm}
+        \vspace{0.9cm}
         \Huge \textbf{#1#2}\\
-        \vspace{0.7cm}
+        \vspace{0.9cm}
         \Large für tatkräftige Hilfe bei der Organisation der Orientierungsphase\\
         am Fachbereich Informatik der TU Darmstadt.
     \end{center}
 
     \vspace{5cm}
 
-    \begin{tabularx}{14cm}{cp{3cm}c}
-    Prof. Dr. rer. nat. Max Mühlhäuser & & Prof. Dr.-Ing. Michael Goesele\\
-    Dekan & & Studiendekan
+    \hspace{0.4cm}
+    \begin{tabularx}{}{cp{3cm}c}
+    \large{Prof. Dr. rer. nat. Max Mühlhäuser} & & \large{Prof. Dr.-Ing. Michael Goesele}\\
+    \\Dekan & & Studiendekan
     \end{tabularx} \\
-
     \newpage
 }

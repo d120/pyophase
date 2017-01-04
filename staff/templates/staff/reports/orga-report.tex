@@ -1,20 +1,16 @@
 {% load tex_escape %}{% autoescape off %}
 
-\documentclass{article}
+\documentclass[accentcolor=tud9c, nochapname]{tudexercise}
 \usepackage{orgacerts}
 
 % Pfad zu Bildern
-\newcommand{\logoFS}{logo_fs.png}
-\newcommand{\logoFB}{logo_fb.png}
-\newcommand{\logoTU}{logo_tu.png}
-\newcommand{\wesenBild}{OPhasenWesen.png}
+\newcommand{\logosALL}{logos_combined.png}
 
 % Ophasen-Termin
 \newcommand{\ophasenTermin}{ {{current_ophase.get_human_short_duration}} {{current_ophase.end_date|date:"Y"}} }
 
 % Semestername
 \newcommand{\semesterName}{ {{current_ophase.get_semester}} }
-
 
 \begin{document}
 
