@@ -11,11 +11,12 @@
 %% Gibt eine Orga-Bestätigung aus
 % #1: Vorname
 % #2: Nachname
+% #3: Ophasentermin
 
 % Dieser Text kann natuerlich angepasst werden, aber die Variablen sollten an den richtigen
 % Stellen auftauchen :)
 
-\newcommand{\cert}[2]{
+\newcommand{\cert}[3]{
 
     ~\\
 
@@ -28,7 +29,7 @@
     \begin{center}
       \huge
       Bescheinigung über Mitarbeit bei der Orientierungsphase \\
-      vom \ophasenTermin
+      vom #3
     \end{center}
 
     \vspace{2.5cm}

@@ -7,8 +7,8 @@ from ophasebase.models import Ophase
 
 def generate_orga_cert(queryset):
     """ Generates a PDF file with orga certificates for staff people in the queryset """
-    current_ophase = Ophase.current()
-    (pdf, pdflatex_output) = LaTeX.render({"items": queryset, "current_ophase": current_ophase},
+    queryset = queryset.prefetch_related('ophase')
+    (pdf, pdflatex_output) = LaTeX.render({"items": queryset},
                                           'staff/reports/orga-report.tex', ['orgacerts.sty', 'logos_combined.png'],
                                           'staff')
     return (pdf, pdflatex_output)
