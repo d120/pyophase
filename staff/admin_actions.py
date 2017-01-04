@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext as _, ungettext
 
 from staff.models import HelperJob, OrgaJob, Attendance
-from .reports import generate_cert_response
+from .reports import generate_orga_cert_response
 
 
 def mail_export(modeladmin, request, queryset):
@@ -240,7 +240,7 @@ send_fillform_mail.short_description = _('Fillform E-Mail an Person senden')
 
 def generate_orga_cert(modeladmin, request, queryset):
     """ Generates a PDF file with orga certificates for selected staff people and sends it to the browser """
-    response = generate_cert_response(request, queryset)
+    response = generate_orga_cert_response(request, queryset)
     return response
 
 generate_orga_cert.short_description = _('Orga-Bescheinigungen drucken')
