@@ -1,0 +1,53 @@
+% generelle Pakete
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+
+\pagenumbering{gobble}
+
+
+%% Gibt eine Orga-Bestätigung aus
+% #1: Vorname
+% #2: Nachname
+
+% Dieser Text kann natuerlich angepasst werden, aber die Variablen sollten an den richtigen
+% Stellen auftauchen :)
+
+\newcommand{\cert}[2]{
+
+    ~\\
+
+    \begin{center}
+        \includegraphics[width=17.0cm]{\logosALL}
+    \end{center}
+
+    \vspace{3.5cm}
+
+    \begin{center}
+      \huge
+      Bescheinigung über Mitarbeit bei der Orientierungsphase \\
+      vom \ophasenTermin
+    \end{center}
+
+    \vspace{2.5cm}
+    
+    \begin{center}
+        \Large Wir danken\\
+        \vspace{0.9cm}
+        \Huge \textbf{#1#2}\\
+        \vspace{0.9cm}
+        \Large für tatkräftige Hilfe bei der Organisation der Orientierungsphase\\
+        am Fachbereich Informatik der TU Darmstadt.
+    \end{center}
+
+    \vspace{5cm}
+
+    \hspace{0.4cm}
+    \begin{tabularx}{}{cp{3cm}c}
+    \large{Prof. Dr. rer. nat. Max Mühlhäuser} & & \large{Prof. Dr.-Ing. Michael Goesele}\\
+    \\Dekan & & Studiendekan
+    \end{tabularx} \\
+    \newpage
+}

@@ -1,0 +1,27 @@
+{% load tex_escape %}{% autoescape off %}
+
+\documentclass[accentcolor=tud9c, nochapname]{tudexercise}
+\usepackage{orgacerts}
+
+% Pfad zu Bildern
+\newcommand{\logosALL}{logos_combined.png}
+
+% Ophasen-Termin
+\newcommand{\ophasenTermin}{ {{current_ophase.get_human_short_duration}} {{current_ophase.end_date|date:"Y"}} }
+
+% Semestername
+\newcommand{\semesterName}{ {{current_ophase.get_semester}} }
+
+\begin{document}
+
+{% for person in items %}
+\cert{
+  {{person.prename|tex_escape}}
+}{
+  {{person.name|tex_escape}}
+}
+{% endfor %}
+
+\end{document}
+
+{% endautoescape %}

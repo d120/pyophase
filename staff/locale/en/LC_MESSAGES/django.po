@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-12 15:42+0200\n"
+"POT-Creation-Date: 2016-12-22 17:12+0100\n"
 "PO-Revision-Date: 2016-08-25 19:12+0200\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -54,7 +54,7 @@ msgstr "Organizers' notes"
 msgid "Tutor"
 msgstr "Tutor"
 
-#: admin.py:119 admin_actions.py:95 models.py:181
+#: admin.py:119 admin_actions.py:96 models.py:181
 #: templates/staff/dashboard/widget_staff.html:3 views.py:29
 msgid "Tutoren"
 msgstr "Tutors"
@@ -63,147 +63,151 @@ msgstr "Tutors"
 msgid "Teilnehmerliste"
 msgstr ""
 
-#: admin_actions.py:25 admin_actions.py:28
+#: admin_actions.py:26 admin_actions.py:29
 msgid "E-Mail Mass Subscription Export"
 msgstr "E-mail mass subscription export"
 
-#: admin_actions.py:66
+#: admin_actions.py:67
 msgid "Namensschilderexport"
 msgstr "Name tag export"
 
-#: admin_actions.py:78
+#: admin_actions.py:79
 msgid "Vorname"
 msgstr "First name"
 
-#: admin_actions.py:78
+#: admin_actions.py:79
 msgid "Nachname"
 msgstr "Last name"
 
-#: admin_actions.py:78
+#: admin_actions.py:79
 msgid "E-Mail"
 msgstr "E-mail address"
 
-#: admin_actions.py:78
+#: admin_actions.py:79
 msgid "Handy"
 msgstr "Mobile phone number"
 
-#: admin_actions.py:94 templates/staff/dashboard/widget_staff.html:4
+#: admin_actions.py:95 templates/staff/dashboard/widget_staff.html:4
 msgid "Orgas"
 msgstr "Organizers"
 
-#: admin_actions.py:94
+#: admin_actions.py:95
 msgid "Verantwortlich für ..."
 msgstr "Responsible for ..."
 
-#: admin_actions.py:95
+#: admin_actions.py:96
 msgid "Betreut ..."
 msgstr "Takes care of ..."
 
-#: admin_actions.py:96 models.py:70
+#: admin_actions.py:97 models.py:70
 #: templates/staff/dashboard/widget_staff.html:5 views.py:33
 msgid "Helfer"
 msgstr "Helper"
 
-#: admin_actions.py:96
+#: admin_actions.py:97
 msgid "Hilft bei ..."
 msgstr "Helps with ..."
 
-#: admin_actions.py:105
+#: admin_actions.py:106
 msgid "Übersicht exportieren"
 msgstr "Export overview"
 
-#: admin_actions.py:148
+#: admin_actions.py:149
 msgid "Helfer-Übersicht anzeigen"
 msgstr "Show helper overview"
 
-#: admin_actions.py:156
+#: admin_actions.py:157
 msgid "Orga-Übersicht anzeigen"
 msgstr "Show organizer overview"
 
-#: admin_actions.py:186
+#: admin_actions.py:187
 msgid "Kleingruppen exportieren"
 msgstr "Export tutored groups"
 
-#: admin_actions.py:200
+#: admin_actions.py:201
 msgid "Erneute Anmeldung bei der nächsten Ophase"
 msgstr "Reregistration for the next Ophase"
 
-#: admin_actions.py:220
+#: admin_actions.py:221
 #, python-brace-format
 msgid "Die Fillform E-Mail wurde an {person} verschickt."
 msgid_plural "Die Fillform E-Mails wurden an {count} Personen verschickt."
 msgstr[0] "The fillform email was sent to {person}."
 msgstr[1] "The fillform email was sent to {count} persons."
 
-#: admin_actions.py:229 templates/staff/admin/fillform_email_confirm.html:20
+#: admin_actions.py:230 templates/staff/admin/fillform_email_confirm.html:20
 msgid "Fillform E-Mail verschicken"
 msgstr "Send fillform email"
 
-#: admin_actions.py:237
+#: admin_actions.py:238
 msgid "Fillform E-Mail an Person senden"
 msgstr "Send fillform email to persons"
 
-#: admin_actions.py:247
+#: admin_actions.py:246
+msgid "Orga-Bescheinigungen drucken"
+msgstr "Print organizer certificates"
+
+#: admin_actions.py:256
 msgid "Teilnehmerliste aktualisiert."
 msgstr ""
 
-#: admin_actions.py:248
+#: admin_actions.py:257
 msgid "Liste der Teilnehmer aktualisieren (anhand des Zielgruppenfilters)"
 msgstr ""
 
-#: admin_actions.py:253
+#: admin_actions.py:262
 msgid "Als 'nicht anwesend' markiert."
 msgstr ""
 
-#: admin_actions.py:254
+#: admin_actions.py:263
 msgid "Als 'nicht anwesend' markieren"
 msgstr ""
 
-#: admin_actions.py:259
+#: admin_actions.py:268
 msgid "Als 'anwesend' markiert."
 msgstr ""
 
-#: admin_actions.py:260
+#: admin_actions.py:269
 msgid "Als 'anwesend' markieren"
 msgstr ""
 
-#: admin_actions.py:265
+#: admin_actions.py:274
 msgid "Als 'anwesend, verspätet' markiert."
 msgstr ""
 
-#: admin_actions.py:266
+#: admin_actions.py:275
 msgid "Als 'anwesend, verspätet' markieren"
 msgstr ""
 
-#: admin_actions.py:271
+#: admin_actions.py:280
 msgid "Als 'entschuldigt' markiert."
 msgstr ""
 
-#: admin_actions.py:272
+#: admin_actions.py:281
 msgid "Als 'entschuldigt' markieren"
 msgstr ""
 
-#: admin_actions.py:277
+#: admin_actions.py:286
 msgid "Als 'nicht angerufen' markiert."
 msgstr ""
 
-#: admin_actions.py:278
+#: admin_actions.py:287
 msgid "Als 'nicht angerufen' markieren"
 msgstr ""
 
-#: admin_actions.py:283
+#: admin_actions.py:292
 msgid "Als 'angerufen + erreicht' markiert."
 msgstr ""
 
-#: admin_actions.py:284
+#: admin_actions.py:293
 msgid "Als 'angerufen + erreicht' markieren"
 msgstr ""
 
-#: admin_actions.py:289
+#: admin_actions.py:298
 msgid "Als 'angerufen + nicht erreicht' markiert."
 msgstr ""
 
-#: admin_actions.py:290
+#: admin_actions.py:299
 msgid "Als 'angerufen + nicht erreicht' markieren"
 msgstr ""
 
