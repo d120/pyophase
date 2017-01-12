@@ -42,7 +42,7 @@ before_script:
 script:
   - export PYTHONWARNINGS=all
   - python manage.py check 
-  - python manage.py test 
+  - python manage.py test --parallel
   - coverage run --omit="*/migrations*" --source="." manage.py test
 
 after_success:
