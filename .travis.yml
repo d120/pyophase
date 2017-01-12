@@ -15,8 +15,6 @@ python:
 env:
     # the Django version from requirements.txt is used
   - $DENV=""
-    # the latest Django stable version is used
-  - $DENV="pip install --upgrade Django"
     # the latest Django development version is used
   - $DENV="pip install --upgrade --pre Django"
 
