@@ -23,6 +23,11 @@ env:
     # the latest Django development version is used
   - $DENV="pip install --upgrade --pre Django"
 
+# allow the Django pre version to fail without failing the entire build
+matrix:
+  allow_failures:
+    - env $DENV="pip install --upgrade --pre Django"
+
 install:
   - pip install -U pip wheel
   - pip install -r requirements.txt
