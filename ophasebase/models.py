@@ -137,3 +137,33 @@ class Ophase(models.Model):
             return Ophase.objects.get(is_active=True)
         except Ophase.DoesNotExist:
             return None
+
+
+class OphaseCategory(models.Model):
+    """Object representing the category of an Ophase"""
+    class Meta:
+        verbose_name = _('Art der Ophase')
+        verbose_name_plural = _('Arten der Ophase')
+        ordering = ['priority']
+
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    priority = models.PositiveIntegerField(verbose_name=_("Priorität"), help_text=_("Die Priorität bestimmt unter anderem die Reihenfolge der Anzeige auf der Webseite"))
+
+    def __str__(self):
+        return self.name
+
+
+class OphaseActiveCategory(models.Model):
+    """An active category of a given Ophase"""
+    class Meta:
+        verbose_name = _('Aktive Kategorie einer Ophase')
+        verbose_name_plural = _('Aktive Katgegorien einer Ophase')
+        ordering = ['ophase', 'category']
+
+    ophase = models.ForeignKey(Ophase, verbose_name=_('Ophase'))
+    category = models.ForeignKey(OphaseCategory, verbose_name=_('Art der Ophase'))
+    begin_date = models.DateField(verbose_name=_('Beginn'))
+    end_date = models.DateField(verbose_name=_('Ende'))
+
+    def __str__(self):
+        return "%s: %s".format(self.ophase, self.category)
