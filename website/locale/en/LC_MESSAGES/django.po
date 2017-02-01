@@ -19,97 +19,97 @@ msgstr ""
 
 #: models.py:15 models.py:16
 msgid "Einstellungen"
-msgstr ""
+msgstr "Settings"
 
 #: models.py:29
 msgid "Website Einstellungen"
-msgstr ""
+msgstr "Site settings"
 
 #: models.py:37
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
-msgstr ""
+msgstr "It's only useful and possible to create one instance of this setting object"
 
 #: models.py:57
 msgid "Stundenplan"
-msgstr ""
+msgstr "Timetable"
 
 #: models.py:58
 msgid "Stundenpläne"
-msgstr ""
+msgstr "Timetables"
 
 #: models.py:61 models.py:97
 msgid "Bachelor"
-msgstr ""
+msgstr "Bachelor"
 
 #: models.py:62 models.py:98
 msgid "Master Deutsch"
-msgstr ""
+msgstr "Master German"
 
 #: models.py:63 models.py:99
 msgid "Distributed Software Systems"
-msgstr ""
+msgstr "Distributed Software Systems"
 
 #: models.py:64
 msgid "Joint-Bachelor of Arts"
-msgstr ""
+msgstr "Joint-Bachelor of Arts"
 
 #: models.py:65
 msgid "Lehramt Bachelor of Education"
-msgstr ""
+msgstr "Bachelor of Education"
 
 #: models.py:75 models.py:109
 msgid "Abschluss"
-msgstr ""
+msgstr "Graduation"
 
 #: models.py:76
 msgid "Stundenplan Bild"
-msgstr ""
+msgstr "Timetable image"
 
 #: models.py:78
 msgid "Stand des Stundenplans"
-msgstr ""
+msgstr "Status of the timetable"
 
 #: models.py:93
 msgid "OInforz"
-msgstr ""
+msgstr "OInforz"
 
 #: models.py:94
 msgid "OInforze"
-msgstr ""
+msgstr "OInforze"
 
 #: models.py:110
 msgid "OInforz PDF"
-msgstr ""
+msgstr "OInforz pdf"
 
 #: models.py:112
 msgid "Stand des OInforzes"
-msgstr ""
+msgstr "Status of the OInforz"
 
 #: templates/website/helfen.html:14
 msgid "Für engagierte Studierende"
-msgstr ""
+msgstr "For involved students"
 
 #: templates/website/helfen.html:15
 msgid "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken"
-msgstr ""
+msgstr "Participating as tutor, organizer or assistant"
 
 #: templates/website/helfen.html:18
 msgid "Für Workshopleiter"
-msgstr ""
+msgstr "FOr workshop organizer"
 
 #: templates/website/helfen.html:19
 msgid "Bei der nächsten Ophase einen Workshop anbieten"
-msgstr ""
+msgstr "Offer a workshop in the next Ophase"
 
 #: templates/website/homepage.html:18
 msgid "Für Tutorinnen und Tutoren während der Ophase"
-msgstr ""
+msgstr "For tutors during the next Ophase"
 
 #: templates/website/homepage.html:19
 msgid "Die Erstsemester deiner Kleingruppe registrieren"
-msgstr ""
+msgstr "Register the first-semester students for your group"
 
 #: templates/website/oinforz.html:11
 msgid ""
