@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Ophase, Room
+from ophasebase.models import Ophase, Room, OphaseCategory
 
 
 class GroupCategory(models.Model):
@@ -27,6 +27,7 @@ class Job(models.Model):
 
     label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
     description = models.TextField(verbose_name=_('Beschreibung'))
+    categories = models.ManyToManyField(OphaseCategory, verbose_name=_("Kategorie(n) zu der/den der Job gehört"), blank=True)
 
     def __str__(self):
         return self.label
