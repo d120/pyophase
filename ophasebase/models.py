@@ -72,23 +72,25 @@ class Ophase(models.Model):
         verbose_name = _('Ophase')
         verbose_name_plural = _('Ophasen')
 
-    start_date = models.DateField(verbose_name=_('Beginn'))
-    end_date = models.DateField(verbose_name=_('Ende'))
+    name = models.CharField(max_length=100)
     is_active = models.BooleanField(default=False, verbose_name=_('Aktiv?'))
     contact_email_address = models.EmailField(verbose_name=_('Kontaktadresse Leitung'))
-
-    def get_name(self):
-        term = _('Ophase')
-        if self.start_date.month == 4:
-            term = _('Sommerophase')
-        elif self.start_date.month == 10:
-            term = _('Winterophase')
-        return "%s %d" % (term, self.start_date.year)
-
-    get_name.short_description = _('Ophase')
+    categories = models.ManyToManyField("OphaseCategory", through="OphaseActiveCategory", related_name=u'ophase_categories')
 
     def __str__(self):
-        return self.get_name()
+        return self.name
+
+    @property
+    def start_date(self):
+        if self.ophaseactivecategory_set.count() == 0:
+            return 0
+        return min(c.start_date for c in self.ophaseactivecategory_set.all())
+
+    @property
+    def end_date(self):
+        if self.ophaseactivecategory_set.count() == 0:
+            return 0
+        return max(c.end_date for c in self.ophaseactivecategory_set.all())
 
     def get_semester(self):
         term = _('Jahr')
@@ -162,8 +164,8 @@ class OphaseActiveCategory(models.Model):
 
     ophase = models.ForeignKey(Ophase, verbose_name=_('Ophase'))
     category = models.ForeignKey(OphaseCategory, verbose_name=_('Art der Ophase'))
-    begin_date = models.DateField(verbose_name=_('Beginn'))
+    start_date = models.DateField(verbose_name=_('Beginn'))
     end_date = models.DateField(verbose_name=_('Ende'))
 
     def __str__(self):
-        return "%s: %s".format(self.ophase, self.category)
+        return "{}: {}".format(self.ophase, self.category)

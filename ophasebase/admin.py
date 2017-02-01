@@ -6,7 +6,7 @@ from .models import Building, Ophase, Room, OphaseCategory, OphaseActiveCategory
 
 @admin.register(Ophase)
 class OphaseAdmin(admin.ModelAdmin):
-    list_display = ('get_name', 'start_date', 'end_date', 'is_active')
+    list_display = ('name', 'start_date', 'end_date', 'is_active')
 
 
 @admin.register(Building)
@@ -34,5 +34,5 @@ class OphaseCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(OphaseActiveCategory)
 class OphaseActiveCategory(admin.ModelAdmin):
-    list_display = ('ophase', 'category', 'begin_date', 'end_date')
+    list_display = ('ophase', 'category', 'start_date', 'end_date')
     list_display_links = ('ophase', 'category')
