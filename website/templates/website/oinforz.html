@@ -8,12 +8,8 @@
     Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; OInforze
 </div>
 
-Hier findest Du die OInforze zur aktuellen Ophase. Es handelt sich dabei um eine Broschüre mit vielen wichtigen Inhalten
-zum Studium und zum Leben in Darmstadt. Du bekommst ein gedrucktes Exemplar in der Ophase, kannst aber natürlich
-zusätzlich auch die digitale Version verwenden.
-
-These are the OInforz booklets for the current Ophase. They contain lots of relevant information both on your studies
-and life in Darmstadt. You will get a printed copy in the Ophase, but you can use the digital version as well.
+{% blocktrans%}Hier findest Du die OInforze zur aktuellen Ophase. Es handelt sich dabei um eine Broschüre mit vielen wichtigen Inhalten zum Studium und zum Leben in Darmstadt. Du bekommst ein gedrucktes Exemplar in der Ophase, kannst aber natürlich
+zusätzlich auch die digitale Version verwenden.{% endblocktrans %}
 
 {% for oinforz in oinforze %}
     <h2>
