@@ -55,8 +55,8 @@ class StudentAddViewTest(TestCase):
         self.assertEqual(response.context['student_registration_enabled'], True)
 
         # create a GroupCategory
-        gc = OphaseCategory.objects.create(label="Super Mario")
-        self.assertEqual(gc.label, "Super Mario")
+        gc = OphaseCategory.objects.create(name="Super Mario")
+        self.assertEqual(gc.name, "Super Mario")
 
         # create a TutorGroup
         tg = TutorGroup.objects.create(ophase=o1, name="Mario", group_category=gc)

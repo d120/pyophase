@@ -123,7 +123,7 @@ class GenericJobList(ListView):
             return context
 
 class GroupCategoryList(GenericJobList):
-    """List all GroupCategorys"""
+    """List all OphaseCategorie"""
     model = OphaseCategory
 
     def __init__(self):
