@@ -87,8 +87,7 @@ class NewsletterModelTests(TestCase):
 class StudentModelTests(TestCase):
 
     def setUp(self):
-        self.o1 = Ophase.objects.create(
-            start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
+        self.o1 = Ophase.objects.create(name="Testophase 1", is_active=True)
 
         self.gc = OphaseCategory.objects.create(name="Super Mario")
         self.assertEqual(self.gc.name, "Super Mario")
@@ -168,18 +167,17 @@ class StudentModelTests(TestCase):
         """Ensure Student is created with active Ophase as ForeignKey."""
         # create Student with an active Ophase
         self.st.save()
-        self.assertEqual(self.st.ophase.start_date, date(2014, 4, 7))
+        self.assertEqual(self.st.ophase.name, "Testophase 1")
         # create another Ophase which is active (i.e. old Ophase becomes inactive) and update old Person
         # Ophase ForeignKey should stay the same as before!
-        Ophase.objects.create(
-            start_date=date(2014, 10, 6), end_date=date(2014, 10, 10), is_active=True)
+        Ophase.objects.create(name="Testophase 2", is_active=True)
         self.o1.is_active = False
         self.o1.save()
 
         self.st.email = "doe@example.net"
         self.st.save()
         st = Student.objects.get(pk=self.st.pk)
-        self.assertEqual(st.ophase.start_date, date(2014, 4, 7))
+        self.assertEqual(st.name, "Testophase 1")
         self.assertEqual(st.email, "doe@example.net")
 
         self.assertEqual(Student.objects.count(), 1)
