@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import formats
+from django.utils.datetime_safe import datetime
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -83,13 +84,13 @@ class Ophase(models.Model):
     @property
     def start_date(self):
         if self.ophaseactivecategory_set.count() == 0:
-            return 0
+            return datetime.now()
         return min(c.start_date for c in self.ophaseactivecategory_set.all())
 
     @property
     def end_date(self):
         if self.ophaseactivecategory_set.count() == 0:
-            return 0
+            return datetime.now()
         return max(c.end_date for c in self.ophaseactivecategory_set.all())
 
     def get_semester(self):
