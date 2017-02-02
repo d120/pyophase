@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Ophase
-from staff.models import GroupCategory, TutorGroup
+from staff.models import TutorGroup
 
 
 class StudentAddViewTest(TestCase):

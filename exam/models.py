@@ -4,8 +4,7 @@ from django.db import models
 from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Ophase
-from staff.models import GroupCategory
+from ophasebase.models import Ophase, OphaseCategory
 from students.models import Student
 
 
@@ -54,7 +53,7 @@ class Assignment(models.Model):
 
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    group_category = models.ForeignKey(GroupCategory, models.CASCADE, verbose_name=_('Gruppenkategorie'))
+    group_category = models.ForeignKey(OphaseCategory, models.CASCADE, verbose_name=_('Gruppenkategorie'))
     spacing = models.PositiveSmallIntegerField(choices=SPACING_CHOICES, default=2, verbose_name=_('Sitzplatzabstand'))
     mode = models.PositiveSmallIntegerField(choices=MODE_CHOICES, default=0, verbose_name=_('Verteilmodus'))
     count = models.PositiveIntegerField(verbose_name=_('# Zuteilungen'))

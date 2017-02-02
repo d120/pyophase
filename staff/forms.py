@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.html import escape, format_html
 from django.utils.translation import ugettext as _
 
-from .models import GroupCategory, HelperJob, OrgaJob, Person, Settings
+from .models import HelperJob, OrgaJob, Person, Settings
 
 
 class PersonForm(forms.ModelForm):

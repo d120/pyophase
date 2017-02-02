@@ -7,19 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from ophasebase.models import Ophase, Room, OphaseCategory
 
 
-class GroupCategory(models.Model):
-    """Group category like "Bachelor", "Master german", "Master english", ..."""
-    class Meta:
-        verbose_name = _("Gruppenkategorie")
-        verbose_name_plural = _("Gruppenkategorien")
-        ordering = ['label']
-
-    label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
-
-    def __str__(self):
-        return self.label
-
-
 class Job(models.Model):
     """A job during the Ophase for which persons are needed."""
     class Meta:
@@ -69,7 +56,7 @@ class Person(models.Model):
     is_tutor = models.BooleanField(default=False, verbose_name=_("Tutor"), help_text=_("Möchtest du als Tutor bei der Ophase mitmachen?"))
     is_orga = models.BooleanField(default=False, verbose_name=_("Orga"), help_text=_("Möchtest du als Orga bei der Ophase mitmachen?"))
     is_helper = models.BooleanField(default=False, verbose_name=_("Helfer"), help_text=_("Möchtest du als Helfer bei der Ophase mitmachen?"))
-    tutor_for = models.ForeignKey(GroupCategory, models.SET_NULL, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
+    tutor_for = models.ForeignKey(OphaseCategory, models.SET_NULL, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
     orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name=_("Orgaaufgaben"), help_text=_("Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"))
     helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name=_("Helferaufgaben"), help_text=_("Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"))
     remarks = models.TextField(blank=True, verbose_name=_("Anmerkungen"), help_text=_("Was sollten wir noch wissen?"))
@@ -144,7 +131,7 @@ class StaffFilterGroup(models.Model):
     is_orga = models.BooleanField(default=False, verbose_name=_("Orga?"), help_text=_("Soll der Filter auf Orgas zutreffen"))
     is_helper = models.BooleanField(default=False, verbose_name=_("Helfer?"), help_text=_("Soll der Filter auf Helfer zutreffen"))
     tutor_for_all = models.BooleanField(default=False, verbose_name=_("Alle Tutorenkategorien?"), help_text=_("Soll der Filter auf alle Tutorengruppen zutreffen (sonst spezifizieren)."))
-    tutor_for = models.ManyToManyField(GroupCategory, blank=True, verbose_name=_("Tutor für"), help_text=_("Welche Tutorengruppen sollen einbezogen werden?"))
+    tutor_for = models.ManyToManyField(OphaseCategory, blank=True, verbose_name=_("Tutor für"), help_text=_("Welche Tutorengruppen sollen einbezogen werden?"))
 
     def __str__(self):
         return self.name
@@ -180,7 +167,7 @@ class TutorGroup(models.Model):
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     name = models.CharField(max_length=50, verbose_name=_("Gruppenname"))
     tutors = models.ManyToManyField(Person, blank=True, verbose_name=_("Tutoren"))
-    group_category = models.ForeignKey(GroupCategory, models.CASCADE, verbose_name=_("Gruppenkategorie"))
+    group_category = models.ForeignKey(OphaseCategory, models.CASCADE, verbose_name=_("Gruppenkategorie"))
 
     def __str__(self):
         return self.name
@@ -248,7 +235,7 @@ class Settings(models.Model):
     tutor_registration_enabled = models.BooleanField(default=False, verbose_name=_("Tutor Registrierung aktiv"))
     orga_registration_enabled = models.BooleanField(default=False, verbose_name=_("Orga Registrierung aktiv"))
     helper_registration_enabled = models.BooleanField(default=False, verbose_name=_("Helfer Registrierung aktiv"))
-    group_categories_enabled = models.ManyToManyField(GroupCategory, verbose_name=_("Freigeschaltete Kleingruppenkategorien"))
+    group_categories_enabled = models.ManyToManyField(OphaseCategory, verbose_name=_("Freigeschaltete Kleingruppenkategorien"))
     orga_jobs_enabled = models.ManyToManyField(OrgaJob, verbose_name=_("Freigeschaltete Orgajobs"))
     helper_jobs_enabled = models.ManyToManyField(HelperJob, verbose_name=_("Freigeschaltete Helferjobs"))
 

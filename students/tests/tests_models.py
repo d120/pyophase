@@ -4,8 +4,8 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Ophase
-from staff.models import GroupCategory, TutorGroup
+from ophasebase.models import Ophase, OphaseCategory
+from staff.models import TutorGroup
 from students.models import Newsletter, Settings, Student
 
 
@@ -90,8 +90,8 @@ class StudentModelTests(TestCase):
         self.o1 = Ophase.objects.create(
             start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
 
-        self.gc = GroupCategory.objects.create(label="Super Mario")
-        self.assertEqual(self.gc.label, "Super Mario")
+        self.gc = OphaseCategory.objects.create(name="Super Mario")
+        self.assertEqual(self.gc.name, "Super Mario")
 
         self.tg = TutorGroup.objects.create(
             ophase=self.o1, name="Mario", group_category=self.gc)
