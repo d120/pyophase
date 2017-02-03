@@ -214,9 +214,9 @@ class AttendanceEvent(models.Model):
     name = models.CharField(max_length=100, verbose_name=_("Name"))
     begin = models.DateTimeField(verbose_name=_("Beginn"))
     end = models.DateTimeField(verbose_name=_("Ende"))
-    required_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"))
+    required_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"), null=True, on_delete=models.SET_NULL)
     ophase = models.ForeignKey(Ophase, models.CASCADE)
-    room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True)
+    room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True, on_delete=models.SET_NULL)
 
     @staticmethod
     def get_current_events(**kwargs):
