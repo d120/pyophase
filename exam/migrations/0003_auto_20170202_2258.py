@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('exam', '0002_auto_20150916_1444'),
+        ('ophasebase', '0005_auto_20170201_2219')
     ]
 
     operations = [
