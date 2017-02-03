@@ -163,8 +163,8 @@ class OphaseActiveCategory(models.Model):
         verbose_name_plural = _('Aktive Katgegorien einer Ophase')
         ordering = ['ophase', 'category']
 
-    ophase = models.ForeignKey(Ophase, verbose_name=_('Ophase'))
-    category = models.ForeignKey(OphaseCategory, verbose_name=_('Art der Ophase'))
+    ophase = models.ForeignKey(Ophase, verbose_name=_('Ophase'), on_delete=models.CASCADE)
+    category = models.ForeignKey(OphaseCategory, verbose_name=_('Art der Ophase'), on_delete=models.CASCADE)
     start_date = models.DateField(verbose_name=_('Beginn'))
     end_date = models.DateField(verbose_name=_('Ende'))
 
