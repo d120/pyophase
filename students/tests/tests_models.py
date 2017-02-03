@@ -89,7 +89,7 @@ class StudentModelTests(TestCase):
     def setUp(self):
         self.o1 = Ophase.objects.create(name="Testophase 1", is_active=True)
 
-        self.gc = OphaseCategory.objects.create(name="Super Mario")
+        self.gc = OphaseCategory.objects.create(name="Super Mario", priority=10)
         self.assertEqual(self.gc.name, "Super Mario")
 
         self.tg = TutorGroup.objects.create(
@@ -177,7 +177,7 @@ class StudentModelTests(TestCase):
         self.st.email = "doe@example.net"
         self.st.save()
         st = Student.objects.get(pk=self.st.pk)
-        self.assertEqual(st.name, "Testophase 1")
+        self.assertEqual(st.ophase.name, "Testophase 1")
         self.assertEqual(st.email, "doe@example.net")
 
         self.assertEqual(Student.objects.count(), 1)

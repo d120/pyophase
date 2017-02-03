@@ -42,7 +42,7 @@ class TutorFilter(admin.SimpleListFilter):
     def lookups(self, request, model_admin):
         choices = [('onlytutors', _('Alle Tutoren'))]
         for gc in OphaseCategory.objects.all():
-            choices.append((gc.id, gc.label))
+            choices.append((gc.id, gc.name))
         choices.append(('notutors', _('Keine Tutoren')))
         return choices
 
@@ -95,7 +95,7 @@ class PersonAdmin(admin.ModelAdmin):
         if obj.is_tutor == True and obj.tutor_for is not None:
             icon_url = static('admin/img/icon-yes.svg')
             return format_html('<img src="{}" alt="{}" title="{}" />',
-                               icon_url, obj.is_tutor, obj.tutor_for.label)
+                               icon_url, obj.is_tutor, obj.tutor_for.name)
         else:
             return _boolean_icon(obj.is_tutor)
 
