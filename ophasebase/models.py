@@ -150,6 +150,7 @@ class OphaseCategory(models.Model):
         ordering = ['priority']
 
     name = models.CharField(max_length=100, verbose_name=_('Name'))
+    description_template = models.CharField(max_length=50, verbose_name=_('Beschreibung in Template'))
     priority = models.PositiveIntegerField(verbose_name=_("Priorität"), help_text=_("Die Priorität bestimmt unter anderem die Reihenfolge der Anzeige auf der Webseite"))
 
     def __str__(self):
@@ -167,6 +168,28 @@ class OphaseActiveCategory(models.Model):
     category = models.ForeignKey(OphaseCategory, verbose_name=_('Art der Ophase'), on_delete=models.CASCADE)
     start_date = models.DateField(verbose_name=_('Beginn'))
     end_date = models.DateField(verbose_name=_('Ende'))
+
+    def get_human_duration(self):
+        """
+        Returns the start_date and end_date of the ophase as human readable
+        e.g. vom 3. April 2014 bis 6. April 2016
+        """
+        return _('vom %(begin)s bis %(end)s') % {
+          'begin': formats.date_format(self.start_date, 'DATE_FORMAT'),
+          'end': formats.date_format(self.end_date, 'DATE_FORMAT'),}
+
+    def get_human_short_duration(self):
+        """
+        Returns the start_date and end_date of the ophase category as
+        human readable e.g. 3. - 6. April
+        """
+        beginformat = 'j. '
+        if self.start_date.month != self.end_date.month:
+            beginformat +='F'
+        endformat = 'j. F'
+        return '%(begin)s - %(end)s' % {
+          'begin': formats.date_format(self.start_date, beginformat),
+          'end': formats.date_format(self.end_date, endformat),}
 
     def __str__(self):
         return "{}: {}".format(self.ophase, self.category)
