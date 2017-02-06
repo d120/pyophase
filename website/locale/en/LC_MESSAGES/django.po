@@ -1,16 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
-
 # Copyright (C) 2017 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Heiko Carrasco <hcarrasco@d120.de>, 2017.
-
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-25 02:30+0100\n"
+"POT-Creation-Date: 2017-02-06 22:08+0100\n"
 "PO-Revision-Date: 2017-01-25 02:30+0100\n"
 "Last-Translator: Heiko Carrasco <hcarrasco@d120.de\n"
 "Language-Team: Heiko Carrasco <hcarrasco@d120.de\n"
@@ -32,7 +30,8 @@ msgstr "Site settings"
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
-msgstr "It's only useful and possible to create one instance of this setting object"
+msgstr ""
+"It's only useful and possible to create one instance of this setting object"
 
 #: models.py:57
 msgid "Stundenplan"
@@ -114,6 +113,24 @@ msgstr "For tutors during the next Ophase"
 msgid "Die Erstsemester deiner Kleingruppe registrieren"
 msgstr "Register the first-semester students for your group"
 
+#: templates/website/homepage.html:41
+#, fuzzy
+#| msgid "Stundenplan"
+msgid "zum Stundenplan"
+msgstr "Timetable"
+
+#: templates/website/homepage.html:48
+msgid "Gebäude"
+msgstr "Building"
+
+#: templates/website/homepage.html:51
+msgid "Lageplan der Uni"
+msgstr "University Map"
+
+#: templates/website/homepage.html:57
+msgid "Helpdesk"
+msgstr "Helpdesk"
+
 #: templates/website/oinforz.html:11
 msgid ""
 "Hier findest Du die OInforze zur aktuellen Ophase. Es handelt sich dabei um "
@@ -121,5 +138,8 @@ msgid ""
 "Darmstadt. Du bekommst ein gedrucktes Exemplar in der Ophase, kannst aber "
 "natürlich\n"
 "zusätzlich auch die digitale Version verwenden."
-msgstr "These are the OInforz booklets for the current Ophase. They contain lots of relevant information both on your studies\n and life in Darmstadt. You will get a printed copy in the Ophase, but you can use the digital version as well."
-
+msgstr ""
+"These are the OInforz booklets for the current Ophase. They contain lots of "
+"relevant information both on your studies\n"
+" and life in Darmstadt. You will get a printed copy in the Ophase, but you "
+"can use the digital version as well."
