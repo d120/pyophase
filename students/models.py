@@ -1,8 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, OphaseCategory
 from staff.models import TutorGroup
 
 
@@ -17,6 +18,17 @@ class Newsletter(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Newsletter"))
     description = models.TextField(verbose_name=_("Beschreibung"))
     active = models.BooleanField(default=True, verbose_name=_("Auswählbar"))
+    categories = models.ManyToManyField(OphaseCategory, verbose_name=_("Kategorie(n) zu der/den der Newsletter gehört"), blank=True)
+
+    @classmethod
+    def filter_for_category(cls, category):
+        """
+        Find all newsletters relevant for the given category
+        All newsletters with either no category or the matching category will be returned
+        :param category: category to find newsletters for
+        :return: QuerySet of all matching newsletters
+        """
+        return cls.objects.filter(Q(categories=None) | Q(categories__exact=category)).distinct()
 
     def __str__(self):
         return "%s - %s" % (self.name, self.description)
