@@ -1,128 +1,125 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+
+# Copyright (C) 2017 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Heiko Carrasco <hcarrasco@d120.de>, 2017.
+
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-06 00:51+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2017-01-25 02:30+0100\n"
+"PO-Revision-Date: 2017-01-25 02:30+0100\n"
+"Last-Translator: Heiko Carrasco <hcarrasco@d120.de\n"
+"Language-Team: Heiko Carrasco <hcarrasco@d120.de\n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: models.py:15 models.py:16
 msgid "Einstellungen"
-msgstr ""
+msgstr "Settings"
 
 #: models.py:29
 msgid "Website Einstellungen"
-msgstr ""
+msgstr "Site settings"
 
 #: models.py:37
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
-msgstr ""
+msgstr "It's only useful and possible to create one instance of this setting object"
 
 #: models.py:57
 msgid "Stundenplan"
-msgstr ""
+msgstr "Timetable"
 
 #: models.py:58
 msgid "Stundenpläne"
-msgstr ""
+msgstr "Timetables"
 
 #: models.py:61 models.py:97
 msgid "Bachelor"
-msgstr ""
+msgstr "Bachelor"
 
 #: models.py:62 models.py:98
 msgid "Master Deutsch"
-msgstr ""
+msgstr "Master German"
 
 #: models.py:63 models.py:99
 msgid "Distributed Software Systems"
-msgstr ""
+msgstr "Distributed Software Systems"
 
 #: models.py:64
 msgid "Joint-Bachelor of Arts"
-msgstr ""
+msgstr "Joint-Bachelor of Arts"
 
 #: models.py:65
 msgid "Lehramt Bachelor of Education"
-msgstr ""
+msgstr "Bachelor of Education"
 
 #: models.py:75 models.py:109
 msgid "Abschluss"
-msgstr ""
+msgstr "Graduation"
 
 #: models.py:76
 msgid "Stundenplan Bild"
-msgstr ""
+msgstr "Timetable image"
 
 #: models.py:78
 msgid "Stand des Stundenplans"
-msgstr ""
+msgstr "Status of the timetable"
 
 #: models.py:93
 msgid "OInforz"
-msgstr ""
+msgstr "OInforz"
 
 #: models.py:94
 msgid "OInforze"
-msgstr ""
+msgstr "OInforze"
 
 #: models.py:110
 msgid "OInforz PDF"
-msgstr ""
+msgstr "OInforz pdf"
 
 #: models.py:112
 msgid "Stand des OInforzes"
-msgstr ""
+msgstr "Status of the OInforz"
 
 #: templates/website/helfen.html:14
 msgid "Für engagierte Studierende"
-msgstr ""
+msgstr "For involved students"
 
 #: templates/website/helfen.html:15
 msgid "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken"
-msgstr ""
+msgstr "Participating as tutor, organizer or assistant"
 
 #: templates/website/helfen.html:18
 msgid "Für Workshopleiter"
-msgstr ""
+msgstr "FOr workshop organizer"
 
 #: templates/website/helfen.html:19
 msgid "Bei der nächsten Ophase einen Workshop anbieten"
-msgstr ""
+msgstr "Offer a workshop in the next Ophase"
 
 #: templates/website/homepage.html:18
 msgid "Für Tutorinnen und Tutoren während der Ophase"
-msgstr ""
+msgstr "For tutors during the next Ophase"
 
 #: templates/website/homepage.html:19
 msgid "Die Erstsemester deiner Kleingruppe registrieren"
-msgstr ""
+msgstr "Register the first-semester students for your group"
 
-#: templates/website/homepage.html:41
-msgid "zum Stundenplan"
-msgstr "to the schedule"
+#: templates/website/oinforz.html:11
+msgid ""
+"Hier findest Du die OInforze zur aktuellen Ophase. Es handelt sich dabei um "
+"eine Broschüre mit vielen wichtigen Inhalten zum Studium und zum Leben in "
+"Darmstadt. Du bekommst ein gedrucktes Exemplar in der Ophase, kannst aber "
+"natürlich\n"
+"zusätzlich auch die digitale Version verwenden."
+msgstr "These are the OInforz booklets for the current Ophase. They contain lots of relevant information both on your studies\n and life in Darmstadt. You will get a printed copy in the Ophase, but you can use the digital version as well."
 
-#: templates/website/homepage.html:48
-msgid "Gebäude"
-msgstr "Building"
-
-#: templates/website/homepage.html:51
-msgid "Lageplan der Uni"
-msgstr "University Map"
-
-#: templates/website/homepage.html:57
-msgid "Helpdesk"
-msgstr "Helpdesk"
