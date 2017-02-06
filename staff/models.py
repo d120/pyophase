@@ -2,6 +2,7 @@ from urllib.parse import quote
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Ophase, Room, OphaseCategory
@@ -15,6 +16,25 @@ class Job(models.Model):
     label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
     description = models.TextField(verbose_name=_('Beschreibung'))
     categories = models.ManyToManyField(OphaseCategory, verbose_name=_("Kategorie(n) zu der/den der Job gehört"), blank=True)
+
+    @classmethod
+    def filter_jobs_for_ophase(cls, ophase):
+        """
+        Find all jobs relevant for the given ophase
+        All jobs with either no category or at least one matching category will be returned
+        :param ophase: ophase to find jobs for
+        :return: object manager of all matching jobs
+        """
+        return cls.objects.filter(Q(categories=None) | Q(categories__in=ophase.categories.all())).distinct()
+
+    @classmethod
+    def filter_jobs_for_ophase_current(cls):
+        """
+        Find all jobs relevant for the current ophase
+        All jobs with either no category or at least one matching category will be returned
+        :return: object manager of all matching jobs
+        """
+        return cls.filter_jobs_for_ophase(Ophase.current())
 
     def __str__(self):
         return self.label
