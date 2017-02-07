@@ -5,9 +5,9 @@ from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
 
 from dashboard.components import DashboardAppMixin
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
-from .models import GroupCategory, Person, TutorGroup, AttendanceEvent
+from .models import Person, TutorGroup, AttendanceEvent
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -38,7 +38,7 @@ class GroupMassCreateView(StaffAppMixin, FormView):
             context['ophase'] = False
         else:
             context['ophase'] = True
-            category = GroupCategory.objects.get(id=form.cleaned_data['category'])
+            category = OphaseCategory.objects.get(id=form.cleaned_data['category'])
             existing_group_names = set(group.name for group in TutorGroup.objects.filter(ophase=current_ophase))
             new_groups = []
             context['duplicate_group_count'] = 0

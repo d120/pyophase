@@ -1,0 +1,65 @@
+<p>
+Die Orientierungsphase, kurz Ophase genannt, ist die Woche vor dem eigentlichen Beginn der Vorlesungen.
+In dieser Woche werden wir Dir und vielen anderen Erstsemestern die Universität und das Leben als
+Student vorstellen. Du wirst viel über Dein Informatik-Studium erfahren, über die Organisation von
+Studium und Universität und wir werden Dir den Campus und Darmstadt zeigen. So weißt Du dann im Studium,
+wohin Du gehen musst, wenn Du an der Uni etwas lernen willst - und wohin, wenn Du außerhalb der
+Vorlesungen auch noch was erleben willst. Los geht es mit der Begrüßung am
+{{ current_ophase.start_date | date:"l, j. F Y" }}. Was Dich in dieser Woche sonst noch an Programm
+erwartet, kannst Du dir auf dem <a href="{% url 'website:bachelor' %}">Stundenplan</a> anschauen. Du
+kannst Dir auch schon einmal die digitale Version des <a href="{% url 'website:oinforz' %}">OInforz</a>
+anschauen.
+</p>
+<p>
+Die Ophase ist nicht verpflichtend für Dein Studium, aber aus unseren Erfahrungen ist sie eines der
+wichtigsten Ereignisse in Deinem Studium. Darum nimm Dir die Zeit und besuche die Ophase.
+</p>
+
+<h3>Joint-Bachelor Informatik</h3>
+<p>
+Für Ersties, die den Joint-Bachelor mit Informatik-Anteil beginnen, haben wir einen angepassten
+Stundenplan und eine einige spezialisierte Kleingruppe. Direkt zum <a href="{% url 'website:jba' %}">
+    Stundenplan für Joint-Bachelor</a>
+</p>
+
+<h3>Bachelor of Education Informatik</h3>
+<p>
+Du studierst Informatik für gewerblich-technische Bildung im Bachelor of Education? Dann kannst du an
+unserer Ophase für die Ersties im Bachelor of Science teilnehmen. Zusätzlich gibt es zwei gesonderte
+Programmpunkte. Sag' am Montag bitte deinem Tutor bescheid, dass du B.Ed. und nicht B.Sc. studierst, er
+wird dir dann weitere Informationen geben. Direkt zum <a href="{% url 'website:edu' %}">Stundenplan
+    für Bachlor of Education Informatik</a>.
+</p>
+
+<h3>Programmiervorkurs</h3>
+<p>
+Noch keine Ahnung vom Programmieren? Dann komm zum Vorkurs! Alle relevanten Infos findest du auf der
+<a href="{{ website_settings.vorkurs_url }}">Webseite</a> und im
+<a href="{{ website_settings.vorkurs_forum_url }}">Forum</a>.
+(Termin: {{ website_settings.vorkurs_start_date }} - {{ website_settings.vorkurs_end_date }})
+</p>
+<p>
+Wenn dir Begriffe wie Rekursion, Iteration, Klassen oder Methoden schon geläufig sind, reicht es dir
+vielleicht einfach die <a href="{{ website_settings.vorkurs_slides_url }}">Vorkursfolien</a> anzuschauen,
+um dein Wissen aufzufrischen (<a href="{{ website_settings.accounts_url }}">noch keinen Account?</a>)
+</p>
+
+<h3>Einschreibe-Inforz</h3>
+<p>
+Auch dieses Semester haben wir ein Einschreibe-Inforz mit allen Informationen kurz vor
+Studienbeginn veröffentlicht. Ihr könnt das <a href="{{ website_settings.einforz_url }}">E-Inforz hier
+    herunterladen</a>.
+</p>
+
+<h3>Semesterticket</h3>
+<p>
+Tipp: Das Semesterticket ist bereits einen Monat vor Semesterbeginn, also ab März (Sommersemester), bzw.
+September (Wintersemester) gültig.
+</p>
+
+<h3>Ofahrt</h3>
+<p>
+Ein Angebot über die Ophase hinaus ist die Ofahrt, bei der Ersties und Fachschaftler*innen zusammen
+einige Tage in einer Jugendherberge verbringen. Mehr Informationen findet ihr
+<a href="https://www2.fachschaft.informatik.tu-darmstadt.de/ofahrt/">hier</a>.
+</p>

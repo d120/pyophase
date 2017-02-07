@@ -1,12 +1,12 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Building, Ophase, Room
+from .models import Building, Ophase, Room, OphaseCategory, OphaseActiveCategory
 
 
 @admin.register(Ophase)
 class OphaseAdmin(admin.ModelAdmin):
-    list_display = ('get_name', 'start_date', 'end_date', 'is_active')
+    list_display = ('name', 'start_date', 'end_date', 'is_active')
 
 
 @admin.register(Building)
@@ -25,3 +25,14 @@ class RoomAdmin(admin.ModelAdmin):
         (_('Ausstattung'), {'fields': ['type', 'capacity', 'has_beamer']}),
         (_('Position'), {'fields': ['lat', 'lng']})
     ]
+
+
+@admin.register(OphaseCategory)
+class OphaseCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'priority')
+
+
+@admin.register(OphaseActiveCategory)
+class OphaseActiveCategory(admin.ModelAdmin):
+    list_display = ('ophase', 'category', 'start_date', 'end_date')
+    list_display_links = ('ophase', 'category')

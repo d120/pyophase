@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import formats
+from django.utils.datetime_safe import datetime
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -72,23 +73,25 @@ class Ophase(models.Model):
         verbose_name = _('Ophase')
         verbose_name_plural = _('Ophasen')
 
-    start_date = models.DateField(verbose_name=_('Beginn'))
-    end_date = models.DateField(verbose_name=_('Ende'))
+    name = models.CharField(max_length=100)
     is_active = models.BooleanField(default=False, verbose_name=_('Aktiv?'))
     contact_email_address = models.EmailField(verbose_name=_('Kontaktadresse Leitung'))
-
-    def get_name(self):
-        term = _('Ophase')
-        if self.start_date.month == 4:
-            term = _('Sommerophase')
-        elif self.start_date.month == 10:
-            term = _('Winterophase')
-        return "%s %d" % (term, self.start_date.year)
-
-    get_name.short_description = _('Ophase')
+    categories = models.ManyToManyField("OphaseCategory", through="OphaseActiveCategory", related_name=u'ophase_categories')
 
     def __str__(self):
-        return self.get_name()
+        return self.name
+
+    @property
+    def start_date(self):
+        if self.ophaseactivecategory_set.count() == 0:
+            return datetime.now()
+        return min(c.start_date for c in self.ophaseactivecategory_set.all())
+
+    @property
+    def end_date(self):
+        if self.ophaseactivecategory_set.count() == 0:
+            return datetime.now()
+        return max(c.end_date for c in self.ophaseactivecategory_set.all())
 
     def get_semester(self):
         term = _('Jahr')
@@ -137,3 +140,57 @@ class Ophase(models.Model):
             return Ophase.objects.get(is_active=True)
         except Ophase.DoesNotExist:
             return None
+
+
+class OphaseCategory(models.Model):
+    """Object representing the category of an Ophase"""
+    class Meta:
+        verbose_name = _('Art der Ophase')
+        verbose_name_plural = _('Arten der Ophase')
+        ordering = ['priority']
+
+    name = models.CharField(max_length=100, verbose_name=_('Name'))
+    description_template = models.CharField(max_length=50, verbose_name=_('Beschreibung in Template'))
+    lang = models.CharField(max_length=5, verbose_name=_('Sprachcode'), default="de")
+    priority = models.PositiveIntegerField(verbose_name=_("Priorität"), help_text=_("Die Priorität bestimmt unter anderem die Reihenfolge der Anzeige auf der Webseite"))
+
+    def __str__(self):
+        return self.name
+
+
+class OphaseActiveCategory(models.Model):
+    """An active category of a given Ophase"""
+    class Meta:
+        verbose_name = _('Aktive Kategorie einer Ophase')
+        verbose_name_plural = _('Aktive Katgegorien einer Ophase')
+        ordering = ['ophase', 'category']
+
+    ophase = models.ForeignKey(Ophase, verbose_name=_('Ophase'), on_delete=models.CASCADE)
+    category = models.ForeignKey(OphaseCategory, verbose_name=_('Art der Ophase'), on_delete=models.CASCADE)
+    start_date = models.DateField(verbose_name=_('Beginn'))
+    end_date = models.DateField(verbose_name=_('Ende'))
+
+    def get_human_duration(self):
+        """
+        Returns the start_date and end_date of the ophase as human readable
+        e.g. vom 3. April 2014 bis 6. April 2016
+        """
+        return _('vom %(begin)s bis %(end)s') % {
+          'begin': formats.date_format(self.start_date, 'DATE_FORMAT'),
+          'end': formats.date_format(self.end_date, 'DATE_FORMAT'),}
+
+    def get_human_short_duration(self):
+        """
+        Returns the start_date and end_date of the ophase category as
+        human readable e.g. 3. - 6. April
+        """
+        beginformat = 'j. '
+        if self.start_date.month != self.end_date.month:
+            beginformat +='F'
+        endformat = 'j. F'
+        return '%(begin)s - %(end)s' % {
+          'begin': formats.date_format(self.start_date, beginformat),
+          'end': formats.date_format(self.end_date, endformat),}
+
+    def __str__(self):
+        return "{}: {}".format(self.ophase, self.category)
