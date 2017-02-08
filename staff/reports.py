@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 from ophasebase.helper import LaTeX
-from ophasebase.models import Ophase
 
 
 def generate_orga_cert(queryset):
