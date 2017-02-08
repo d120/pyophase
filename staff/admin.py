@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import ugettext as _
 
+from ophasebase.models import OphaseCategory
 from .admin_actions import (
     helper_job_overview,
     mail_export,
@@ -16,7 +17,6 @@ from .admin_actions import (
     update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e, mark_phoned_x, mark_phoned_e,
     mark_phoned_n, mark_attendance_v, generate_orga_cert)
 from .models import (
-    GroupCategory,
     HelperJob,
     OrgaJob,
     Person,
@@ -30,7 +30,6 @@ from .models import (
 
 @admin.register(OrgaJob)
 @admin.register(HelperJob)
-@admin.register(GroupCategory)
 class LabelSortAdmin(admin.ModelAdmin):
     """Simple ModelAdmin which just shows the field Value in the list view"""
     list_display = ['label']
@@ -42,8 +41,8 @@ class TutorFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         choices = [('onlytutors', _('Alle Tutoren'))]
-        for gc in GroupCategory.objects.all():
-            choices.append((gc.id, gc.label))
+        for gc in OphaseCategory.objects.all():
+            choices.append((gc.id, gc.name))
         choices.append(('notutors', _('Keine Tutoren')))
         return choices
 
@@ -96,7 +95,7 @@ class PersonAdmin(admin.ModelAdmin):
         if obj.is_tutor == True and obj.tutor_for is not None:
             icon_url = static('admin/img/icon-yes.svg')
             return format_html('<img src="{}" alt="{}" title="{}" />',
-                               icon_url, obj.is_tutor, obj.tutor_for.label)
+                               icon_url, obj.is_tutor, obj.tutor_for.name)
         else:
             return _boolean_icon(obj.is_tutor)
 

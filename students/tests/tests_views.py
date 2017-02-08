@@ -5,8 +5,8 @@ from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
-from ophasebase.models import Ophase
-from staff.models import GroupCategory, TutorGroup
+from ophasebase.models import Ophase, OphaseCategory
+from staff.models import TutorGroup
 
 
 class StudentAddViewTest(TestCase):
@@ -47,8 +47,7 @@ class StudentAddViewTest(TestCase):
         self.assertEqual(response.context['student_registration_enabled'], False)
 
         # Create a ophase object
-        o1 = Ophase.objects.create(
-            start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
+        o1 = Ophase.objects.create(name="Testophase", is_active=True)
 
         response = c.get(register_view)
         self.assertEqual(response.status_code, 200)
@@ -56,8 +55,8 @@ class StudentAddViewTest(TestCase):
         self.assertEqual(response.context['student_registration_enabled'], True)
 
         # create a GroupCategory
-        gc = GroupCategory.objects.create(label="Super Mario")
-        self.assertEqual(gc.label, "Super Mario")
+        gc = OphaseCategory.objects.create(name="Super Mario", priority=10)
+        self.assertEqual(gc.name, "Super Mario")
 
         # create a TutorGroup
         tg = TutorGroup.objects.create(ophase=o1, name="Mario", group_category=gc)
@@ -122,8 +121,7 @@ class StudentAddViewTest(TestCase):
         self.assertEqual(response.context['ophase_title'], 'Ophase')
 
         # Create a ophase object
-        o1 = Ophase.objects.create(
-            start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
+        o1 = Ophase.objects.create(name="Testophase", is_active=True)
 
         response = c.get(reverse('students:registration_success'))
         self.assertEqual(response.status_code, 200)
