@@ -23,7 +23,7 @@ class MailExport(TestCase):
         u.save()
 
     def test_export(self):
-        Ophase.objects.create(name="Testophase", is_active=True)
+        Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
         Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)
 
         Person.objects.create(prename="John", name="Doe", email="john@example.com", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)

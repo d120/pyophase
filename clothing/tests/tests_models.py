@@ -161,7 +161,8 @@ class ColorModelTests(TestCase):
 
 class OrderModelTest(TestCase):
     def setUp(self):
-        self.ophase = Ophase.objects.create(name="Testophase", is_active=True)
+        self.ophase = Ophase.objects.create(
+            start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
         self.person = Person.objects.create(ophase=self.ophase, prename="John", name="Doe", email="john@doe.net",
             phone="12345", matriculated_since="WS42", degree_course="Bsc", experience_ophase="nein", why_participate="Gründe")
 
