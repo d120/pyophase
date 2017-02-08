@@ -10,12 +10,11 @@
 \begin{document}
 
 {% for person in items %}
+
 \cert{
   {{person.prename|tex_escape}}
 }{
   {{person.name|tex_escape}}
-}{
-  {{person.ophase.get_human_short_duration|tex_escape}} {{person.ophase.end_date|date:"Y"|tex_escape}}
 }
 {% endfor %}
 
