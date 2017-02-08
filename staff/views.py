@@ -9,9 +9,9 @@ from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
 
-from ophasebase.models import Ophase, OphaseCategory
+from ophasebase.models import Ophase
 from staff.forms import PersonForm
-from staff.models import HelperJob, OrgaJob, Settings
+from staff.models import GroupCategory, HelperJob, OrgaJob, Settings
 
 
 class StaffAdd(CreateView):
@@ -123,12 +123,12 @@ class GenericJobList(ListView):
             return context
 
 class GroupCategoryList(GenericJobList):
-    """List all OphaseCategorie"""
-    model = OphaseCategory
+    """List all GroupCategorys"""
+    model = GroupCategory
 
     def __init__(self):
         super().__init__()
-        self.title = OphaseCategory._meta.verbose_name_plural
+        self.title = GroupCategory._meta.verbose_name_plural
 
 class OrgaJobList(GenericJobList):
     """List all OrgaJobs"""

@@ -20,53 +20,193 @@
     </div>
 {% endif %}
 
-<div class="row">
-    {% for active_category in current_ophase.ophaseactivecategory_set.all %}
-    {% if forloop.first and forloop.last %}
-    <div class="col-lg-12">
-    {% elif forloop.first or forloop.counter == 2 %}
+<div class="row margin-top-3">
     <div class="col-lg-6">
-    {% endif %}
-        {% cycle "yellow" "teal" "blue" as color silent %}
-        {% language active_category.category.lang %}
-        <div class="box box-{{ color }} margin-top-3">
-            <h2>{{ active_category.category.name }}</h2>
+        <div class="box box-yellow">
+            <h2>Bachelor</h2>
         </div>
-        <div class="box box-highlight box-light-{{ color }}">
+        <div class="box box-highlight box-light-yellow">
             <div class="row">
                 <div class="col-sm-4 focus-item">
                     <span class="fa fa-calendar"></span>
                     <p>
-                        {{ active_category.get_human_short_duration }}<br />
-                        <a href="{% url 'website:bachelor' %}">
-                            {% trans "zum Stundenplan" %}
-                        </a>
+                        {{ current_ophase.get_human_short_duration }}<br />
+                        <a href="{% url 'website:bachelor' %}">zum Stundenplan</a>
                     </p>
                 </div>
                 <div class="col-sm-4 focus-item">
                     <span class="fa fa-map-marker"></span>
                     <p>
-                        {% trans "Gebäude" %} S2|02 <br />
+                        Gebäude S2|02 <br />
                         <a rel="nofollow" class="external text" target="_blank"
                            href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
-                            {% trans "Lageplan der Uni" %}
+                            Lageplan der Uni
                         </a>
                     </p>
                 </div>
                 <div class="col-sm-4 focus-item">
                     <span class="fa fa-phone"></span>
-                    <p>{% trans "Helpdesk" %}:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
                 </div>
             </div>
         </div>
-        <div class="box box-{{ color }}">
-            {% include active_category.category.description_template %}
+        <div class="box box-yellow">
+            <p>
+                Die Orientierungsphase, kurz Ophase genannt, ist die Woche vor dem eigentlichen Beginn der Vorlesungen.
+                In dieser Woche werden wir Dir und vielen anderen Erstsemestern die Universität und das Leben als
+                Student vorstellen. Du wirst viel über Dein Informatik-Studium erfahren, über die Organisation von
+                Studium und Universität und wir werden Dir den Campus und Darmstadt zeigen. So weißt Du dann im Studium,
+                wohin Du gehen musst, wenn Du an der Uni etwas lernen willst - und wohin, wenn Du außerhalb der
+                Vorlesungen auch noch was erleben willst. Los geht es mit der Begrüßung am
+                {{ current_ophase.start_date | date:"l, j. F Y" }}. Was Dich in dieser Woche sonst noch an Programm
+                erwartet, kannst Du dir auf dem <a href="{% url 'website:bachelor' %}">Stundenplan</a> anschauen. Du
+                kannst Dir auch schon einmal die digitale Version des <a href="{% url 'website:oinforz' %}">OInforz</a>
+                anschauen.
+            </p>
+            <p>
+                Die Ophase ist nicht verpflichtend für Dein Studium, aber aus unseren Erfahrungen ist sie eines der
+                wichtigsten Ereignisse in Deinem Studium. Darum nimm Dir die Zeit und besuche die Ophase.
+            </p>
+
+            <h3>Joint-Bachelor Informatik</h3>
+            <p>
+                Für Ersties, die den Joint-Bachelor mit Informatik-Anteil beginnen, haben wir einen angepassten
+                Stundenplan und eine einige spezialisierte Kleingruppe. Direkt zum <a href="{% url 'website:jba' %}">
+                Stundenplan für Joint-Bachelor</a>
+            </p>
+
+            <h3>Bachelor of Education Informatik</h3>
+            <p>
+                Du studierst Informatik für gewerblich-technische Bildung im Bachelor of Education? Dann kannst du an 
+				unserer Ophase für die Ersties im Bachelor of Science teilnehmen. Zusätzlich gibt es zwei gesonderte 
+				Programmpunkte. Sag' am Montag bitte deinem Tutor bescheid, dass du B.Ed. und nicht B.Sc. studierst, er 
+				wird dir dann weitere Informationen geben. Direkt zum <a href="{% url 'website:edu' %}">Stundenplan 
+				für Bachlor of Education Informatik</a>.
+            </p>
+
+            <h3>Programmiervorkurs</h3>
+            <p>
+                Noch keine Ahnung vom Programmieren? Dann komm zum Vorkurs! Alle relevanten Infos findest du auf der
+                <a href="{{ website_settings.vorkurs_url }}">Webseite</a> und im
+                <a href="{{ website_settings.vorkurs_forum_url }}">Forum</a>.
+                (Termin: {{ website_settings.vorkurs_start_date }} - {{ website_settings.vorkurs_end_date }})
+            </p>
+            <p>
+                Wenn dir Begriffe wie Rekursion, Iteration, Klassen oder Methoden schon geläufig sind, reicht es dir
+                vielleicht einfach die <a href="{{ website_settings.vorkurs_slides_url }}">Vorkursfolien</a> anzuschauen,
+                um dein Wissen aufzufrischen (<a href="{{ website_settings.accounts_url }}">noch keinen Account?</a>)
+            </p>
+
+            <h3>Einschreibe-Inforz</h3>
+            <p>
+                Auch dieses Semester haben wir ein Einschreibe-Inforz mit allen Informationen kurz vor
+                Studienbeginn veröffentlicht. Ihr könnt das <a href="{{ website_settings.einforz_url }}">E-Inforz hier
+                herunterladen</a>.
+            </p>
+
+            <h3>Semesterticket</h3>
+            <p>
+                Tipp: Das Semesterticket ist bereits einen Monat vor Semesterbeginn, also ab März (Sommersemester), bzw.
+                September (Wintersemester) gültig.
+            </p>
+
+            <h3>Ofahrt</h3>
+            <p>
+                Ein Angebot über die Ophase hinaus ist die Ofahrt, bei der Ersties und Fachschaftler*innen zusammen
+                einige Tage in einer Jugendherberge verbringen. Mehr Informationen findet ihr
+                <a href="https://www2.fachschaft.informatik.tu-darmstadt.de/ofahrt/">hier</a>.
+            </p>
         </div>
-        {% endlanguage %}
-    {% if forloop.first or forloop.last %}
     </div>
-    {% endif %}
-    {% endfor %}
+    <div class="col-lg-6">
+        <div class="box box-teal">
+            <h2>Master DSS</h2>
+        </div>
+        <div class="box box-highlight box-light-teal">
+            <div class="row">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>October 11th - 13th<br /><a href="{% url 'website:master-dss' %}">to the schedule</a></p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
+                        Building S2|02 <br />
+                        <a rel="nofollow" class="external text" target="_blank"
+                           href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
+                            University map
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="box box-teal">
+            <p>
+                This Ophase programme is specifically made for students in the Distributed Software Systems Master.
+            </p>
+            <p>
+                We will be showing you the city, the TU Darmstadt and what studying at the department of Computer
+                Science looks like. We will also be covering topics like cultural differences in Germany and common
+                tasks like registration at the city council.
+            </p>
+            <p>
+                It is not officially required to participate in the orientation week, but we very strongly recommend
+                doing so. Especially the talk by the student advisory service is important, since you will get all
+                necessary information related to exams, lectures and registrations there.
+            </p>
+            <p><a href="{% url 'website:master-dss' %}">Further information</a></p>
+        </div>
+
+        <div class="box box-blue margin-top-3">
+            <h2>Andere Master</h2>
+        </div>
+        <div class="box box-highlight box-light-blue">
+            <div class="row">
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-calendar"></span>
+                    <p>13. - 14. Oktober<br /><a href="{% url 'website:master-de' %}">zum Stundenplan</a></p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-map-marker"></span>
+                    <p>
+                        Gebäude S2|02 <br />
+                        <a rel="nofollow" class="external text" target="_blank"
+                           href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
+                            Lageplan der Uni
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-4 focus-item">
+                    <span class="fa fa-phone"></span>
+                    <p>Helpdesk:<br />{{ website_settings.helpdesk_phone_number }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="box box-blue">
+            <p>
+                Für alle anderen Master, die nur auf Deutsch studiert werden können, bieten wir diese Ophase an. Das
+                Programm ist sowohl für interne Wechsler*innen als auch Master-Ersties von externen Universitäten
+                zugeschnitten. Prinzipiell bringen wir euch Darmstadt, die TU und das Studium im Fachbereich Informatik
+                näher, da ihr aber schon ein Studium hinter euch habt, bieten wir einen kürzeren Stundenplan mit mehr
+                Raum für individuelle Fragen an.
+            </p>
+            <p>
+                Der Termin mit der Studienberatung ist insbesondere auch für Master-Erstsemester gedacht, die an der TU
+                Darmstadt ihren Bachelor in Informatik gemacht haben.
+            </p>
+            <p><a href="{% url 'website:master-de' %}">Weitere Informationen</a></p>
+
+            <h3>Semesterticket</h3>
+            <p>
+                Tipp: Das Semesterticket ist bereits einen Monat vor Semesterbeginn, also ab März (Sommersemester), bzw.
+                September (Wintersemester) gültig.
+            </p>
+        </div>
+    </div>
 </div>
 
 {% endblock %}

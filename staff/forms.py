@@ -4,8 +4,7 @@ from django.urls import reverse
 from django.utils.html import escape, format_html
 from django.utils.translation import ugettext as _
 
-from ophasebase.models import OphaseCategory
-from .models import HelperJob, OrgaJob, Person, Settings
+from .models import GroupCategory, HelperJob, OrgaJob, Person, Settings
 
 
 class PersonForm(forms.ModelForm):
@@ -28,9 +27,9 @@ class PersonForm(forms.ModelForm):
         # Idea by https://www.silviogutierrez.com/blog/django-dynamic-forms/
         settings = Settings.instance()
         if settings is not None:
-            self.fields['tutor_for'].queryset = OphaseCategory.objects.filter(id__in=settings.group_categories_enabled.all().values_list('id'))
-            self.fields['orga_jobs'].queryset = OrgaJob.filter_jobs_for_ophase_current().filter(id__in=settings.orga_jobs_enabled.all().values_list('id'))
-            self.fields['helper_jobs'].queryset = HelperJob.filter_jobs_for_ophase_current().filter(id__in=settings.helper_jobs_enabled.all().values_list('id'))
+            self.fields['tutor_for'].queryset = GroupCategory.objects.filter(id__in=settings.group_categories_enabled.all().values_list('id'))
+            self.fields['orga_jobs'].queryset = OrgaJob.objects.filter(id__in=settings.orga_jobs_enabled.all().values_list('id'))
+            self.fields['helper_jobs'].queryset = HelperJob.objects.filter(id__in=settings.helper_jobs_enabled.all().values_list('id'))
 
             fields_to_del = []
             #fields only required for a registration as tutor

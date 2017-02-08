@@ -3,13 +3,13 @@ from django.utils.translation import ugettext as _
 
 from ophasebase.models import Ophase
 
-from .models import Person, TutorGroup
+from .models import GroupCategory, Person, TutorGroup
 
 
 class GroupMassCreateForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        category_choices = [(gc.id, str(gc)) for gc in Ophase.current().categories.all()]
+        category_choices = [(gc.id, str(gc)) for gc in GroupCategory.objects.all()]
         self.fields['category'] = forms.ChoiceField(label=_('Gruppenkategorie'), choices=category_choices)
         self.fields['group_names'] = forms.CharField(label=_('Gruppennamen'), help_text=_('Einen Gruppennamen pro Zeile eintragen.'), widget=forms.Textarea)
 
@@ -24,7 +24,7 @@ class TutorPairingForm(forms.Form):
         super().__init__(*args, **kwargs)
         current_ophase = Ophase.current()
 
-        group_categories = Ophase.current().categories.all()
+        group_categories = GroupCategory.objects.all()
         group_category_choices = [(gc.id, str(gc)) for gc in group_categories]
         self.fields['category'] = forms.ChoiceField(label=_('Gruppenkategorie'), choices=group_category_choices)
 

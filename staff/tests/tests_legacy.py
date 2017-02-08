@@ -22,16 +22,16 @@ class PersonSave(TestCase):
 
     def test_person_foreign_key_ophase(self):
         # create Person with an active Ophase
-        Ophase.objects.create(name="Testophase 1", is_active=True)
+        Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
         p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)
-        self.assertEqual(p.ophase.name, "Testophase 1")
+        self.assertEqual(p.ophase.start_date, date(2014, 4, 7))
         # create another Ophase which is active (i.e. old Ophase becomes inactive) and update old Person
         # Ophase ForeignKey should stay the same as before!
-        Ophase.objects.create(name="Testophase 2", is_active=True)
+        Ophase.objects.create(start_date=date(2014, 10, 6), end_date=date(2014, 10, 10), is_active=True)
         p.email = "doe@example.net"
         p.save()
         p = Person.objects.get(pk=p.pk)
-        self.assertEqual(p.ophase.name, "Testophase 1")
+        self.assertEqual(p.ophase.start_date, date(2014, 4, 7))
         self.assertEqual(p.email, "doe@example.net")
         self.assertEqual(p.get_fillform(), '#fillform&v=1&prename=John&'\
             'name=Doe&email=doe%40example.net&phone=0123456789'\
@@ -41,12 +41,12 @@ class PersonSave(TestCase):
 class PersonSaveDuplicate(TransactionTestCase):
     """A Person can register only once per ophase instance"""
     def test_person_register_once_per_ophase(self):
-        o1 = Ophase.objects.create(name="Testophase 1", is_active=True)
+        o1 = Ophase.objects.create(start_date=date(2014, 4, 7), end_date=date(2014, 4, 11), is_active=True)
         p = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)
         with self.assertRaises(IntegrityError):
             p2 = Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789", matriculated_since="2011", degree_course="B.Sc.", is_tutor=True)
 
-        o2 = Ophase.objects.create(name="Testophase 2", is_active=True)
+        o2 = Ophase.objects.create(start_date=date(2014, 10, 6), end_date=date(2014, 10, 10), is_active=True)
         o1 = Ophase.objects.get(pk=o1.pk)
         self.assertEqual(o2.is_active, True)
         self.assertEqual(o1.is_active, False)
