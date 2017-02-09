@@ -12,11 +12,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.DeleteModel(
-            name='DressSize',
-        ),
         migrations.RemoveField(
             model_name='person',
             name='dress_size',
+        ),
+        migrations.DeleteModel(
+            name='DressSize',
         ),
     ]
