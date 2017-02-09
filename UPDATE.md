@@ -2,7 +2,7 @@
 
 Sometimes, the data model has changed in a way that requires manual actions since the migrations are not able to modfiy everything.
 
-## From 6e838ed to ??? ##
+## From 6e838ed to 0c3aeef ##
 
 With this commit, not_null constraints are enforced on Foreign-Key relations 
 
