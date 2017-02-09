@@ -21,9 +21,9 @@ python:
 
 env:
     # the Django version from requirements.txt is used
-  - $DENV=""
+  - SQLITETEST= $DENV=""
     # test with mysql database
-  - DJANGO_SETTINGS_MODULE=pyophase.settings_travis
+  - MYSQLTEST= DJANGO_SETTINGS_MODULE=pyophase.settings_travis
     # the latest Django development version is used
   - $DENV="pip install --upgrade --pre Django"
 
