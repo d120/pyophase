@@ -38,7 +38,7 @@
                     <span class="fa fa-calendar"></span>
                     <p>
                         {{ active_category.get_human_short_duration }}<br />
-                        <a href="{% url 'website:bachelor' %}">
+                        <a href="details/{{ active_category.category.details_url }}">
                             {% trans "zum Stundenplan" %}
                         </a>
                     </p>

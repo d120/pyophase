@@ -23,3 +23,10 @@ UPDATE `staff_person` SET `tutor_for_id` = '1' WHERE `staff_person`.`is_tutor` =
 ```
 
 Afterwards you will have to check the conditions of StaffFilterGroups manually as all references to Groups are lost.
+
+## Before applying migration website/0007\_auto\_20170212\_1633 ##
+
+With this migration a OneToOneField was introduced to `website.models.Schedule`.
+There is no sensible way to set a different useful default for each entity.
+But this model holds effectively no data.
+So before applying this migration delete all entities of `website.models.Schedule`.

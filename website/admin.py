@@ -10,7 +10,7 @@ class SettingsAdmin(admin.ModelAdmin):
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ['degree', 'stand']
+    list_display = ['category', 'stand']
 
 
 @admin.register(OInforz)
