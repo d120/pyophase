@@ -57,28 +57,20 @@ class Schedule(models.Model):
         verbose_name = _("Stundenplan")
         verbose_name_plural = _("Stundenpläne")
 
-    DEGREE_CHOICES = (
-        ('BSC', _('Bachelor')),
-        ('MSC', _('Master Deutsch')),
-        ('DSS', _('Distributed Software Systems')),
-        ('JBA', _('Joint-Bachelor of Arts')),
-        ('EDU', _('Lehramt Bachelor of Education')),
-    )
-
     def fixedname_upload_to(instance, filename):
         """returns the path and name where the image should upload to"""
         path = 'website/schedule/'
-        name = instance.degree.lower()
+        name = instance.category.name.lower()
         x, file_extension = os.path.splitext(filename)
         return '{}{}{}'.format(path, name, file_extension)
 
-    degree = models.CharField(max_length=3, choices=DEGREE_CHOICES, verbose_name=_('Abschluss'), unique=True)
+    category = models.OneToOneField('ophasebase.OphaseCategory', verbose_name=_('Ophasen Kategorie'))
     image = models.ImageField(verbose_name=_('Stundenplan Bild'),
                 upload_to=fixedname_upload_to, storage=OverwriteStorage())
     stand = models.DateField(verbose_name=_('Stand des Stundenplans'))
 
     def __str__(self):
-        return '{} {}'.format(self.get_degree_display(), _date(self.stand, 'SHORT_DATE_FORMAT'))
+        return '{} {}'.format(self.category, _date(self.stand, 'SHORT_DATE_FORMAT'))
 
 
 # Register a signal receiver so the image is deleted when the model is deleted

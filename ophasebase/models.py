@@ -152,6 +152,8 @@ class OphaseCategory(models.Model):
     name = models.CharField(max_length=100, verbose_name=_('Name'))
     description_template = models.CharField(max_length=50, verbose_name=_('Beschreibung in Template'))
     lang = models.CharField(max_length=5, verbose_name=_('Sprachcode'), default="de")
+    details_template = models.CharField(max_length=50, verbose_name=_('Template für Stundenplan View'))
+    details_url = models.CharField(max_length=50, verbose_name=_('Link zum Stundenplan'))
     priority = models.PositiveIntegerField(verbose_name=_("Priorität"), help_text=_("Die Priorität bestimmt unter anderem die Reihenfolge der Anzeige auf der Webseite"))
 
     def __str__(self):

@@ -8,6 +8,8 @@ from workshops.models import Settings as WorkshopSettings
 
 from .models import Schedule, Settings as WebsiteSettings, OInforz
 
+from ophasebase.models import OphaseCategory, OphaseActiveCategory
+
 
 class HomepageView(TemplateView):
     template_name = "website/homepage.html"
@@ -52,28 +54,25 @@ class WebsiteView(TemplateView):
         return context
 
 
-class ScheduleView(WebsiteView):
+class DetailsView(WebsiteView):
     """Extends the django TemplateView by adding the Ophase.current() object
     to the context data as current_ophase"""
 
+    def dispatch(self, request, *args, **kwargs):
+        self.category = get_object_or_404(OphaseCategory, details_url=kwargs['category'])
+        return super(WebsiteView, self).dispatch(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['schedule'] = get_object_or_404(Schedule, degree=self.kwargs['degree'])
+        context['schedule'] = get_object_or_404(Schedule,
+                category = self.category)
+        context['ophase_duration'] = OphaseActiveCategory.objects\
+                .get(ophase=Ophase.current(), category = self.category)\
+                .get_human_duration()
         return context
 
     def get_template_names(self):
-        degree = self.kwargs['degree']
-
-        if degree == 'BSC':
-            return 'website/bachelor.html'
-        elif degree == 'MSC':
-            return 'website/master-de.html'
-        elif degree == 'DSS':
-            return 'website/master-dss.html'
-        elif degree == 'JBA':
-            return 'website/jba.html'
-        elif degree == 'EDU':
-            return 'website/lehramt.html'
+        return self.category.details_template
 
 
 class HelfenView(WebsiteView):
