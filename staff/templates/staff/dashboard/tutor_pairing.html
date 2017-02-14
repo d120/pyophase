@@ -7,6 +7,10 @@
 
 <h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
 
+<div class="well well-sm">
+    {% trans "Die Zahl in Klammern gibt die Erfahrung als Ophasentutor der jeweiligen Person an." %}
+</div>
+
 <form role="form" action="{{action}}" method="POST">
     {% csrf_token %}
     {% bootstrap_form form %}

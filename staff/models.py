@@ -77,6 +77,7 @@ class Person(models.Model):
     is_orga = models.BooleanField(default=False, verbose_name=_("Orga"), help_text=_("Möchtest du als Orga bei der Ophase mitmachen?"))
     is_helper = models.BooleanField(default=False, verbose_name=_("Helfer"), help_text=_("Möchtest du als Helfer bei der Ophase mitmachen?"))
     tutor_for = models.ForeignKey(OphaseCategory, models.SET_NULL, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
+    tutor_experience = models.PositiveSmallIntegerField(verbose_name=_("Anzahl Tutorentätigkeiten"), help_text=_("Wie oft warst du bereits Ophasentutor"), default=0, blank=True)
     orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name=_("Orgaaufgaben"), help_text=_("Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"))
     helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name=_("Helferaufgaben"), help_text=_("Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"))
     remarks = models.TextField(blank=True, verbose_name=_("Anmerkungen"), help_text=_("Was sollten wir noch wissen?"))

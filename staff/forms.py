@@ -56,7 +56,7 @@ class PersonForm(forms.ModelForm):
                   'prename', 'name', 'email', 'phone', 'matriculated_since',
                   'degree_course', 'experience_ophase', 'why_participate',
                   #fields only required for a registration as tutor
-                  'is_tutor', 'tutor_for',
+                  'is_tutor', 'tutor_for', 'tutor_experience',
                   #fields only required for a registration as orga
                   'is_orga', 'orga_jobs',
                   #fields only required for a registration as helper

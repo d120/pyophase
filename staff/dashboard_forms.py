@@ -34,7 +34,7 @@ class TutorPairingForm(forms.Form):
         for gc in group_categories:
             category_css_class = str(gc).lower().replace(' ', '-')
             css_classes = ['tutor-select', category_css_class]
-            tutor_choices_per_category = [(t.id, str(t)) for t in tutors.filter(tutor_for=gc)]
+            tutor_choices_per_category = [(t.id, "{} ({})".format(t.get_name(), t.tutor_experience)) for t in tutors.filter(tutor_for=gc)]
             for group in tutor_groups.filter(group_category=gc):
                 current_tutors_per_group = [g.id for g in group.tutors.all()]
                 self.fields["group-" + str(group.id)] = forms.MultipleChoiceField(label=str(group), choices=tutor_choices_per_category, initial=current_tutors_per_group, required=False)

@@ -76,7 +76,7 @@ class PersonAdmin(admin.ModelAdmin):
         (_('Bewerbung'), {'fields':
             ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
         (_('In der Ophase'), {'fields':
-            ['is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs']}),
+            ['is_tutor', 'tutor_for', 'tutor_experience', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs']}),
         (_('Sonstiges'), {'fields':
             ['created_at', 'updated_at']}),
     ]
