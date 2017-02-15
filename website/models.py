@@ -4,9 +4,12 @@ from django.core.exceptions import ValidationError
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.db.models.signals import pre_delete
-from django.dispatch import receiver
 from django.template.defaultfilters import date as _date
 from django.utils.translation import ugettext_lazy as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from ophasebase.models import OphaseCategory
 
 
 class Settings(models.Model):
@@ -51,71 +54,70 @@ class OverwriteStorage(FileSystemStorage):
         return super().get_available_name(name, max_length)
 
 
-class Schedule(models.Model):
-    """A Schedule for a Degree during the Ophase"""
-    class Meta:
-        verbose_name = _("Stundenplan")
-        verbose_name_plural = _("Stundenpläne")
-
-    DEGREE_CHOICES = (
-        ('BSC', _('Bachelor')),
-        ('MSC', _('Master Deutsch')),
-        ('DSS', _('Distributed Software Systems')),
-        ('JBA', _('Joint-Bachelor of Arts')),
-        ('EDU', _('Lehramt Bachelor of Education')),
-    )
-
-    def fixedname_upload_to(instance, filename):
-        """returns the path and name where the image should upload to"""
-        path = 'website/schedule/'
-        name = instance.degree.lower()
-        x, file_extension = os.path.splitext(filename)
-        return '{}{}{}'.format(path, name, file_extension)
-
-    degree = models.CharField(max_length=3, choices=DEGREE_CHOICES, verbose_name=_('Abschluss'), unique=True)
-    image = models.ImageField(verbose_name=_('Stundenplan Bild'),
-                upload_to=fixedname_upload_to, storage=OverwriteStorage())
-    stand = models.DateField(verbose_name=_('Stand des Stundenplans'))
-
-    def __str__(self):
-        return '{} {}'.format(self.get_degree_display(), _date(self.stand, 'SHORT_DATE_FORMAT'))
-
-
-# Register a signal receiver so the image is deleted when the model is deleted
-@receiver(pre_delete, sender=Schedule)
-def schedule_delete(sender, instance, **kwargs):
-    instance.image.delete(False)
-
-
 class OInforz(models.Model):
     """An OInforz PDF booklet version"""
     class Meta:
         verbose_name = _("OInforz")
         verbose_name_plural = _("OInforze")
 
-    DEGREE_CHOICES = (
-        ('BSC', _('Bachelor')),
-        ('MSC', _('Master Deutsch')),
-        ('DSS', _('Distributed Software Systems')),
-    )
-
     def fixedname_upload_to(instance, filename):
         """returns the path and name where the image should upload to"""
-        path = 'website/oinforz/'
-        name = instance.degree.lower()
         x, file_extension = os.path.splitext(filename)
-        return '{}{}{}'.format(path, name, file_extension)
+        return '{}{}{}'.format('website/oinforz/', instance.degree.lower(), file_extension)
 
-    degree = models.CharField(max_length=3, choices=DEGREE_CHOICES, verbose_name=_('Abschluss'), unique=True)
+    name = models.CharField(max_length = 25, verbose_name=_('Abschluss'))
     file = models.FileField(verbose_name=_('OInforz PDF'),
                 upload_to=fixedname_upload_to, storage=OverwriteStorage())
-    stand = models.DateField(verbose_name=_('Stand des OInforzes'))
+    last_modified = models.DateField(verbose_name=_('Stand des OInforzes'))
 
     def __str__(self):
-        return '{} {}'.format(self.get_degree_display(), _date(self.stand, 'SHORT_DATE_FORMAT'))
+        return '{} {}'.format(self.name, _date(self.last_modified, 'SHORT_DATE_FORMAT'))
 
 
 # Register a signal receiver so the document is deleted when the model is deleted
 @receiver(pre_delete, sender=OInforz)
 def oinforz_delete(sender, instance, **kwargs):
     instance.file.delete(False)
+
+
+class CategoryDetails(models.Model):
+    class Meta:
+        verbose_name = _("Webseitendetails für Kategorie")
+        verbose_name_plural = _("Webseitendetails für Kategorien")
+
+    def fixedname_upload_to(self, filename):
+        """returns the path and name where the image should upload to"""
+        x, file_extension = os.path.splitext(filename)
+        return '{}{}{}'.format('website/schedule/', self.category.slug, file_extension)
+
+    category = models.OneToOneField(OphaseCategory, on_delete=models.CASCADE, related_name="website")
+    oinforz = models.ForeignKey(OInforz, verbose_name=_("OInforz"), on_delete=models.PROTECT, null=True, blank=True)
+    schedule_image = models.ImageField(verbose_name=_('Stundenplan Bild'),
+                upload_to=fixedname_upload_to, storage=OverwriteStorage(), null=True, blank=True)
+    schedule_last_modified = models.DateField(verbose_name=_('Stand des Stundenplans'), auto_now=True)
+
+    @property
+    def description_template(self):
+        return "website/description/{}.html".format(self.category.slug)
+
+    def __str__(self):
+        return self.category.name
+
+
+# Create a new instance of CategoryDetails each time a OphaseCategory is created
+@receiver(post_save, sender=OphaseCategory)
+def create_category_details(sender, instance, created, **kwargs):
+    if created:
+        CategoryDetails.objects.create(category=instance)
+
+
+# Update the object of CategoryDetails each time the corresponding object of OphaseCategory is updated
+@receiver(post_save, sender=OphaseCategory)
+def save_category_details(sender, instance, **kwargs):
+    instance.website.save()
+
+
+# Register a signal receiver so the image is deleted when the model is deleted
+@receiver(pre_delete, sender=CategoryDetails)
+def schedule_delete(sender, instance, **kwargs):
+    instance.image.delete(False)
