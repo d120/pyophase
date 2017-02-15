@@ -16,6 +16,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='schedule',
             name='image',
-            field=models.ImageField(storage=website.models.OverwriteStorage(), upload_to=website.models.Schedule.fixedname_upload_to, verbose_name='Stundenplan Bild'),
+            field=models.ImageField(storage=website.models.OverwriteStorage(), verbose_name='Stundenplan Bild'),
         ),
     ]

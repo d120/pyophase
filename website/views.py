@@ -1,12 +1,12 @@
-from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView
 from django.views.generic import TemplateView
 
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, OphaseCategory
 from staff.models import Settings as StaffSettings
 from students.models import Settings as StudentsSettings
 from workshops.models import Settings as WorkshopSettings
 
-from .models import Schedule, Settings as WebsiteSettings, OInforz
+from .models import Settings as WebsiteSettings, OInforz
 
 
 class HomepageView(TemplateView):
@@ -37,7 +37,7 @@ class HomepageView(TemplateView):
         return context
 
 
-class WebsiteView(TemplateView):
+class WebsiteMixin():
     """Extends the django TemplateView by adding the Ophase.current() object
     to the context data as current_ophase"""
 
@@ -52,35 +52,21 @@ class WebsiteView(TemplateView):
         return context
 
 
-class ScheduleView(WebsiteView):
+class CategoryDetailView(WebsiteMixin, DetailView):
     """Extends the django TemplateView by adding the Ophase.current() object
     to the context data as current_ophase"""
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['schedule'] = get_object_or_404(Schedule, degree=self.kwargs['degree'])
-        return context
+    model = OphaseCategory
 
     def get_template_names(self):
-        degree = self.kwargs['degree']
-
-        if degree == 'BSC':
-            return 'website/bachelor.html'
-        elif degree == 'MSC':
-            return 'website/master-de.html'
-        elif degree == 'DSS':
-            return 'website/master-dss.html'
-        elif degree == 'JBA':
-            return 'website/jba.html'
-        elif degree == 'EDU':
-            return 'website/lehramt.html'
+        return "website/detail/{}.html".format(self.object.slug)
 
 
-class HelfenView(WebsiteView):
+class HelperView(WebsiteMixin, TemplateView):
     template_name = "website/helfen.html"
 
 
-class OInforzView(WebsiteView):
+class OInforzView(WebsiteMixin, TemplateView):
     template_name = "website/oinforz.html"
 
     def get_context_data(self, **kwargs):
