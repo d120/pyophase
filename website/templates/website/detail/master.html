@@ -16,8 +16,8 @@
     TU Darmstadt wissen müsst. Besonders wichtig ist auch der Vortrag der Studienberatung mit Informationen zur
     Prüfungsordnung, zu TUCaN und anderen relevanten Themen.
 </p>
-<p>Dies ist der Stundenplan der Ophase (Stand: {{ schedule.stand|date:"SHORT_DATE_FORMAT" }}):</p>
-<img src="{{ schedule.image.url }}" class="img-responsive" />
+<p>Dies ist der Stundenplan der Ophase (Stand: {{ category.website.schedule_last_modified|date:"SHORT_DATE_FORMAT" }}):</p>
+<img src="{{ category.website.schedule_image.url }}" class="img-responsive" />
 
 <div class="padding-top-1"></div>
 <p>

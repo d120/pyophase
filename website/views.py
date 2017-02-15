@@ -1,7 +1,7 @@
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 
-from ophasebase.models import Ophase, OphaseCategory
+from ophasebase.models import Ophase, OphaseCategory, OphaseActiveCategory
 from staff.models import Settings as StaffSettings
 from students.models import Settings as StudentsSettings
 from workshops.models import Settings as WorkshopSettings
@@ -57,9 +57,17 @@ class CategoryDetailView(WebsiteMixin, DetailView):
     to the context data as current_ophase"""
 
     model = OphaseCategory
+    context_object_name = 'category'
 
     def get_template_names(self):
         return "website/detail/{}.html".format(self.object.slug)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ophase_category_duration']=OphaseActiveCategory.objects\
+                .get(ophase=Ophase.current(), category=self.object)\
+                .get_human_duration()
+        return context
 
 
 class HelperView(WebsiteMixin, TemplateView):
