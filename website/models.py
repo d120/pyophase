@@ -100,6 +100,9 @@ class CategoryDetails(models.Model):
     def description_template(self):
         return "website/description/{}.html".format(self.category.slug)
 
+    def __str__(self):
+        return self.category.name
+
 
 # Create a new instance of CategoryDetails each time a OphaseCategory is created
 @receiver(post_save, sender=OphaseCategory)
