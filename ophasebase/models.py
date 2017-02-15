@@ -150,7 +150,7 @@ class OphaseCategory(models.Model):
         ordering = ['priority']
 
     name = models.CharField(max_length=100, verbose_name=_('Name'))
-    description_template = models.CharField(max_length=50, verbose_name=_('Beschreibung in Template'))
+    slug = models.CharField(max_length=25, verbose_name=_('URL Slug'), unique=True)
     lang = models.CharField(max_length=5, verbose_name=_('Sprachcode'), default="de")
     priority = models.PositiveIntegerField(verbose_name=_("Priorität"), help_text=_("Die Priorität bestimmt unter anderem die Reihenfolge der Anzeige auf der Webseite"))
 
