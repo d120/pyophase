@@ -105,7 +105,7 @@ class CategoryDetails(models.Model):
 @receiver(post_save, sender=OphaseCategory)
 def create_category_details(sender, instance, created, **kwargs):
     if created:
-        CategoryDetails.objects.create(website=instance)
+        CategoryDetails.objects.create(category=instance)
 
 
 # Update the object of CategoryDetails each time the corresponding object of OphaseCategory is updated
