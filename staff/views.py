@@ -56,6 +56,8 @@ class StaffAdd(CreateView):
             return HttpResponseForbidden()
 
         try:
+            if form.instance.tutor_experience is None:
+                form.instance.tutor_experience = 0
             super_return = super().form_valid(form)
         except IntegrityError:
             # this should happen when unique constraints fail

@@ -35,7 +35,7 @@ class PersonForm(forms.ModelForm):
             fields_to_del = []
             #fields only required for a registration as tutor
             if not settings.tutor_registration_enabled:
-                fields_to_del.extend(['is_tutor', 'tutor_for'])
+                fields_to_del.extend(['is_tutor', 'tutor_for', 'tutor_experience'])
 
             #fields only required for a registration as orga
             if not settings.orga_registration_enabled:
@@ -77,6 +77,8 @@ class PersonForm(forms.ModelForm):
 
         if cleaned_data.get("is_tutor") and cleaned_data.get("tutor_for") is None:
             self.add_error('tutor_for', ValidationError(_('Um Tutor zu sein muss ausgewählt werden, welche Art Gruppe betreut werden soll.')))
+        if cleaned_data.get("is_tutor") and cleaned_data.get("tutor_experience") is None:
+            self.add_error('tutor_experience', ValidationError(_('Um Tutor zu sein muss angegeben werden, wie oft man bereits Tutor war.')))
 
         if cleaned_data.get("is_orga") and cleaned_data.get("orga_jobs").count() == 0:
             self.add_error('orga_jobs', ValidationError(_('Um Orga zu sein muss ausgewählt werden, welche Aufgaben übernommen werden sollen.')))
