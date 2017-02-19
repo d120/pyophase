@@ -1,4 +1,4 @@
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Case, When, IntegerField
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, TemplateView
 
@@ -73,7 +73,9 @@ class NewsletterOverviewView(StudentsAppMixin, ListView):
     template_name = "students/dashboard/view_newsletter_overview.html"
 
     def get_queryset(self):
-        return Newsletter.objects.annotate(num=Count('student'))
+        return Newsletter.objects.annotate(num=Count(Case(
+                When(student__ophase=Ophase.current(), then=1),
+                output_field=IntegerField())))
 
 
 class ExportNewsletterSubscriptionView(StudentsAppMixin, ListView):
