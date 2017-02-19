@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-12 15:42+0200\n"
+"POT-Creation-Date: 2017-02-19 19:28+0100\n"
 "PO-Revision-Date: 2016-05-29 17:06+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dashboard_views.py:14 models.py:29
+#: dashboard_views.py:14 models.py:41
 msgid "Ersties"
 msgstr "Freshmen"
 
@@ -31,7 +31,7 @@ msgstr "Overview"
 msgid "Zertifikate erstellen"
 msgstr "Create certificates"
 
-#: dashboard_views.py:23 models.py:13 models.py:14 models.py:17 models.py:37
+#: dashboard_views.py:23 models.py:14 models.py:15 models.py:18 models.py:49
 #: templates/students/dashboard/view_newsletter_overview.html:7
 msgid "Newsletter"
 msgstr "Newsletter"
@@ -40,43 +40,47 @@ msgstr "Newsletter"
 msgid "Erstie-Anmeldestatus"
 msgstr "Freshman sign-up status"
 
-#: forms.py:28 tests/tests_views.py:95
+#: forms.py:28 tests/tests_views.py:94
 msgid "Um Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden."
 msgstr "To subscribe to newsletters an e-mail address is necessary."
 
-#: models.py:18 templates/students/dashboard/view_newsletter_overview.html:11
+#: models.py:19 templates/students/dashboard/view_newsletter_overview.html:11
 msgid "Beschreibung"
 msgstr "Description"
 
-#: models.py:19
+#: models.py:20
 msgid "Auswählbar"
 msgstr "Selectable"
 
-#: models.py:28
+#: models.py:21
+msgid "Kategorie(n) zu der/den der Newsletter gehört"
+msgstr ""
+
+#: models.py:40
 msgid "Erstie"
 msgstr "Freshman"
 
-#: models.py:32
+#: models.py:44
 msgid "first name"
 msgstr "First name"
 
-#: models.py:33
+#: models.py:45
 msgid "last name"
 msgstr "Last name"
 
-#: models.py:34
+#: models.py:46
 msgid "E-Mail-Adresse"
 msgstr "E-mail address"
 
-#: models.py:35
+#: models.py:47
 msgid "Kleingruppe"
 msgstr "Tutored group"
 
-#: models.py:36
+#: models.py:48
 msgid "Klausur mitschreiben?"
 msgstr "Participate in exam?"
 
-#: models.py:36
+#: models.py:48
 msgid ""
 "Die Klausur ist eine Simulation einer Uniklausur, um die Unterschiede "
 "zwischen einer Schul- und einer Universitätsklausur zu zeigen. Abgefragt "
@@ -84,23 +88,23 @@ msgid ""
 "verpflichtend, die Klausur zu bestehen."
 msgstr ""
 
-#: models.py:37
+#: models.py:49
 msgid "Welche Newsletter willst du abonieren (optional)?"
 msgstr "Which newsletter(s) would you like to subscribe to?"
 
-#: models.py:62 models.py:63
+#: models.py:74 models.py:75
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: models.py:65
+#: models.py:77
 msgid "Studenten Registrierung aktiv"
 msgstr ""
 
-#: models.py:68 tests/tests_models.py:213
+#: models.py:80 tests/tests_models.py:211
 msgid "Students Einstellungen"
 msgstr "Student settings"
 
-#: models.py:76
+#: models.py:88
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
@@ -116,6 +120,14 @@ msgid "Dashboard"
 msgstr "Dashboard"
 
 #: templates/students/dashboard/view_certificate.html:9
+#, python-format
+msgid ""
+"Vor dem Erstellen der Zertifikate bitte überprüfen, dass Änderungen an den "
+"Tutoren der Kleingruppen unter <a href=\"%(tpurl)s\">Tutoren paaren</a> "
+"eingepflegt sind."
+msgstr ""
+
+#: templates/students/dashboard/view_certificate.html:12
 #, fuzzy
 #| msgid "Zertifikate erstellen"
 msgid "PDF mit allen Zertifikaten erstellen"
@@ -140,12 +152,20 @@ msgid "Aktiv"
 msgstr "Active"
 
 #: templates/students/dashboard/view_newsletter_overview.html:11
+msgid "Kategorie(n)"
+msgstr ""
+
+#: templates/students/dashboard/view_newsletter_overview.html:11
 msgid "# Neue Abos"
 msgstr "# new subscriptions"
 
 #: templates/students/dashboard/view_newsletter_overview.html:11
 msgid "Export"
 msgstr "Export"
+
+#: templates/students/dashboard/view_newsletter_overview.html:19
+msgid "Alle"
+msgstr ""
 
 #: templates/students/dashboard/view_stats.html:7
 msgid "Aktueller Eintragungsstand"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-25 18:52+0200\n"
+"POT-Creation-Date: 2017-02-19 19:28+0100\n"
 "PO-Revision-Date: 2016-08-25 18:54+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,9 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: admin_actions.py:16
+#: admin_actions.py:17
 msgid "OInforz Tex Export"
 msgstr "OInforz Tex Export"
+
+#: admin_actions.py:30
+#, fuzzy
+#| msgid "Workshoptutoren"
+msgid "Liste der Workshoptutoren"
+msgstr "Workshop tutors"
 
 #: dashboard_widgets.py:10 models.py:33
 #: templates/workshops/dashboard/widget_workshops.html:3

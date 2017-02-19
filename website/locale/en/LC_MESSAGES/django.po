@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 17:06+0100\n"
+"POT-Creation-Date: 2017-02-19 19:28+0100\n"
 "PO-Revision-Date: 2017-02-19 18:38+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: Heiko Carrasco <hcarrasco@d120.de>\n"
@@ -18,106 +18,106 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: .\models.py:18 .\models.py:19
+#: models.py:18 models.py:19
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: .\models.py:32
+#: models.py:32
 msgid "Website Einstellungen"
 msgstr "Site settings"
 
-#: .\models.py:40
+#: models.py:40
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
 msgstr ""
 "It's only useful and possible to create one instance of this setting object"
 
-#: .\models.py:60 .\models.py:94
+#: models.py:60 models.py:94
 msgid "OInforz"
 msgstr "OInforz"
 
-#: .\models.py:61
+#: models.py:61
 msgid "OInforze"
 msgstr "OInforze"
 
-#: .\models.py:68
+#: models.py:68
 msgid "Abschluss"
 msgstr "Graduation"
 
-#: .\models.py:69
+#: models.py:69
 msgid "OInforz PDF"
 msgstr "OInforz pdf"
 
-#: .\models.py:71
+#: models.py:71
 msgid "Stand des OInforzes"
 msgstr "Status of the OInforz"
 
-#: .\models.py:85
+#: models.py:85
 msgid "Webseitendetails für Kategorie"
 msgstr "Website Details for Category"
 
-#: .\models.py:86
+#: models.py:86
 msgid "Webseitendetails für Kategorien"
 msgstr "Website Details for Categories"
 
-#: .\models.py:95
+#: models.py:95
 msgid "Stundenplan Bild"
 msgstr "Timetable image"
 
-#: .\models.py:97
+#: models.py:97
 msgid "Stand des Stundenplans"
 msgstr "Status of the timetable"
 
-#: .\templates\website\helfen.html:14
+#: templates/website/helfen.html:14
 msgid "Für engagierte Studierende"
 msgstr "For involved students"
 
-#: .\templates\website\helfen.html:15
+#: templates/website/helfen.html:15
 msgid "Bei der nächsten Ophase als Tutor, Organisator oder Helfer mitwirken"
 msgstr "Participating as tutor, organizer or assistant"
 
-#: .\templates\website\helfen.html:18
+#: templates/website/helfen.html:18
 msgid "Für Workshopleiter"
 msgstr "For workshop organizer"
 
-#: .\templates\website\helfen.html:19
+#: templates/website/helfen.html:19
 msgid "Bei der nächsten Ophase einen Workshop anbieten"
 msgstr "Offer a workshop in the next Ophase"
 
-#: .\templates\website\homepage.html:2
+#: templates/website/homepage.html:2
 msgid "Startseite"
 msgstr "Start"
 
-#: .\templates\website\homepage.html:3
+#: templates/website/homepage.html:3
 msgid "Willkommen zur Ophase Informatik!"
 msgstr "Welcome to the introductory week for Computer Science!"
 
-#: .\templates\website\homepage.html:18
+#: templates/website/homepage.html:18
 msgid "Für Tutorinnen und Tutoren während der Ophase"
 msgstr "For tutors during the next Ophase"
 
-#: .\templates\website\homepage.html:19
+#: templates/website/homepage.html:19
 msgid "Die Erstsemester deiner Kleingruppe registrieren"
 msgstr "Register the first-semester students for your group"
 
-#: .\templates\website\homepage.html:42
+#: templates/website/homepage.html:42
 msgid "zum Stundenplan"
 msgstr "to the timetable"
 
-#: .\templates\website\homepage.html:49
+#: templates/website/homepage.html:49
 msgid "Gebäude"
 msgstr "Building"
 
-#: .\templates\website\homepage.html:52
+#: templates/website/homepage.html:52
 msgid "Lageplan der Uni"
 msgstr "University Map"
 
-#: .\templates\website\homepage.html:58
+#: templates/website/homepage.html:58
 msgid "Helpdesk"
 msgstr "Helpdesk"
 
-#: .\templates\website\oinforz.html:11
+#: templates/website/oinforz.html:11
 msgid ""
 "Hier findest Du die OInforze zur aktuellen Ophase. Es handelt sich dabei um "
 "eine Broschüre mit vielen wichtigen Inhalten zum Studium und zum Leben in "
