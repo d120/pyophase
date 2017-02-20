@@ -18,6 +18,7 @@ service: mysql
 python:
   - "3.4"
   - "3.5"
+  - "3.6"
 
 env:
     # the Django version from requirements.txt is used
