@@ -21,9 +21,12 @@
 
 .box { padding: 1rem 1rem; }
 .box-highlight { border-left: 3px solid #fff; }
+.box-highlight-header {border: 2px solid #fff;}
 .box h2, .box h3 { margin: .5rem 0; }
 .box p { margin: 0; padding-top: .6rem; }
 .box .box-big { font-size: 1.8rem; }
+
+
 
 .box-gray { background-color: #dfdfdf; border-color: #666; }
 .box-lilac { background-color: #ecdef2; border-color: #8e44ad; }
@@ -85,3 +88,8 @@ a.no-underline:hover { text-decoration: none; }
 
 .padded-form .form-group { padding-bottom: 3.5rem; }
 .quite-big { font-size: 1.8em; line-height: 180%; }
+
+.img-center {
+    display: block;
+    margin: 0 auto;
+}

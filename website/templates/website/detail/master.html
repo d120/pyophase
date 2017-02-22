@@ -7,53 +7,58 @@
 <div class="breadcrumbs">
     Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Master Deutsch
 </div>
+<div class="box text-justify">
+    <h3 class="box box-highlight-header box-light-yellow">Inhalte und Stundenplan</h3>
+    <div class="box">
+        <p>
+            Die Ophase beginnt mit der Begrüßung für alle Informatik Master-Studienanfänger*innen. Nach der Begrüßung folgen
+            einige Vorträge, in denen wichtige Dinge erklärt werden und Fragen beantwortet werden können. Themen sind etwa, wie
+            man einen Prüfungsplan erstellt, wie man seine Vorlesungen aussucht und alles andere, was ihr für den Start an der
+            TU Darmstadt wissen müsst. Besonders wichtig ist auch der Vortrag der Studienberatung mit Informationen zur
+            Prüfungsordnung, zu TUCaN und anderen relevanten Themen.
+        </p>
+        <p>Dies ist der Stundenplan der Ophase (Stand: {{ category.website.schedule_last_modified|date:"SHORT_DATE_FORMAT" }}):</p>
+        <div class="padding-top-3"></div>
+        <img src="{{ category.website.schedule_image.url }}" class="img-responsive img-center box-highlight-header box-light-yellow" />
+        <div class="padding-top-3"></div>
+        <p>
+            Gültig sind nur Zeit- und Raumangaben in diesem Stundenplan. Andere Angaben (zum Beispiel im uniweiten
+            Raumbuchungssystem) haben keine Bedeutung.
+        </p>
 
-<h3>Inhalte und Stundenplan</h3>
-<p>
-    Die Ophase beginnt mit der Begrüßung für alle Informatik Master-Studienanfänger*innen. Nach der Begrüßung folgen
-    einige Vorträge, in denen wichtige Dinge erklärt werden und Fragen beantwortet werden können. Themen sind etwa, wie
-    man einen Prüfungsplan erstellt, wie man seine Vorlesungen aussucht und alles andere, was ihr für den Start an der
-    TU Darmstadt wissen müsst. Besonders wichtig ist auch der Vortrag der Studienberatung mit Informationen zur
-    Prüfungsordnung, zu TUCaN und anderen relevanten Themen.
-</p>
-<p>Dies ist der Stundenplan der Ophase (Stand: {{ category.website.schedule_last_modified|date:"SHORT_DATE_FORMAT" }}):</p>
-<img src="{{ category.website.schedule_image.url }}" class="img-responsive" />
-
-<div class="padding-top-1"></div>
-<p>
-    Gültig sind nur Zeit- und Raumangaben in diesem Stundenplan. Andere Angaben (zum Beispiel im uniweiten
-    Raumbuchungssystem) haben keine Bedeutung.
-</p>
-
-<p>
-    Die Master-Ophase ist vor Allem für Master-Erstsemester gedacht, die von einer anderen Hochschule kommen. Wir
-    bringen euch prinzipiell Darmstadt, die TU und das Studium am Fachbereich Informatik näher, da ihr aber schon ein
-    Studium hinter euch habt, bieten wir euch einen angepassten Stundenplan mit mehr Raum für individuelle Fragen an.
-</p>
-<p>
-    Der Termin mit der Studienberatung ist insbesondere auch für Master-Erstsemester gedacht, die an der TU Darmstadt
-    ihren Bachelor in Informatik gemacht haben.
-</p>
-
-<h3>Bin ich hier richtig?</h3>
-<p>Die Master-Ophase ist für diese Studiengänge an der TU Darmstadt gedacht:</p>
-<ul>
-    <li>Master of Science Informatik</li>
-    <li>Master of Science Autonome Systeme</li>
-    <li>Master of Science IT Security</li>
-    <li>Master of Science Internet und Web-basierte Systeme</li>
-    <li>Master of Science Visual Computing</li>
-</ul>
-<p>
-    Master-Erstsemester des Studiengangs "Master of Science Distributed Software Systems" finden ihre Ophase
-    <a href="{% url 'website:detail_view' 'master-dss' %}">hier</a>.
-</p>
-
-<h3>OInforz</h3>
-<p>
-    Du wirst in der Ophase eine gedruckte Version dieses Heftes mit vielen relevanten Informationen erhalten. Falls Du
-    neugierig bist, kannst Du Dir auch schon mal die digitale Version des <a href="{% url 'website:oinforz' %}">OInforz</a>
-    anschauen.
-</p>
-
+        <p>
+            Die Master-Ophase ist vor Allem für Master-Erstsemester gedacht, die von einer anderen Hochschule kommen. Wir
+            bringen euch prinzipiell Darmstadt, die TU und das Studium am Fachbereich Informatik näher, da ihr aber schon ein
+            Studium hinter euch habt, bieten wir euch einen angepassten Stundenplan mit mehr Raum für individuelle Fragen an.
+        </p>
+        <p>
+            Der Termin mit der Studienberatung ist insbesondere auch für Master-Erstsemester gedacht, die an der TU Darmstadt
+            ihren Bachelor in Informatik gemacht haben.
+        </p>
+    </div>
+    <h3 class="box box-highlight-header box-light-yellow margin-top-3">Bin ich hier richtig?</h3>
+    <div class="box">
+        <p>Die Master-Ophase ist für diese Studiengänge an der TU Darmstadt gedacht:</p>
+        <ul>
+            <li>Master of Science Informatik</li>
+            <li>Master of Science Autonome Systeme</li>
+            <li>Master of Science IT Security</li>
+            <li>Master of Science Internet und Web-basierte Systeme</li>
+            <li>Master of Science Visual Computing</li>
+        </ul>
+        <p>
+            Master-Erstsemester des Studiengangs "Master of Science Distributed Software Systems" finden ihre Ophase
+            <a href="{% url 'website:detail_view' 'master-dss' %}">hier</a>.
+        </p>
+    </div>
+    <div class="padding-top-1"></div>
+    <h3 class="box box-highlight-header box-light-yellow margin-top-3">OInforz</h3>
+    <div class="box">
+        <p>
+            Du wirst in der Ophase eine gedruckte Version dieses Heftes mit vielen relevanten Informationen erhalten. Falls Du
+            neugierig bist, kannst Du Dir auch schon mal die digitale Version des <a href="{% url 'website:oinforz' %}">OInforz</a>
+            anschauen.
+        </p>
+    </div>
+</div>
 {% endblock %}
