@@ -23,19 +23,14 @@ python:
 
 env:
     # the Django version from requirements.txt is used
-  - SQLITETEST=
-    # test with mysql database
-  - MYSQLTEST= DJANGO_SETTINGS_MODULE=pyophase.settings_travis
+  - $DENV=""
     # the latest Django development version is used
-  - SQLITETEST= $DENV="pip install --upgrade --pre Django"
-    # test with mysql database and the latest Django development version
-  - MYSQLTEST= DJANGO_SETTINGS_MODULE=pyophase.settings_travis $DENV="pip install --upgrade --pre Django"
+  - $DENV="pip install --upgrade --pre Django"
 
 # allow the Django pre version to fail without failing the entire build
 matrix:
   allow_failures:
-    - env: SQLITETEST= $DENV="pip install --upgrade --pre Django"
-    - env: MYSQLTEST= DJANGO_SETTINGS_MODULE=pyophase.settings_travis $DENV="pip install --upgrade --pre Django"
+    - env: $DENV="pip install --upgrade --pre Django"
 
 install:
   - pip install -U pip wheel
@@ -55,8 +50,11 @@ before_script:
 # command to run tests
 script:
   - export PYTHONWARNINGS=all
-  - python manage.py check 
+  - python manage.py check
+    # Test against Sqlite
   - python manage.py test
+    # Test against MySQL
+  - python manage.py test --settings pyophase.settings_travis
   - coverage run --omit="*/migrations*" --source="." manage.py test
 
 after_success:
