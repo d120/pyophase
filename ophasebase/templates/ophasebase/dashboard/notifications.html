@@ -1,0 +1,34 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Benachrichtigungen" %} | {% trans "Base" %}{% endblock %}
+
+{% block content_dashboard_view %}
+<h3>{% trans "Benachrichtigungen" %}</h3>
+
+<table class="table table-striped">
+{% for notification in notifications %}
+    <tr>
+        <td>
+            {% if notification.icon != "" %}
+                <i class="fa fa-{{ notification.icon }}"></i>
+            {% endif %}
+        </td>
+        <td>{{ notification.app }}.{{ notification.action }}</td>
+        <td>{{ notification.event }}</td>
+        <td>
+            {% if notification.detail_url != "" %}
+                <a href="{{ notification.detail_url }}"><i class="fa fa-external-link"></i></a>
+            {% endif %}
+        </td>
+        <td>{{ notification.timestamp }}</td>
+    </tr>
+{% empty %}
+    <tr><td>{% trans "Keine Benachrichtigungen" %}</td></tr>
+{% endfor %}
+</table>
+
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}
