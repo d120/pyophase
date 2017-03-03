@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Building, Ophase, Room, OphaseCategory, OphaseActiveCategory
+from .models import Building, Ophase, Room, OphaseCategory, OphaseActiveCategory, GroupNotificationFilter, Notification
 
 
 @admin.register(Ophase)
@@ -33,6 +33,18 @@ class OphaseCategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(OphaseActiveCategory)
-class OphaseActiveCategory(admin.ModelAdmin):
+class OphaseActiveCategoryAdmin(admin.ModelAdmin):
     list_display = ('ophase', 'category', 'start_date', 'end_date')
     list_display_links = ('ophase', 'category')
+
+
+@admin.register(GroupNotificationFilter)
+class GroupNotificationFilterAdmin(admin.ModelAdmin):
+    list_display = ('group', 'app', 'action')
+    list_display_links = ('app', 'action')
+
+
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('app', 'action', 'timestamp')
+    list_display_links = ('app', 'action')
