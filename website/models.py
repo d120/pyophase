@@ -63,7 +63,7 @@ class OInforz(models.Model):
     def fixedname_upload_to(instance, filename):
         """returns the path and name where the image should upload to"""
         x, file_extension = os.path.splitext(filename)
-        return '{}{}{}'.format('website/oinforz/', instance.degree.lower(), file_extension)
+        return '{}{}{}'.format('website/oinforz/', instance.name.lower(), file_extension)
 
     name = models.CharField(max_length = 25, verbose_name=_('Abschluss'))
     file = models.FileField(verbose_name=_('OInforz PDF'),
