@@ -13,7 +13,7 @@ zusätzlich auch die digitale Version verwenden.{% endblocktrans %}
 
 {% for oinforz in oinforze %}
     <h2>
-        <a href="{{ oinforz.file.url }}">OInforz {{ oinforz.get_degree_display }}</a>
+        <a href="{{ oinforz.file.url }}">OInforz {{ oinforz.name }}</a>
     </h2>
     <p>Stand: {{ oinforz.stand }}</p>
 {% endfor %}
