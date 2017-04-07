@@ -109,8 +109,8 @@ class StaffFilterGroupAdmin(admin.ModelAdmin):
 
 @admin.register(TutorGroup)
 class TutorGroupAdmin(admin.ModelAdmin):
-    list_display = ['name', 'get_tutors', 'group_category']
-    list_filter = ['group_category']
+    list_display = ['name', 'get_tutors', 'ophase', 'group_category']
+    list_filter = ['ophase', 'group_category']
     actions = [tutorgroup_export]
 
     def get_tutors(self, obj):
