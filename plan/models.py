@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Ophase, Room, OphaseCategory
-from staff.models import StaffFilterGroup
+from staff.models import StaffFilterGroup, TutorGroup
 
 
 class SlotType(models.Model):
@@ -30,7 +30,6 @@ class TimeSlot(models.Model):
     relevant_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"), null=True, on_delete=models.SET_NULL)
     attendance_required = models.BooleanField(blank=True, default=False)
     ophase = models.ForeignKey(Ophase, models.CASCADE)
-    room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True, on_delete=models.SET_NULL)
     public = models.BooleanField(blank=True, default=False)
 
     @classmethod
@@ -39,3 +38,14 @@ class TimeSlot(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Event(models.Model):
+    class Meta:
+        verbose_name = _('Event')
+        verbose_name_plural = _('Events')
+        unique_together = ['timeslot', 'tutorgroup']
+
+    timeslot = models.ForeignKey(TimeSlot, verbose_name=_('Zeitslot'), on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True, on_delete=models.SET_NULL)
+    tutorgroup = models.ForeignKey(TutorGroup, null=True, verbose_name=_('Kleingruppe'), blank=True, on_delete=models.CASCADE)
