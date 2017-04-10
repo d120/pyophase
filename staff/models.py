@@ -215,7 +215,7 @@ class Attendance(models.Model):
         ("e", _("angerufen + erreicht"))
     )
 
-    event = models.ForeignKey("AttendanceEvent", on_delete=models.CASCADE, verbose_name=_("Anwesenheitstermin"))
+    event = models.ForeignKey("plan.TimeSlot", null=True, on_delete=models.CASCADE, verbose_name=_("Anwesenheitstermin"))
     person = models.ForeignKey(Person, on_delete=models.CASCADE, verbose_name=_("Person"))
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="x", verbose_name=_('Status'))
     phone_status = models.CharField(max_length=1, choices=PHONECALL_CHOICES, default="x", verbose_name=_('Telefoniestatus'))
@@ -223,28 +223,6 @@ class Attendance(models.Model):
 
     def __str__(self):
         return "{} @ {}: {} ({})".format(self.person, self.event, self.get_status_display(), self.get_phone_status_display())
-
-
-class AttendanceEvent(models.Model):
-    """An attendance event"""
-    class Meta:
-        verbose_name = _("Anwesenheitstermin")
-        verbose_name_plural = _("Anwesenheitstermine")
-        ordering = ['begin']
-
-    name = models.CharField(max_length=100, verbose_name=_("Name"))
-    begin = models.DateTimeField(verbose_name=_("Beginn"))
-    end = models.DateTimeField(verbose_name=_("Ende"))
-    required_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"), null=True, on_delete=models.SET_NULL)
-    ophase = models.ForeignKey(Ophase, models.CASCADE)
-    room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True, on_delete=models.SET_NULL)
-
-    @staticmethod
-    def get_current_events(**kwargs):
-        return AttendanceEvent.objects.filter(ophase=Ophase.current(), **kwargs)
-
-    def __str__(self):
-        return self.name
 
 
 class Settings(models.Model):

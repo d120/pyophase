@@ -6,8 +6,9 @@ from django.views.generic import FormView, TemplateView, ListView, DetailView
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
+from plan.models import TimeSlot
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
-from .models import Person, TutorGroup, AttendanceEvent
+from .models import Person, TutorGroup
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -75,13 +76,13 @@ class TutorPairingSuccess(StaffAppMixin, TemplateView):
 
 class AttendanceEventIndexView(StaffAppMixin, ListView):
     permissions = ['staff.edit_attendance']
-    model = AttendanceEvent
+    model = TimeSlot
     template_name = "staff/dashboard/events_overview.html"
     context_object_name = "events"
 
 
 class AttendanceEventDetailView(StaffAppMixin, DetailView):
     permissions = ['staff.edit_attendance']
-    model = AttendanceEvent
+    model = TimeSlot
     template_name = "staff/dashboard/event.html"
     context_object_name = "event"
