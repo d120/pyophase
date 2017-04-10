@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'exam',
     'workshops',
     'clothing',
+    'plan'
 )
 
 MIDDLEWARE = (
