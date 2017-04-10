@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^students/', include('students.dashboard_urls', namespace='students')),
     url(r'^exam/', include('exam.dashboard_urls', namespace='exam')),
     url(r'^clothing/', include('clothing.dashboard_urls', namespace='clothing')),
+    url(r'^plan/', include('plan.dashboard_urls', namespace='plan')),
 ]
