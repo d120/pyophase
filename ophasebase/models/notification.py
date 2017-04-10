@@ -1,5 +1,6 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.db import models
+from django.db.models import Q
 from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,6 +21,14 @@ class GroupNotificationFilter(models.Model):
             return "{}: {}".format(self.group, self.app)
         return "{}: {}.{}".format(self.group, self.app, self.action)
 
+    @classmethod
+    def filter_by_groups(cls, groups):
+        return cls.objects.filter(group__in=groups)
+
+    @classmethod
+    def filter_by_notification(cls, notification):
+        return cls.objects.filter(app=notification.app).filter(Q(action=notification.action) | Q(action=""))
+
 
 class Notification(models.Model):
     class Meta:
@@ -37,3 +46,17 @@ class Notification(models.Model):
 
     def __str__(self):
         return "{}.{} @ {}".format(self.app, self.action, formats.date_format(self.timestamp, 'SHORT_DATETIME_FORMAT'))
+
+    @classmethod
+    def filter_by_groups(cls, groups):
+        filters = GroupNotificationFilter.filter_by_groups(groups)
+        #TODO Insert great filter here
+        return cls.objects.filter()
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        super().save(force_insert, force_update, using, update_fields)
+
+        # Send notification mails immediately
+        subscribed_groups = GroupNotificationFilter.filter_by_notification(self)
+        #subscribed_users = User.objects.filter(groups__in=subscribed_groups)
+        #print(subscribed_groups)

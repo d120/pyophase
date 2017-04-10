@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView
 from formtools.wizard.views import SessionWizardView
 
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, Notification
 from staff.models import Person
 from clothing.forms import OrderAskMailForm, OrderClothingFormSet
 from clothing.models import Order, Settings
@@ -50,6 +50,14 @@ class OrderClothingView(SessionWizardView):
         if orders == "":
             orders = _("Keine Bestellungen")
 
+        # Create notification
+        Notification.objects.create(
+            app="clothing",
+            action="order-done",
+            event="{} hat eine Kleidungsbestellung durchgeführt".format(person.get_name())
+        )
+
+        # Send confirmation mail
         email = EmailMessage()
         email.subject = _("Kleiderbestellung %(ophase)s") % {'ophase': str(Ophase.current())}
         email_template = loader.get_template('clothing/mail/order.txt')

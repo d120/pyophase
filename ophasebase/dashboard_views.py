@@ -23,5 +23,6 @@ class NotificationOverview(OphasebaseAppMixin, ListView):
     template_name = "ophasebase/dashboard/notifications.html"
 
     def get_queryset(self):
+        self.request.user.groups
         #TODO Replace with filtered version
         return Notification.objects.all()

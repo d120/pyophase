@@ -96,6 +96,10 @@ class StaffAdd(CreateView):
                  'form_content': form_content,
                  }
 
+        # Create notification
+        # TODO Create notification here
+
+        # Send confirmation mail
         email = EmailMessage()
         email.subject = _('{ophase_title} Registrierung').format(**values)
         email.to = ['{user_prename} {user_name} <{user_email}>'.format(**values)]
