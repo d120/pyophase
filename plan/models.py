@@ -30,7 +30,7 @@ class TimeSlot(models.Model):
     begin = models.DateTimeField(verbose_name=_("Beginn"))
     end = models.DateTimeField(verbose_name=_("Ende"))
     category = models.ManyToManyField(OphaseCategory)
-    relevant_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer muss anwesend sein?"), null=True, on_delete=models.SET_NULL)
+    relevant_for = models.ForeignKey(StaffFilterGroup, verbose_name=_("Filterkriterium: Wer könnte anwesend sein?"), null=True, on_delete=models.SET_NULL)
     attendance_required = models.BooleanField(blank=True, default=False)
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     public = models.BooleanField(blank=True, default=False)
