@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from plan.models import TimeSlot, SlotType, Event
+from plan.models import TimeSlot, SlotType, Event, Booking
 from django.utils.translation import ugettext as _
 
 
@@ -27,3 +27,8 @@ class TimeSlotAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ['timeslot', 'room', 'tutorgroup']
+
+
+@admin.register(Booking)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ['room', 'begin', 'end', 'status']

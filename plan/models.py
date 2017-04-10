@@ -57,3 +57,27 @@ class Event(models.Model):
         if self.tutorgroup is not None:
             return "{} ({})".format(str(self.timeslot), str(self.tutorgroup))
         return str(self.timeslot)
+
+
+class Booking(models.Model):
+    class Meta:
+        verbose_name = _('Raumbuchung')
+        verbose_name_plural = _('Raumbuchungen')
+        ordering = ['room', '-begin']
+
+    STATUS_CHOICES = (
+        (1, _('Gebucht')),
+        (2, _('Blockiert')),
+        (3, _('Anfragen?')),
+        (4, _('Angefragt')),
+        (5, _('Überlappung')),
+    )
+
+    room = models.ForeignKey(Room, verbose_name=_('Raum'), on_delete=models.CASCADE)
+    begin = models.DateTimeField(verbose_name=_('Anfang'))
+    end = models.DateTimeField(verbose_name=_('Ende'))
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES)
+    comment = models.TextField(verbose_name=_('Kommentar'), blank=True)
+
+    def __str__(self):
+        return "{} ({} - {})".format(self.room, self.begin, self.end)
