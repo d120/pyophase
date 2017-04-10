@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
 
-from plan.admin_actions import update_attendees
-from plan.models import TimeSlot, SlotType
+from plan.models import TimeSlot, SlotType, Event
 from django.utils.translation import ugettext as _
 
 
@@ -15,7 +14,7 @@ class SlotTypeAdmin(admin.ModelAdmin):
 @admin.register(TimeSlot)
 class TimeSlotAdmin(admin.ModelAdmin):
     list_display = ['name', 'begin', 'end', 'relevant_for', 'link_attendance_list']
-    actions = [update_attendees]
+    #actions = [update_attendees]
 
     @staticmethod
     def link_attendance_list(event):
@@ -23,3 +22,8 @@ class TimeSlotAdmin(admin.ModelAdmin):
                            url=reverse('admin:staff_attendance_changelist'),
                            id=event.pk,
                            name=_('Teilnehmerliste'))
+
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ['timeslot', 'room', 'tutorgroup']
