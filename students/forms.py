@@ -2,6 +2,8 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from ophasebase.models import Ophase
+from staff.models import TutorGroup
 from .models import Student
 
 
@@ -20,6 +22,8 @@ class StudentRegisterForm(forms.ModelForm):
 
         if exam_enabled == False:
             del self.fields['want_exam']
+
+        self.fields["tutor_group"].queryset = TutorGroup.objects.filter(ophase=Ophase.current())
 
     def clean(self):
         cleaned_data = super().clean()
