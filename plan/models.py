@@ -14,6 +14,9 @@ class SlotType(models.Model):
     name = models.CharField(max_length=50, blank=False)
     color = models.CharField(max_length=7, default="#FFFFFF", blank=False)
 
+    def __str__(self):
+        return self.name
+
 
 class TimeSlot(models.Model):
     """Time slot for events"""
@@ -23,7 +26,7 @@ class TimeSlot(models.Model):
         ordering = ['begin']
 
     name = models.CharField(max_length=100, verbose_name=_("Name"))
-    slottype = models.ForeignKey(SlotType)
+    slottype = models.ForeignKey(SlotType, on_delete=models.CASCADE)
     begin = models.DateTimeField(verbose_name=_("Beginn"))
     end = models.DateTimeField(verbose_name=_("Ende"))
     category = models.ManyToManyField(OphaseCategory)
@@ -49,3 +52,8 @@ class Event(models.Model):
     timeslot = models.ForeignKey(TimeSlot, verbose_name=_('Zeitslot'), on_delete=models.CASCADE)
     room = models.ForeignKey(Room, null=True, verbose_name=_("Raum"), blank=True, on_delete=models.SET_NULL)
     tutorgroup = models.ForeignKey(TutorGroup, null=True, verbose_name=_('Kleingruppe'), blank=True, on_delete=models.CASCADE)
+
+    def __str__(self):
+        if self.tutorgroup is not None:
+            return "{} ({})".format(str(self.timeslot), str(self.tutorgroup))
+        return str(self.timeslot)
