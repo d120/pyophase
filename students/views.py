@@ -51,6 +51,8 @@ class StudentAdd(CreateView):
         self.request.session['exam_enabled'] = self.kwargs.get('exam_enabled', True)
         return super().form_valid(form)
 
+
+class StudentAddProtected(StudentAdd):
     @method_decorator(permission_required('students.add_student'))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
