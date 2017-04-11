@@ -24,6 +24,7 @@ class StaffAppMixin(DashboardAppMixin):
             (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
             (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
             (_('Termine'), self.prefix_reverse_lazy('event_index')),
+            (_('Namensschilder'), self.prefix_reverse_lazy('nametags'))
         ]
 
 
@@ -162,3 +163,11 @@ class AttendanceEventDetailView(StaffAppMixin, DetailView):
     model = AttendanceEvent
     template_name = "staff/dashboard/event.html"
     context_object_name = "event"
+
+class NametagCreation(StaffAppMixin, TemplateView):
+    template_name = 'staff/dashboard/nametag_creation.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(NametagCreation, self).get_context_data(**kwargs)
+        context['staff'] = Person.objects.filter(ophase=Ophase.current()).exclude(is_helper=True).prefetch_related('orga_jobs').order_by('name')
+        return context

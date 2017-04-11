@@ -4,7 +4,8 @@ from .dashboard_views import (
     GroupMassCreateView,
     TutorPairingSuccess,
     TutorPairingView,
-    AttendanceEventIndexView, AttendanceEventDetailView, StaffOverview)
+    AttendanceEventIndexView, AttendanceEventDetailView, StaffOverview,
+    NametagCreation)
 
 
 app_name = 'staff'
@@ -17,4 +18,5 @@ urlpatterns = [
 
     url(r'^event/$', AttendanceEventIndexView.as_view(), name='event_index'),
     url(r'^event/(?P<pk>[0-9]+)/$', AttendanceEventDetailView.as_view(), name='event_detail'),
+    url(r'^nametags/$', NametagCreation.as_view(), name='nametags'),
 ]

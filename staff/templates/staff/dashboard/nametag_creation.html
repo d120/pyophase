@@ -1,0 +1,30 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+
+{% block title%}{% trans "Namensschilder erstellen" %} | {% trans "Dashboard" %}{% endblock %}
+
+
+{% block content_dashboard_view %}
+    <h3>{% trans "Namensschilder erstellen" %}<span class="badge">{{ count_student }}</span></h3>
+    <div class="table-responsive">
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>{% trans "Job" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for orga in staff %}
+    <tr>
+        <td>{{ orga.prename }} {{ orga.name }}</td>
+        <td> {% if orga.is_orga %} {{ orga.orga_jobs.all | join:", " }} {% else %} Tutor {% endif %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+    <form action="{{ request.path }}" method="post">{% csrf_token %}
+        <button type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
+    </form>
+
+{% endblock %}
