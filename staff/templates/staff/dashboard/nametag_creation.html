@@ -10,21 +10,23 @@
     <thead>
     <tr>
         <th>Name</th>
-        <th>{% trans "Job" %}</th>
+        <th>{% trans "Tutor" %}</th>
+        <th>{% trans "Jobs" %}</th>
     </tr>
     </thead>
     <tbody>
     {% for orga in staff %}
     <tr>
         <td>{{ orga.prename }} {{ orga.name }}</td>
-        <td> {% if orga.is_orga %} {{ orga.orga_jobs.all | join:", " }} {% else %} Tutor {% endif %}</td>
+        <td>{% if orga.is_tutor %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %} </td>
+        <td>{{ orga.orga_jobs.all | join:", " }}</td>
     </tr>
     {% endfor %}
     </tbody>
     </table>
     </div>
     <form action="{{ request.path }}" method="post">{% csrf_token %}
-        <button type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
+        <button class="pull-right" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
     </form>
 
 {% endblock %}
