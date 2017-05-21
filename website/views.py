@@ -1,5 +1,6 @@
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404
 
 from ophasebase.models import Ophase, OphaseCategory, OphaseActiveCategory
 from staff.models import Settings as StaffSettings
@@ -64,9 +65,8 @@ class CategoryDetailView(WebsiteMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['ophase_category_duration']=OphaseActiveCategory.objects\
-                .get(ophase=Ophase.current(), category=self.object)\
-                .get_human_duration()
+        category = get_object_or_404(OphaseActiveCategory, ophase=Ophase.current(), category=self.object)
+        context['ophase_category_duration'] = category.get_human_duration()
         return context
 
 

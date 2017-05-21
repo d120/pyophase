@@ -49,7 +49,7 @@ class OphaseActiveCategory(models.Model):
         """
         beginformat = 'j. '
         if self.start_date.month != self.end_date.month:
-            beginformat +='F'
+            beginformat += 'F'
         endformat = 'j. F'
         return '%(begin)s - %(end)s' % {
           'begin': formats.date_format(self.start_date, beginformat),

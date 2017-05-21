@@ -65,7 +65,7 @@ class OInforz(models.Model):
         x, file_extension = os.path.splitext(filename)
         return '{}{}{}'.format('website/oinforz/', instance.name.lower(), file_extension)
 
-    name = models.CharField(max_length = 25, verbose_name=_('Abschluss'))
+    name = models.CharField(max_length=25, verbose_name=_('Abschluss'))
     file = models.FileField(verbose_name=_('OInforz PDF'),
                 upload_to=fixedname_upload_to, storage=OverwriteStorage())
     last_modified = models.DateField(verbose_name=_('Stand des OInforzes'))
