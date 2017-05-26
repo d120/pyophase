@@ -10,6 +10,7 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^', include('website.urls', namespace='website')),
+    url(r'sso/', include('pyTUID.urls')),
     url(r'^mitmachen/', include('staff.urls', namespace='staff')),
     url(r'^teilnehmer/', include('students.urls', namespace='students')),
     url(r'^klausur/', include('exam.urls', namespace='exam')),

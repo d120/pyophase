@@ -8,16 +8,30 @@ from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
+from pyTUID.mixins import TUIDLoginRequiredMixin
 
 from ophasebase.models import Ophase, OphaseCategory
 from staff.forms import PersonForm
-from staff.models import HelperJob, OrgaJob, Settings
+from staff.models import HelperJob, OrgaJob, Settings, Person
 
 
-class StaffAdd(CreateView):
+class StaffAdd(TUIDLoginRequiredMixin, CreateView):
     form_class = PersonForm
     template_name = 'staff/person_form.html'
     success_url = reverse_lazy('staff:registration_success')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if 'instance' not in kwargs or kwargs['instance'] is None:
+            kwargs['instance'] = Person()
+            tuid = self.request.TUIDUser
+            kwargs['instance'].tuid = tuid
+            kwargs['initial'] = {
+                'email': tuid.email,
+                'name': tuid.surname,
+                'prename': tuid.given_name,
+            }
+        return kwargs
 
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()

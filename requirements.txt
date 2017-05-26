@@ -7,3 +7,5 @@ mysqlclient==1.3.10
 odswriter==0.4.0
 Pillow==4.1.1
 selenium==2.53.6            # pyup: >=2.53,<3
+git+https://github.com/d120/pyTUID.git#egg=pyTUID-1.1.1
+django-sslserver
