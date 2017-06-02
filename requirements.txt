@@ -1,5 +1,5 @@
 coverage==4.4.1
-Django==1.11.1
+Django==1.11.2
 django-bootstrap3==8.2.3
 django-formtools==2.0
 docutils==0.13.1
@@ -9,3 +9,4 @@ Pillow==4.1.1
 selenium==2.53.6            # pyup: >=2.53,<3
 git+https://github.com/d120/pyTUID.git#egg=pyTUID-1.1.1
 django-sslserver
+pytz==2017.2
