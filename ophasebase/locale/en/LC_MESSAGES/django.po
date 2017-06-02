@@ -34,6 +34,10 @@ msgstr "State of Ophase"
 msgid "Keine Ophase<br />in Aussicht"
 msgstr "No Ophase<br />in sight"
 
+#: dashboard_components.py:19
+msgid "Kein Zeitraum<br />eingetragen"
+msgstr "No time<br />specified yet"
+
 #: dashboard_components.py:23
 #, python-format
 msgid "<b>%(days)d Tag</b><br />bis zur Ophase"

@@ -17,6 +17,8 @@ class CountdownWidget(WidgetComponent):
         ophase = Ophase.current()
         if ophase is None:
             msg = _('Keine Ophase<br />in Aussicht')
+        elif ophase.ophaseactivecategory_set.count() == 0:
+            msg = _('Kein Zeitraum<br />eingetragen')
         elif datetime.date.today() < ophase.start_date:
             delta = ophase.start_date - datetime.date.today()
             msg = ungettext(
