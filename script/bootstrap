@@ -9,10 +9,7 @@ fi
 
 virtualenv -p python3 venv
 source venv/bin/activate
-pip install -r requirements.txt
-bower install
-./manage.py compilemessages
-./manage.py migrate
+script/update "$1"
 echo
 
 if [ "$2" == "--pass" ]; then
