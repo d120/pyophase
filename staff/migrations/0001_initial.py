@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('prename', models.CharField(verbose_name='Vorname', max_length=60)),
                 ('name', models.CharField(verbose_name='Name', max_length=75)),
-                ('email', models.EmailField(verbose_name='E-Mail-Adresse', max_length=254)),
+                ('email', models.EmailField(verbose_name='E-Mail-Adresse', max_length=150)),
                 ('phone', models.CharField(verbose_name='Handynummer', max_length=30, help_text='Deine Handynummer brauchen wir um dich schnell erreichen zu können.')),
                 ('matriculated_since', models.CharField(verbose_name='An der Uni seit', max_length=30, help_text='Seit wann studierst du an der TU Darmstadt?')),
                 ('degree_course', models.CharField(verbose_name='Aktuell angestrebter Abschluss', max_length=50, help_text='Bachelor, Master, Joint Bachelor of Arts, etc.')),
