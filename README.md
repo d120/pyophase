@@ -13,7 +13,7 @@ Please keep the following things in mind:
 * Objects which are relevant for only one Ophase should have a foreign key referring to this Ophase. This allows deleting all data associated to a specific Ophase by removing this single object.
 * Create and commit migrations after the database scheme changed (e.g. model changes). `./manage.py makemigrations`
 * Recreate, (maybe translate) and commit message files after a string is introduced or changed. `cd changed-app && ../manage.py makemessages`
-* From time to time, look for new versions of the dependencies, listed in `requirements.txt` and `bower.json`, test them and commit updated files.
+* From time to time, look for new versions of the dependencies, listed in `requirements.txt` and `package.json`, test them and commit updated files.
 * When new major functionality is introduced, briefly explain it in `DOCUMENTATION.md`.
 
 ### Development Setup
@@ -26,7 +26,7 @@ cd pyophase
 virtualenv -p python3 venv
 source venv/bin/activate
 pip install -r requirements.txt
-bower install
+npm install
 ./manage.py compilemessages
 ./manage.py migrate
 ./manage.py createsuperuser
@@ -37,7 +37,7 @@ bower install
 
 ### Installation
 
-* Install `python3`, `python3-pip`, `virtualenv` and `bower` (the latter probably via `npm`)
+* Install `python3`, `python3-pip`, `virtualenv` and `npm`
 * Maybe create a user for the WSGI applications (e.g. `pyophase`)
 * Clone this repository into a proper directory (e.g. `/srv/pyophase`)
 * Create MySQL database and proper user

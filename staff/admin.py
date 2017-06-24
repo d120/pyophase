@@ -60,7 +60,7 @@ class TutorFilter(admin.SimpleListFilter):
 class PersonAdmin(admin.ModelAdmin):
     class Media:
         css = {
-             'all': ("ophasebase/components/font-awesome/css/font-awesome.min.css",)
+             'all': ("vendor/font-awesome/css/font-awesome.min.css",)
         }
 
     list_display = ['prename', 'name', 'is_tutor_with_title', 'is_orga', 'is_helper', 'created_at', 'orga_annotation_status']

@@ -2,8 +2,8 @@
   "name": "pyophase",
   "dependencies": {
     "bootstrap": "~3.3.7",
-    "bootstrap-chosen": "master",
-    "chosen": "~1.6.2",
+    "bootstrap-chosen": "alxlit/bootstrap-chosen",
+    "chosen-js": "~1.6.2",
     "font-awesome": "~4.6.3",
     "jquery": "~3.1.0"
   }

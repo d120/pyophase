@@ -124,6 +124,10 @@ LANGUAGES = [
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
+STATICFILES_DIRS = [
+    ("vendor", "node_modules"),
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 

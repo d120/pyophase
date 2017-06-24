@@ -14,7 +14,7 @@ if [ "$1" = "--prod" ]; then
 fi
 
 git pull
-bower install
+npm install
 pip install -r requirements.txt
 ./manage.py compilemessages  --locale='de' --locale='en'
 if [ "$1" = "--prod" ]; then
