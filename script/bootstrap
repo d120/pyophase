@@ -1,6 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
+
+# set environment variable when we want to update a production instance
+if [ "$1" = "--prod" ]; then
+    export DJANGO_SETTINGS_MODULE=pyophase.settings_production
+fi
 
 virtualenv -p python3 venv
 source venv/bin/activate
@@ -9,8 +14,14 @@ bower install
 ./manage.py compilemessages
 ./manage.py migrate
 echo
-echo "Creating super user, enter credentials:"
-./manage.py createsuperuser
+
+if [ "$2" == "--pass" ]; then
+    ./manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', '"$3"')"
+else
+    echo "Creating super user, enter credentials:"
+    ./manage.py createsuperuser
+fi
+
 deactivate
 
 echo
