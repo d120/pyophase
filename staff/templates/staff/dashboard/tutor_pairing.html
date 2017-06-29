@@ -3,7 +3,7 @@
 {% block title%}{% trans "Tutoren paaren" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard_view %}
-<link rel="stylesheet" href="{% static 'ophasebase/components/bootstrap-chosen/bootstrap-chosen.css' %}" />
+<link rel="stylesheet" href="{% static 'vendor/bootstrap-chosen/bootstrap-chosen.css' %}" />
 
 <h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
 
@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block bottom_script %}
-<script src="{% static 'ophasebase/components/chosen/chosen.jquery.js' %}"></script>
+<script src="{% static 'vendor/chosen-js/chosen.jquery.js' %}"></script>
 <script>
     // function to hide all groups which do not belong to the chosen group category
     function showSelectedGroups(e) {

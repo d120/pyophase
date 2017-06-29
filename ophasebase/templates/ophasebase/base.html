@@ -4,8 +4,8 @@
     <title>{% block title %}{% endblock %} | OphaseHQ - d120.de</title>
     <meta charset="utf-8" />
     <meta name=viewport content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'ophasebase/components/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
-    <link rel="stylesheet" href="{% static 'ophasebase/components/font-awesome/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
+    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" />
     <link rel="stylesheet" href="{% static 'ophasebase/css/pyophase.css' %}" media="screen" />
 </head>
 <body>
@@ -71,8 +71,8 @@
         </p>
     </div>
 
-    <script src="{% static 'ophasebase/components/jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'ophasebase/components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script>
         var languageForm = $("form[name='language-form']");
         $(":submit", languageForm).hide();

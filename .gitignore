@@ -13,8 +13,8 @@
 .coverage
 htmlcov/*
 
-# bower components
-ophasebase/static/ophasebase/components
+# node stuff like frontend dependencies
+node_modules/
 
 # static files collected by manage.py collectstatic on root path
 /static/
