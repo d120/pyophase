@@ -678,8 +678,8 @@ msgid "Mitmachen"
 msgstr "Participate"
 
 #: templates/staff/already_registered.html:8
-msgid "Fehler: E-Mail-Adresse bereits registriert."
-msgstr "Error: E-mail address already registered"
+msgid "Fehler: Bereits registriert."
+msgstr "Error: Already registered"
 
 #: templates/staff/already_registered.html:10
 msgid ""

@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bootstrap3',
     'formtools',
+    'sslserver',
+    'pyTUID',
     'ophasebase',
     'website',
     'dashboard',
@@ -63,6 +65,7 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'pyTUID.middleware.TUIDMiddleware',
 )
 
 ROOT_URLCONF = 'pyophase.urls'
@@ -138,3 +141,7 @@ CSRF_COOKIE_HTTPONLY = True
 
 EMAIL_SUBJECT_PREFIX = "[PYOPHASE] "
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+### PYTUID ###
+
+TUID_SERVER_URL = 'https://sso.hrz.tu-darmstadt.de'

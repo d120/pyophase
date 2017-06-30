@@ -47,3 +47,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pyophase'
 EMAIL_HOST_PASSWORD = secrets.MAIL_PASSWORD
+
+TUID_FORCE_SERVICE_URL = 'https://www.fachschaft.informatik.tu-darmstadt.de/ophase/sso/login/'

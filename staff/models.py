@@ -62,9 +62,10 @@ class Person(models.Model):
         verbose_name = _("Person")
         verbose_name_plural = _("Personen")
         ordering = ['prename', 'name']
-        unique_together = ('ophase', 'email')
+        unique_together = (('ophase', 'email'), ('ophase', 'tuid'),)
 
     ophase = models.ForeignKey(Ophase, models.CASCADE)
+    tuid = models.ForeignKey('pyTUID.TUIDUser', on_delete=models.CASCADE, verbose_name=_("TUID User"), null=True)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
     email = models.EmailField(max_length=150, verbose_name=_("E-Mail-Adresse"))
