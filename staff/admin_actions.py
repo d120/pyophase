@@ -246,17 +246,6 @@ def generate_orga_cert(modeladmin, request, queryset):
 generate_orga_cert.short_description = _('Orga-Bescheinigungen drucken')
 
 
-def update_attendees(modeladmin, request, queryset):
-    for event in queryset:
-        existing_pesons = event.attendance_set.values("person")
-        required_for_queryset = event.required_for.get_filtered_staff()
-        new_attendees = required_for_queryset.exclude(pk__in=existing_pesons)
-
-        Attendance.objects.bulk_create([Attendance(event=event, person=person, status='x') for person in new_attendees])
-    modeladmin.message_user(request, _("Teilnehmerliste aktualisiert."))
-update_attendees.short_description = _("Liste der Teilnehmer aktualisieren (anhand des Zielgruppenfilters)")
-
-
 def mark_attendance_x(modeladmin, request, queryset):
     queryset.update(status='x')
     modeladmin.message_user(request, _("Als 'nicht anwesend' markiert."))
