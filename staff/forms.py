@@ -5,7 +5,7 @@ from django.utils.html import escape, format_html
 from django.utils.translation import ugettext as _
 
 from ophasebase.models import OphaseCategory
-from .models import HelperJob, OrgaJob, Person, Settings
+from .models import HelperJob, OrgaJob, Person, Settings, OrgaSelectedJob, HelperSelectedJob
 
 
 class PersonForm(forms.ModelForm):
@@ -71,6 +71,17 @@ class PersonForm(forms.ModelForm):
             'orga_jobs': forms.CheckboxSelectMultiple,
             'helper_jobs': forms.CheckboxSelectMultiple
         }
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        instance.save()
+
+        for job in self.cleaned_data['orga_jobs'].all():
+            OrgaSelectedJob.objects.create(job=job, person=instance)
+        for job in self.cleaned_data['helper_jobs'].all():
+            HelperSelectedJob.objects.create(job=job, person=instance)
+
+        return instance
 
     def clean(self):
         cleaned_data = super().clean()
