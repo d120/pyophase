@@ -25,12 +25,13 @@ class StaffAdd(TUIDLoginRequiredMixin, CreateView):
         if 'instance' not in kwargs or kwargs['instance'] is None:
             kwargs['instance'] = Person()
             tuid = self.request.TUIDUser
-            kwargs['instance'].tuid = tuid
-            kwargs['initial'] = {
-                'email': tuid.email,
-                'name': tuid.surname,
-                'prename': tuid.given_name,
-            }
+            if tuid is not None:
+                kwargs['instance'].tuid = tuid
+                kwargs['initial'] = {
+                    'email': tuid.email,
+                    'name': tuid.surname,
+                    'prename': tuid.given_name,
+                }
         return kwargs
 
     def get_context_data(self, **kwargs):

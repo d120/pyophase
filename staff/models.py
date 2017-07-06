@@ -56,6 +56,52 @@ class HelperJob(Job):
         ordering = ['label']
 
 
+class SelectedJob(models.Model):
+    class Meta:
+        abstract = True
+    person = models.ForeignKey("Person", verbose_name=_("Person"), on_delete=models.CASCADE)
+    comment = models.TextField(verbose_name=_("Kommentar"), blank=True)
+
+
+class OrgaSelectedJob(SelectedJob):
+    class Meta:
+        verbose_name = _("Gewählter Orgajob")
+        verbose_name_plural = _("Gewählte Orgajobs")
+        ordering = ['job', 'status', 'person']
+
+    STATUS_CHOICES = (
+        ("i", _("Interessiert")),
+        ("o", _("Orga")),
+        ("c", _("Co-Orga")),
+        ("n", _("Nicht eingeteilt")),
+    )
+
+    job = models.ForeignKey("OrgaJob", verbose_name=_("Job"), on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="i", verbose_name=_('Status'))
+
+    def __str__(self):
+        return "{} - {}: {}".format(str(self.person), str(self.job), self.get_status_display())
+
+
+class HelperSelectedJob(SelectedJob):
+    class Meta:
+        verbose_name = _("Gewählter Helferjob")
+        verbose_name_plural = _("Gewählte Helferjobs")
+        ordering = ['job', 'status', 'person']
+
+    STATUS_CHOICES = (
+        ("i", _("Interessiert")),
+        ("e", _("Eingeteilt")),
+        ("n", _("Nicht eingeteilt")),
+    )
+
+    job = models.ForeignKey("HelperJob", verbose_name=_("Job"), on_delete=models.CASCADE)
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="i", verbose_name=_('Status'))
+
+    def __str__(self):
+        return "{} - {}: {}".format(str(self.person), str(self.job), self.get_status_display())
+
+
 class Person(models.Model):
     """A person which supports the Ophase."""
     class Meta:
@@ -79,8 +125,8 @@ class Person(models.Model):
     is_helper = models.BooleanField(default=False, verbose_name=_("Helfer"), help_text=_("Möchtest du als Helfer bei der Ophase mitmachen?"))
     tutor_for = models.ForeignKey(OphaseCategory, models.SET_NULL, blank=True, null=True, verbose_name=_("Tutor für"), help_text=_("Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"))
     tutor_experience = models.PositiveSmallIntegerField(verbose_name=_("Anzahl Tutorentätigkeiten"), help_text=_("Wie oft warst du bereits Ophasentutor"), default=0, blank=True)
-    orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name=_("Orgaaufgaben"), help_text=_("Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"))
-    helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name=_("Helferaufgaben"), help_text=_("Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"))
+    orga_jobs = models.ManyToManyField(OrgaJob, blank=True, verbose_name=_("Orgaaufgaben"), help_text=_("Welche Orgaaufgaben kannst du dir vorstellen zu übernehmen?"), through="OrgaSelectedJob", related_name=u'person_orgajobs')
+    helper_jobs = models.ManyToManyField(HelperJob, blank=True, verbose_name=_("Helferaufgaben"), help_text=_("Bei welchen Aufgaben kannst du dir vorstellen zu helfen?"), through="HelperSelectedJob", related_name=u'person_helperjobs')
     remarks = models.TextField(blank=True, verbose_name=_("Anmerkungen"), help_text=_("Was sollten wir noch wissen?"))
     orga_annotation = models.TextField(blank=True, verbose_name=_("Orga-Anmerkungen"), help_text=_("Notizen von Leitung und Orgas."))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))

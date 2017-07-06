@@ -24,8 +24,8 @@ from .models import (
     TutorGroup,
     StaffFilterGroup,
     Attendance,
-    AttendanceEvent
-)
+    AttendanceEvent,
+    OrgaSelectedJob, HelperSelectedJob)
 
 
 @admin.register(OrgaJob)
@@ -76,7 +76,7 @@ class PersonAdmin(admin.ModelAdmin):
         (_('Bewerbung'), {'fields':
             ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
         (_('In der Ophase'), {'fields':
-            ['is_tutor', 'tutor_for', 'tutor_experience', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs']}),
+            ['is_tutor', 'tutor_for', 'tutor_experience', 'is_orga', 'is_helper']}),
         (_('Sonstiges'), {'fields':
             ['created_at', 'updated_at']}),
     ]
@@ -100,6 +100,16 @@ class PersonAdmin(admin.ModelAdmin):
             return _boolean_icon(obj.is_tutor)
 
     is_tutor_with_title.short_description = _('Tutor')
+
+
+@admin.register(OrgaSelectedJob)
+class OrgaSelectedJobAdmin(admin.ModelAdmin):
+    list_display = ['job', 'status', 'person']
+
+
+@admin.register(HelperSelectedJob)
+class HelperelectedJobAdmin(admin.ModelAdmin):
+    list_display = ['job', 'status', 'person']
 
 
 @admin.register(StaffFilterGroup)

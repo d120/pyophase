@@ -1,1 +1,359 @@
-[{"model": "staff.person", "pk": 5, "fields": {"ophase": 1, "prename": "Thorsten", "name": "Freitag", "email": "ThorstenFreitag@example.com", "phone": "0151911860119", "matriculated_since": "2010", "degree_course": "Bachelor", "experience_ophase": "I did something.\r\nLet me do more.", "why_participate": "Because I can & want do to more.", "is_tutor": true, "is_orga": true, "is_helper": false, "tutor_for": 1, "remarks": "Some remark = better then nothing.", "orga_annotation": "SCHMU SCHMU", "created_at": "2016-05-29T20:19:16.391Z", "updated_at": "2016-08-16T19:55:01.312Z", "orga_jobs": [3], "helper_jobs": []}}, {"model": "staff.person", "pk": 6, "fields": {"ophase": 1, "prename": "Thorsten", "name": "Master", "email": "ThorstenF1reitag@example.com", "phone": "0151911860119", "matriculated_since": "2010", "degree_course": "Bachelor", "experience_ophase": "I did something.\r\nLet me do more.", "why_participate": "Because I can & want do to more.", "is_tutor": true, "is_orga": false, "is_helper": true, "tutor_for": 2, "remarks": "Some remark = better then nothing.", "orga_annotation": "", "created_at": "2016-05-29T20:20:09.085Z", "updated_at": "2016-08-16T19:07:07.615Z", "orga_jobs": [], "helper_jobs": [1]}}, {"model": "staff.person", "pk": 7, "fields": {"ophase": 1, "prename": "Thorsten", "name": "Freitag", "email": "Thorsten2Freitag@example.com", "phone": "0151911860119", "matriculated_since": "2010", "degree_course": "Bachelor", "experience_ophase": "I did something.\r\nLet me do more.", "why_participate": "Because I can & want do to more.", "is_tutor": false, "is_orga": false, "is_helper": true, "tutor_for": null, "remarks": "Some remark = better then nothing.", "orga_annotation": "", "created_at": "2016-05-29T20:20:32.064Z", "updated_at": "2016-05-29T20:20:32.064Z", "orga_jobs": [], "helper_jobs": [3]}}, {"model": "staff.person", "pk": 8, "fields": {"ophase": 1, "prename": "Thorsten", "name": "Freitag", "email": "ThorstenF12reitag@example.com", "phone": "0151911860119", "matriculated_since": "2010", "degree_course": "Bachelor", "experience_ophase": "I did something.\r\nLet me do more.", "why_participate": "Because I can & want do to more.", "is_tutor": false, "is_orga": false, "is_helper": true, "tutor_for": null, "remarks": "Some remark = better then nothing.", "orga_annotation": "", "created_at": "2016-05-29T20:22:21.752Z", "updated_at": "2016-05-29T20:22:21.752Z", "orga_jobs": [], "helper_jobs": [3]}}, {"model": "staff.person", "pk": 9, "fields": {"ophase": 1, "prename": "Thorsten", "name": "Freitag", "email": "aThorstenFreitag@example.com", "phone": "0151911860119", "matriculated_since": "2010", "degree_course": "Bachelor", "experience_ophase": "I did something.\r\nLet me do more.", "why_participate": "Because I can & want do to more.", "is_tutor": false, "is_orga": false, "is_helper": true, "tutor_for": null, "remarks": "Some remark = better then nothing.", "orga_annotation": "", "created_at": "2016-05-29T20:29:48.912Z", "updated_at": "2016-05-29T20:29:48.912Z", "orga_jobs": [], "helper_jobs": [3]}}, {"model": "staff.person", "pk": 10, "fields": {"ophase": 1, "prename": "Thorsten", "name": "Freitag", "email": "TasdhorstenFreitag@example.com", "phone": "0151911860119", "matriculated_since": "2010", "degree_course": "Bachelor", "experience_ophase": "I did something.\r\nLet me do more.", "why_participate": "Because I can & want do to more.", "is_tutor": false, "is_orga": false, "is_helper": true, "tutor_for": null, "remarks": "Some remark = better then nothing.", "orga_annotation": "", "created_at": "2016-05-29T21:32:43.301Z", "updated_at": "2016-08-16T18:26:10.944Z", "orga_jobs": [], "helper_jobs": [4, 3, 2, 1, 5]}}, {"model": "staff.person", "pk": 11, "fields": {"ophase": 1, "prename": "Anton", "name": "Anfang", "email": "anton@anfang.de", "phone": "01878154768768", "matriculated_since": "immer", "degree_course": "jeden", "experience_ophase": "viel", "why_participate": "weil ich es kann", "is_tutor": true, "is_orga": true, "is_helper": true, "tutor_for": 1, "remarks": "", "orga_annotation": "", "created_at": "2016-08-16T18:36:58.208Z", "updated_at": "2016-08-16T19:51:40.175Z", "orga_jobs": [3, 1, 2], "helper_jobs": [4, 3, 2, 1, 5]}}]
+[
+  {
+    "model": "pyTUID.TUIDUser",
+    "pk": 5,
+    "fields": {
+      "uid": "tf00abcd",
+      "surname": "Freitag",
+      "given_name": "Thorsten",
+      "email": "ThorstenFreitag@example.com",
+      "groups": ""
+    }
+  },
+  {
+    "model": "staff.person",
+    "pk": 5,
+    "fields": {
+      "ophase": 1,
+      "tuid": 5,
+      "prename": "Thorsten",
+      "name": "Freitag",
+      "email": "ThorstenFreitag@example.com",
+      "phone": "0151911860119",
+      "matriculated_since": "2010",
+      "degree_course": "Bachelor",
+      "experience_ophase": "I did something.\r\nLet me do more.",
+      "why_participate": "Because I can & want do to more.",
+      "is_tutor": true,
+      "is_orga": true,
+      "is_helper": false,
+      "tutor_for": 1,
+      "remarks": "Some remark = better then nothing.",
+      "orga_annotation": "SCHMU SCHMU",
+      "created_at": "2016-05-29T20:19:16.391Z",
+      "updated_at": "2016-08-16T19:55:01.312Z"
+    }
+  },
+  {
+    "model": "staff.OrgaSelectedJob",
+    "fields": {
+      "job": 3,
+      "person": 5,
+      "status": "i"
+    }
+  },
+  {
+    "model": "pyTUID.TUIDUser",
+    "pk": 6,
+    "fields": {
+      "uid": "tm06abcd",
+      "surname": "Master",
+      "given_name": "Thorsten",
+      "email": "ThorstenF1reitag@example.com",
+      "groups": ""
+    }
+  },
+  {
+    "model": "staff.person",
+    "pk": 6,
+    "fields": {
+      "ophase": 1,
+      "tuid": 6,
+      "prename": "Thorsten",
+      "name": "Master",
+      "email": "ThorstenF1reitag@example.com",
+      "phone": "0151911860119",
+      "matriculated_since": "2010",
+      "degree_course": "Bachelor",
+      "experience_ophase": "I did something.\r\nLet me do more.",
+      "why_participate": "Because I can & want do to more.",
+      "is_tutor": true,
+      "is_orga": false,
+      "is_helper": true,
+      "tutor_for": 2,
+      "remarks": "Some remark = better then nothing.",
+      "orga_annotation": "",
+      "created_at": "2016-05-29T20:20:09.085Z",
+      "updated_at": "2016-08-16T19:07:07.615Z"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 1,
+      "person": 6,
+      "status": "i"
+    }
+  },
+  {
+    "model": "pyTUID.TUIDUser",
+    "pk": 7,
+    "fields": {
+      "uid": "tm07abcd",
+      "surname": "Freitag",
+      "given_name": "Thorsten",
+      "email": "Thorsten2Freitag@example.com",
+      "groups": ""
+    }
+  },
+  {
+    "model": "staff.person",
+    "pk": 7,
+    "fields": {
+      "ophase": 1,
+      "tuid": 7,
+      "prename": "Thorsten",
+      "name": "Freitag",
+      "email": "Thorsten2Freitag@example.com",
+      "phone": "0151911860119",
+      "matriculated_since": "2010",
+      "degree_course": "Bachelor",
+      "experience_ophase": "I did something.\r\nLet me do more.",
+      "why_participate": "Because I can & want do to more.",
+      "is_tutor": false,
+      "is_orga": false,
+      "is_helper": true,
+      "tutor_for": null,
+      "remarks": "Some remark = better then nothing.",
+      "orga_annotation": "",
+      "created_at": "2016-05-29T20:20:32.064Z",
+      "updated_at": "2016-05-29T20:20:32.064Z"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 3,
+      "person": 7,
+      "status": "i"
+    }
+  },
+  {
+    "model": "pyTUID.TUIDUser",
+    "pk": 8,
+    "fields": {
+      "uid": "tm08abcd",
+      "surname": "Freitag",
+      "given_name": "Thorsten",
+      "email": "ThorstenF12reitag@example.com",
+      "groups": ""
+    }
+  },
+  {
+    "model": "staff.person",
+    "pk": 8,
+    "fields": {
+      "ophase": 1,
+      "tuid": 8,
+      "prename": "Thorsten",
+      "name": "Freitag",
+      "email": "ThorstenF12reitag@example.com",
+      "phone": "0151911860119",
+      "matriculated_since": "2010",
+      "degree_course": "Bachelor",
+      "experience_ophase": "I did something.\r\nLet me do more.",
+      "why_participate": "Because I can & want do to more.",
+      "is_tutor": false,
+      "is_orga": false,
+      "is_helper": true,
+      "tutor_for": null,
+      "remarks": "Some remark = better then nothing.",
+      "orga_annotation": "",
+      "created_at": "2016-05-29T20:22:21.752Z",
+      "updated_at": "2016-05-29T20:22:21.752Z"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 3,
+      "person": 8,
+      "status": "i"
+    }
+  },
+  {
+    "model": "pyTUID.TUIDUser",
+    "pk": 9,
+    "fields": {
+      "uid": "tm09abcd",
+      "surname": "Freitag",
+      "given_name": "Thorsten",
+      "email": "aThorstenFreitag@example.com",
+      "groups": ""
+    }
+  },
+  {
+    "model": "staff.person",
+    "pk": 9,
+    "fields": {
+      "ophase": 1,
+      "tuid": 9,
+      "prename": "Thorsten",
+      "name": "Freitag",
+      "email": "aThorstenFreitag@example.com",
+      "phone": "0151911860119",
+      "matriculated_since": "2010",
+      "degree_course": "Bachelor",
+      "experience_ophase": "I did something.\r\nLet me do more.",
+      "why_participate": "Because I can & want do to more.",
+      "is_tutor": false,
+      "is_orga": false,
+      "is_helper": true,
+      "tutor_for": null,
+      "remarks": "Some remark = better then nothing.",
+      "orga_annotation": "",
+      "created_at": "2016-05-29T20:29:48.912Z",
+      "updated_at": "2016-05-29T20:29:48.912Z"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 3,
+      "person":9,
+      "status": "i"
+    }
+  },
+  {
+    "model": "pyTUID.TUIDUser",
+    "pk": 10,
+    "fields": {
+      "uid": "tm10abcd",
+      "surname": "Freitag",
+      "given_name": "Thorsten",
+      "email": "TasdhorstenFreitag@example.com",
+      "groups": ""
+    }
+  },
+  {
+    "model": "staff.person",
+    "pk": 10,
+    "fields": {
+      "ophase": 1,
+      "tuid": 10,
+      "prename": "Thorsten",
+      "name": "Freitag",
+      "email": "TasdhorstenFreitag@example.com",
+      "phone": "0151911860119",
+      "matriculated_since": "2010",
+      "degree_course": "Bachelor",
+      "experience_ophase": "I did something.\r\nLet me do more.",
+      "why_participate": "Because I can & want do to more.",
+      "is_tutor": false,
+      "is_orga": false,
+      "is_helper": true,
+      "tutor_for": null,
+      "remarks": "Some remark = better then nothing.",
+      "orga_annotation": "",
+      "created_at": "2016-05-29T21:32:43.301Z",
+      "updated_at": "2016-08-16T18:26:10.944Z"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 3,
+      "person":10,
+      "status": "i"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 2,
+      "person":10,
+      "status": "i"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 1,
+      "person":10,
+      "status": "i"
+    }
+  },
+  {
+    "model": "pyTUID.TUIDUser",
+    "pk": 11,
+    "fields": {
+      "uid": "aa11abcd",
+      "surname": "Anfang",
+      "given_name": "Anton",
+      "email": "anton@anfang.de",
+      "groups": ""
+    }
+  },
+  {
+    "model": "staff.person",
+    "pk": 11,
+    "fields": {
+      "ophase": 1,
+      "tuid": 11,
+      "prename": "Anton",
+      "name": "Anfang",
+      "email": "anton@anfang.de",
+      "phone": "01878154768768",
+      "matriculated_since": "immer",
+      "degree_course": "jeden",
+      "experience_ophase": "viel",
+      "why_participate": "weil ich es kann",
+      "is_tutor": true,
+      "is_orga": true,
+      "is_helper": true,
+      "tutor_for": 1,
+      "remarks": "",
+      "orga_annotation": "",
+      "created_at": "2016-08-16T18:36:58.208Z",
+      "updated_at": "2016-08-16T19:51:40.175Z"
+    }
+  },
+  {
+    "model": "staff.OrgaSelectedJob",
+    "fields": {
+      "job": 3,
+      "person": 11,
+      "status": "i"
+    }
+  },
+  {
+    "model": "staff.OrgaSelectedJob",
+    "fields": {
+      "job": 2,
+      "person": 11,
+      "status": "i"
+    }
+  },
+  {
+    "model": "staff.OrgaSelectedJob",
+    "fields": {
+      "job": 1,
+      "person": 11,
+      "status": "i"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 3,
+      "person":11,
+      "status": "i"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 2,
+      "person":11,
+      "status": "i"
+    }
+  },
+  {
+    "model": "staff.HelperSelectedJob",
+    "fields": {
+      "job": 1,
+      "person":11,
+      "status": "i"
+    }
+  }
+]
