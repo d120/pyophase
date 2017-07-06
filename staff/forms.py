@@ -76,10 +76,12 @@ class PersonForm(forms.ModelForm):
         instance = super().save(commit=False)
         instance.save()
 
-        for job in self.cleaned_data['orga_jobs'].all():
-            OrgaSelectedJob.objects.create(job=job, person=instance)
-        for job in self.cleaned_data['helper_jobs'].all():
-            HelperSelectedJob.objects.create(job=job, person=instance)
+        if self.cleaned_data["is_orga"]:
+            for job in self.cleaned_data['orga_jobs'].all():
+                OrgaSelectedJob.objects.create(job=job, person=instance)
+        if self.cleaned_data["is_helper"]:
+            for job in self.cleaned_data['helper_jobs'].all():
+                HelperSelectedJob.objects.create(job=job, person=instance)
 
         return instance
 
