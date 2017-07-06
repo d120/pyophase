@@ -79,6 +79,9 @@ class OrgaSelectedJob(SelectedJob):
     job = models.ForeignKey("OrgaJob", verbose_name=_("Job"), on_delete=models.CASCADE)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="i", verbose_name=_('Status'))
 
+    def __str__(self):
+        return "{} - {}: {}".format(str(self.person), str(self.job), self.get_status_display())
+
 
 class HelperSelectedJob(SelectedJob):
     class Meta:
@@ -94,6 +97,9 @@ class HelperSelectedJob(SelectedJob):
 
     job = models.ForeignKey("HelperJob", verbose_name=_("Job"), on_delete=models.CASCADE)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default="i", verbose_name=_('Status'))
+
+    def __str__(self):
+        return "{} - {}: {}".format(str(self.person), str(self.job), self.get_status_display())
 
 
 class Person(models.Model):
