@@ -7,7 +7,7 @@
 <div class="breadcrumbs">
     Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Bachelor
 </div>
-
+{% if category.website.schedule_image %}
 <p>
     Hier findest Du den Stundenplan für Bachelor-Erstsemester für die {{ ophase_title }} {{ ophase_category_duration }}.
     Änderungen sind bis kurz vor Beginn der Ophase möglich. (Stand: {{
@@ -22,10 +22,19 @@
 
 <img src="{{ category.website.schedule_image.url }}" class="img-responsive padding-top-1" />
 
-<div class="padding-top-1"></div>
+    <div class="padding-top-1"></div>
 <p>
     Gültig sind nur Zeit- und Raumangaben in diesem Stundenplan. Andere Angaben
     (zum Beispiel im uniweiten Raumbuchungssystem) haben keine Bedeutung.
 </p>
+{% else %}
+<p>
+    Weitere Informationen folgen in Kürze. Bei Fragen aller Art kannst Du uns jederzeit an {{ current_ophase.contact_email_address|urlize }}
+    eine E-Mail schreiben{% if website_settings.helpdesk_phone_number %} oder unter {{ website_settings.helpdesk_phone_number }} anrufen{% endif %}.
+</p>
+
+{% endif %}
+
+
 
 {% endblock %}

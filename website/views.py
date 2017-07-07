@@ -1,3 +1,6 @@
+from django.http.response import Http404
+from django.template import TemplateDoesNotExist
+from django.template.loader import get_template
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
@@ -6,6 +9,7 @@ from ophasebase.models import Ophase, OphaseCategory, OphaseActiveCategory
 from staff.models import Settings as StaffSettings
 from students.models import Settings as StudentsSettings
 from workshops.models import Settings as WorkshopSettings
+from django.utils.translation import ugettext as _
 
 from .models import Settings as WebsiteSettings, OInforz
 
@@ -61,7 +65,12 @@ class CategoryDetailView(WebsiteMixin, DetailView):
     context_object_name = 'category'
 
     def get_template_names(self):
-        return "website/detail/{}.html".format(self.object.slug)
+        template_name = "website/detail/{}.html".format(self.object.slug)
+        try:
+            get_template(template_name)
+            return template_name
+        except TemplateDoesNotExist:
+            raise Http404(_('Keine Detailinformationen gefunden.'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
