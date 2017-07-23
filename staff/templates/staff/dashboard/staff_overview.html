@@ -29,18 +29,16 @@
             <th>{% trans "Kategorie" %}</th>
             <th>{% trans "Anzahl" %}</th>
             <th>{% trans "Wer?" %}</th>
-            <th></th>
         </tr>
         </thead>
         {% for cft in categories_for_tutors %}
             <tr>
-                <td>{{ cft.name }}</td>
+                <td><a href="{% url "admin:staff_person_changelist" %}{{ cft.filter }}">{{ cft.name }}</a></td>
                 <td>{{ cft.count }}</td>
                 <td>{{ cft.tutors }}</td>
-                <td><a href="{% url "admin:staff_person_changelist" %}{{ cft.filter }}">{% bootstrap_icon "new-window" %}</a></td>
             </tr>
         {% empty %}
-            <tr><td>{% trans "Bisher keine Tutoren" %}</td><td></td><td></td><td></td></tr>
+            <tr><td>{% trans "Bisher keine Tutoren" %}</td><td></td><td></td></tr>
         {% endfor %}
     </table>
 
