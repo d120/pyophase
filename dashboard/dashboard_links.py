@@ -14,7 +14,8 @@ class DashboardLinks():
         :return: List(String, String) - a list of (name, URL)-tuples
         """
         return [
-            (_("Übersicht"), cls.get_index_link()),
+            (_("Start"), cls.get_index_link()),
+            (_("Persönliche Übersicht"), reverse_lazy('dashboard:personal_overview')),
             (_("Personal"), reverse_lazy('dashboard:staff:index')),
             (_("Ersties"), reverse_lazy('dashboard:students:index')),
             (_("Klausur"), reverse_lazy('dashboard:exam:assignment')),

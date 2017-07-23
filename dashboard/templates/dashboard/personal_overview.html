@@ -1,0 +1,99 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
+
+{% block content_dashboard_view %}
+    <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ user.prename }}!</h3>
+
+    <div class="row">
+
+    <div class="col-sm-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans "Deine Aufgaben" %}</h3>
+            </div>
+            <div class="panel-body">
+            {% if user.is_tutor  %}
+                <h5 style="font-weight: bold;">{% trans "Tutor" %}</h5>
+                {% blocktrans with user.tutor_for as tutor_category %}
+                    Du hast dich als Tutor für {{ tutor_category }} eingetragen.
+                {% endblocktrans %}
+                {% if tutor_group != None %}
+                    <br>
+                    {% blocktrans with tutor_group.name as tgname %}
+                        Du wirst zusammen mit <i>{{ tutor_partners }}</i> die Gruppe <i>{{ tgname }}</i> leiten.
+                    {% endblocktrans %}
+                {% endif %}
+            {% endif %}
+
+            {% if user.orgaselectedjob_set.count > 0 %}
+                <h5 style="margin-top: 30px;font-weight: bold;">{% trans "Orga-Jobs" %}</h5>
+                <table class="table table-striped">
+                    {% for oj in user.orgaselectedjob_set.all %}
+                        {% if oj.status != "n" %}
+                        <tr><td>{{ oj.job.label }}</td><td>{{ oj.get_status_display }}</td></tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            {% endif %}
+
+            {% if user.helperselectedjob_set.count > 0 %}
+                <h5 style="margin-top: 30px;font-weight: bold;">{% trans "Helfer-Jobs" %}</h5>
+                <table class="table table-striped">
+                    {% for hj in user.orgaselectedjob_set.all %}
+                        {% if hj.status != "n" %}
+                        <tr><td>{{ hj.job.label }}</td><td>{{ hj.get_status_display }}</td></tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans "Nächste Termine" %}</h3>
+            </div>
+            <div class="panel-body">
+                {% for event in next_events %}
+                    <div style="margin-bottom: 15px">
+                        <b>{{ event.name }}</b><br>
+                        {{ event.begin }} - {{ event.end }}<br>
+                        {{ event.room }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% if clothing_orders.count > 0 %}
+    <div class="col-sm-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans "Kleidungsbestellungen" %}</h3>
+            </div>
+            <div class="panel-body">
+                {% for o in clothing_orders %}
+                    <div style="margin-bottom: 15px">
+                        <b>{{ o.type }}</b> {{ o.size }} {{ o.color }}<br>
+                        <span style="color: #999999">
+                            {% if o.additional %}
+                                {{ o.type.price }} €
+                            {% else %}
+                                {% trans "Kostenlos" %}
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+
+    </div>
+{% endblock %}
