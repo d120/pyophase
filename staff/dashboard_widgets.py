@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import TemplateWidgetComponent
@@ -10,6 +11,7 @@ class StaffCountWidget(TemplateWidgetComponent):
     permissions = ['staff.add_person']
     name = _('Ophasenpersonal')
     template_name = "staff/dashboard/widget_staff.html"
+    link_target = reverse_lazy('dashboard:staff:index')
 
     def get_context_data(self):
         context = super().get_context_data()

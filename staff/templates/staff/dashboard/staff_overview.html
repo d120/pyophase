@@ -1,0 +1,94 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Übersicht" %} | {% trans "Personal" %}{% endblock %}
+
+{% block content_dashboard_view %}
+    <h3>{% trans "Übersicht" %}</h3>
+
+    <div class="row" style="margin-bottom: 50px;">
+    <div class="col-sm-4 text-center">
+        <h3>{{ count_tutor }}</h3>
+        {% trans "Tutoren" %}
+    </div>
+    <div class="col-sm-4 text-center">
+        <h3>{{ count_orga }}</h3>
+        {% trans "Orgas" %}
+    </div>
+        <div class="col-sm-4 text-center">
+        <h3>{{ count_helper }}</h3>
+        {% trans "Helfer" %}
+    </div>
+    </div>
+
+    <h4><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&tutorstatus=onlytutors">{% trans "Tutoren" %}</a></h4>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{% trans "Kategorie" %}</th>
+            <th>{% trans "Anzahl" %}</th>
+            <th>{% trans "Wer?" %}</th>
+            <th></th>
+        </tr>
+        </thead>
+        {% for cft in categories_for_tutors %}
+            <tr>
+                <td>{{ cft.name }}</td>
+                <td>{{ cft.count }}</td>
+                <td>{{ cft.tutors }}</td>
+                <td><a href="{% url "admin:staff_person_changelist" %}{{ cft.filter }}">{% bootstrap_icon "new-window" %}</a></td>
+            </tr>
+        {% empty %}
+            <tr><td>{% trans "Bisher keine Tutoren" %}</td><td></td><td></td><td></td></tr>
+        {% endfor %}
+    </table>
+
+    <h4 style="margin-top: 50px;"><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&is_orga__exact=1">{% trans "Orgas" %}</a></h4>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{% trans "Job" %}</th>
+            <th>{% trans "Orga(s)" %}</th>
+            <th>{% trans "Co-Orga(s)" %}</th>
+            <th>{% trans "Interessiert" %}</th>
+        </tr>
+        </thead>
+        {% for oj in orga_jobs %}
+            <tr>
+                <td>{{ oj.name }}</td>
+                <td>{{ oj.orga }}</td>
+                <td>{{ oj.co_orga }}</td>
+                <td>{{ oj.interested }}</td>
+            </tr>
+        {% empty %}
+            <tr><td>{% trans "Bisher keine Orgas" %}</td><td></td><td></td><td></td></tr>
+        {% endfor %}
+    </table>
+
+
+    <h4 style="margin-top: 50px;"><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&is_helper__exact=1">{% trans "Helfer" %}</a></h4>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>{% trans "Job" %}</th>
+            <th>{% trans "Eingeteil" %}</th>
+            <th>{% trans "Interessiert" %}</th>
+        </tr>
+        </thead>
+        {% for hj in helper_jobs %}
+            <tr>
+                <td>{{ hj.name }}</td>
+                <td>{{ hj.selected }}</td>
+                <td>{{ hj.interested }}</td>
+            </tr>
+        {% empty %}
+            <tr><td>{% trans "Bisher keine Helfer" %}</td><td></td><td></td></tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
+{% block bottom_script %}{% load staticfiles %}
+{% endblock %}
