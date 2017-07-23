@@ -94,12 +94,13 @@ class PersonAdmin(admin.ModelAdmin):
         """If the person is a tutor the tutor_for tag is set as image title"""
         if obj.is_tutor == True and obj.tutor_for is not None:
             icon_url = static('admin/img/icon-yes.svg')
-            return format_html('<img src="{}" alt="{}" title="{}" />',
-                               icon_url, obj.is_tutor, obj.tutor_for.name)
+            return format_html('<img src="{}" alt="{}" title="{}" /> {}',
+                               icon_url, obj.is_tutor, obj.tutor_for.name, obj.tutor_for.name)
         else:
             return _boolean_icon(obj.is_tutor)
 
     is_tutor_with_title.short_description = _('Tutor')
+    is_tutor_with_title.admin_order_field = 'tutor_for__name'
 
 
 @admin.register(OrgaSelectedJob)
