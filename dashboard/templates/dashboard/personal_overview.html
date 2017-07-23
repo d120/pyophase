@@ -41,7 +41,7 @@
             {% if user.helperselectedjob_set.count > 0 %}
                 <h5 style="margin-top: 30px;font-weight: bold;">{% trans "Helfer-Jobs" %}</h5>
                 <table class="table table-striped">
-                    {% for hj in user.orgaselectedjob_set.all %}
+                    {% for hj in user.helperselectedjob_set.all %}
                         {% if hj.status != "n" %}
                         <tr><td>{{ hj.job.label }}</td><td>{{ hj.get_status_display }}</td></tr>
                         {% endif %}
