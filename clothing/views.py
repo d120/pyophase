@@ -3,13 +3,25 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from formtools.wizard.views import SessionWizardView
 
+from dashboard.views import PersonalDashboardMixin
 from ophasebase.models import Ophase
 from staff.models import Person
 from clothing.forms import OrderAskMailForm, OrderClothingFormSet
 from clothing.models import Order, Settings
+
+
+class ClothingPersonalOverview(PersonalDashboardMixin, ListView):
+    template_name = "clothing/personal_clothing_overview.html"
+    model = Order
+    context_object_name = "orders"
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user = self.request.TUIDUser.person_set.first()
+        return qs.filter(person=user)
 
 
 class OrderClothingView(SessionWizardView):
@@ -65,5 +77,5 @@ class OrderClothingView(SessionWizardView):
         return HttpResponseRedirect(reverse_lazy('clothing:order_success'))
 
 
-class OrderClothingSuccessView(TemplateView):
+class OrderClothingSuccessView(PersonalDashboardMixin, TemplateView):
     template_name = "clothing/order_success.html"

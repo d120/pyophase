@@ -1,0 +1,36 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
+
+{% block content_dashboard_view %}
+    <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ user.prename }}!</h3>
+
+    <p>{% trans "Auf dieser Seite findest du deine aktuellen Bestellungen, kannst sie löschen und weitere hinzufügen" %}</p>
+
+    <div class="row" style="margin-top:30px;margin-bottom: 30px;">
+
+    {% for o in orders %}
+        <div class="col-sm-6">
+            <b>{{ o.type }}</b> {{ o.size }} {{ o.color }}<br>
+            <span style="color: #999999">
+                {% if o.additional %}
+                    {{ o.type.price }} €
+                {% else %}
+                    {% trans "Kostenlos" %}
+                {% endif %}
+            </span>
+        </div>
+    {% empty %}
+        <p class="text-center" style="color: #999999;">{% trans "Bisher keine Bestellungen" %}</p>
+    {% endfor %}
+
+    </div>
+
+    <div class="text-center">
+    <a href="{% url "clothing:order_new" %}" class="btn btn-primary">{% trans "Neue Bestellung" %}</a>
+    </div>
+
+
+
+{% endblock %}
