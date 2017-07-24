@@ -117,6 +117,10 @@ class Order(models.Model):
     def get_current(**kwargs):
         return Order.objects.filter(person__ophase=Ophase.current(), **kwargs)
 
+    @classmethod
+    def user_eligible_but_not_ordered_yet(cls, user):
+        return user.eligible_for_clothing and (cls.get_current().filter(person=user).count() == 0)
+
 
 class Settings(models.Model):
     """Configuration for clothing app."""
