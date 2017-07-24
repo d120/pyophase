@@ -106,7 +106,7 @@ msgstr "Kind regards"
 
 #: models.py:30
 msgid "Dieser Wert wird automatisch berechnet"
-msgstr ""
+msgstr "This value is calculated automatically"
 
 #: models.py:78 models.py:81 models.py:96
 #: templates/clothing/dashboard/orders_overview.html:14
@@ -189,7 +189,7 @@ msgstr "Piece of clothing"
 
 #: templates/clothing/dashboard/orders_overview.html:16
 msgid "Erhalten"
-msgstr ""
+msgstr "Got clothing"
 
 #: templates/clothing/dashboard/orders_overview.html:28
 #, fuzzy
@@ -199,7 +199,7 @@ msgstr "self-paid"
 
 #: templates/clothing/dashboard/orders_overview.html:30
 msgid "Noch nicht bezahlt"
-msgstr ""
+msgstr "Not paid yet"
 
 #: templates/clothing/dashboard/orders_overview.html:37
 #: templates/clothing/dashboard/orders_person_free.html:26
@@ -256,15 +256,15 @@ msgstr "Order clothes"
 
 #: templates/clothing/order.html:17
 msgid "Zurücksetzen"
-msgstr ""
+msgstr "Reset"
 
 #: templates/clothing/order.html:20
 msgid "Abschicken"
-msgstr ""
+msgstr "Submit"
 
 #: templates/clothing/order.html:27
 msgid "Die Kleidungsbestellung ist aktuell nicht möglich"
-msgstr ""
+msgstr "It's currently not possible to order clothes"
 
 #: templates/clothing/order_delete.html:13
 #, fuzzy
@@ -274,11 +274,11 @@ msgstr "No orders"
 
 #: templates/clothing/order_delete.html:24
 msgid "Löschen"
-msgstr ""
+msgstr "Delete"
 
 #: templates/clothing/order_delete.html:28
 msgid "Ändern der Kleidungsbestellung ist aktuell nicht möglich"
-msgstr ""
+msgstr "Changing of clothing orders is currently not possible"
 
 #: templates/clothing/order_success.html:9
 #, fuzzy
@@ -306,7 +306,7 @@ msgstr "Overview"
 msgid ""
 "Auf dieser Seite findest du deine aktuellen Bestellungen, kannst sie löschen "
 "und weitere hinzufügen"
-msgstr ""
+msgstr "On this page you can find your current ordres, can delete them and add further orders"
 
 #: templates/clothing/personal_clothing_overview.html:33
 #, fuzzy

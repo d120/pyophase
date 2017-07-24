@@ -20,7 +20,7 @@ msgstr ""
 
 #: dashboard_links.py:17 views.py:39
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: dashboard_links.py:18 templates/dashboard/personal_overview.html:4
 #: views.py:33
@@ -43,7 +43,7 @@ msgstr "Exam"
 
 #: dashboard_links.py:22
 msgid "Kleidung"
-msgstr ""
+msgstr "Clothing"
 
 #: templates/dashboard/action.html:3 templates/dashboard/overview.html:3
 #: templates/dashboard/permission_required.html:3
@@ -67,23 +67,23 @@ msgstr "Back to overview"
 msgid ""
 "Du bekommst ein kostenloses Kleidungsstück als Dankeschön, hast aber noch "
 "keins ausgewählt."
-msgstr ""
+msgstr "You are eligible to receive a free piece of clothing but did not select it yet"
 
 #: templates/dashboard/personal_overview.html:11
 msgid "Bitte mach das so schnell wie möglich!"
-msgstr ""
+msgstr "Please do so as soon as possible!"
 
 #: templates/dashboard/personal_overview.html:15
 msgid "Hallo"
-msgstr ""
+msgstr "Hello"
 
 #: templates/dashboard/personal_overview.html:22
 msgid "Deine Aufgaben"
-msgstr ""
+msgstr "Your Tasks"
 
 #: templates/dashboard/personal_overview.html:26
 msgid "Tutor"
-msgstr ""
+msgstr "Tutor"
 
 #: templates/dashboard/personal_overview.html:27
 #, python-format
@@ -93,7 +93,10 @@ msgid ""
 "eingetragen.\n"
 "                "
 msgstr ""
-
+"\n"
+"                    You signed up as tutor for %(tutor_category)s "
+".\n"
+"                "
 #: templates/dashboard/personal_overview.html:32
 #, python-format
 msgid ""
@@ -102,27 +105,31 @@ msgid ""
 "Gruppe <i>%(tgname)s</i> leiten.\n"
 "                    "
 msgstr ""
+"\n"
+"                        You will be leading the group <i>%(tgname)s</i> with "
+"<i>%(tutor_partners)s</i>.\n"
+"                    "
 
 #: templates/dashboard/personal_overview.html:39
 msgid "Orga-Jobs"
-msgstr ""
+msgstr "Orga Jobs"
 
 #: templates/dashboard/personal_overview.html:50
 msgid "Helfer-Jobs"
-msgstr ""
+msgstr "Helping Jobs"
 
 #: templates/dashboard/personal_overview.html:67
 msgid "Nächste Termine"
-msgstr ""
+msgstr "Next events"
 
 #: templates/dashboard/personal_overview.html:85
 msgid "Kleidungsbestellungen"
-msgstr ""
+msgstr "Clothing orders"
 
 #: templates/dashboard/personal_overview.html:95
 msgid "Kostenlos"
-msgstr ""
+msgstr "Free"
 
 #: views.py:45
 msgid "Kleidungsbestellung"
-msgstr ""
+msgstr "Clothing order"
