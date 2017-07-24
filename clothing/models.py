@@ -72,6 +72,7 @@ class Size(models.Model):
         self.size_sortable = self.sortable_size()
         super().save(*args, **kwargs)
 
+
 class Color(models.Model):
     class Meta:
         verbose_name = _("Farbe")
@@ -116,6 +117,10 @@ class Order(models.Model):
     @staticmethod
     def get_current(**kwargs):
         return Order.objects.filter(person__ophase=Ophase.current(), **kwargs)
+
+    @classmethod
+    def user_eligible_but_not_ordered_yet(cls, user):
+        return user.eligible_for_clothing and (cls.get_current().filter(person=user, additional=False).count() == 0)
 
 
 class Settings(models.Model):

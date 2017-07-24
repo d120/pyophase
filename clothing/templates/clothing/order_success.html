@@ -1,8 +1,16 @@
-{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
-{% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
-{% block heading %}{% trans "Kleidung bestellen" %}{% endblock %}
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
 
-{% block content %}
-<p>{% trans "Bestellung erfolgreich gespeichert" %}</p>
-<a href="{% url 'clothing:order_new' %}">{% trans 'Weitere Bestellung aufgeben' %}</a>
+{% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
+
+{% block content_dashboard_view %}
+    <h3 style="margin-bottom:30px;">{% trans "Kleidung bestellen" %}</h3>
+
+    <div class="alert alert-success">{% trans "(Geänderte) Bestellung erfolgreich gespeichert" %}</div>
+
+    <div class="text-center">
+        <a href="{% url 'clothing:overview' %}" class="btn btn-default">{% trans 'Zur Übersicht' %}</a>
+        <a href="{% url 'clothing:order_new' %}" class="btn btn-default">{% trans 'Weitere Bestellung aufgeben' %}</a>
+    </div>
+
 {% endblock %}

@@ -42,7 +42,7 @@ class PersonalDashboardMixin(TUIDLoginRequiredMixin, DashboardAppMixin):
         from clothing.models import Settings
         clothing_settings = Settings.instance()
         if clothing_settings is not None and clothing_settings.clothing_ordering_enabled:
-            links.append((_('Kleidungsbestellung'), reverse_lazy('clothing:order_new')))
+            links.append((_('Kleidungsbestellung'), reverse_lazy('clothing:overview')))
 
         return links
 
@@ -68,7 +68,11 @@ class PersonalOverview(PersonalDashboardMixin, TemplateView):
             if context['tutor_group'] is not None:
                 context['tutor_partners'] = ", ".join(t.get_name() for t in context['tutor_group'].tutors.exclude(id=context['user'].id))
 
-        from clothing.models import Order
+        from clothing.models import Order, Settings
         context['clothing_orders'] = Order.objects.filter(person=context['user'])
+
+        clothing_settings = Settings.instance()
+        if clothing_settings is not None:
+            context['show_clothing_order_warning'] = clothing_settings.clothing_ordering_enabled and Order.user_eligible_but_not_ordered_yet(context['user'])
 
         return context

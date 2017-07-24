@@ -4,6 +4,14 @@
 {% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
 
 {% block content_dashboard_view %}
+
+    {% if show_clothing_order_warning == True %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <p>{% trans "Du bekommst ein kostenloses Kleidungsstück als Dankeschön, hast aber noch keins ausgewählt." %} <a href="{%url "clothing:order_new" %}">{% trans "Bitte mach das so schnell wie möglich!" %}</a></p>
+    </div>
+    {% endif %}
+
     <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ user.prename }}!</h3>
 
     <div class="row">

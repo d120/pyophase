@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-25 11:24+0200\n"
+"POT-Creation-Date: 2017-07-24 18:11+0200\n"
 "PO-Revision-Date: 2016-02-28 18:03+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: ckleemann <ckleemann@d120.de>, ngeisler <ngeisler@d120.de>\n"
@@ -18,27 +18,37 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: dashboard_links.py:17 templates/dashboard/action.html:3
-#: templates/dashboard/overview.html:3
-#: templates/dashboard/permission_required.html:3
-msgid "Übersicht"
-msgstr "Overview"
+#: dashboard_links.py:17 views.py:39
+msgid "Start"
+msgstr "Start"
 
-#: dashboard_links.py:18
+#: dashboard_links.py:18 templates/dashboard/personal_overview.html:4
+#: views.py:33
+#, fuzzy
+#| msgid "Zurück zur Übersicht"
+msgid "Persönliche Übersicht"
+msgstr "Back to overview"
+
+#: dashboard_links.py:19
 msgid "Personal"
 msgstr "Staff"
 
-#: dashboard_links.py:19
+#: dashboard_links.py:20
 msgid "Ersties"
 msgstr "Freshmen"
 
-#: dashboard_links.py:20
+#: dashboard_links.py:21
 msgid "Klausur"
 msgstr "Exam"
 
-#: dashboard_links.py:21
+#: dashboard_links.py:22
 msgid "Kleidung"
-msgstr ""
+msgstr "Clothing"
+
+#: templates/dashboard/action.html:3 templates/dashboard/overview.html:3
+#: templates/dashboard/permission_required.html:3
+msgid "Übersicht"
+msgstr "Overview"
 
 #: templates/dashboard/action.html:3 templates/dashboard/overview.html:3
 #: templates/dashboard/permission_required.html:3
@@ -52,3 +62,74 @@ msgstr "Insufficient permissions to view this page."
 #: templates/dashboard/permission_required.html:9
 msgid "Zurück zur Übersicht"
 msgstr "Back to overview"
+
+#: templates/dashboard/personal_overview.html:11
+msgid ""
+"Du bekommst ein kostenloses Kleidungsstück als Dankeschön, hast aber noch "
+"keins ausgewählt."
+msgstr "You are eligible to receive a free piece of clothing but did not select it yet"
+
+#: templates/dashboard/personal_overview.html:11
+msgid "Bitte mach das so schnell wie möglich!"
+msgstr "Please do so as soon as possible!"
+
+#: templates/dashboard/personal_overview.html:15
+msgid "Hallo"
+msgstr "Hello"
+
+#: templates/dashboard/personal_overview.html:22
+msgid "Deine Aufgaben"
+msgstr "Your Tasks"
+
+#: templates/dashboard/personal_overview.html:26
+msgid "Tutor"
+msgstr "Tutor"
+
+#: templates/dashboard/personal_overview.html:27
+#, python-format
+msgid ""
+"\n"
+"                    Du hast dich als Tutor für %(tutor_category)s "
+"eingetragen.\n"
+"                "
+msgstr ""
+"\n"
+"                    You signed up as tutor for %(tutor_category)s "
+".\n"
+"                "
+#: templates/dashboard/personal_overview.html:32
+#, python-format
+msgid ""
+"\n"
+"                        Du wirst zusammen mit <i>%(tutor_partners)s</i> die "
+"Gruppe <i>%(tgname)s</i> leiten.\n"
+"                    "
+msgstr ""
+"\n"
+"                        You will be leading the group <i>%(tgname)s</i> with "
+"<i>%(tutor_partners)s</i>.\n"
+"                    "
+
+#: templates/dashboard/personal_overview.html:39
+msgid "Orga-Jobs"
+msgstr "Orga Jobs"
+
+#: templates/dashboard/personal_overview.html:50
+msgid "Helfer-Jobs"
+msgstr "Helping Jobs"
+
+#: templates/dashboard/personal_overview.html:67
+msgid "Nächste Termine"
+msgstr "Next events"
+
+#: templates/dashboard/personal_overview.html:85
+msgid "Kleidungsbestellungen"
+msgstr "Clothing orders"
+
+#: templates/dashboard/personal_overview.html:95
+msgid "Kostenlos"
+msgstr "Free"
+
+#: views.py:45
+msgid "Kleidungsbestellung"
+msgstr "Clothing order"
