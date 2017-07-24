@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-12 15:42+0200\n"
+"POT-Creation-Date: 2017-07-24 18:11+0200\n"
 "PO-Revision-Date: 2016-08-29 19:18+0100\n"
 "Last-Translator: ckleemann <ckleemann@d120.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,8 @@ msgid "Aggregierte Bestellungen"
 msgstr "Aggregated orders"
 
 #: dashboard_views.py:68 dashboard_views.py:82
+#: templates/clothing/order_delete.html:20
+#: templates/clothing/personal_clothing_overview.html:20
 msgid "Kostenlos"
 msgstr "For free"
 
@@ -51,20 +53,12 @@ msgstr "Additional"
 msgid "Ophase"
 msgstr "Ophase"
 
-#: forms.py:11
-msgid "E-Mail-Adresse wie bei der Registrierung angegeben"
-msgstr "E-mail-address as specified at registration"
-
-#: forms.py:19
-msgid "Die E-Mail-Adresse gehört nicht zu einer registrierten Person."
-msgstr "This e-mail-address does not match a registered person."
-
-#: forms.py:34
+#: forms.py:24
 msgid ""
 "Dieses Kleidungsstück ist nur als selbst bezahltes Kleidungsstück bestellbar."
 msgstr "This piece of clothing is only available when you pay self."
 
-#: forms.py:36
+#: forms.py:26
 msgid ""
 "Nur Tutoren und Orgas bekommen ein kostenloses Kleidungsstück. Du kannst "
 "aber zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst."
@@ -72,7 +66,7 @@ msgstr ""
 "Only tutors and organizers get a free piece of clothing. However, you can "
 "order an additional piece if you pay for it"
 
-#: forms.py:51
+#: forms.py:28
 msgid ""
 "Du kannst nur ein kostenloses Kleidungsstück bestellen. Du kannst aber "
 "zusätzlich Kleidungsstücke bestellen, die du selbst bezahlst."
@@ -80,7 +74,7 @@ msgstr ""
 "You can only order one free piece of clothing. However, you can order "
 "additional pieces if you pay for them."
 
-#: models.py:11 models.py:15 models.py:93
+#: models.py:11 models.py:15 models.py:94
 msgid "Art"
 msgstr "Type"
 
@@ -96,7 +90,7 @@ msgstr "Price"
 msgid "Nur als selbst bezahltes Kleidungsstück möglich"
 msgstr "Only available as self-paid piece of clothing"
 
-#: models.py:25 models.py:29 models.py:94
+#: models.py:25 models.py:29 models.py:95
 msgid "Größe"
 msgstr "Size"
 
@@ -114,70 +108,70 @@ msgstr "Kind regards"
 msgid "Dieser Wert wird automatisch berechnet"
 msgstr ""
 
-#: models.py:77 models.py:80 models.py:95
+#: models.py:78 models.py:81 models.py:96
 #: templates/clothing/dashboard/orders_overview.html:14
 msgid "Farbe"
 msgstr "Color"
 
-#: models.py:78
+#: models.py:79
 msgid "Farben"
 msgstr "Colors"
 
-#: models.py:81
+#: models.py:82
 msgid "Farbcode"
 msgstr "Color-code"
 
-#: models.py:89
+#: models.py:90
 msgid "Bestellung"
 msgstr "Order"
 
-#: models.py:90 templates/clothing/dashboard/orders_overview.html:4
+#: models.py:91 templates/clothing/dashboard/orders_overview.html:4
 #: templates/clothing/dashboard/orders_overview.html:7
 #: templates/clothing/dashboard/widget_orders.html:3
 msgid "Bestellungen"
 msgstr "Orders"
 
-#: models.py:92
+#: models.py:93
 msgid "Person"
 msgstr "Person"
 
-#: models.py:96
+#: models.py:97
 msgid "Selbst bezahltes Kleidungsstück"
 msgstr "Self-paid piece of clothing"
 
-#: models.py:97
+#: models.py:98
 msgid "Erstellt am"
 msgstr "Created at"
 
-#: models.py:98
+#: models.py:99
 msgid "Verändert am"
 msgstr "Updated at"
 
-#: models.py:100
+#: models.py:101
 msgid "Ausgegeben am"
 msgstr ""
 
-#: models.py:113
+#: models.py:114
 msgid "selbst bezahlt"
 msgstr "self-paid"
 
-#: models.py:113
+#: models.py:114
 msgid "kostenlos"
 msgstr "free"
 
-#: models.py:124 models.py:125
+#: models.py:129 models.py:130
 msgid "Einstellungen"
 msgstr "Settings"
 
-#: models.py:127
+#: models.py:132
 msgid "Kleiderbestellung aktiv"
 msgstr "Ordering is currently active"
 
-#: models.py:130 tests/tests_models.py:30
+#: models.py:135 tests/tests_models.py:30
 msgid "Clothing Einstellungen"
 msgstr "Clothing Settings"
 
-#: models.py:138
+#: models.py:143
 msgid ""
 "Es ist nur sinnvoll und möglich eine Instanz des Einstellungsobjekts "
 "anzulegen."
@@ -209,6 +203,7 @@ msgstr ""
 
 #: templates/clothing/dashboard/orders_overview.html:37
 #: templates/clothing/dashboard/orders_person_free.html:26
+#: templates/clothing/personal_clothing_overview.html:27
 msgid "Bisher keine Bestellungen"
 msgstr "No orders yet"
 
@@ -227,6 +222,7 @@ msgid "Kostenlos / Berechtigte"
 msgstr "For free / Eligible persons"
 
 #: templates/clothing/mail/order.txt:1
+#: templates/clothing/personal_clothing_overview.html:7
 msgid "Hallo"
 msgstr "Hello"
 
@@ -250,49 +246,73 @@ msgstr "Kind regards"
 msgid "die Ophasenleitung"
 msgstr "Head of Ophase"
 
-#: templates/clothing/order.html:2 templates/clothing/order.html:3
-#: templates/clothing/order_success.html:2
-#: templates/clothing/order_success.html:3
+#: templates/clothing/order.html:4 templates/clothing/order.html:8
+#: templates/clothing/order_delete.html:4
+#: templates/clothing/order_delete.html:8
+#: templates/clothing/order_success.html:4
+#: templates/clothing/order_success.html:7
 msgid "Kleidung bestellen"
 msgstr "Order clothes"
 
-#: templates/clothing/order.html:12
-msgid ""
-"Du kannst nach der Anmeldung mehrere Kleidungsstücke bestellen, indem du "
-"mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer."
-msgstr ""
-"After logging in with your e-mail-address you can order one or several "
-"pieces of clothing by filling several form sections. Just leave the "
-"remaining ones blank."
-
 #: templates/clothing/order.html:17
-#, python-format
-msgid "Hallo <b>%(prename)s</b>!"
-msgstr "Hello <b>%(prename)s</b>!"
-
-#: templates/clothing/order.html:19
-msgid ""
-"Du kannst mehrere Kleidungsstücke bestellen, indem du mehrere "
-"Formularabschnitte ausfüllst. Lass die übrigen einfach leer."
+msgid "Zurücksetzen"
 msgstr ""
-"You can order one or several pieces of clothing by filling several form "
-"sections. Just leave the remaining ones blank."
 
-#: templates/clothing/order.html:41
-msgid "Weiter"
-msgstr "Next"
+#: templates/clothing/order.html:20
+msgid "Abschicken"
+msgstr ""
 
-#: templates/clothing/order.html:49
-msgid "Aktuell ist die Kleiderbestellung nicht geöffnet."
-msgstr "Ordering clothes is currently not possible."
+#: templates/clothing/order.html:27
+msgid "Die Kleidungsbestellung ist aktuell nicht möglich"
+msgstr ""
 
-#: templates/clothing/order_success.html:6
-msgid "Bestellung erfolgreich gespeichert"
+#: templates/clothing/order_delete.html:13
+#, fuzzy
+#| msgid "Keine Bestellungen"
+msgid "Diese Bestellung löschen?"
+msgstr "No orders"
+
+#: templates/clothing/order_delete.html:24
+msgid "Löschen"
+msgstr ""
+
+#: templates/clothing/order_delete.html:28
+msgid "Ändern der Kleidungsbestellung ist aktuell nicht möglich"
+msgstr ""
+
+#: templates/clothing/order_success.html:9
+#, fuzzy
+#| msgid "Bestellung erfolgreich gespeichert"
+msgid "(Geänderte) Bestellung erfolgreich gespeichert"
 msgstr "Order successfully saved."
 
-#: templates/clothing/order_success.html:7
+#: templates/clothing/order_success.html:12
+#, fuzzy
+#| msgid "Übersicht"
+msgid "Zur Übersicht"
+msgstr "Overview"
+
+#: templates/clothing/order_success.html:13
 msgid "Weitere Bestellung aufgeben"
 msgstr "Order another piece of clothing"
+
+#: templates/clothing/personal_clothing_overview.html:4
+#, fuzzy
+#| msgid "Übersicht"
+msgid "Persönliche Übersicht"
+msgstr "Overview"
+
+#: templates/clothing/personal_clothing_overview.html:9
+msgid ""
+"Auf dieser Seite findest du deine aktuellen Bestellungen, kannst sie löschen "
+"und weitere hinzufügen"
+msgstr ""
+
+#: templates/clothing/personal_clothing_overview.html:33
+#, fuzzy
+#| msgid "Bestellung"
+msgid "Neue Bestellung"
+msgstr "Order"
 
 #: views.py:51
 msgid "Keine Bestellungen"
@@ -302,3 +322,33 @@ msgstr "No orders"
 #, python-format
 msgid "Kleiderbestellung %(ophase)s"
 msgstr "Clothing order %(ophase)s"
+
+#~ msgid "E-Mail-Adresse wie bei der Registrierung angegeben"
+#~ msgstr "E-mail-address as specified at registration"
+
+#~ msgid "Die E-Mail-Adresse gehört nicht zu einer registrierten Person."
+#~ msgstr "This e-mail-address does not match a registered person."
+
+#~ msgid ""
+#~ "Du kannst nach der Anmeldung mehrere Kleidungsstücke bestellen, indem du "
+#~ "mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer."
+#~ msgstr ""
+#~ "After logging in with your e-mail-address you can order one or several "
+#~ "pieces of clothing by filling several form sections. Just leave the "
+#~ "remaining ones blank."
+
+#~ msgid "Hallo <b>%(prename)s</b>!"
+#~ msgstr "Hello <b>%(prename)s</b>!"
+
+#~ msgid ""
+#~ "Du kannst mehrere Kleidungsstücke bestellen, indem du mehrere "
+#~ "Formularabschnitte ausfüllst. Lass die übrigen einfach leer."
+#~ msgstr ""
+#~ "You can order one or several pieces of clothing by filling several form "
+#~ "sections. Just leave the remaining ones blank."
+
+#~ msgid "Weiter"
+#~ msgstr "Next"
+
+#~ msgid "Aktuell ist die Kleiderbestellung nicht geöffnet."
+#~ msgstr "Ordering clothes is currently not possible."
