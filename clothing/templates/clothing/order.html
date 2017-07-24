@@ -1,53 +1,31 @@
-{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
 {% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
-{% block heading %}{% trans "Kleidung bestellen" %}{% endblock %}
 
-{% block content %}
+{% block content_dashboard_view %}
 
-{% if clothing_ordering_enabled %}
+    <h3 style="margin-bottom:30px;">{% trans "Kleidung bestellen" %}</h3>
 
-
-{% if wizard.steps.step0 == 0 %}
-<div class="well">
-    {% trans "Du kannst nach der Anmeldung mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
-</div>
-{% endif %}
-{% if wizard.steps.step0 >= 1 %}
-<div class="alert alert-info" role="alert">
-    {% blocktrans with prename=person.prename %}Hallo <b>{{ prename }}</b>!{% endblocktrans %}
-    <br>
-    {% trans "Du kannst mehrere Kleidungsstücke bestellen, indem du mehrere Formularabschnitte ausfüllst. Lass die übrigen einfach leer." %}
-</div>
-{% endif %}
-
-<div id="mainForm">
-    <form role="form" action="{{action}}" method="POST">
-        {% csrf_token %}
-        <div class="padded-form">
-        {{ wizard.management_form }}
-        {% if wizard.form.forms %}
-            {{ wizard.form.management_form }}
-            {% bootstrap_formset_errors wizard.form %}
-            {% for form in wizard.form.forms %}
-                {% bootstrap_form form layout='horizontal' %}
-                <hr />
-            {% endfor %}
-        {% else %}
-            {% bootstrap_form wizard.form %}
-        {% endif %}
+    {% if clothing_order_enabled %}
+        <div id="mainForm" class="margin-top-3">
+            <form role="form" action="{{action}}" method="POST">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+            {% buttons %}
+                <button type="reset" class="btn btn-danger">
+                    {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+                </button>
+                <button type="submit" class="btn btn-success pull-right">
+                    {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+                </button>
+            {% endbuttons %}
+            </form>
         </div>
-    {% buttons %}
-        <button type="submit" class="btn btn-success pull-right">
-            {% bootstrap_icon "ok" %} {% trans "Weiter" %}
-        </button>
-    {% endbuttons %}
-    </form>
-    <div class="clearfix"></div>
-</div>
-{% else %}
-<p>
-    {% trans "Aktuell ist die Kleiderbestellung nicht geöffnet." %}
-</p>
-{% endif %}
+    {% else %}
+        <div class="alert alert-danger">
+            <p>{% blocktrans %}Die Kleidungsbestellung ist aktuell nicht möglich{% endblocktrans %}</p>
+        </div>
+    {% endif %}
 
 {% endblock %}

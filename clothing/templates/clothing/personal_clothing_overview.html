@@ -11,7 +11,7 @@
     <div class="row" style="margin-top:30px;margin-bottom: 30px;">
 
     {% for o in orders %}
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <b>{{ o.type }}</b> {{ o.size }} {{ o.color }}<br>
             <span style="color: #999999">
                 {% if o.additional %}
@@ -19,7 +19,9 @@
                 {% else %}
                     {% trans "Kostenlos" %}
                 {% endif %}
-            </span>
+            </span><br>
+            <a href="{% url "clothing:order_edit" o.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <a href="{% url "clothing:order_delete" o.id %}"><i class="fa fa-times" aria-hidden="true"></i></a>
         </div>
     {% empty %}
         <p class="text-center" style="color: #999999;">{% trans "Bisher keine Bestellungen" %}</p>
@@ -28,9 +30,7 @@
     </div>
 
     <div class="text-center">
-    <a href="{% url "clothing:order_new" %}" class="btn btn-primary">{% trans "Neue Bestellung" %}</a>
+    <a href="{% url "clothing:order_new" %}" class="btn btn-default">{% trans "Neue Bestellung" %}</a>
     </div>
-
-
 
 {% endblock %}
