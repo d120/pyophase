@@ -8,5 +8,5 @@ odswriter==0.4.0
 Pillow==4.2.1
 selenium==2.53.6            # pyup: >=2.53,<3
 git+https://github.com/d120/pyTUID.git#egg=pyTUID-1.1.1
-django-sslserver==0.19
+django-sslserver==0.20
 pytz==2017.2
