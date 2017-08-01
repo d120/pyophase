@@ -10,6 +10,8 @@ from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
+from ophasebase.helper import LaTeX
+from .nametag import generate_nametag_response
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -171,3 +173,8 @@ class NametagCreation(StaffAppMixin, TemplateView):
         context = super(NametagCreation, self).get_context_data(**kwargs)
         context['staff'] = Person.objects.filter(ophase=Ophase.current()).exclude(is_helper=True).prefetch_related('orga_jobs').order_by('name')
         return context
+
+    def post(self, request, *args, **kwargs):
+        queryset = Person.objects.filter(ophase=Ophase.current()).exclude(is_helper=True).prefetch_related('orga_jobs').order_by('name')
+        return generate_nametag_response(request,queryset)
+
