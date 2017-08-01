@@ -1,0 +1,32 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
+
+{% block content_dashboard_view %}
+
+    <h3 style="margin-bottom:30px;">{% trans "Kleidung bestellen" %}</h3>
+
+    {% if clothing_order_enabled %}
+        <form action="" method="post">{% csrf_token %}
+            <p>
+                {% trans "Diese Bestellung löschen?" %}
+                <br><br>
+                <b>{{ order.type }}</b> {{ order.size }} {{ order.color }}<br>
+                <span style="color: #999999">
+                    {% if order.additional %}
+                        {{ order.type.price }} €
+                    {% else %}
+                        {% trans "Kostenlos" %}
+                    {% endif %}
+                </span>
+            </p>
+        <input class="btn btn-default" type="submit" value="{% trans "Löschen" %}" />
+    </form>
+    {% else %}
+        <div class="alert alert-danger">
+            <p>{% blocktrans %}Ändern der Kleidungsbestellung ist aktuell nicht möglich{% endblocktrans %}</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

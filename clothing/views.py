@@ -1,51 +1,51 @@
 from django.core.mail import EmailMessage
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseForbidden
 from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import TemplateView
-from formtools.wizard.views import SessionWizardView
+from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 
+from dashboard.views import PersonalDashboardMixin
 from ophasebase.models import Ophase
-from staff.models import Person
-from clothing.forms import OrderAskMailForm, OrderClothingFormSet
+from clothing.forms import OrderClothingForm
 from clothing.models import Order, Settings
 
 
-class OrderClothingView(SessionWizardView):
-    form_list = [OrderAskMailForm, OrderClothingFormSet]
-    template_name = "clothing/order.html"
+class ClothingPersonalOverview(PersonalDashboardMixin, ListView):
+    template_name = "clothing/personal_clothing_overview.html"
+    model = Order
+    context_object_name = "orders"
 
-    def get_context_data(self, form, **kwargs):
-        context = super().get_context_data(form=form, **kwargs)
+    def get_queryset(self):
+        qs = super().get_queryset()
+        user = self.request.TUIDUser.person_set.first()
+        return qs.filter(person=user)
+
+
+class ClothingOrderEnabledMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         settings = Settings.instance()
         if settings is not None:
-            context['clothing_ordering_enabled'] = settings.clothing_ordering_enabled
-        else:
-            context['clothing_ordering_enabled'] = False
-        if context['wizard']['steps'].step0 >= 1:
-            email = self.get_cleaned_data_for_step("0")['email']
-            person = Person.get_by_email_address_current(email)
-            context['person'] = person
+            context['clothing_order_enabled'] = settings.clothing_ordering_enabled
         return context
 
-    def get_form_kwargs(self, step=None):
-        if step == "1":
-            email = self.get_cleaned_data_for_step("0")['email']
-            person = Person.get_by_email_address_current(email)
-            return {'form_kwargs': {'person': person}}
-        else:
-            return super().get_form_kwargs(step)
 
-    def done(self, form_list, form_dict, **kwargs):
+class ClothingOrderBaseView(ClothingOrderEnabledMixin, PersonalDashboardMixin):
+    template_name = "clothing/order.html"
+    model = Order
+    form_class = OrderClothingForm
+    success_url = reverse_lazy("clothing:order_success")
+
+    def form_valid(self, form):
         settings = Settings.instance()
         if settings is None or not settings.clothing_ordering_enabled:
             return HttpResponseForbidden()
 
-        form_dict.get('1').save()
+        super_return = super().form_valid(form)
 
-        email_address = self.get_cleaned_data_for_step("0")['email']
-        person = Person.get_by_email_address_current(email_address)
+        person = form.person
+
         orders = '\n'.join(o.info() for o in Order.get_current(person=person))
         if orders == "":
             orders = _("Keine Bestellungen")
@@ -56,14 +56,37 @@ class OrderClothingView(SessionWizardView):
         email.body = email_template.render({
             'name': person.prename,
             'orders': orders,
-            'editurl': self.request.build_absolute_uri(reverse('clothing:order_new'))
+            'editurl': self.request.build_absolute_uri(reverse('clothing:overview'))
         })
-        email.to = [email_address]
+        email.to = [person.email]
         email.reply_to = [Ophase.current().contact_email_address]
         email.send()
 
-        return HttpResponseRedirect(reverse_lazy('clothing:order_success'))
+        return super_return
 
 
-class OrderClothingSuccessView(TemplateView):
+class ClothingOrderView(ClothingOrderBaseView, CreateView):
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if 'instance' not in kwargs or kwargs['instance'] is None:
+            kwargs['instance'] = Order()
+            tuid = self.request.TUIDUser
+            if tuid is not None:
+                kwargs['instance'].person = tuid.person_set.first()
+                kwargs['person'] = tuid.person_set.first()
+        return kwargs
+
+
+class ClothingOrderEditView(ClothingOrderBaseView, UpdateView):
+    pass
+
+
+class ClothingOrderDeleteView(ClothingOrderEnabledMixin, PersonalDashboardMixin, DeleteView):
+    template_name = "clothing/order_delete.html"
+    model = Order
+    success_url = reverse_lazy("clothing:order_success")
+    context_object_name = "order"
+
+
+class OrderClothingSuccessView(PersonalDashboardMixin, TemplateView):
     template_name = "clothing/order_success.html"
