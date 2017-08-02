@@ -1,3 +1,7 @@
+import tempfile, os, shutil
+from subprocess import Popen, PIPE
+from base64 import b64encode
+
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -12,13 +16,13 @@ def generate_nametags(queryset):
                                           'staff')
     return (pdf, pdflatex_output)
 
-def generate_nametag_response(request, queryset):
+def generate_nametag_response(request, queryset, filename='tutorenschilder.pdf'):
     """ Generates a PDF file with exam certificates for students in the queryset and sends it to the browser """
     (pdf, pdflatex_output) = generate_nametags(queryset)
 
     if not pdf:
-        return render(request, "staff/reports/rendering-error.html", {"content": pdf}) #pdflatex_output[0].decode("utf-8")})
+        return render(request, "staff/reports/rendering-error.html", {"content": pdflatex_output[0].decode("utf-8")})
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=tutorenschilder.pdf'
+    response['Content-Disposition'] = 'attachment; filename=' + filename
     response.write(pdf)
     return response

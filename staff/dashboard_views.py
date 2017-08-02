@@ -10,7 +10,6 @@ from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
-from ophasebase.helper import LaTeX
 from .nametag import generate_nametag_response
 
 
@@ -171,10 +170,27 @@ class NametagCreation(StaffAppMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(NametagCreation, self).get_context_data(**kwargs)
-        context['staff'] = Person.objects.filter(ophase=Ophase.current()).exclude(is_helper=True).prefetch_related('orga_jobs').order_by('name')
+        persons = Person.objects.filter(ophase=Ophase.current()).exclude(is_helper=True).prefetch_related('orga_jobs').order_by('name')
+        context['staff'] = persons
+        context['count_staff'] = persons.count()
         return context
 
     def post(self, request, *args, **kwargs):
-        queryset = Person.objects.filter(ophase=Ophase.current()).exclude(is_helper=True).prefetch_related('orga_jobs').order_by('name')
-        return generate_nametag_response(request,queryset)
-
+        if request.POST['action'] == 'all_nametags':
+            queryset = Person.objects.filter(ophase=Ophase.current()).exclude(is_helper=True).prefetch_related('orga_jobs').order_by('name')
+            return generate_nametag_response(request,queryset)
+        elif request.POST['action'] == 'single_nametag':
+            person = {'prename': request.POST['prename'],
+                    'name': request.POST['name']}
+            if 'tutor' in request.POST:
+                person['is_tutor'] = True
+            if 'orga' in request.POST:
+                person['is_orga'] = True
+            if len(request.POST['extrahead']) != 0:
+                person['extra'] = [request.POST['extrahead'], request.POST['extrarow']]
+            if 'helpdesk' in request.POST:
+                person['is_helpdesk'] = True
+            if 'leitung' in request.POST:
+                person['is_leitung'] = True
+            return generate_nametag_response(request, [person], filename='schild.pdf')
+    

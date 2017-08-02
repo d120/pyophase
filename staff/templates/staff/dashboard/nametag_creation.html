@@ -4,7 +4,9 @@
 
 
 {% block content_dashboard_view %}
-    <h3>{% trans "Namensschilder erstellen" %}<span class="badge">{{ count_student }}</span></h3>
+    <h3>{% trans "Namensschilder erstellen" %} <span class="badge">{{ count_staff }}</span></h3>
+	<div class="panel panel-default">
+  		<div class="panel-body">
     <div class="table-responsive">
     <table class="table table-striped">
     <thead>
@@ -26,7 +28,53 @@
     </table>
     </div>
     <form action="{{ request.path }}" method="post">{% csrf_token %}
-        <button class="pull-right" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
+	<input type="hidden" name="action" value="all_nametags">
+        <button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
     </form>
-
+		</div>
+	</div>
+    <h3>{% trans "Einzelschild" %}</h3>
+    <form action="{{ request.path }}" method="post">{% csrf_token %}
+	<div class="panel panel-default">
+  		<div class="panel-body">
+			{% if img %}
+			<img class="center-block" style="width:30em;" src="data:image/png;base64,{{ img }}">
+			<br>
+			{% endif %}
+			<div class="form-inline">
+	    			<div class="form-group">
+		    			<label for="surname"> {% trans "Vorname" %}</label>
+		    			<input class="form-control" id="prename" name="prename" required>
+	    			</div>
+	    			<div class="form-group">
+		    			<label for="name"> {% trans "Nachname" %}</label>
+					<input class="form-control" id="name" name="name" required>
+	    			</div>
+	    		</div>
+			<br>
+			<div class="table-responsive">
+				<table class="table table-bordered table-striped table-highlight">
+					<thead>
+						<th> {% trans "Tutor" %} </th>
+						<th> {% trans "Orga" %} </th>
+						<th> <input type="text" class="form-control" name="extrahead"/></th>
+						<th> {% trans "Helpdesk" %} </th>
+						<th> {% trans "Leitung" %} </th>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox" class="form-control" name="tutor"/></td>
+							<td><input type="checkbox" class="form-control" name="orga"/></td>
+							<td><input type="text" class="form-control" name="extrarow"/></td>
+							<td><input type="checkbox" class="form-control" name="helpdesk"/></td>
+							<td><input type="checkbox" class="form-control" name="leitung"/></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		<input type="hidden" name="action" value="single_nametag">
+        	<button class="pull-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
+	    	</div>
+	</div>
+    </form>
 {% endblock %}

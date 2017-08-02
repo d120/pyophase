@@ -75,22 +75,16 @@
   	{\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{5mm} \textbf{TU Darmstadt | FB 20 | Sommer \the\year}}}}
   	\clearpage }
 }
+
+\newcommand{\Namensschilder}[9]{\Namensschild{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}\Namensschild{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}}
 {% endverbatim %}
 % Ab hier werden die Tutorenschilder angehängt. \begin{document} und \end{document} werden durch Java hinzugefügt.
 \begin{document}
 {% for person in items %}
-\Namensschild{ {{ person.prename|tex_escape }} }{ {{ person.name|tex_escape }} }
-{% if person.is_tutor %}{T}{TUTOR}{% else %}{~}{~}{% endif %}{% if person.is_orga %}{ORGA}{T1}{T2}{% else %}{~}{~}{~}{% endif %}{~}{~}
+\Namensschilder{ {{ person.prename|tex_escape }} }{ {{ person.name|tex_escape }} }
+{% if person.is_tutor %}{T}{TUTOR}{% else %}{~}{~}{% endif %}{% if person.is_orga %}{ORGA}{% else %}{~}{% endif %}{% if person.extra %}
+{ {{ person.extra|first }} } { {{ person.extra|last }} } {% else %} {~}{~} {% endif %}{% if person.is_helpdesk %} {H} {% else %}
+{~} {% endif %} {% if person.is_leitung %} {L} {% else %} {~} {% endif %}
 {% endfor %}
-\Namensschild{George}{Boole}{~}{~}{ORGA}{W}{WORKSHOP}{~}{LEITUNG}
-\Namensschild{George}{Boole}{~}{~}{ORGA}{W}{WORKSHOP}{~}{LEITUNG}
-\Namensschild{Ada}{Lovelace}{T}{TUTOR}{ORGA}{~}{~}{~}{~}
-\Namensschild{Ada}{Lovelace}{T}{TUTOR}{ORGA}{~}{~}{~}{~}
-\Namensschild{Das}{Wesen}{~}{~}{~}{~}{~}{HELPDESK}{~}
-\Namensschild{Das}{Wesen}{~}{~}{~}{~}{~}{HELPDESK}{~}
-\Namensschild{Alan}{Turing}{M}{MASTER}{ORGA}{~}{~}{~}{~}
-\Namensschild{Alan}{Turing}{M}{MASTER}{ORGA}{~}{~}{~}{~}
-\Namensschild{Hans}{Müller}{T}{TUTOR}{ORGA}{J}{JUGGER}{~}{~}
-\Namensschild{Hans}{Müller}{T}{TUTOR}{ORGA}{J}{JUGGER}{~}{~}
 \end{document}
 {% endautoescape %}
