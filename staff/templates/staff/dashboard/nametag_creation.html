@@ -44,11 +44,11 @@
 			<div class="form-inline">
 	    			<div class="form-group">
 		    			<label for="surname"> {% trans "Vorname" %}</label>
-		    			<input class="form-control" id="prename" name="prename" required>
+		    			<input tabindex="1" class="form-control" id="prename" name="prename" required>
 	    			</div>
 	    			<div class="form-group">
 		    			<label for="name"> {% trans "Nachname" %}</label>
-					<input class="form-control" id="name" name="name" required>
+					<input tabindex="2" class="form-control" id="name" name="name" required>
 	    			</div>
 	    		</div>
 			<br>
@@ -57,23 +57,23 @@
 					<thead>
 						<th> {% trans "Tutor" %} </th>
 						<th> {% trans "Orga" %} </th>
-						<th> <input type="text" class="form-control" name="extrahead"/></th>
+						<th> <input tabindex="5" type="text" class="form-control" name="extrahead"/></th>
 						<th> {% trans "Helpdesk" %} </th>
 						<th> {% trans "Leitung" %} </th>
 					</thead>
 					<tbody>
 						<tr>
-							<td><input type="checkbox" class="form-control" name="tutor"/></td>
-							<td><input type="checkbox" class="form-control" name="orga"/></td>
-							<td><input type="text" class="form-control" name="extrarow"/></td>
-							<td><input type="checkbox" class="form-control" name="helpdesk"/></td>
-							<td><input type="checkbox" class="form-control" name="leitung"/></td>
+							<td><input type="checkbox" tabindex="3" class="form-control" name="tutor"/></td>
+							<td><input type="checkbox" tabindex="4" class="form-control" name="orga"/></td>
+							<td><input type="text" tabindex="6" class="form-control" name="extrarow"/></td>
+							<td><input type="checkbox" tabindex="7" class="form-control" name="helpdesk"/></td>
+							<td><input type="checkbox" tabindex="8" class="form-control" name="leitung"/></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		<input type="hidden" name="action" value="single_nametag">
-        	<button class="pull-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
+		<button tabindex="9" class="pull-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
 	    	</div>
 	</div>
     </form>

@@ -82,9 +82,9 @@
 \begin{document}
 {% for person in items %}
 \Namensschilder{ {{ person.prename|tex_escape }} }{ {{ person.name|tex_escape }} }
-{% if person.is_tutor %}{T}{TUTOR}{% else %}{~}{~}{% endif %}{% if person.is_orga %}{ORGA}{% else %}{~}{% endif %}{% if person.extra %}
-{ {{ person.extra|first }} } { {{ person.extra|last }} } {% else %} {~}{~} {% endif %}{% if person.is_helpdesk %} {H} {% else %}
-{~} {% endif %} {% if person.is_leitung %} {L} {% else %} {~} {% endif %}
+{% if person.is_tutor %}{T}{TUTOR}{% else %}{~}{~}{% endif %}{% if person.is_orga %}{ORGA}{% else %}{~}{% endif %}{% if person.nametag_shortname %}
+{ {{ person.nametag_shortname }} } { {{ person.nametag_long }} } {% else %} {~}{~} {% endif %}{% if 'Helpdesk' in person.get_orgajob_names %} {H} {% else %}
+{~} {% endif %} {% if 'Leitung' in person.get_orgajob_names %} {L} {% else %} {~} {% endif %}
 {% endfor %}
 \end{document}
 {% endautoescape %}

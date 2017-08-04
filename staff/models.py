@@ -131,6 +131,8 @@ class Person(models.Model):
     orga_annotation = models.TextField(blank=True, verbose_name=_("Orga-Anmerkungen"), help_text=_("Notizen von Leitung und Orgas."))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
+    nametag_shortname = models.CharField(verbose_name=_('Kürzel (maximal 4 Zeichen)'), max_length=4, blank=True)
+    nametag_long = models.TextField(verbose_name=_('Langform'), blank=True)
 
     def get_name(self):
         return "%s %s" % (self.prename, self.name)
@@ -171,6 +173,10 @@ class Person(models.Model):
     @property
     def eligible_for_clothing(self):
         return self.is_orga or self.is_tutor
+
+    @property
+    def get_orgajob_names(self):
+        return (x.label for x in self.orga_jobs.all())
 
     @staticmethod
     def get_current(**kwargs):
