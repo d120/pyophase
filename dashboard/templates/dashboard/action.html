@@ -13,7 +13,7 @@
 
                 <ul class="nav nav-pills nav-stacked">
                     {% for name, target in sidebar_links %}
-                        <li class="dotted-border"><a href="{{ target }}">{{ name }}</a></li>
+		    <li class="{% if target == request.path %}active {% endif %}"><a href="{{ target }}">{{ name }}</a></li>
                     {% endfor %}
                 </ul>
             {% endblock %}

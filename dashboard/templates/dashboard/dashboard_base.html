@@ -5,7 +5,7 @@
 
 <ul class="nav nav-pills">
     {% for title, target in navigation_links %}
-        <li><a href="{{ target }}">{{ title }}</a></li>
+    <li {% if current_page in target %}class="active"{% endif %}><a href="{{ target }}">{{ title }}</a></li>
     {% endfor %}
 </ul>
 
