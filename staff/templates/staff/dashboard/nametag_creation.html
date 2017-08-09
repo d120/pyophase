@@ -21,7 +21,7 @@
     <tr>
         <td>{{ orga.prename }} {{ orga.name }}</td>
         <td>{% if orga.is_tutor %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %} </td>
-        <td>{{ orga.orga_jobs.all | join:", " }}</td>
+        <td>{{ orga.get_approved_orgajob_names | join:", " }}</td>
     </tr>
     {% endfor %}
     </tbody>

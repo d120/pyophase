@@ -175,8 +175,8 @@ class Person(models.Model):
         return self.is_orga or self.is_tutor
 
     @property
-    def get_orgajob_names(self):
-        return (x.label for x in self.orga_jobs.all())
+    def get_approved_orgajob_names(self):
+        return self.orga_jobs.filter(Q(orgaselectedjob__status='o') | Q(orgaselectedjob__status='c')).values_list('label', flat=True)
 
     @staticmethod
     def get_current(**kwargs):
