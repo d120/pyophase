@@ -62,18 +62,22 @@ class PersonalOverview(PersonalDashboardMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['next_events'] = [attendance.event for attendance in context['user'].attendance_set.filter(event__begin__gte=timezone.now())]
 
-        if context['user'].is_tutor:
-            context['tutor_group'] = context['user'].tutorgroup_set.first()
-            if context['tutor_group'] is not None:
-                context['tutor_partners'] = ", ".join(t.get_name() for t in context['tutor_group'].tutors.exclude(id=context['user'].id))
+        if context['user'] is not None:
+            context['user_registered'] = True
 
-        from clothing.models import Order, Settings
-        context['clothing_orders'] = Order.objects.filter(person=context['user'])
+            context['next_events'] = [attendance.event for attendance in context['user'].attendance_set.filter(event__begin__gte=timezone.now())]
 
-        clothing_settings = Settings.instance()
-        if clothing_settings is not None:
-            context['show_clothing_order_warning'] = clothing_settings.clothing_ordering_enabled and Order.user_eligible_but_not_ordered_yet(context['user'])
+            if context['user'].is_tutor:
+                context['tutor_group'] = context['user'].tutorgroup_set.first()
+                if context['tutor_group'] is not None:
+                    context['tutor_partners'] = ", ".join(t.get_name() for t in context['tutor_group'].tutors.exclude(id=context['user'].id))
+
+            from clothing.models import Order, Settings
+            context['clothing_orders'] = Order.objects.filter(person=context['user'])
+
+            clothing_settings = Settings.instance()
+            if clothing_settings is not None:
+                context['show_clothing_order_warning'] = clothing_settings.clothing_ordering_enabled and Order.user_eligible_but_not_ordered_yet(context['user'])
 
         return context
