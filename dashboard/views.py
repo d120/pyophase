@@ -48,7 +48,8 @@ class PersonalDashboardMixin(TUIDLoginRequiredMixin, DashboardAppMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.TUIDUser.person_set.first()
+        from staff.models import Person
+        context['user'] = Person.get_by_TUID(self.request.TUIDUser)
         return context
 
 

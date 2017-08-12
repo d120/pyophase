@@ -187,6 +187,10 @@ class Person(models.Model):
     def get_by_email_address_current(address):
         return Person.get_by_email_address(address, Ophase.current())
 
+    @staticmethod
+    def get_by_TUID(TUIDUser):
+        return TUIDUser.person_set.filter(ophase=Ophase.current()).first()
+
 
 class StaffFilterGroup(models.Model):
     """An abstraction mechanism to reference a complicated filter on persons."""
