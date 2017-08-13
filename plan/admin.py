@@ -9,7 +9,7 @@ from django.utils.translation import ugettext as _
 
 @admin.register(SlotType)
 class SlotTypeAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'split_groups']
 
 
 @admin.register(TimeSlot)
