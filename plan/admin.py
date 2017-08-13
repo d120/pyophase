@@ -31,5 +31,5 @@ class EventAdmin(admin.ModelAdmin):
 
 
 @admin.register(Booking)
-class EventAdmin(admin.ModelAdmin):
+class BookingAdmin(admin.ModelAdmin):
     list_display = ['room', 'begin', 'end', 'status']
