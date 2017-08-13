@@ -4,5 +4,4 @@ from . import dashboard_views
 
 
 app_name = 'plan'
-urlpatterns = [
-]
+urlpatterns = []

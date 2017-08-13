@@ -12,5 +12,4 @@ class PlanAppMixin(DashboardAppMixin):
 
     @property
     def sidebar_links(self):
-        return [
-        ]
+        return []
