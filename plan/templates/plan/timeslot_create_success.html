@@ -1,0 +1,16 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "TimeSlot anlegen" %}{% endblock %}
+
+{% block content_dashboard_view %}
+    <h3 style="margin-bottom:30px;">{% trans "TimeSlot anlegen" %}</h3>
+
+    <div class="alert alert-success">{% trans "TimeSlot angelegt" %}</div>
+
+    <div class="text-center">
+        <a href="{% url 'dashboard:plan:overview' %}" class="btn btn-default">{% trans 'Zur Übersicht' %}</a>
+        <a href="{% url 'dashboard:plan:timeslot_create' %}" class="btn btn-default">{% trans 'Weiteren TimeSlot anlegen' %}</a>
+    </div>
+
+{% endblock %}
