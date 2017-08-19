@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, TemplateView
+from django.views.generic import CreateView, ListView, TemplateView, DetailView
 from django.utils.translation import ugettext_lazy as _
 
 from dashboard.components import DashboardAppMixin
+from ophasebase.models import OphaseCategory, Ophase
 from plan.forms import TimeSlotForm
 from plan.models import TimeSlot
 
@@ -24,6 +25,31 @@ class PlanOverview(PlanAppMixin, ListView):
     model = TimeSlot
     context_object_name = "time_slots"
     template_name = "plan/schedule.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Ophase.current().ophaseactivecategory_set.all()
+        return context
+
+
+class PlanCategoryView(PlanAppMixin, DetailView):
+    model = OphaseCategory
+    context_object_name = "category"
+    template_name = "plan/schedule_category.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Ophase.current().ophaseactivecategory_set.all()
+        context["time_slots"] = context["category"].timeslot_set.all()
+        return context
+
+
+class PlanCategoryPublicView(PlanCategoryView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["time_slots"] = context["time_slots"].filter(public=True)
+        context["public"] = True
+        return context
 
 
 class TimeSlotCreateView(PlanAppMixin, CreateView):
