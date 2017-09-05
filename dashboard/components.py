@@ -93,6 +93,7 @@ class DashboardAppMixin(DashboardBaseMixin):
     def add_context_data(self, context):
         context = super().add_context_data(context)
         context['sidebar_links'] = self.sidebar_links
+        context['current_page'] = '/dashboard/' + self.app_name
         return context
 
     def prefix_reverse_lazy(self, target):

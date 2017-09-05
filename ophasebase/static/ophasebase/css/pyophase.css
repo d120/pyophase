@@ -58,7 +58,7 @@ html {
     min-height: 100.1%;
 }
 
-a { color: #1141c5 !important; }
+a { color: #1141c5; }
 a.no-underline:hover { text-decoration: none; }
 
 
