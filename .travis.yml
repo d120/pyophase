@@ -46,9 +46,9 @@ script:
   - export PYTHONWARNINGS=all
   - python manage.py check
     # Test against Sqlite
-  - python manage.py test
+  - python manage.py test --exclude-tag=selenium
     # Test against MySQL
-  - python manage.py test --settings pyophase.settings_travis
+  - python manage.py test --settings pyophase.settings_travis --exclude-tag=selenium
   - coverage run --omit="*/migrations*" --source="." manage.py test
 
 after_success:
