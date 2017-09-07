@@ -36,7 +36,7 @@ SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
 
-ADMINS = (('FSS', 'fss@fachschaft.informatik.tu-darmstadt.de'),)
+ADMINS = (('pyophase-dev', 'pyophase-dev@fachschaft.informatik.tu-darmstadt.de'),)
 
 SERVER_EMAIL = "pyophase@fachschaft.informatik.tu-darmstadt.de"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
