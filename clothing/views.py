@@ -1,5 +1,6 @@
 from django.core.mail import EmailMessage
 from django.http import HttpResponseForbidden
+from django.shortcuts import redirect
 from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
@@ -11,14 +12,25 @@ from clothing.forms import OrderClothingForm
 from clothing.models import Order, Settings
 
 
-class ClothingPersonalOverview(PersonalDashboardMixin, ListView):
+class GetOrRedirectForbiddenMixin:
+    def get(self, request, *args, **kwargs):
+        s =  super().get(request, *args, **kwargs)
+        from staff.models import Person
+        user = Person.get_by_TUID(self.request.TUIDUser)
+        if user is None:
+            return redirect("clothing:order_forbidden")
+        return s
+
+
+class ClothingPersonalOverview(GetOrRedirectForbiddenMixin, PersonalDashboardMixin, ListView):
     template_name = "clothing/personal_clothing_overview.html"
     model = Order
     context_object_name = "orders"
 
     def get_queryset(self):
         qs = super().get_queryset()
-        user = self.request.TUIDUser.person_set.first()
+        from staff.models import Person
+        user = Person.get_by_TUID(self.request.TUIDUser)
         return qs.filter(person=user)
 
 
@@ -65,19 +77,19 @@ class ClothingOrderBaseView(ClothingOrderEnabledMixin, PersonalDashboardMixin):
         return super_return
 
 
-class ClothingOrderView(ClothingOrderBaseView, CreateView):
+class ClothingOrderView(GetOrRedirectForbiddenMixin, ClothingOrderBaseView, CreateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         if 'instance' not in kwargs or kwargs['instance'] is None:
             kwargs['instance'] = Order()
-            tuid = self.request.TUIDUser
-            if tuid is not None:
-                kwargs['instance'].person = tuid.person_set.first()
-                kwargs['person'] = tuid.person_set.first()
+            from staff.models import Person
+            user = Person.get_by_TUID(self.request.TUIDUser)
+            kwargs['instance'].person = user
+            kwargs['person'] = user
         return kwargs
 
 
-class ClothingOrderEditView(ClothingOrderBaseView, UpdateView):
+class ClothingOrderEditView(GetOrRedirectForbiddenMixin, ClothingOrderBaseView, UpdateView):
     pass
 
 
@@ -88,5 +100,9 @@ class ClothingOrderDeleteView(ClothingOrderEnabledMixin, PersonalDashboardMixin,
     context_object_name = "order"
 
 
-class OrderClothingSuccessView(PersonalDashboardMixin, TemplateView):
+class ClothingOrderSuccessView(PersonalDashboardMixin, TemplateView):
     template_name = "clothing/order_success.html"
+
+
+class ClothingOrderForbiddenView(PersonalDashboardMixin, TemplateView):
+    template_name = "clothing/order_forbidden.html"

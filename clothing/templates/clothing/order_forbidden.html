@@ -1,0 +1,14 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
+
+{% block content_dashboard_view %}
+
+    <h3 style="margin-bottom:30px;">{% trans "Kleidung bestellen" %}</h3>
+
+    <div class="alert alert-danger">
+        <p>{% blocktrans %}Du bist leider nicht berechtigt, Kleidung zu bestellen.{% endblocktrans %}</p>
+    </div>
+
+{% endblock %}
