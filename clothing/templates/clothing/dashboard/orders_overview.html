@@ -6,6 +6,21 @@
 {% block content_dashboard_view %}
 <h3>{% trans "Bestellungen" %}</h3>
 
+<div class="row" style="margin-bottom: 50px;">
+    <div class="col-sm-4 text-center">
+        <h3>{{ count_orders }}</h3>
+        {% trans "Bestellungen" %}
+    </div>
+    <div class="col-sm-4 text-center">
+        <h3>{{ count_orders_free }}</h3>
+        {% trans "Grundbestellungen" %}
+    </div>
+    <div class="col-sm-4 text-center">
+        <h3>{{ count_orders_paid }}</h3>
+        {% trans "Zusätzlich" %}
+    </div>
+</div>
+
 <table class="table table-striped">
 <thead>
 <tr>

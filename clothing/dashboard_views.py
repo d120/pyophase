@@ -33,6 +33,13 @@ class OrderOverView(ClothingAppMixin, ListView):
     def get_queryset(self):
         return Order.get_current().select_related('person', 'type', 'size', 'color')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['count_orders'] = Order.get_current().count()
+        context['count_orders_free'] = Order.get_current().filter(additional=False).count()
+        context['count_orders_paid'] = context['count_orders'] - context['count_orders_free']
+        return context
+
 
 class FreeClothingView(ClothingAppMixin, ListView):
     model = Person
@@ -63,29 +70,30 @@ class OrderAggregatedView(ClothingAppMixin, TemplateView):
         types = Type.objects.all()
         colors = Color.objects.all()
         sizes = Size.objects.all()
+        context['all_sizes'] = sizes
 
         context['orders'] = OrderedDict()
         for additional_type, additional_name in [(False, _('Kostenlos')), (True, _('Zusätzlich'))]:
             # Create bins
             context['orders'][additional_name] = OrderedDict()
-            for color in colors:
-                context['orders'][additional_name][color.name] = OrderedDict()
-                for type in types:
-                    context['orders'][additional_name][color.name][type.name] = OrderedDict()
+            for type in types:
+                context['orders'][additional_name][type.name] = OrderedDict()
+                for color in colors:
+                    context['orders'][additional_name][type.name][color.name] = OrderedDict()
                     for size in sizes:
-                        context['orders'][additional_name][color.name][type.name][size.size] = 0
+                        context['orders'][additional_name][type.name][color.name][size.size] = 0
 
         # Store orders
-        orders = Order.objects.values('additional', 'type__name','size__size','color__name')
+        orders = Order.objects.values('additional', 'type__name', 'size__size', 'color__name')
         orders = orders.annotate(count=Count('pk'))
         for order in orders:
             additional_name = _('Kostenlos')
-            if order['additional'] == True:
+            if order['additional'] is True:
                 additional_name = _('Zusätzlich')
 
             c = order['color__name']
             t = order['type__name']
             s = order['size__size']
-            context['orders'][additional_name][c][t][s] = order['count']
+            context['orders'][additional_name][t][c][s] = order['count']
 
         return context
