@@ -246,6 +246,7 @@ class TutorGroup(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Gruppenname"))
     tutors = models.ManyToManyField(Person, blank=True, verbose_name=_("Tutoren"))
     group_category = models.ForeignKey(OphaseCategory, models.CASCADE, verbose_name=_("Gruppenkategorie"))
+    picture = models.FileField(upload_to='grouppicture/', blank=True)
 
     def __str__(self):
         return self.name

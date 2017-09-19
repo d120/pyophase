@@ -5,6 +5,7 @@ from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
+from django.shortcuts import redirect
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
@@ -23,6 +24,7 @@ class StaffAppMixin(DashboardAppMixin):
         return [
             (_('Übersicht'), self.prefix_reverse_lazy('index')),
             (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
+            (_('Gruppenbilder hinzufügen'), self.prefix_reverse_lazy('group_picture_add')),
             (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
             (_('Termine'), self.prefix_reverse_lazy('event_index')),
             (_('Namensschilder'), self.prefix_reverse_lazy('nametags'))
@@ -198,3 +200,23 @@ class NametagCreation(StaffAppMixin, TemplateView):
                 person['get_orgajob_names'] = ('Leitung')
             return generate_nametag_response(
                 request, [person], filename='schild.pdf')
+
+class GroupPictureAdd(StaffAppMixin, TemplateView):
+    permissions = ['staff.edit_tutorgroup']
+    template_name = 'staff/dashboard/grouppicture_add.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(GroupPictureAdd, self).get_context_data(**kwargs)
+        context['groups'] = TutorGroup.objects.filter(ophase=Ophase.current())
+        return context
+
+    def post(self, request, *args, **kwargs):
+        tutorgroups = TutorGroup.objects.filter(ophase=Ophase.current())
+        for group in tutorgroups:
+            if request.POST['action-' + str(group.id)] == 'change':
+                group.picture = request.FILES[str(group.id)]
+                group.save()
+            elif request.POST['action-' + str(group.id)] == 'delete':
+                group.picture.delete()
+        return redirect('dashboard:staff:group_picture_add')
+

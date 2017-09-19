@@ -1,0 +1,81 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+
+{% block title%}{% trans "Gruppenbilder hinzufügen" %} | {% trans "Dashboard" %}{% endblock %}
+
+
+{% block content_dashboard_view %}
+    <h3>{% trans "Gruppenbilder zuordnen" %} <span class="badge">{{ count_staff }}</span></h3>
+	<div class="panel panel-default">
+  		<div class="panel-body">
+    <div class="table-responsive">
+    <form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>{% trans "Gruppenbild" %}</th>
+        <th>{% trans "Gruppenname" %}</th>
+        <th>{% trans "" %}</th>
+        <th>{% trans "" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for group in groups %}
+    <tr>
+	    <td> <img style="max-width:200px;" id="img-{{ group.id }}" src="{% if group.picture %}{{ group.picture.url }}{% endif %}"> </td>
+	<td>{{ group.name }}</td>
+	<td><label class="pull-right btn btn-info">{% trans "Bild hinzufügen" %}<input id="imageupload-{{ group.id }}" name="{{ group.id }}" onchange="fileSelected(event)" style="display:none;" type="file"/></label>  </td>
+	<td><button type="button" id="imagedelete-{{ group.id }}" class="pull-right btn btn-danger" onclick="deletePhoto(event)">{% trans "Bild löschen" %}</button>  </td>
+    </tr>
+    <input type="hidden" name="action-{{ group.id }}" value=""/>
+    {% endfor %}
+    </tbody>
+    </table>
+    <button class="pull-right btn btn-primary" type="button" data-toggle="modal" data-target="#deletealert">{% trans "Bilder hochladen/löschen" %}</button>
+    </div>
+		</div>
+	</div>
+
+<div class="modal fade" id="deletealert" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title" id="myModalLabel">{% trans "Änderungen übernehmen?" %}</h4>
+      </div>
+      <div class="modal-body">
+	      Daten auf dem Server werden auf den angezeigten Stand geändert
+      </div>
+      <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Abbrechen" %}</button>
+	      <button type="submit" class="btn btn-danger">{% trans "Ausführen" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+    </form>
+	<script>
+	function fileSelected(event){
+		const selectedFile = event.target.files[0];
+		const id = event.target.id.split("-")[1];
+		const img = document.getElementById("img-" + id );
+		const hidden = document.getElementsByName("action-" + id)[0];
+		hidden.value = "change";
+		img.file = selectedFile;
+
+		const reader = new FileReader();
+    		reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+    		reader.readAsDataURL(selectedFile);
+	}
+
+function deletePhoto(event){
+	const id = event.target.id.split("-")[1];
+	const img = document.getElementById("img-" + id);
+	img.src = "";
+
+	const hidden = document.getElementsByName("action-" + id)[0];
+	hidden.value = "delete";
+
+}
+	</script>
+{% endblock %}
+
