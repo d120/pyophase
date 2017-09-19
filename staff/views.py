@@ -81,7 +81,7 @@ class StaffAdd(TUIDLoginRequiredMixin, CreateView):
             if form.instance.tutor_experience is None:
                 form.instance.tutor_experience = 0
             super_return = super().form_valid(form)
-        except TypeError:
+        except IntegrityError:
             # this should happen when unique constraints fail
             template = loader.get_template("staff/already_registered.html")
             return TemplateResponse(self.request, template)
