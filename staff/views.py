@@ -20,6 +20,13 @@ class StaffAdd(TUIDLoginRequiredMixin, CreateView):
     template_name = 'staff/person_form.html'
     success_url = reverse_lazy('staff:registration_success')
 
+    def dispatch(self, request, *args, **kwargs):
+        if Person.objects.filter(tuid=request.TUIDUser).count() != 0:
+            template = loader.get_template("staff/already_registered.html")
+            return TemplateResponse(request, template)
+        return super().dispatch(request, *args, **kwargs)
+
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         if 'instance' not in kwargs or kwargs['instance'] is None:
@@ -74,7 +81,7 @@ class StaffAdd(TUIDLoginRequiredMixin, CreateView):
             if form.instance.tutor_experience is None:
                 form.instance.tutor_experience = 0
             super_return = super().form_valid(form)
-        except IntegrityError:
+        except TypeError:
             # this should happen when unique constraints fail
             template = loader.get_template("staff/already_registered.html")
             return TemplateResponse(self.request, template)
