@@ -189,7 +189,7 @@ class Person(models.Model):
 
     @staticmethod
     def get_by_TUID(TUIDUser):
-        return TUIDUser.person_set.filter(ophase=Ophase.current()).first()
+        return TUIDUser.person_set.filter(ophase=Ophase.current()).first() if TUIDUser is not None else None
 
 
 class StaffFilterGroup(models.Model):

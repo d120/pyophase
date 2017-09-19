@@ -21,7 +21,7 @@ class StaffAdd(TUIDLoginRequiredMixin, CreateView):
     success_url = reverse_lazy('staff:registration_success')
 
     def dispatch(self, request, *args, **kwargs):
-        if Person.objects.filter(tuid=request.TUIDUser).count() != 0:
+        if Person.get_by_TUID(request.TUIDUser) is not None:
             template = loader.get_template("staff/already_registered.html")
             return TemplateResponse(request, template)
         return super().dispatch(request, *args, **kwargs)
