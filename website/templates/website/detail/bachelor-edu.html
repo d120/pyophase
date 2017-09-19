@@ -1,15 +1,15 @@
 {% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
-{% block title %}Bachelor of Science{% endblock %}
-{% block heading %}Ophase für Bachelor of Science{% endblock %}
+{% block title %}Bachelor of Education{% endblock %}
+{% block heading %}Ophase für Bachelor of Education{% endblock %}
 
 {% block content %}
 
 <div class="breadcrumbs">
-    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Bachelor of Science
+    Du bist hier: <a href="{% url 'website:homepage' %}">Startseite</a> &middot; Bachelor of Education
 </div>
 {% if category.website.schedule_image %}
 <p>
-    Hier findest Du den Stundenplan für Bachelor of Science Erstsemester für die {{ ophase_title }} {{ ophase_category_duration }}.
+    Hier findest Du den Stundenplan für Bachelor of Education Erstsemester für die {{ ophase_title }} {{ ophase_category_duration }}.
     Änderungen sind bis kurz vor Beginn der Ophase möglich. (Stand: {{ category.website.schedule_last_modified|date:"SHORT_DATE_FORMAT" }})
 </p>
 

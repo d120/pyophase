@@ -120,4 +120,4 @@ def save_category_details(sender, instance, **kwargs):
 # Register a signal receiver so the image is deleted when the model is deleted
 @receiver(pre_delete, sender=CategoryDetails)
 def schedule_delete(sender, instance, **kwargs):
-    instance.image.delete(False)
+    instance.schedule_image.delete(False)
