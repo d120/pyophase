@@ -194,10 +194,11 @@ class NametagCreation(StaffAppMixin, TemplateView):
             if len(request.POST['extrahead']) != 0:
                 person['nametag_shortname'] =  request.POST['extrahead']
                 person['nametag_long'] =  request.POST['extrarow']
+            person['get_approved_orgajob_names'] = []
             if 'helpdesk' in request.POST:
-                person['get_orgajob_names'] = ('Helpdesk',)
+                person['get_approved_orgajob_names'].append('Helpdesk')
             if 'leitung' in request.POST:
-                person['get_orgajob_names'] = ('Leitung')
+                person['get_approved_orgajob_names'].append('Leitung')
             return generate_nametag_response(
                 request, [person], filename='schild.pdf')
 
