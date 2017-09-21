@@ -26,3 +26,14 @@ def generate_nametag_response(request, queryset, filename='tutorenschilder.pdf')
     response['Content-Disposition'] = 'attachment; filename=' + filename
     response.write(pdf)
     return response
+
+def generate_tutorgroup_sign(request, groups):
+    (pdf, pdflatex_output) = LaTeX.render({'groups': groups}, 'staff/reports/gruppenschilder.tex',
+            [], 'staff', [group.picture.path for group in groups if group.picture])
+    if not pdf:
+        return render(request, "staff/reports/rendering-error.html", {"content": pdflatex_output[0].decode("utf-8")})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=schilder.pdf'
+    response.write(pdf)
+    return response
+

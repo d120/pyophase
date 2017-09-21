@@ -11,7 +11,7 @@ from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
-from .nametag import generate_nametag_response
+from .nametag import generate_nametag_response, generate_tutorgroup_sign
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -27,7 +27,7 @@ class StaffAppMixin(DashboardAppMixin):
             (_('Gruppenbilder hinzufügen'), self.prefix_reverse_lazy('group_picture_add')),
             (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
             (_('Termine'), self.prefix_reverse_lazy('event_index')),
-            (_('Namensschilder'), self.prefix_reverse_lazy('nametags'))
+            (_('Schilder'), self.prefix_reverse_lazy('nametags'))
         ]
 
 
@@ -177,6 +177,8 @@ class NametagCreation(StaffAppMixin, TemplateView):
             is_helper=True).prefetch_related('orga_jobs').order_by('name')
         context['staff'] = persons
         context['count_staff'] = persons.count()
+        context['groupscount'] = TutorGroup.objects.filter(ophase=Ophase.current()).count()
+        context['groups_without_picture'] = TutorGroup.objects.filter(ophase=Ophase.current(), picture='').count()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -199,6 +201,9 @@ class NametagCreation(StaffAppMixin, TemplateView):
                 person['get_approved_orgajob_names'].append('Helpdesk')
             if 'leitung' in request.POST:
                 person['get_approved_orgajob_names'].append('Leitung')
+        elif request.POST['action'] == 'group_signs':
+            return generate_tutorgroup_sign(request, TutorGroup.objects.filter(ophase=Ophase.current()))
+            
             return generate_nametag_response(
                 request, [person], filename='schild.pdf')
 

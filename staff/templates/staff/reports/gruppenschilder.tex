@@ -1,0 +1,32 @@
+{% load tex_escape %}
+{% autoescape off %}
+{% verbatim %}
+% Überarbeitet von Tobias Otterbein 24.08.2013
+% Vorlage zur Erstellung der Gruppenschilder
+
+\documentclass[a4paper]{article}
+\usepackage[pdftex]{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{ngerman}
+\usepackage[left=1cm, right=1cm, top=2cm, bottom=2cm]{geometry}
+
+%% Gibt ein Gruppenschild aus
+% 1: Name
+% 2: Bild
+\newcommand{\Gruppe}[2]{
+	\begin{center}
+		\fontsize{100pt}{0}\selectfont
+		\vspace{-1cm}\includegraphics[width=0.9\textwidth]{#2} \\
+		\vspace{1cm}
+		\sf{#1} \\
+	\end{center}
+	\newpage
+}
+
+\pagestyle{empty}
+{% endverbatim %}
+\begin{document}
+{% for group in groups %} \Gruppe{ {{ group.name | tex_escape }} }{% templatetag openbrace %}{{ group.get_picture_name }}{% templatetag closebrace%}{% endfor %}
+\end{document}
+{% endautoescape %}

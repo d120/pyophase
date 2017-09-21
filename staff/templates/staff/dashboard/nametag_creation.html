@@ -77,4 +77,18 @@
 	    	</div>
 	</div>
     </form>
+    <h3>{% trans "Gruppenschilder erstellen" %} <span class="badge">{{ groupscount }}</span></h3>
+	<div class="panel panel-default">
+  		<div class="panel-body">
+    <form action="{{ request.path }}" method="post">{% csrf_token %}
+	<input type="hidden" name="action" value="group_signs">
+	{% if groups_without_picture != 0 %}
+	{% url 'dashboard:staff:group_picture_add' as group_picture_url%}
+	<div class="alert alert-danger" role="alert">{% blocktrans %} Es gibt <strong>{{ groups_without_picture }}</strong> Gruppen ohne
+		Bilder. Wenn nicht alle Bilder eingetragen sind, funktioniert die Generierung nicht. Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.{% endblocktrans %}</div>
+	{% endif %}
+        <button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
+    </form>
+		</div>
+	</div>
 {% endblock %}

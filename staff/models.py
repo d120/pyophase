@@ -251,6 +251,10 @@ class TutorGroup(models.Model):
     def __str__(self):
         return self.name
 
+    """Get the file name of the picture"""
+    def get_picture_name(self):
+        return self.picture.name.split('/')[-1].split('.')[0]
+
 
 class Attendance(models.Model):
     """Attendance of a person at an attendance event"""
