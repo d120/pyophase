@@ -4,53 +4,58 @@
 
 
 {% block content_dashboard_view %}
-    <h3>{% trans "Namensschilder erstellen" %} <span class="badge">{{ count_staff }}</span></h3>
-	<div class="panel panel-default">
-  		<div class="panel-body">
-    <div class="table-responsive">
-    <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>{% trans "Tutor" %}</th>
-        <th>{% trans "Jobs" %}</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for orga in staff %}
-    <tr>
-        <td>{{ orga.prename }} {{ orga.name }}</td>
-        <td>{% if orga.is_tutor %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %} </td>
-        <td>{{ orga.get_approved_orgajob_names | join:", " }}</td>
-    </tr>
-    {% endfor %}
-    </tbody>
-    </table>
-    </div>
-    <form action="{{ request.path }}" method="post">{% csrf_token %}
-	<input type="hidden" name="action" value="all_nametags">
-        <button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
-    </form>
-		</div>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3>{% trans "Namensschilder erstellen" %} <span class="badge">{{ count_staff }}</span></h3>
 	</div>
-    <h3>{% trans "Einzelschild" %}</h3>
-    <form action="{{ request.path }}" method="post">{% csrf_token %}
-	<div class="panel panel-default">
-  		<div class="panel-body">
+
+	<div class="panel-body">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>{% trans "Tutor" %}</th>
+						<th>{% trans "Jobs" %}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for orga in staff %}
+					<tr>
+						<td>{{ orga.prename }} {{ orga.name }}</td>
+						<td>{% if orga.is_tutor %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %} </td>
+						<td>{{ orga.get_approved_orgajob_names | join:", " }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<form action="{{ request.path }}" method="post">{% csrf_token %}
+			<input type="hidden" name="action" value="all_nametags">
+			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
+		</form>
+	</div>
+</div>
+<form action="{{ request.path }}" method="post">{% csrf_token %}
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3>{% trans "Einzelschild" %}</h3>
+		</div>
+		<div class="panel-body">
 			{% if img %}
 			<img class="center-block" style="width:30em;" src="data:image/png;base64,{{ img }}">
 			<br>
 			{% endif %}
 			<div class="form-inline">
-	    			<div class="form-group">
-		    			<label for="surname"> {% trans "Vorname" %}</label>
-		    			<input tabindex="1" class="form-control" id="prename" name="prename" required>
-	    			</div>
-	    			<div class="form-group">
-		    			<label for="name"> {% trans "Nachname" %}</label>
+				<div class="form-group">
+					<label for="surname"> {% trans "Vorname" %}</label>
+					<input tabindex="1" class="form-control" id="prename" name="prename" required>
+				</div>
+				<div class="form-group">
+					<label for="name"> {% trans "Nachname" %}</label>
 					<input tabindex="2" class="form-control" id="name" name="name" required>
-	    			</div>
-	    		</div>
+				</div>
+			</div>
 			<br>
 			<div class="table-responsive">
 				<table class="table table-bordered table-striped table-highlight">
@@ -72,23 +77,38 @@
 					</tbody>
 				</table>
 			</div>
-		<input type="hidden" name="action" value="single_nametag">
-		<button tabindex="9" class="pull-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
-	    	</div>
-	</div>
-    </form>
-    <h3>{% trans "Gruppenschilder erstellen" %} <span class="badge">{{ groupscount }}</span></h3>
-	<div class="panel panel-default">
-  		<div class="panel-body">
-    <form action="{{ request.path }}" method="post">{% csrf_token %}
-	<input type="hidden" name="action" value="group_signs">
-	{% if groups_without_picture != 0 %}
-	{% url 'dashboard:staff:group_picture_add' as group_picture_url%}
-	<div class="alert alert-danger" role="alert">{% blocktrans %} Es gibt <strong>{{ groups_without_picture }}</strong> Gruppen ohne
-		Bilder. Wenn nicht alle Bilder eingetragen sind, funktioniert die Generierung nicht. Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.{% endblocktrans %}</div>
-	{% endif %}
-        <button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
-    </form>
+			<input type="hidden" name="action" value="single_nametag">
+			<button tabindex="9" class="pull-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
 		</div>
 	</div>
+</form>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3>{% trans "Gruppenschilder erstellen" %} <span class="badge">{{ groupscount }}</span></h3>
+	</div>
+	<div class="panel-body">
+		{% trans "Erstellt ein pdf mit einer Gruppe pro Seite und Foto" %}
+		<form action="{{ request.path }}" method="post">{% csrf_token %}
+			<input type="hidden" name="action" value="group_signs">
+			{% if groups_without_picture != 0 %}
+			{% url 'dashboard:staff:group_picture_add' as group_picture_url%}
+			<div class="alert alert-danger" role="alert">{% blocktrans count counter=groups_without_picture %}
+				Es gibt <strong>eine</strong>
+				Gruppe ohne Bilder.
+				{% plural %}
+				Es gibt <strong>{{ groups_without_picture }}</strong>
+				Gruppen ohne Bilder.
+				{% endblocktrans %}
+				{% blocktrans %}
+				Wenn nicht alle Bilder eingetragen sind, funktioniert die Generierung nicht.
+				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
+				{% endblocktrans %}
+			</div>
+			<button class="pull-right btn btn-primary disabled" type="button">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
+			{% else %}
+			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
+			{% endif %}
+		</form>
+	</div>
+</div>
 {% endblock %}
