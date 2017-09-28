@@ -11,7 +11,7 @@ from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
-from .nametag import generate_nametag_response, generate_tutorgroup_sign
+from .nametag import generate_nametag_response, generate_pdf_with_group_pictures
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -23,8 +23,10 @@ class StaffAppMixin(DashboardAppMixin):
     def sidebar_links(self):
         return [
             (_('Übersicht'), self.prefix_reverse_lazy('index')),
-            (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
-            (_('Gruppenbilder hinzufügen'), self.prefix_reverse_lazy('group_picture_add')),
+            (_('Kleingruppen erstellen'),
+             self.prefix_reverse_lazy('group_mass_create')),
+            (_('Gruppenbilder hinzufügen'),
+             self.prefix_reverse_lazy('group_picture_add')),
             (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
             (_('Termine'), self.prefix_reverse_lazy('event_index')),
             (_('Schilder'), self.prefix_reverse_lazy('nametags'))
@@ -48,15 +50,18 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['count_orga'] = Staff.filter(is_orga=True).count()
             context['count_helper'] = Staff.filter(is_helper=True).count()
 
-            context['url_filter_ophase'] = "?ophase__id__exact={}".format(current_ophase.id)
+            context['url_filter_ophase'] = "?ophase__id__exact={}".format(
+                current_ophase.id)
 
             # Create list of current tutors (split by categories)
             context['categories_for_tutors'] = []
             active_categories = Ophase.current().ophaseactivecategory_set.all()
             for ac in active_categories:
-                tutors_for_category = Person.objects.filter(ophase=Ophase.current(), is_tutor=True, tutor_for=ac.category)
+                tutors_for_category = Person.objects.filter(ophase=Ophase.current(), is_tutor=True,
+                                                            tutor_for=ac.category)
                 tutors_count = tutors_for_category.count()
-                tutors_string = ", ".join(t.get_name() for t in tutors_for_category) if tutors_count > 0 else "-"
+                tutors_string = ", ".join(
+                    t.get_name() for t in tutors_for_category) if tutors_count > 0 else "-"
 
                 context['categories_for_tutors'].append(
                     {
@@ -71,7 +76,8 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['orga_jobs'] = []
             active_jobs = OrgaJob.filter_jobs_for_ophase_current()
             for aj in active_jobs:
-                orgas = OrgaSelectedJob.objects.filter(job=aj, person__ophase=Ophase.current())
+                orgas = OrgaSelectedJob.objects.filter(
+                    job=aj, person__ophase=Ophase.current())
                 orgas_by_status = defaultdict(list)
                 for orga in orgas:
                     orgas_by_status[orga.status].append(orga.person.get_name())
@@ -89,10 +95,12 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['helper_jobs'] = []
             active_jobs = HelperJob.filter_jobs_for_ophase_current()
             for aj in active_jobs:
-                helpers = HelperSelectedJob.objects.filter(job=aj, person__ophase=Ophase.current())
+                helpers = HelperSelectedJob.objects.filter(
+                    job=aj, person__ophase=Ophase.current())
                 helpers_by_status = defaultdict(list)
                 for helper in helpers:
-                    helpers_by_status[helper.status].append(helper.person.get_name())
+                    helpers_by_status[helper.status].append(
+                        helper.person.get_name())
 
                 context['helper_jobs'].append(
                     {
@@ -111,7 +119,8 @@ class GroupMassCreateView(StaffAppMixin, FormView):
     form_class = GroupMassCreateForm
 
     def form_valid(self, form):
-        template = loader.get_template("staff/dashboard/group_mass_create_success.html")
+        template = loader.get_template(
+            "staff/dashboard/group_mass_create_success.html")
         context = self.get_context_data()
 
         current_ophase = Ophase.current()
@@ -119,13 +128,16 @@ class GroupMassCreateView(StaffAppMixin, FormView):
             context['ophase'] = False
         else:
             context['ophase'] = True
-            category = OphaseCategory.objects.get(id=form.cleaned_data['category'])
-            existing_group_names = set(group.name for group in TutorGroup.objects.filter(ophase=current_ophase))
+            category = OphaseCategory.objects.get(
+                id=form.cleaned_data['category'])
+            existing_group_names = set(
+                group.name for group in TutorGroup.objects.filter(ophase=current_ophase))
             new_groups = []
             context['duplicate_group_count'] = 0
             for name in form.cleaned_data['group_names'].splitlines():
                 if name not in existing_group_names:
-                    new_groups.append(TutorGroup(ophase=current_ophase, name=name, group_category=category))
+                    new_groups.append(TutorGroup(
+                        ophase=current_ophase, name=name, group_category=category))
                 else:
                     context['duplicate_group_count'] += 1
             context['new_group_count'] = len(new_groups)
@@ -141,7 +153,8 @@ class TutorPairingView(StaffAppMixin, FormView):
     success_url = reverse_lazy('dashboard:staff:tutor_pairing_success')
 
     def form_valid(self, form):
-        pairing_data = {int(k[6:]): v for k, v in form.cleaned_data.items() if k.startswith("group-")}
+        pairing_data = {
+            int(k[6:]): v for k, v in form.cleaned_data.items() if k.startswith("group-")}
         for group_id, choices in pairing_data.items():
             group = TutorGroup.objects.get(id=group_id)
             new_tutors = Person.objects.filter(id__in=choices)
@@ -177,15 +190,19 @@ class NametagCreation(StaffAppMixin, TemplateView):
             is_helper=True).prefetch_related('orga_jobs').order_by('name')
         context['staff'] = persons
         context['count_staff'] = persons.count()
-        context['groupscount'] = TutorGroup.objects.filter(ophase=Ophase.current()).count()
-        context['groups_without_picture'] = TutorGroup.objects.filter(ophase=Ophase.current(), picture='').count()
+        context['groupscount'] = TutorGroup.objects.filter(
+            ophase=Ophase.current()).count()
+        context['groups_without_picture'] = TutorGroup.objects.filter(
+            ophase=Ophase.current(), picture='').count()
         return context
 
     def post(self, request, *args, **kwargs):
+        # should generate all nametags
         if request.POST['action'] == 'all_nametags':
             queryset = Person.objects.filter(ophase=Ophase.current()).exclude(
                 is_helper=True).prefetch_related('orga_jobs').order_by('name')
             return generate_nametag_response(request, queryset)
+        # generate single nametag
         elif request.POST['action'] == 'single_nametag':
             person = {'prename': request.POST['prename'],
                       'name': request.POST['name']}
@@ -194,18 +211,24 @@ class NametagCreation(StaffAppMixin, TemplateView):
             if 'orga' in request.POST:
                 person['is_orga'] = True
             if len(request.POST['extrahead']) != 0:
-                person['nametag_shortname'] =  request.POST['extrahead']
-                person['nametag_long'] =  request.POST['extrarow']
+                person['nametag_shortname'] = request.POST['extrahead']
+                person['nametag_long'] = request.POST['extrarow']
             person['get_approved_orgajob_names'] = []
             if 'helpdesk' in request.POST:
                 person['get_approved_orgajob_names'].append('Helpdesk')
             if 'leitung' in request.POST:
                 person['get_approved_orgajob_names'].append('Leitung')
+        # generate group signs
         elif request.POST['action'] == 'group_signs':
-            return generate_tutorgroup_sign(request, TutorGroup.objects.filter(ophase=Ophase.current()))
-            
+            return generate_pdf_with_group_pictures(request,
+                                                    TutorGroup.objects.filter(
+                                                        ophase=Ophase.current()),
+                                                    'schilder.pdf',
+                                                    'staff/reports/gruppenschilder.tex')
+
             return generate_nametag_response(
                 request, [person], filename='schild.pdf')
+
 
 class GroupPictureAdd(StaffAppMixin, TemplateView):
     permissions = ['staff.edit_tutorgroup']
@@ -225,4 +248,3 @@ class GroupPictureAdd(StaffAppMixin, TemplateView):
             elif request.POST['action-' + str(group.id)] == 'delete':
                 group.picture.delete()
         return redirect('dashboard:staff:group_picture_add')
-
