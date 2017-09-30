@@ -76,10 +76,10 @@ class PersonForm(forms.ModelForm):
         instance = super().save(commit=False)
         instance.save()
 
-        if self.cleaned_data["is_orga"]:
+        if "is_orga" in self.cleaned_data and self.cleaned_data["is_orga"]:
             for job in self.cleaned_data['orga_jobs'].all():
                 OrgaSelectedJob.objects.create(job=job, person=instance)
-        if self.cleaned_data["is_helper"]:
+        if "is_helper" in self.cleaned_data and self.cleaned_data["is_helper"]:
             for job in self.cleaned_data['helper_jobs'].all():
                 HelperSelectedJob.objects.create(job=job, person=instance)
 
