@@ -103,4 +103,5 @@ class PersonForm(forms.ModelForm):
             self.add_error(None, ValidationError(_('Du kannst an der OPhase nur mitwirken, wenn du dich als Tutor, Orga oder Helfer meldest. Bitte wähle mindestens eine Tätigkeit aus.')))
 
             for field in ('is_tutor', 'tutor_for', 'is_orga', 'orga_jobs', 'is_helper', 'helper_jobs'):
-                self.add_error(field, None)
+                if field in cleaned_data:
+                    self.add_error(field, None)
