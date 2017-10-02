@@ -1,0 +1,58 @@
+{% load tex_escape %}
+{% autoescape off %}
+{% verbatim %}
+% Überarbeitet von Tobias Otterbein 16.09.2013
+% Vorlage zur Erstellung der Gruppenübersicht für den Helpdesk
+
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[left=1cm, right=1cm, top=2cm, bottom=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+
+
+\pagestyle{empty}
+
+%% Gibt eine Gruppenzeile aus
+% 1: Gruppenname
+% 2: Gruppenbild
+% 3: Tutorenliste (\Tutor-Tags)
+% 4: Raumliste (\Raum-tags
+\newcommand{\Gruppe}[4]{
+	\includegraphics[width=2cm, height=2cm]{#2}
+	 & \parbox{3cm}{\vspace{-1.5cm}\Large \sf{#1}}
+	 & \parbox{3cm}{\vspace{-1.5cm}\sf{#4}}
+	 & \parbox{7cm}{\vspace{-1.5cm}\sf{#3}}\\
+	\hline
+}
+
+%% Gibt eine Tutorenzeile aus
+% 1: Name
+% 2: Handynummer
+\newcommand{\Tutor}[2]{
+	\noindent{}#1: #2\par
+}
+
+\newcommand{\Raum}[1]{
+	#1 \par
+}
+
+\begin{document}
+
+\begin{longtable}{l l|l|l}
+
+	\sf Bild &  \sf Name &  \sf Räume &  \sf Tutoren\\
+	\hline
+	\hline
+{% endverbatim %}
+%\Gruppe{Wario}{daten/bilder/supermario/icon_wario}{\Tutor{Peter}{128}\Tutor{Tobias}{5459}}{\Raum{S1|03 105}\Raum{S1|03 105}\Raum{S1|03 105}\Raum{S1|03 105}\Raum{S1|03 105}}
+{% for group, rooms in grouprooms %}
+	\Gruppe{ {{ group.name|tex_escape }} }{% templatetag openbrace %}{{ group.get_picture_name }}{% templatetag closebrace%}{ {% for tutor in group.tutors.all %}\Tutor{ {{ tutor.get_name }} }{ {{ tutor.phone }}}{% endfor %} }{ {% for room in rooms %}\Raum{ {{ room|tex_escape }} } {% endfor %} }
+		{% endfor %}
+\end{longtable}
+\end{document}
+{% endautoescape %}
+

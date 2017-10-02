@@ -1,4 +1,6 @@
 from collections import defaultdict
+from csv import reader
+from io import TextIOWrapper
 
 from django.template import loader
 from django.template.response import TemplateResponse
@@ -6,6 +8,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
 from django.shortcuts import redirect
+from django.contrib import messages
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
@@ -225,9 +228,24 @@ class NametagCreation(StaffAppMixin, TemplateView):
                                                         ophase=Ophase.current()),
                                                     'schilder.pdf',
                                                     'staff/reports/gruppenschilder.tex')
+        elif request.POST['action'] == 'group_overview':
+            # check whether a file was uploaded
+            if not 'roomscsv' in request.FILES:
+                messages.error(request, _(
+                    'Du hast keine csv-Datei hochgeladen.'))
+                return redirect('dashboard:staff:nametags')
+            csv = TextIOWrapper(
+                request.FILES['roomscsv'].file, encoding=request.encoding)
+            rooms = list(reader(csv))[2:]
+            groups = TutorGroup.objects.filter(ophase=Ophase.current())
+            grouprooms = zip(groups, rooms)
+            return generate_pdf_with_group_pictures(request,
+                                                    groups,
+                                                    'uebersicht.pdf',
+                                                    'staff/reports/gruppenuebersicht.tex',
+                                                    {'grouprooms': grouprooms})
 
-            return generate_nametag_response(
-                request, [person], filename='schild.pdf')
+        return generate_nametag_response(request, [person], filename='schild.pdf')
 
 
 class GroupPictureAdd(StaffAppMixin, TemplateView):

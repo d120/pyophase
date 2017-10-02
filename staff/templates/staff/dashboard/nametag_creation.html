@@ -1,9 +1,12 @@
 {% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% load static %}
 
 {% block title%}{% trans "Namensschilder erstellen" %} | {% trans "Dashboard" %}{% endblock %}
 
 
 {% block content_dashboard_view %}
+{% bootstrap_messages %}
+
 <div class="panel panel-primary">
 	<div class="panel-heading">
 		<h3>{% trans "Namensschilder erstellen" %} <span class="badge">{{ count_staff }}</span></h3>
@@ -87,7 +90,7 @@
 		<h3>{% trans "Gruppenschilder erstellen" %} <span class="badge">{{ groupscount }}</span></h3>
 	</div>
 	<div class="panel-body">
-		{% trans "Erstellt ein pdf mit einer Gruppe pro Seite und Foto" %}
+		{% trans "Erstellt ein pdf mit Schildern (Name und Bild für jede Gruppe)" %}
 		<form action="{{ request.path }}" method="post">{% csrf_token %}
 			<input type="hidden" name="action" value="group_signs">
 			{% if groups_without_picture != 0 %}
@@ -108,6 +111,40 @@
 			{% else %}
 			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
 			{% endif %}
+		</form>
+	</div>
+</div>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3>{% trans "Gruppenübersicht erstellen" %} <span class="badge">{{ groupscount }}</span></h3>
+	</div>
+	<div class="panel-body">
+		{% static "staff/csv/rooms.csv" as csvsample %}
+		{% blocktrans %}
+		Erstellt ein pdf mit einer Übersicht zu allen Tutoren. Hierzu muss zuerst eine Liste mit Räumen
+		im CSV-Format hochgeladen werden. Eine Vorlage findet sich <a href="{{ csvsample }}">hier</a>.
+		{% endblocktrans %}
+		<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
+			<input type="hidden" name="action" value="group_overview">
+			{% if groups_without_picture != 0 %}
+			{% url 'dashboard:staff:group_picture_add' as group_picture_url%}
+			<div class="alert alert-danger" role="alert">{% blocktrans count counter=groups_without_picture %}
+				Es gibt <strong>eine</strong>
+				Gruppe ohne Bilder.
+				{% plural %}
+				Es gibt <strong>{{ groups_without_picture }}</strong>
+				Gruppen ohne Bilder.
+				{% endblocktrans %}
+				{% blocktrans %}
+				Wenn nicht alle Bilder eingetragen sind, funktioniert die Generierung nicht.
+				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
+				{% endblocktrans %}
+			</div>
+			<button class="pull-right btn btn-primary disabled" type="button">{% trans "PDF mit Gruppenübersicht erstellen" %}</button>
+			{% else %}
+			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit Gruppenübersicht erstellen" %}</button>
+			{% endif %}
+			<input name="roomscsv" type="file"/>
 		</form>
 	</div>
 </div>

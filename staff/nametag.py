@@ -33,8 +33,11 @@ def generate_nametag_response(request, queryset, filename='tutorenschilder.pdf')
     return response
 
 
-def generate_pdf_with_group_pictures(request, groups, filename, template):
-    (pdf, pdflatex_output) = LaTeX.render({'groups': groups}, template,
+def generate_pdf_with_group_pictures(request, groups, filename, template, context=None):
+    if context is None:
+        context = {}
+    context['groups'] = groups
+    (pdf, pdflatex_output) = LaTeX.render(context, template,
                                           [], 'staff', [group.picture.path for group in groups if group.picture])
     if not pdf:
         return render(request, "staff/reports/rendering-error.html", {"content": pdflatex_output[0].decode("utf-8")})
