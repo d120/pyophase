@@ -28,7 +28,7 @@
     // function to hide all groups which do not belong to the chosen group category
     function showSelectedGroups(e) {
         $(".tutor-select").parent().hide();
-        var categoryCssClass = $("select[name=category] option:selected").text().toLowerCase().replace(' ', '-');
+        var categoryCssClass = $("select[name=category] option:selected").text().toLowerCase().replace(/ /g, '-');
         $("." + categoryCssClass).parent().show();
     }
     // enable chosen for category field
