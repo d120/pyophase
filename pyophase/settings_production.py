@@ -49,3 +49,5 @@ EMAIL_HOST_USER = 'pyophase'
 EMAIL_HOST_PASSWORD = secrets.MAIL_PASSWORD
 
 TUID_FORCE_SERVICE_URL = 'https://www.fachschaft.informatik.tu-darmstadt.de/ophase/sso/login/'
+
+FILE_UPLOAD_PERMISSIONS = 0o644
