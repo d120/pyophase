@@ -1,6 +1,7 @@
 from collections import defaultdict
 from csv import reader
 from io import TextIOWrapper
+from itertools import cycle
 
 from django.template import loader
 from django.template.response import TemplateResponse
@@ -9,12 +10,13 @@ from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.http import HttpResponse
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
-from .nametag import generate_nametag_response, generate_pdf_with_group_pictures
+from .nametag import generate_nametag_response, generate_pdf_with_group_pictures, generate_nametags
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -244,6 +246,32 @@ class NametagCreation(StaffAppMixin, TemplateView):
                                                     'uebersicht.pdf',
                                                     'staff/reports/gruppenuebersicht.tex',
                                                     {'grouprooms': grouprooms})
+        elif request.POST['action'] == 'freshmen_nametags':
+            if not 'roomscsv' in request.FILES:
+                messages.error(request, _(
+                    'Du hast keine Raum csv-Datei hochgeladen.'))
+            if not 'freshmencsv' in request.FILES:
+                messages.error(request, _(
+                    'Du hast keine Erstsemester csv-Datei hochgeladen.'))
+            if len(messages.get_messages(request)) != 0:
+                return redirect('dashboard:staff:nametags')
+            roomscsv = TextIOWrapper(
+                request.FILES['roomscsv'].file, encoding=request.encoding)
+            rooms = list(reader(roomscsv))
+            freshmencsv = TextIOWrapper(
+                request.FILES['freshmencsv'].file, encoding=request.encoding)
+            freshmen = list(reader(freshmencsv))[1:]
+            groups = TutorGroup.objects.filter(ophase=Ophase.current())
+            freshmen_group = zip(freshmen, cycle(groups))
+            # generate group assignement overview
+            (pdf, pdflatex_output) = generate_nametags(
+                freshmen_group, template='staff/reports/gruppenzuweisung.tex')
+            if not pdf:
+                return render(request, "staff/reports/rendering-error.html", {"content": pdflatex_output[0].decode("utf-8")})
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=test.pdf'
+            response.write(pdf)
+            return response
 
         return generate_nametag_response(request, [person], filename='schild.pdf')
 

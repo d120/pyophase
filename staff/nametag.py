@@ -11,18 +11,21 @@ from ophasebase.helper import LaTeX
 from ophasebase.models import Ophase
 
 
-def generate_nametags(queryset):
-    """ Generates a PDF file with nametags for students in the queryset """
-    current_ophase = Ophase.current()
-    (pdf, pdflatex_output) = LaTeX.render({"items": queryset, "current_ophase": current_ophase},
-                                          'staff/reports/tutorenschilder.tex', [
+def generate_nametags(queryset, template='staff/reports/tutorenschilder.tex', context=None):
+    """ Generates a PDF file with nametags for students in the queryset"""
+    if context is None:
+        context = {}
+    context['items'] = queryset
+    context['current_ophase'] = Ophase.current()
+    (pdf, pdflatex_output) = LaTeX.render(context,
+                                          template, [
                                               'OPhasenWesen.png'],
                                           'staff')
     return (pdf, pdflatex_output)
 
 
 def generate_nametag_response(request, queryset, filename='tutorenschilder.pdf'):
-    """ Generates a PDF file with exam certificates for students in the queryset and sends it to the browser """
+    """ Generates a PDF file with nametags for students in the queryset and sends it to the browser"""
     (pdf, pdflatex_output) = generate_nametags(queryset)
 
     if not pdf:

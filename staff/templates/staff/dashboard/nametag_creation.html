@@ -116,13 +116,13 @@
 </div>
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3>{% trans "Gruppenübersicht erstellen" %} <span class="badge">{{ groupscount }}</span></h3>
+		<h3>{% trans "Gruppenübersicht erstellen" %}</h3>
 	</div>
 	<div class="panel-body">
-		{% static "staff/csv/rooms.csv" as csvsample %}
+		{% static "staff/csv/rooms.csv" as csv_rooms %}
 		{% blocktrans %}
 		Erstellt ein pdf mit einer Übersicht zu allen Tutoren. Hierzu muss zuerst eine Liste mit Räumen
-		im CSV-Format hochgeladen werden. Eine Vorlage findet sich <a href="{{ csvsample }}">hier</a>.
+		im CSV-Format hochgeladen werden. Eine Vorlage findet sich <a href="{{ csv_rooms }}">hier</a>.
 		{% endblocktrans %}
 		<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
 			<input type="hidden" name="action" value="group_overview">
@@ -145,6 +145,54 @@
 			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit Gruppenübersicht erstellen" %}</button>
 			{% endif %}
 			<input name="roomscsv" type="file"/>
+		</form>
+	</div>
+</div>
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<h3>{% trans "Erstienamensschilder und Helpdeskübersicht" %}</h3>
+	</div>
+	<div class="panel-body">
+		{% static "staff/csv/ersties.csv" as csv_freshmen %}
+		{% blocktrans %}
+		Erstellt eine tar-Datei mit jeweils einer PDF-Datei für die Namensschilder und einer Übersicht für den Helpdesk.
+		Dazu muss eine csv-Datei mit den Namen der Erstsemester und den Räumen hochgeladen werden.
+		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_freshmen }}">Erstemester</a>.
+		{% endblocktrans %}
+		<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
+			<input type="hidden" name="action" value="freshmen_nametags">
+			{% if groups_without_picture != 0 %}
+			{% url 'dashboard:staff:group_picture_add' as group_picture_url%}
+			<div class="alert alert-danger" role="alert">{% blocktrans count counter=groups_without_picture %}
+				Es gibt <strong>eine</strong>
+				Gruppe ohne Bilder.
+				{% plural %}
+				Es gibt <strong>{{ groups_without_picture }}</strong>
+				Gruppen ohne Bilder.
+				{% endblocktrans %}
+				{% blocktrans %}
+				Wenn nicht alle Bilder eingetragen sind, funktioniert die Generierung nicht.
+				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
+				{% endblocktrans %}
+			</div>
+			<button class="pull-right btn btn-primary disabled" type="button">{% trans "tar mit Übersicht und Namensschildern erstellen" %}</button>
+			{% else %}
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="roomscsv">Räume:</label>
+						<input id="roomscsv" name="roomscsv" type="file"/>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="freshmencsv">Erstsemester:</label>
+						<input id="freshmencsv" name="freshmencsv" type="file"/>
+					</div>
+				</div>
+			</div>
+			<button class="pull-right btn btn-primary" type="submit">{% trans "tar mit Übersicht und Namensschildern erstellen" %}</button>
+			{% endif %}
 		</form>
 	</div>
 </div>
