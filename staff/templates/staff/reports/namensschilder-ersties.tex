@@ -1,0 +1,118 @@
+{% load tex_escape %}
+{% autoescape off %}
+{% verbatim %}
+% Tobias Otterbein, 22.08.2013
+% Vorlage der Erstsemesternamensschilder für die Ophase
+
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[top=0mm,bottom=0mm,left=0mm,right=0mm]{geometry}
+
+% Daten aus dem Package
+\usepackage{times}
+\usepackage{framed, color}
+\usepackage{graphicx}
+\usepackage{ifthen}
+
+
+% Hintergrund
+% Grün\definecolor{background}{RGB}{153, 192,0 }
+\definecolor{background}{RGB}{253, 202,0 }
+\pagecolor{background}
+
+% Template für Namensschilder:
+% 1: Vorname
+% 2: Nachname
+% 3: Gruppenname
+% 4: Gruppenbild
+% 5: Tutor 1
+% 6: Tutor 2
+% 7: \raum-Tags für die Tabelle
+
+\newcommand{\Namensschild}[7]{%
+\begin{minipage}[74mm]{210mm}
+
+\sf{
+	% Kopfzeile
+	\colorbox{white}{\parbox[c][6mm]{210mm}{\hspace{30mm}\textbf{ \Large Ophase Informatik}}}
+	\hrule height 2pt
+	\vspace{1mm}
+ 	\vfill 	 	
+ 
+ 	% Vorderseite
+ 
+	% Gruppe und Name
+    \hfill\textbf{ 
+  	\fboxrule 1pt
+ 	\fcolorbox{black}{white}{
+ 		% Gruppe und Icon
+ 		\parbox[c][50mm]{20mm}{\includegraphics[height=20mm]{#4} \\ \centering #3}
+ 		% Name
+ 		\parbox[c][50mm]{72mm}{\centering{{\fontsize{35}{30} \selectfont #1} \vspace{3mm}\\ #2}}
+ 	}
+ 	\hfill
+ 	\hfill
+ 	%
+ 	% Rückseite
+ 	%
+  	\fcolorbox{black}{white}{\parbox[c][50mm]{92mm}{\centering{
+  	Tutoren: \\ #5 ~~~~~ #6 \\
+  	%
+  	\vspace{4mm}
+  	{\large Helpdesk: 06151-16-25522} \\
+  	%
+  	\vspace{4mm}
+  	% Stundenplan
+  	{\small
+	\begin{tabular}{r|l|l}
+		Wann? &  Was? & Wo? \\
+		\hline
+		#7
+	\end{tabular}
+	%	
+  	}}}}
+  	}\hfill}
+    \vfill
+  	\vspace{1mm}
+ 	% Fußleiste
+  	\hrule height 2pt
+	\ifthenelse{\the\month>4}
+	{\colorbox{white}{\parbox[c][6mm]{210mm}{\hspace{5mm} \textbf{TU Darmstadt | FB 20 | Winter \the\year}}}}
+  	{\colorbox{white}{\parbox[c][6mm]{210mm}{\hspace{5mm} \textbf{TU Darmstadt | FB 20 | Sommer \the\year}}}}
+  	
+ \end{minipage}
+ }
+
+
+%% Gibt eine Tabellenzeile mit Raumdaten aus
+% 1: Zeit
+% 2: Raum
+% 3: Thema des Kleingruppentermins
+\newcommand{\Raum}[3]{ %
+	#1 & #3 & #2 \\
+}
+
+% Ende Packagedaten
+
+\pagestyle{empty}
+\raggedright
+% Template für Namensschilder:
+% 1: Vorname
+% 2: Nachname
+% 3: Gruppenname
+% 4: Gruppenbild
+% 5: Tutor 1
+% 6: Tutor 2
+% 7: \raum-Tags für die Tabelle
+
+
+\begin{document}
+{% endverbatim %}
+{% for freshman in freshmen %}
+	\Namensschild{ {{ freshman.0.1 }} }{ {{ freshman.0.0 }} }{ {{ freshman.1.name }} }{% templatetag openbrace %}{{ freshman.1.get_picture_name }}{% templatetag closebrace %}{ {{ freshman.1.tutors.all.0 }} }{ {{ freshman.1.tutors.all.1 }} }{ {% for room in freshman.2 %}\Raum{ {{ room.0 }} }{ {{ room.2 }} }{ {{ room.1 }} }{% endfor %} }
+{% endfor %}
+\Namensschild{Ismael}{Bergmann}{Mario}{minimal-earth}{Hans}{Felix}{\Raum{Mo 12:00}{S1|03 100}{Einführung}\Raum{Di 12:00}{S1|03 100}{Struktur des Studiums}\Raum{Mi 12:00}{S1|03 100}{1. Semester / Stundenplan}\Raum{Do 12:00}{S1|03 100}{TUCaN}\Raum{Fr 12:00}{S1|03 100}{Klausureinsicht / Feedback}}
+\end{document}
+{% endautoescape %}

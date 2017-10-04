@@ -264,13 +264,26 @@ class NametagCreation(StaffAppMixin, TemplateView):
             groups = TutorGroup.objects.filter(ophase=Ophase.current())
             freshmen_group = zip(freshmen, cycle(groups))
             # generate group assignement overview
-            (pdf, pdflatex_output) = generate_nametags(
+            (assignement_pdf, assignement_log) = generate_nametags(
                 freshmen_group, template='staff/reports/gruppenzuweisung.tex')
-            if not pdf:
-                return render(request, "staff/reports/rendering-error.html", {"content": pdflatex_output[0].decode("utf-8")})
+            if not assignement_pdf:
+                return render(request, "staff/reports/rendering-error.html", {"content": assignement_log[0].decode("utf-8")})
+            # generate timetable for each group with format [time, slotname, room]
+            timetable = (list(zip(rooms[0], rooms[1], roomnumber))
+                         for roomnumber in rooms[2:])
+            # combine this with the freshmen_group-zip
+            freshmen_tags = [list(x) for x in zip(
+                freshmen, cycle(groups), cycle(timetable))]
+
+            return generate_pdf_with_group_pictures(request=request,
+                                                    groups=groups,
+                                                    filename='test.pdf',
+                                                    template='staff/reports/namensschilder-ersties.tex',
+                                                    context={'freshmen': freshmen_tags})
+            (nametag_pdf, nametag_log)
             response = HttpResponse(content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename=test.pdf'
-            response.write(pdf)
+            response.write(assignement_pdf)
             return response
 
         return generate_nametag_response(request, [person], filename='schild.pdf')
