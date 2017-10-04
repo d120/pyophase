@@ -1,0 +1,25 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "TimeSlot anlegen" %}{% endblock %}
+
+{% block content_dashboard_view %}
+
+    <h3 style="margin-bottom:30px;">{% trans "TimeSlot anlegen" %}</h3>
+
+    <div id="mainForm" class="margin-top-3">
+        <form role="form" action="{{action}}" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+        {% buttons %}
+            <button type="reset" class="btn btn-danger">
+                {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+            </button>
+            <button type="submit" class="btn btn-success pull-right">
+                {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+            </button>
+        {% endbuttons %}
+        </form>
+    </div>
+
+{% endblock %}

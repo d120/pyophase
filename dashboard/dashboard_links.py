@@ -17,6 +17,7 @@ class DashboardLinks():
             (_("Start"), cls.get_index_link()),
             (_("Persönliche Übersicht"), reverse_lazy('dashboard:personal_overview')),
             (_("Personal"), reverse_lazy('dashboard:staff:index')),
+            (_("Plan"), reverse_lazy('dashboard:plan:overview')),
             (_("Ersties"), reverse_lazy('dashboard:students:index')),
             (_("Klausur"), reverse_lazy('dashboard:exam:assignment')),
             (_("Kleidung"), reverse_lazy('dashboard:clothing:order_overview')),

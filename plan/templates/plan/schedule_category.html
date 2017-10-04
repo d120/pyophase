@@ -1,0 +1,28 @@
+{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% load i18n %}
+
+{% block title %}{% trans "Plan" %}{% endblock %}
+
+{% block content_dashboard_view %}
+
+    <div class="btn-group">
+        <a href="{% url "dashboard:plan:overview" %}" class="btn btn-primary">{% trans "Übersicht" %}</a>
+        <a href="#" class="btn btn-default">{% trans "Komplett:" %}</a>
+        {% for c in categories %}
+            <a href="{% url "dashboard:plan:overview_category" c.category.slug %}" class="btn btn-group btn-success">{{ c.category.name }}</a>
+        {% endfor %}
+        <a href="#" class="btn btn-default">{% trans "Öffentlich:" %}</a>
+        {% for c in categories %}
+            <a href="{% url "dashboard:plan:overview_category_public" c.category.slug %}" class="btn btn-info">{{ c.category.name }}</a>
+        {% endfor %}
+    </div>
+
+    <h3 style="margin-top:30px;margin-bottom:30px;">{% trans "Plan" %}: {{ category.name }} {% if public %}({% trans "Öffentliche Termine" %}){% endif %}</h3>
+
+    {% for ts in time_slots %}
+        {{ ts.name }}: {{ ts.begin }} - {{ ts.end }}<br>
+    {% empty %}
+        <p>{% trans "Keine Termine geplant" %}</p>
+    {% endfor %}
+
+{% endblock %}
