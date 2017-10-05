@@ -245,11 +245,35 @@ class NametagCreation(StaffAppMixin, TemplateView):
             rooms = list(reader(csv))[2:]
             groups = TutorGroup.objects.filter(ophase=Ophase.current())
             grouprooms = zip(groups, rooms)
-            return generate_pdf_with_group_pictures_response(request,
-                                                             groups,
-                                                             'uebersicht.pdf',
-                                                             'staff/reports/gruppenuebersicht.tex',
-                                                             {'grouprooms': grouprooms})
+            timetable = [list(zip(rooms[0], rooms[1], roomnumber))
+                         for roomnumber in rooms[2:]]
+            timetable_rooms = zip(groups, timetable)
+            (group_overview_pdf, group_overview_log) = generate_pdf_with_group_pictures(request,
+                                                                                        groups,
+                                                                                        'staff/reports/gruppenuebersicht.tex',
+                                                                                        {'grouprooms': grouprooms})
+            (handout_pdf, handout_log) = generate_pdf_with_group_pictures(request,
+                                                                          groups,
+                                                                          'staff/reports/handzettel.tex',
+                                                                          {'grouprooms': timetable_rooms})
+            memoryfile = BytesIO()
+            zipfile = ZipFile(memoryfile, 'w')
+            if group_overview_pdf is not None:
+                zipfile.writestr('group-overview.pdf', group_overview_pdf)
+            else:
+                zipfile.writestr('group-overview-log.txt',
+                                 group_overview_log[0].decode('utf-8'))
+            if handout_pdf is not None:
+                zipfile.writestr('handout.pdf', handout_pdf)
+            else:
+                zipfile.writestr('handout-log.txt',
+                                 handout_log[0].decode('utf-8'))
+            zipfile.close()
+            response = HttpResponse(content_type='application/zip')
+            response['Content-Disposition'] = 'attachment; filename=overview.zip'
+            memoryfile.seek(0)
+            response.write(memoryfile.read())
+            return response
         elif request.POST['action'] == 'freshmen_nametags':
             if not 'roomscsv' in request.FILES:
                 messages.error(request, _(
@@ -267,7 +291,6 @@ class NametagCreation(StaffAppMixin, TemplateView):
             freshmen = list(reader(freshmencsv))[1:]
             form = TutorGroupSelect(request.POST)
             form.is_valid()
-            ghhh = form.cleaned_data
             groups = form.cleaned_data.get('TutorGruppe')
             freshmen_group = zip(freshmen, cycle(groups))
             # generate group assignement overview
@@ -295,11 +318,13 @@ class NametagCreation(StaffAppMixin, TemplateView):
             if assignement_pdf is not None:
                 zipfile.writestr('assignement-overview.pdf', assignement_pdf)
             else:
-                zipfile.writestr('assignement-log.txt', assignement_log[0].decode('utf-8'))
+                zipfile.writestr('assignement-log.txt',
+                                 assignement_log[0].decode('utf-8'))
             if nametags_pdf is not None:
                 zipfile.writestr('nametags.pdf', nametags_pdf)
             else:
-                zipfile.writestr('nametags-log.txt', nametag_log[0].decode('utf-8'))
+                zipfile.writestr('nametags-log.txt',
+                                 nametag_log[0].decode('utf-8'))
             zipfile.close()
             response = HttpResponse(content_type='application/zip')
             response['Content-Disposition'] = 'attachment; filename=freshmen.zip'
