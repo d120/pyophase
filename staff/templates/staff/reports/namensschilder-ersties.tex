@@ -29,9 +29,10 @@
 % 4: Gruppenbild
 % 5: Tutor 1
 % 6: Tutor 2
-% 7: \raum-Tags für die Tabelle
+% 7: Tutor 3
+% 8: \raum-Tags für die Tabelle
 
-\newcommand{\Namensschild}[7]{%
+\newcommand{\Namensschild}[8]{%
 \begin{minipage}[74mm]{210mm}
 
 \sf{
@@ -59,6 +60,7 @@
  	%
   	\fcolorbox{black}{white}{\parbox[c][50mm]{92mm}{\centering{
   	Tutoren: \\ #5 ~~~~~ #6 \\
+	#7 \\
   	%
   	\vspace{4mm}
   	{\large Helpdesk: 06151-16-25522} \\
@@ -69,7 +71,7 @@
 	\begin{tabular}{r|l|l}
 		Wann? &  Was? & Wo? \\
 		\hline
-		#7
+		#8
 	\end{tabular}
 	%	
   	}}}}
@@ -105,16 +107,17 @@
 % 4: Gruppenbild
 % 5: Tutor 1
 % 6: Tutor 2
-% 7: \raum-Tags für die Tabelle
+% 7: Tutor 3
+% 8: \raum-Tags für die Tabelle
 
 
 \begin{document}
 {% endverbatim %}
 {% for freshman in freshmen %}
-\Namensschild{ {{ freshman.0.1|tex_escape }} }{ {{ freshman.0.0|tex_escape }} }{ {{ freshman.1.name|tex_escape }} }{% templatetag openbrace %}{{ freshman.1.get_picture_name }}{% templatetag closebrace %}{ {{ freshman.1.tutors.all.0|tex_escape }} }{ {{ freshman.1.tutors.all.1|tex_escape }} }{ {% for room in freshman.2 %}\Raum{ {{ room.0|tex_escape }} }{ {{ room.2|tex_escape }} }{ {{ room.1|tex_escape }} }{% endfor %} }
+	\Namensschild{ {{ freshman.0.1|tex_escape }} }{ {{ freshman.0.0|tex_escape }} }{ {{ freshman.1.name|tex_escape }} }{% templatetag openbrace %}{{ freshman.1.get_picture_name }}{% templatetag closebrace %}{ {{ freshman.1.tutors.all.0|tex_escape }} }{ {{ freshman.1.tutors.all.1|tex_escape }} }{ {% if freshman.1.tutors.all.2 %} {{ freshman.1.tutors.all.2|tex_escape }} {% else %}~{% endif %} }{ {% for room in freshman.2 %}\Raum{ {{ room.0|tex_escape }} }{ {{ room.2|tex_escape }} }{ {{ room.1|tex_escape }} }{% endfor %} }
 {% endfor %}
 {% for tag in empty_tags %}
-\Namensschild{~}{~}{ {{ tag.0.name|tex_escape }} }{% templatetag openbrace %}{{ tag.0.get_picture_name }}{% templatetag closebrace %}{ {{ tag.0.tutors.all.0|tex_escape }} }{ {{ tag.0.tutors.all.1|tex_escape }} }{ {% for room in tag.1 %}\Raum{ {{ room.0|tex_escape }} }{ {{ room.2|tex_escape }} }{ {{ room.1|tex_escape }} }{% endfor %} }
+	\Namensschild{~}{~}{ {{ tag.0.name|tex_escape }} }{% templatetag openbrace %}{{ tag.0.get_picture_name }}{% templatetag closebrace %}{ {{ tag.0.tutors.all.0|tex_escape }} }{ {{ tag.0.tutors.all.1|tex_escape }} }{ {% if tag.0.tutors.all.2 %} {{ tag.0.tutors.all.2|tex_escape }} {% else %} ~ {% endif %} }{ {% for room in tag.1 %}\Raum{ {{ room.0|tex_escape }} }{ {{ room.2|tex_escape }} }{ {{ room.1|tex_escape }} }{% endfor %} }
 {% endfor %}
 \end{document}
 {% endautoescape %}

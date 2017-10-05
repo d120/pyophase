@@ -287,8 +287,14 @@ class NametagCreation(StaffAppMixin, TemplateView):
                                                                                     'empty_tags': empty_tags})
             memoryfile = BytesIO()
             zipfile = ZipFile(memoryfile, 'w')
-            zipfile.writestr('assignement-overview.pdf', assignement_pdf)
-            zipfile.writestr('nametags.pdf', nametags_pdf)
+            if assignement_pdf is not None:
+                zipfile.writestr('assignement-overview.pdf', assignement_pdf)
+            else:
+                zipfile.writestr('assignement-log.txt', assignement_log[0].decode('utf-8'))
+            if nametags_pdf is not None:
+                zipfile.writestr('nametags.pdf', nametags_pdf)
+            else:
+                zipfile.writestr('nametags-log.txt', nametag_log[0].decode('utf-8'))
             zipfile.close()
             response = HttpResponse(content_type='application/zip')
             response['Content-Disposition'] = 'attachment; filename=freshmen.zip'
