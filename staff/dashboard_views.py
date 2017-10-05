@@ -18,6 +18,7 @@ from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
 from .nametag import generate_nametag_response, generate_pdf_with_group_pictures, generate_pdf_with_group_pictures_response, generate_nametags
+from .forms import CategorySelect
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -200,6 +201,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
             ophase=Ophase.current()).count()
         context['groups_without_picture'] = TutorGroup.objects.filter(
             ophase=Ophase.current(), picture='').count()
+        context['form'] = CategorySelect
         return context
 
     def post(self, request, *args, **kwargs):
@@ -263,7 +265,10 @@ class NametagCreation(StaffAppMixin, TemplateView):
             freshmencsv = TextIOWrapper(
                 request.FILES['freshmencsv'].file, encoding=request.encoding)
             freshmen = list(reader(freshmencsv))[1:]
-            groups = TutorGroup.objects.filter(ophase=Ophase.current())
+            form = CategorySelect(request.POST)
+            form.is_valid()
+            categories = form.cleaned_data.get('Kategorie')
+            groups = TutorGroup.objects.filter(group_category=categories)
             freshmen_group = zip(freshmen, cycle(groups))
             # generate group assignement overview
             (assignement_pdf, assignement_log) = generate_nametags(
