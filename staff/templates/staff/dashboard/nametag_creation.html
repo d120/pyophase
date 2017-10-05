@@ -155,7 +155,7 @@
 	<div class="panel-body">
 		{% static "staff/csv/ersties.csv" as csv_freshmen %}
 		{% blocktrans %}
-		Erstellt eine tar-Datei mit jeweils einer PDF-Datei für die Namensschilder und einer Übersicht für den Helpdesk.
+		Erstellt eine zip-Datei mit jeweils einer PDF-Datei für die Namensschilder und einer Übersicht für den Helpdesk.
 		Dazu muss eine csv-Datei mit den Namen der Erstsemester und den Räumen hochgeladen werden.
 		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_freshmen }}">Erstemester</a>.
 		{% endblocktrans %}
@@ -175,7 +175,7 @@
 				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
 				{% endblocktrans %}
 			</div>
-			<button class="pull-right btn btn-primary disabled" type="button">{% trans "tar mit Übersicht und Namensschildern erstellen" %}</button>
+			<button class="pull-right btn btn-primary disabled" type="button">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
 			{% else %}
 			<div class="row">
 				<div class="col-md-6">
@@ -191,7 +191,7 @@
 					</div>
 				</div>
 			</div>
-			<button class="pull-right btn btn-primary" type="submit">{% trans "tar mit Übersicht und Namensschildern erstellen" %}</button>
+			<button class="pull-right btn btn-primary" type="submit">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
 			{% endif %}
 		</form>
 	</div>

@@ -1,7 +1,8 @@
 from collections import defaultdict
 from csv import reader
-from io import TextIOWrapper
+from io import TextIOWrapper, BytesIO
 from itertools import cycle
+from zipfile import ZipFile
 
 from django.template import loader
 from django.template.response import TemplateResponse
@@ -16,7 +17,7 @@ from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
-from .nametag import generate_nametag_response, generate_pdf_with_group_pictures, generate_nametags
+from .nametag import generate_nametag_response, generate_pdf_with_group_pictures, generate_pdf_with_group_pictures_response, generate_nametags
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -225,11 +226,11 @@ class NametagCreation(StaffAppMixin, TemplateView):
                 person['get_approved_orgajob_names'].append('Leitung')
         # generate group signs
         elif request.POST['action'] == 'group_signs':
-            return generate_pdf_with_group_pictures(request,
-                                                    TutorGroup.objects.filter(
-                                                        ophase=Ophase.current()),
-                                                    'schilder.pdf',
-                                                    'staff/reports/gruppenschilder.tex')
+            return generate_pdf_with_group_pictures_response(request,
+                                                             TutorGroup.objects.filter(
+                                                                 ophase=Ophase.current()),
+                                                             'schilder.pdf',
+                                                             'staff/reports/gruppenschilder.tex')
         elif request.POST['action'] == 'group_overview':
             # check whether a file was uploaded
             if not 'roomscsv' in request.FILES:
@@ -241,11 +242,11 @@ class NametagCreation(StaffAppMixin, TemplateView):
             rooms = list(reader(csv))[2:]
             groups = TutorGroup.objects.filter(ophase=Ophase.current())
             grouprooms = zip(groups, rooms)
-            return generate_pdf_with_group_pictures(request,
-                                                    groups,
-                                                    'uebersicht.pdf',
-                                                    'staff/reports/gruppenuebersicht.tex',
-                                                    {'grouprooms': grouprooms})
+            return generate_pdf_with_group_pictures_response(request,
+                                                             groups,
+                                                             'uebersicht.pdf',
+                                                             'staff/reports/gruppenuebersicht.tex',
+                                                             {'grouprooms': grouprooms})
         elif request.POST['action'] == 'freshmen_nametags':
             if not 'roomscsv' in request.FILES:
                 messages.error(request, _(
@@ -274,18 +275,20 @@ class NametagCreation(StaffAppMixin, TemplateView):
             # combine this with the freshmen_group-zip
             freshmen_tags = [list(x) for x in zip(
                 freshmen, cycle(groups), cycle(timetable))]
-
-            return generate_pdf_with_group_pictures(request=request,
-                                                    groups=groups,
-                                                    filename='test.pdf',
-                                                    template='staff/reports/namensschilder-ersties.tex',
-                                                    context={'freshmen': freshmen_tags})
-            (nametag_pdf, nametag_log)
+            (nametags_pdf, nametag_log) = generate_pdf_with_group_pictures(request=request,
+                                                                           groups=groups,
+                                                                           template='staff/reports/namensschilder-ersties.tex',
+                                                                           context={'freshmen': freshmen_tags})
+            memoryfile = BytesIO()
+            zipfile = ZipFile(memoryfile, 'w')
+            zipfile.writestr('assignement-overview.pdf', assignement_pdf)
+            zipfile.writestr('nametags.pdf', nametags_pdf)
+            zipfile.close()
             response = HttpResponse(content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename=test.pdf'
-            response.write(assignement_pdf)
+            response['Content-Disposition'] = 'attachment; filename=test.zip'
+            memoryfile.seek(0)
+            response.write(memoryfile.read())
             return response
-
         return generate_nametag_response(request, [person], filename='schild.pdf')
 
 
@@ -306,4 +309,6 @@ class GroupPictureAdd(StaffAppMixin, TemplateView):
                 group.save()
             elif request.POST['action-' + str(group.id)] == 'delete':
                 group.picture.delete()
+        messages.info(request, _(
+            'Bilder erfolgreich hochgeladen.'))
         return redirect('dashboard:staff:group_picture_add')

@@ -113,6 +113,5 @@
 {% for freshman in freshmen %}
 	\Namensschild{ {{ freshman.0.1 }} }{ {{ freshman.0.0 }} }{ {{ freshman.1.name }} }{% templatetag openbrace %}{{ freshman.1.get_picture_name }}{% templatetag closebrace %}{ {{ freshman.1.tutors.all.0 }} }{ {{ freshman.1.tutors.all.1 }} }{ {% for room in freshman.2 %}\Raum{ {{ room.0 }} }{ {{ room.2 }} }{ {{ room.1 }} }{% endfor %} }
 {% endfor %}
-\Namensschild{Ismael}{Bergmann}{Mario}{minimal-earth}{Hans}{Felix}{\Raum{Mo 12:00}{S1|03 100}{Einführung}\Raum{Di 12:00}{S1|03 100}{Struktur des Studiums}\Raum{Mi 12:00}{S1|03 100}{1. Semester / Stundenplan}\Raum{Do 12:00}{S1|03 100}{TUCaN}\Raum{Fr 12:00}{S1|03 100}{Klausureinsicht / Feedback}}
 \end{document}
 {% endautoescape %}
