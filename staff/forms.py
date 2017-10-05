@@ -6,7 +6,7 @@ from django.utils.translation import ugettext as _
 
 from ophasebase.models import OphaseCategory
 from ophasebase.models import Ophase
-from .models import HelperJob, OrgaJob, Person, Settings, OrgaSelectedJob, HelperSelectedJob
+from .models import HelperJob, OrgaJob, Person, Settings, OrgaSelectedJob, HelperSelectedJob, TutorGroup
 
 
 class PersonForm(forms.ModelForm):
@@ -119,6 +119,6 @@ class PersonForm(forms.ModelForm):
                     self.add_error(field, None)
 
 
-class CategorySelect(forms.Form):
-    Kategorie = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple,
-                                                 queryset=Ophase.current().categories.all())
+class TutorGroupSelect(forms.Form):
+    TutorGruppe = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple,
+                                                 queryset=TutorGroup.objects.filter(ophase=Ophase.current()))
