@@ -50,7 +50,7 @@
 {% endverbatim %}
 %\Gruppe{Wario}{daten/bilder/supermario/icon_wario}{\Tutor{Peter}{128}\Tutor{Tobias}{5459}}{\Raum{S1|03 105}\Raum{S1|03 105}\Raum{S1|03 105}\Raum{S1|03 105}\Raum{S1|03 105}}
 {% for group, rooms in grouprooms %}
-\Gruppe{ {{ group.name|tex_escape }} }{% templatetag openbrace %}{{ group.get_picture_name }}{% templatetag closebrace%}{ {% for tutor in group.tutors.all %}\Tutor{ {{ tutor.get_name }} }{ {{ tutor.phone }}}{% endfor %} }{ {% for room in rooms %}\Raum{ {{ room|tex_escape }} } {% endfor %} }
+\Gruppe{ {{ group.name|tex_escape }} }{% templatetag openbrace %}{{ group.get_picture_name }}{% templatetag closebrace%}{ {% for tutor in group.tutors.all %}\Tutor{ {{ tutor.get_name|tex_escape }} }{ {{ tutor.phone }}}{% endfor %} }{ {% for room in rooms %}\Raum{ {{ room|tex_escape }} } {% endfor %} }
 {% endfor %}
 \end{longtable}
 \end{document}
