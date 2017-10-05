@@ -1,0 +1,90 @@
+{% load tex_escape %}
+{% autoescape off %}
+{% verbatim %}
+
+% Tobias Otterbein, 30.05.2013
+% Script zur Erstellung der Tutorenschilder für die Ophase
+
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[paperwidth=105mm,paperheight=75mm,nohead,nofoot,margin=0mm]{geometry}
+\usepackage{times}
+\usepackage{framed, color}
+\usepackage{graphicx}
+\usepackage{ifthen}
+
+% Hintergrund
+\definecolor{background}{RGB}{153, 192,0 }
+\pagestyle{empty}
+\pagecolor{background}
+\raggedright
+
+%Namensschild Vorlage
+\newcommand{\Namensschild}[9]{%
+	\sf{
+
+	% Überschrift	
+	\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{5mm}\textbf{ \Large Ophase Informatik}}}
+	\hrule height 2pt
+ 	\vfill
+
+	% Namensfeld
+    {~\hfill\textbf{ 
+  	\fboxrule 1pt
+ 	\fcolorbox{black}{white}{\parbox[c][35mm]{20mm}{\includegraphics[height=35mm]{OPhasenWesen}} \parbox[c][35mm]{72mm}{\centering{{\Huge #1} \vspace{3mm}\\ {\Huge #2} }}}
+  	}\hfill}
+    \vfill
+  
+	% Tätigkeitsboxen
+  	{\hfill\textbf{
+  	%
+  	% Tutor/Master
+  	\ifthenelse{\equal{#4}{~}} 
+ 	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{}}} 
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{\centering{{\Large #3} \\ {\footnotesize #4} }}}}
+  	%  
+  	% Orga
+  	\ifthenelse{\equal{#5}{~}} 
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{}}}
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{\centering{{\Large O} \\ {\footnotesize ORGA} }}}}
+ 	%
+ 	% Wahlfrei/Random
+  	\ifthenelse{\equal{#7}{~}} 
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{}}}
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{\centering{{\Large #6} \\ {\footnotesize #7} }}}}
+  	%
+  	% Helpdesk
+  	\ifthenelse{\equal{#8}{~}} 
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{}}}
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{\centering{{\Large H} \\ {\footnotesize HELPDESK} }}}}
+  	%
+  	% Leitung
+  	\ifthenelse{\equal{#9}{~}} 
+  	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{}}}
+ 	{\framebox[18mm][c]{\parbox[c][10mm]{18mm}{\centering{{\Large L} \\ {\footnotesize LEITUNG} }}}}
+  	}\hfill}
+  
+  	\vspace*{2mm}
+  	\hrule height 2pt
+  
+ 	% Schlusszeile/Datum
+	\ifthenelse{\the\month>4}
+	{\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{5mm} \textbf{TU Darmstadt | FB 20 | Winter \the\year}}}}
+  	{\colorbox{white}{\parbox[c][6mm]{115mm}{\hspace{5mm} \textbf{TU Darmstadt | FB 20 | Sommer \the\year}}}}
+  	\clearpage }
+}
+
+\newcommand{\Namensschilder}[9]{\Namensschild{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}\Namensschild{#1}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}}
+{% endverbatim %}
+% Ab hier werden die Tutorenschilder angehängt. \begin{document} und \end{document} werden durch Java hinzugefügt.
+\begin{document}
+{% for person in items %}
+\Namensschilder{ {{ person.prename|tex_escape }} }{ {{ person.name|tex_escape }} }
+{% if person.is_tutor %}{T}{TUTOR}{% else %}{~}{~}{% endif %}{% if person.is_orga %}{ORGA}{% else %}{~}{% endif %}{% if person.nametag_shortname %}
+{ {{ person.nametag_shortname|tex_escape }} } { {{ person.nametag_long|tex_escape }} } {% else %} {~}{~} {% endif %}{% if 'Helpdesk' in person.get_approved_orgajob_names %} {H} {% else %}
+{~} {% endif %} {% if 'Leitung' in person.get_approved_orgajob_names %} {L} {% else %} {~} {% endif %}
+{% endfor %}
+\end{document}
+{% endautoescape %}

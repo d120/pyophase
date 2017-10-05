@@ -79,6 +79,10 @@ class PersonAdmin(admin.ModelAdmin):
             ['is_tutor', 'tutor_for', 'tutor_experience', 'is_orga', 'is_helper']}),
         (_('Sonstiges'), {'fields':
             ['created_at', 'updated_at']}),
+        (_('Namensschild'), {'fields':
+                ['nametag_shortname', 'nametag_long'],
+                'classes': ('collapse',),
+                'description': _('Optionale Einträge für das Namensschild')}),
     ]
 
     filter_horizontal = ('orga_jobs', 'helper_jobs')

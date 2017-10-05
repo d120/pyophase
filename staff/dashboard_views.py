@@ -1,15 +1,23 @@
 from collections import defaultdict
+from csv import reader
+from io import TextIOWrapper, BytesIO
+from itertools import cycle
+from zipfile import ZipFile
 
 from django.template import loader
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.http import HttpResponse
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
 from .dashboard_forms import GroupMassCreateForm, TutorPairingForm
 from .models import Person, TutorGroup, AttendanceEvent, OrgaJob, OrgaSelectedJob, HelperJob, HelperSelectedJob
+from .nametag import generate_nametag_response, generate_pdf_with_group_pictures, generate_pdf_with_group_pictures_response, generate_nametags
 
 
 class StaffAppMixin(DashboardAppMixin):
@@ -21,9 +29,13 @@ class StaffAppMixin(DashboardAppMixin):
     def sidebar_links(self):
         return [
             (_('Übersicht'), self.prefix_reverse_lazy('index')),
-            (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
+            (_('Kleingruppen erstellen'),
+             self.prefix_reverse_lazy('group_mass_create')),
+            (_('Gruppenbilder hinzufügen'),
+             self.prefix_reverse_lazy('group_picture_add')),
             (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
             (_('Termine'), self.prefix_reverse_lazy('event_index')),
+            (_('Schilder'), self.prefix_reverse_lazy('nametags'))
         ]
 
 
@@ -44,15 +56,18 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['count_orga'] = Staff.filter(is_orga=True).count()
             context['count_helper'] = Staff.filter(is_helper=True).count()
 
-            context['url_filter_ophase'] = "?ophase__id__exact={}".format(current_ophase.id)
+            context['url_filter_ophase'] = "?ophase__id__exact={}".format(
+                current_ophase.id)
 
             # Create list of current tutors (split by categories)
             context['categories_for_tutors'] = []
             active_categories = Ophase.current().ophaseactivecategory_set.all()
             for ac in active_categories:
-                tutors_for_category = Person.objects.filter(ophase=Ophase.current(), is_tutor=True, tutor_for=ac.category)
+                tutors_for_category = Person.objects.filter(ophase=Ophase.current(), is_tutor=True,
+                                                            tutor_for=ac.category)
                 tutors_count = tutors_for_category.count()
-                tutors_string = ", ".join(t.get_name() for t in tutors_for_category) if tutors_count > 0 else "-"
+                tutors_string = ", ".join(
+                    t.get_name() for t in tutors_for_category) if tutors_count > 0 else "-"
 
                 context['categories_for_tutors'].append(
                     {
@@ -67,7 +82,8 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['orga_jobs'] = []
             active_jobs = OrgaJob.filter_jobs_for_ophase_current()
             for aj in active_jobs:
-                orgas = OrgaSelectedJob.objects.filter(job=aj, person__ophase=Ophase.current())
+                orgas = OrgaSelectedJob.objects.filter(
+                    job=aj, person__ophase=Ophase.current())
                 orgas_by_status = defaultdict(list)
                 for orga in orgas:
                     orgas_by_status[orga.status].append(orga.person.get_name())
@@ -85,10 +101,12 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['helper_jobs'] = []
             active_jobs = HelperJob.filter_jobs_for_ophase_current()
             for aj in active_jobs:
-                helpers = HelperSelectedJob.objects.filter(job=aj, person__ophase=Ophase.current())
+                helpers = HelperSelectedJob.objects.filter(
+                    job=aj, person__ophase=Ophase.current())
                 helpers_by_status = defaultdict(list)
                 for helper in helpers:
-                    helpers_by_status[helper.status].append(helper.person.get_name())
+                    helpers_by_status[helper.status].append(
+                        helper.person.get_name())
 
                 context['helper_jobs'].append(
                     {
@@ -107,7 +125,8 @@ class GroupMassCreateView(StaffAppMixin, FormView):
     form_class = GroupMassCreateForm
 
     def form_valid(self, form):
-        template = loader.get_template("staff/dashboard/group_mass_create_success.html")
+        template = loader.get_template(
+            "staff/dashboard/group_mass_create_success.html")
         context = self.get_context_data()
 
         current_ophase = Ophase.current()
@@ -115,13 +134,16 @@ class GroupMassCreateView(StaffAppMixin, FormView):
             context['ophase'] = False
         else:
             context['ophase'] = True
-            category = OphaseCategory.objects.get(id=form.cleaned_data['category'])
-            existing_group_names = set(group.name for group in TutorGroup.objects.filter(ophase=current_ophase))
+            category = OphaseCategory.objects.get(
+                id=form.cleaned_data['category'])
+            existing_group_names = set(
+                group.name for group in TutorGroup.objects.filter(ophase=current_ophase))
             new_groups = []
             context['duplicate_group_count'] = 0
             for name in form.cleaned_data['group_names'].splitlines():
                 if name not in existing_group_names:
-                    new_groups.append(TutorGroup(ophase=current_ophase, name=name, group_category=category))
+                    new_groups.append(TutorGroup(
+                        ophase=current_ophase, name=name, group_category=category))
                 else:
                     context['duplicate_group_count'] += 1
             context['new_group_count'] = len(new_groups)
@@ -137,7 +159,8 @@ class TutorPairingView(StaffAppMixin, FormView):
     success_url = reverse_lazy('dashboard:staff:tutor_pairing_success')
 
     def form_valid(self, form):
-        pairing_data = {int(k[6:]): v for k, v in form.cleaned_data.items() if k.startswith("group-")}
+        pairing_data = {
+            int(k[6:]): v for k, v in form.cleaned_data.items() if k.startswith("group-")}
         for group_id, choices in pairing_data.items():
             group = TutorGroup.objects.get(id=group_id)
             new_tutors = Person.objects.filter(id__in=choices)
@@ -162,3 +185,133 @@ class AttendanceEventDetailView(StaffAppMixin, DetailView):
     model = AttendanceEvent
     template_name = "staff/dashboard/event.html"
     context_object_name = "event"
+
+
+class NametagCreation(StaffAppMixin, TemplateView):
+    template_name = 'staff/dashboard/nametag_creation.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(NametagCreation, self).get_context_data(**kwargs)
+        persons = Person.objects.filter(ophase=Ophase.current()).exclude(
+            is_helper=True).prefetch_related('orga_jobs').order_by('name')
+        context['staff'] = persons
+        context['count_staff'] = persons.count()
+        context['groupscount'] = TutorGroup.objects.filter(
+            ophase=Ophase.current()).count()
+        context['groups_without_picture'] = TutorGroup.objects.filter(
+            ophase=Ophase.current(), picture='').count()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        # should generate all nametags
+        if request.POST['action'] == 'all_nametags':
+            queryset = Person.objects.filter(ophase=Ophase.current()).exclude(
+                is_helper=True).prefetch_related('orga_jobs').order_by('name')
+            return generate_nametag_response(request, queryset)
+        # generate single nametag
+        elif request.POST['action'] == 'single_nametag':
+            person = {'prename': request.POST['prename'],
+                      'name': request.POST['name']}
+            if 'tutor' in request.POST:
+                person['is_tutor'] = True
+            if 'orga' in request.POST:
+                person['is_orga'] = True
+            if len(request.POST['extrahead']) != 0:
+                person['nametag_shortname'] = request.POST['extrahead']
+                person['nametag_long'] = request.POST['extrarow']
+            person['get_approved_orgajob_names'] = []
+            if 'helpdesk' in request.POST:
+                person['get_approved_orgajob_names'].append('Helpdesk')
+            if 'leitung' in request.POST:
+                person['get_approved_orgajob_names'].append('Leitung')
+            return generate_nametag_response(request, [person], filename='schild.pdf')
+        # generate group signs
+        elif request.POST['action'] == 'group_signs':
+            return generate_pdf_with_group_pictures_response(request,
+                                                             TutorGroup.objects.filter(
+                                                                 ophase=Ophase.current()),
+                                                             'schilder.pdf',
+                                                             'staff/reports/gruppenschilder.tex')
+        elif request.POST['action'] == 'group_overview':
+            # check whether a file was uploaded
+            if 'roomscsv' not in request.FILES:
+                messages.error(request, _(
+                    'Du hast keine csv-Datei hochgeladen.'))
+                return redirect('dashboard:staff:nametags')
+            csv = TextIOWrapper(
+                request.FILES['roomscsv'].file, encoding=request.encoding)
+            rooms = list(reader(csv))[2:]
+            groups = TutorGroup.objects.filter(ophase=Ophase.current())
+            grouprooms = zip(groups, rooms)
+            return generate_pdf_with_group_pictures_response(request,
+                                                             groups,
+                                                             'uebersicht.pdf',
+                                                             'staff/reports/gruppenuebersicht.tex',
+                                                             {'grouprooms': grouprooms})
+        elif request.POST['action'] == 'freshmen_nametags':
+            if not 'roomscsv' in request.FILES:
+                messages.error(request, _(
+                    'Du hast keine Raum csv-Datei hochgeladen.'))
+            if not 'freshmencsv' in request.FILES:
+                messages.error(request, _(
+                    'Du hast keine Erstsemester csv-Datei hochgeladen.'))
+            if len(messages.get_messages(request)) != 0:
+                return redirect('dashboard:staff:nametags')
+            roomscsv = TextIOWrapper(
+                request.FILES['roomscsv'].file, encoding=request.encoding)
+            rooms = list(reader(roomscsv))
+            freshmencsv = TextIOWrapper(
+                request.FILES['freshmencsv'].file, encoding=request.encoding)
+            freshmen = list(reader(freshmencsv))[1:]
+            groups = TutorGroup.objects.filter(ophase=Ophase.current())
+            freshmen_group = zip(freshmen, cycle(groups))
+            # generate group assignement overview
+            (assignement_pdf, assignement_log) = generate_nametags(
+                freshmen_group, template='staff/reports/gruppenzuweisung.tex')
+            if not assignement_pdf:
+                return render(request, "staff/reports/rendering-error.html", {"content": assignement_log[0].decode("utf-8")})
+            # generate timetable for each group with format [time, slotname, room]
+            timetable = (list(zip(rooms[0], rooms[1], roomnumber))
+                         for roomnumber in rooms[2:])
+            # combine this with the freshmen_group-zip
+            freshmen_tags = [list(x) for x in zip(
+                freshmen, cycle(groups), cycle(timetable))]
+            (nametags_pdf, nametag_log) = generate_pdf_with_group_pictures(request=request,
+                                                                           groups=groups,
+                                                                           template='staff/reports/namensschilder-ersties.tex',
+                                                                           context={'freshmen': freshmen_tags})
+            memoryfile = BytesIO()
+            zipfile = ZipFile(memoryfile, 'w')
+            zipfile.writestr('assignement-overview.pdf', assignement_pdf)
+            zipfile.writestr('nametags.pdf', nametags_pdf)
+            zipfile.close()
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=test.zip'
+            memoryfile.seek(0)
+            response.write(memoryfile.read())
+            return response
+        else:
+            messages.error(request, _('Keine valide Aktion gewählt'))
+            return redirect('dashboard:staff:nametags')
+
+
+class GroupPictureAdd(StaffAppMixin, TemplateView):
+    permissions=['staff.edit_tutorgroup']
+    template_name='staff/dashboard/grouppicture_add.html'
+
+    def get_context_data(self, **kwargs):
+        context=super(GroupPictureAdd, self).get_context_data(**kwargs)
+        context['groups']=TutorGroup.objects.filter(ophase = Ophase.current())
+        return context
+
+    def post(self, request, *args, **kwargs):
+        tutorgroups=TutorGroup.objects.filter(ophase = Ophase.current())
+        for group in tutorgroups:
+            if request.POST['action-' + str(group.id)] == 'change':
+                group.picture=request.FILES[str(group.id)]
+                group.save()
+            elif request.POST['action-' + str(group.id)] == 'delete':
+                group.picture.delete()
+        messages.info(request, _(
+            'Bilder erfolgreich hochgeladen.'))
+        return redirect('dashboard:staff:group_picture_add')

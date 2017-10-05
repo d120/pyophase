@@ -6,12 +6,15 @@ from django.template.loader import get_template
 
 class LaTeX:
     @staticmethod
-    def render(context, template_name, assets, app='ophasebase'):
+    def render(context, template_name, assets, app='ophasebase', external_assets= None):
         template = get_template(template_name)
         rendered_tpl = template.render(context).encode('utf-8')
         with tempfile.TemporaryDirectory() as tempdir:
             for asset in assets:
                 shutil.copy(os.path.dirname(os.path.realpath(__file__))+'/../'+app+'/assets/'+asset, tempdir)
+            if external_assets is not None:
+                for asset in external_assets:
+                    shutil.copy(asset, tempdir)
             process = Popen(['pdflatex'], stdin=PIPE, stdout=PIPE, cwd=tempdir,)
             pdflatex_output = process.communicate(rendered_tpl)
             try:

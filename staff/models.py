@@ -131,6 +131,8 @@ class Person(models.Model):
     orga_annotation = models.TextField(blank=True, verbose_name=_("Orga-Anmerkungen"), help_text=_("Notizen von Leitung und Orgas."))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
+    nametag_shortname = models.CharField(verbose_name=_('Kürzel (maximal 4 Zeichen)'), max_length=4, blank=True)
+    nametag_long = models.TextField(verbose_name=_('Langform'), blank=True)
 
     def get_name(self):
         return "%s %s" % (self.prename, self.name)
@@ -171,6 +173,10 @@ class Person(models.Model):
     @property
     def eligible_for_clothing(self):
         return self.is_orga or self.is_tutor
+
+    @property
+    def get_approved_orgajob_names(self):
+        return self.orga_jobs.filter(Q(orgaselectedjob__status='o') | Q(orgaselectedjob__status='c')).values_list('label', flat=True)
 
     @staticmethod
     def get_current(**kwargs):
@@ -240,9 +246,14 @@ class TutorGroup(models.Model):
     name = models.CharField(max_length=50, verbose_name=_("Gruppenname"))
     tutors = models.ManyToManyField(Person, blank=True, verbose_name=_("Tutoren"))
     group_category = models.ForeignKey(OphaseCategory, models.CASCADE, verbose_name=_("Gruppenkategorie"))
+    picture = models.FileField(upload_to='grouppicture/', blank=True)
 
     def __str__(self):
         return self.name
+
+    """Get the file name of the picture"""
+    def get_picture_name(self):
+        return self.picture.name.split('/')[-1].split('.')[0]
 
 
 class Attendance(models.Model):

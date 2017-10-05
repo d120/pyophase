@@ -1,0 +1,37 @@
+{% load tex_escape %}
+{% autoescape off %}
+{% verbatim %}
+% Überarbeitet von Tobias Otterbein 16.09.2013
+% Vorlage zur Erstellung der Gruppenübersicht für den Helpdesk
+
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[left=1cm, right=1cm, top=2cm, bottom=2cm]{geometry}
+
+\usepackage{longtable}
+
+
+\pagestyle{empty}
+
+
+
+\begin{document}
+
+\centering\sffamily\Huge Zuordnung Ersties auf Gruppen \\ \huge Diese Daten nur im Tresor lagern. Nur bei Bedarf entnehmen!
+\normalsize
+
+\begin{longtable}{l|l|l}
+
+	\sf Nachname &  \sf Vorname &  \sf Kleingruppe \\
+	\hline
+	\hline
+{% endverbatim %}
+{% for freshman, group in items %}
+{{ freshman.0|tex_escape }} & {{ freshman.1|tex_escape }} & {{ group.name|tex_escape }} \\
+\hline{% endfor %}
+\end{longtable}
+\end{document}
+{% endautoescape %}
