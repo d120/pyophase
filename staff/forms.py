@@ -3,9 +3,9 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.html import escape, format_html
 from django.utils.translation import ugettext as _
+from django.db.utils import OperationalError
 
-from ophasebase.models import OphaseCategory
-from ophasebase.models import Ophase
+from ophasebase.models import OphaseCategory, Ophase
 from .models import HelperJob, OrgaJob, Person, Settings, OrgaSelectedJob, HelperSelectedJob, TutorGroup
 
 
@@ -120,5 +120,8 @@ class PersonForm(forms.ModelForm):
 
 
 class TutorGroupSelect(forms.Form):
-    TutorGruppe = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple,
-                                                 queryset=TutorGroup.objects.filter(ophase=Ophase.current()))
+    try:
+        TutorGruppe = forms.ModelMultipleChoiceField(widget=forms.SelectMultiple,
+                                                     queryset=TutorGroup.objects.filter(ophase=Ophase.current()))
+    except OperationalError:
+        pass # if database is not initialized, this try-block still ensures that this form can be imported
