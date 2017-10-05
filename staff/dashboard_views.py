@@ -276,17 +276,23 @@ class NametagCreation(StaffAppMixin, TemplateView):
             # combine this with the freshmen_group-zip
             freshmen_tags = [list(x) for x in zip(
                 freshmen, cycle(groups), cycle(timetable))]
+            timetable = list(timetable)
+            empty_tags = []
+            for i, group in enumerate(groups):
+                for x in range(5):
+                    empty_tags.append((group, timetable[i]))
             (nametags_pdf, nametag_log) = generate_pdf_with_group_pictures(request=request,
                                                                            groups=groups,
                                                                            template='staff/reports/namensschilder-ersties.tex',
-                                                                           context={'freshmen': freshmen_tags})
+                                                                           context={'freshmen': freshmen_tags,
+                                                                                    'empty_tags': empty_tags})
             memoryfile = BytesIO()
             zipfile = ZipFile(memoryfile, 'w')
             zipfile.writestr('assignement-overview.pdf', assignement_pdf)
             zipfile.writestr('nametags.pdf', nametags_pdf)
             zipfile.close()
-            response = HttpResponse(content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename=test.zip'
+            response = HttpResponse(content_type='application/zip')
+            response['Content-Disposition'] = 'attachment; filename=freshmen.zip'
             memoryfile.seek(0)
             response.write(memoryfile.read())
             return response
@@ -296,19 +302,19 @@ class NametagCreation(StaffAppMixin, TemplateView):
 
 
 class GroupPictureAdd(StaffAppMixin, TemplateView):
-    permissions=['staff.edit_tutorgroup']
-    template_name='staff/dashboard/grouppicture_add.html'
+    permissions = ['staff.edit_tutorgroup']
+    template_name = 'staff/dashboard/grouppicture_add.html'
 
     def get_context_data(self, **kwargs):
-        context=super(GroupPictureAdd, self).get_context_data(**kwargs)
-        context['groups']=TutorGroup.objects.filter(ophase = Ophase.current())
+        context = super(GroupPictureAdd, self).get_context_data(**kwargs)
+        context['groups'] = TutorGroup.objects.filter(ophase=Ophase.current())
         return context
 
     def post(self, request, *args, **kwargs):
-        tutorgroups=TutorGroup.objects.filter(ophase = Ophase.current())
+        tutorgroups = TutorGroup.objects.filter(ophase=Ophase.current())
         for group in tutorgroups:
             if request.POST['action-' + str(group.id)] == 'change':
-                group.picture=request.FILES[str(group.id)]
+                group.picture = request.FILES[str(group.id)]
                 group.save()
             elif request.POST['action-' + str(group.id)] == 'delete':
                 group.picture.delete()

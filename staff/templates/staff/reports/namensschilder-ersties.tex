@@ -113,5 +113,8 @@
 {% for freshman in freshmen %}
 \Namensschild{ {{ freshman.0.1|tex_escape }} }{ {{ freshman.0.0|tex_escape }} }{ {{ freshman.1.name|tex_escape }} }{% templatetag openbrace %}{{ freshman.1.get_picture_name }}{% templatetag closebrace %}{ {{ freshman.1.tutors.all.0|tex_escape }} }{ {{ freshman.1.tutors.all.1|tex_escape }} }{ {% for room in freshman.2 %}\Raum{ {{ room.0|tex_escape }} }{ {{ room.2|tex_escape }} }{ {{ room.1|tex_escape }} }{% endfor %} }
 {% endfor %}
+{% for tag in empty_tags %}
+\Namensschild{~}{~}{ {{ tag.0.name|tex_escape }} }{% templatetag openbrace %}{{ tag.0.get_picture_name }}{% templatetag closebrace %}{ {{ tag.0.tutors.all.0|tex_escape }} }{ {{ tag.0.tutors.all.1|tex_escape }} }{ {% for room in tag.1 %}\Raum{ {{ room.0|tex_escape }} }{ {{ room.2|tex_escape }} }{ {{ room.1|tex_escape }} }{% endfor %} }
+{% endfor %}
 \end{document}
 {% endautoescape %}
