@@ -246,7 +246,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
             groups = TutorGroup.objects.filter(ophase=Ophase.current())
             grouprooms = zip(groups, rooms)
             timetable = [list(zip(rooms[0], rooms[1], roomnumber))
-                         for roomnumber in rooms[2:]]
+                         for roomnumber in rooms]
             timetable_rooms = zip(groups, timetable)
             (group_overview_pdf, group_overview_log) = generate_pdf_with_group_pictures(request,
                                                                                         groups,
