@@ -271,12 +271,11 @@ class NametagCreation(StaffAppMixin, TemplateView):
             if not assignement_pdf:
                 return render(request, "staff/reports/rendering-error.html", {"content": assignement_log[0].decode("utf-8")})
             # generate timetable for each group with format [time, slotname, room]
-            timetable = (list(zip(rooms[0], rooms[1], roomnumber))
-                         for roomnumber in rooms[2:])
+            timetable = [list(zip(rooms[0], rooms[1], roomnumber))
+                         for roomnumber in rooms[2:]]
             # combine this with the freshmen_group-zip
             freshmen_tags = [list(x) for x in zip(
                 freshmen, cycle(groups), cycle(timetable))]
-            timetable = list(timetable)
             empty_tags = []
             for i, group in enumerate(groups):
                 for x in range(5):
