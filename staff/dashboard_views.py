@@ -224,6 +224,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
                 person['get_approved_orgajob_names'].append('Helpdesk')
             if 'leitung' in request.POST:
                 person['get_approved_orgajob_names'].append('Leitung')
+            return generate_nametag_response(request, [person], filename='schild.pdf')
         # generate group signs
         elif request.POST['action'] == 'group_signs':
             return generate_pdf_with_group_pictures_response(request,
@@ -233,7 +234,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
                                                              'staff/reports/gruppenschilder.tex')
         elif request.POST['action'] == 'group_overview':
             # check whether a file was uploaded
-            if not 'roomscsv' in request.FILES:
+            if 'roomscsv' not in request.FILES:
                 messages.error(request, _(
                     'Du hast keine csv-Datei hochgeladen.'))
                 return redirect('dashboard:staff:nametags')
@@ -289,23 +290,25 @@ class NametagCreation(StaffAppMixin, TemplateView):
             memoryfile.seek(0)
             response.write(memoryfile.read())
             return response
-        return generate_nametag_response(request, [person], filename='schild.pdf')
+        else:
+            messages.error(request, _('Keine valide Aktion gewählt'))
+            return redirect('dashboard:staff:nametags')
 
 
 class GroupPictureAdd(StaffAppMixin, TemplateView):
-    permissions = ['staff.edit_tutorgroup']
-    template_name = 'staff/dashboard/grouppicture_add.html'
+    permissions=['staff.edit_tutorgroup']
+    template_name='staff/dashboard/grouppicture_add.html'
 
     def get_context_data(self, **kwargs):
-        context = super(GroupPictureAdd, self).get_context_data(**kwargs)
-        context['groups'] = TutorGroup.objects.filter(ophase=Ophase.current())
+        context=super(GroupPictureAdd, self).get_context_data(**kwargs)
+        context['groups']=TutorGroup.objects.filter(ophase = Ophase.current())
         return context
 
     def post(self, request, *args, **kwargs):
-        tutorgroups = TutorGroup.objects.filter(ophase=Ophase.current())
+        tutorgroups=TutorGroup.objects.filter(ophase = Ophase.current())
         for group in tutorgroups:
             if request.POST['action-' + str(group.id)] == 'change':
-                group.picture = request.FILES[str(group.id)]
+                group.picture=request.FILES[str(group.id)]
                 group.save()
             elif request.POST['action-' + str(group.id)] == 'delete':
                 group.picture.delete()
