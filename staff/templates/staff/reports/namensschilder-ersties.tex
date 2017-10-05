@@ -111,7 +111,7 @@
 \begin{document}
 {% endverbatim %}
 {% for freshman in freshmen %}
-	\Namensschild{ {{ freshman.0.1 }} }{ {{ freshman.0.0 }} }{ {{ freshman.1.name }} }{% templatetag openbrace %}{{ freshman.1.get_picture_name }}{% templatetag closebrace %}{ {{ freshman.1.tutors.all.0 }} }{ {{ freshman.1.tutors.all.1 }} }{ {% for room in freshman.2 %}\Raum{ {{ room.0 }} }{ {{ room.2 }} }{ {{ room.1 }} }{% endfor %} }
+\Namensschild{ {{ freshman.0.1 }} }{ {{ freshman.0.0 }} }{ {{ freshman.1.name }} }{% templatetag openbrace %}{{ freshman.1.get_picture_name }}{% templatetag closebrace %}{ {{ freshman.1.tutors.all.0 }} }{ {{ freshman.1.tutors.all.1 }} }{ {% for room in freshman.2 %}\Raum{ {{ room.0 }} }{ {{ room.2 }} }{ {{ room.1 }} }{% endfor %} }
 {% endfor %}
 \end{document}
 {% endautoescape %}

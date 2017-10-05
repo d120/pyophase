@@ -1,9 +1,3 @@
-import tempfile
-import os
-import shutil
-from subprocess import Popen, PIPE
-from base64 import b64encode
-
 from django.http import HttpResponse
 from django.shortcuts import render
 
