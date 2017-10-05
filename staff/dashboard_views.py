@@ -281,14 +281,16 @@ class NametagCreation(StaffAppMixin, TemplateView):
             if not 'freshmencsv' in request.FILES:
                 messages.error(request, _(
                     'Du hast keine Erstsemester csv-Datei hochgeladen.'))
-            if len(messages.get_messages(request)) != 0:
-                return redirect('dashboard:staff:nametags')
+                freshmen = []
+            else:
+                freshmencsv = TextIOWrapper(
+                request.FILES['freshmencsv'].file, encoding=request.encoding)
+                freshmen = list(reader(freshmencsv))[1:]
+           # if len(messages.get_messages(request)) != 0:
+           #     return redirect('dashboard:staff:nametags')
             roomscsv = TextIOWrapper(
                 request.FILES['roomscsv'].file, encoding=request.encoding)
             rooms = list(reader(roomscsv))
-            freshmencsv = TextIOWrapper(
-                request.FILES['freshmencsv'].file, encoding=request.encoding)
-            freshmen = list(reader(freshmencsv))[1:]
             form = TutorGroupSelect(request.POST)
             form.is_valid()
             groups = form.cleaned_data.get('TutorGruppe')
