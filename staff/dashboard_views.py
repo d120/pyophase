@@ -155,7 +155,7 @@ class GroupMassCreateView(StaffAppMixin, FormView):
 
 
 class TutorPairingView(StaffAppMixin, FormView):
-    permissions = ['staff.edit_tutorgroup']
+    permissions = ['staff.change_tutorgroup']
     template_name = 'staff/dashboard/tutor_pairing.html'
     form_class = TutorPairingForm
     success_url = reverse_lazy('dashboard:staff:tutor_pairing_success')
@@ -171,26 +171,26 @@ class TutorPairingView(StaffAppMixin, FormView):
 
 
 class TutorPairingSuccess(StaffAppMixin, TemplateView):
-    permissions = ['staff.edit_tutorgroup']
+    permissions = ['staff.change_tutorgroup']
     template_name = "staff/dashboard/tutor_pairing_success.html"
 
 
 class AttendanceEventIndexView(StaffAppMixin, ListView):
-    permissions = ['staff.edit_attendance']
+    permissions = ['staff.change_attendance']
     model = AttendanceEvent
     template_name = "staff/dashboard/events_overview.html"
     context_object_name = "events"
 
 
 class AttendanceEventDetailView(StaffAppMixin, DetailView):
-    permissions = ['staff.edit_attendance']
+    permissions = ['staff.change_attendance']
     model = AttendanceEvent
     template_name = "staff/dashboard/event.html"
     context_object_name = "event"
 
 
 class NametagCreation(StaffAppMixin, TemplateView):
-    permissions = ['staff.edit_tutorgroup']
+    permissions = ['staff.change_tutorgroup']
     template_name = 'staff/dashboard/nametag_creation.html'
 
     def get_context_data(self, **kwargs):
@@ -341,7 +341,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
 
 
 class GroupPictureAdd(StaffAppMixin, TemplateView):
-    permissions = ['staff.edit_tutorgroup']
+    permissions = ['staff.change_tutorgroup']
     template_name = 'staff/dashboard/grouppicture_add.html'
 
     def get_context_data(self, **kwargs):
