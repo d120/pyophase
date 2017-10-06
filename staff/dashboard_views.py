@@ -190,6 +190,7 @@ class AttendanceEventDetailView(StaffAppMixin, DetailView):
 
 
 class NametagCreation(StaffAppMixin, TemplateView):
+    permissions = ['staff.edit_tutorgroup']
     template_name = 'staff/dashboard/nametag_creation.html'
 
     def get_context_data(self, **kwargs):
