@@ -10,17 +10,33 @@
 \usepackage{times}
 \usepackage{ngerman}
 \usepackage[left=1cm, right=1cm, top=2cm, bottom=2cm]{geometry}
+\usepackage[most]{tcolorbox}
 
+\tcbset{
+  colframe=white,
+  colback=white,
+  size=tight,
+  nobeforeafter,
+  valign=center,
+  halign=center,
+  fit fontsize macros,
+  fit algorithm=areasize,
+}
 %% Gibt ein Gruppenschild aus
 % 1: Name
 % 2: Bild
 \newcommand{\Gruppe}[2]{
-	\begin{center}
+	\begin{minipage}{\textwidth}
+		\begin{center}
 		\fontsize{100pt}{0}\selectfont
-		\vspace{-1cm}\includegraphics[width=0.9\textwidth]{#2} \\
+		\vspace{-1cm}\includegraphics[width=0.9\textwidth]{#2}
 		\vspace{1cm}
-		\sf{#1} \\
-	\end{center}
+		\end{center}
+		\tcboxfit[width=\textwidth,height=0.3\textheight, halign=center]{
+		\fontsize{100pt}{0}\selectfont
+		\centering
+			\sf{#1} \\}
+	\end{minipage}
 	\newpage
 }
 
