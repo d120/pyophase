@@ -209,7 +209,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
         # should generate all nametags
         if request.POST['action'] == 'all_nametags':
             queryset = Person.objects.filter(ophase=Ophase.current()).filter(
-                Q(is_tutor=True)| Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
+                is_helper=True).prefetch_related('orga_jobs').order_by('name')
             return generate_nametag_response(request, queryset)
         # generate single nametag
         elif request.POST['action'] == 'single_nametag':
