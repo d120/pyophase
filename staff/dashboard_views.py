@@ -12,6 +12,7 @@ from django.views.generic import FormView, TemplateView, ListView, DetailView
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.http import HttpResponse
+from django.db.models import Q
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
@@ -193,8 +194,8 @@ class NametagCreation(StaffAppMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(NametagCreation, self).get_context_data(**kwargs)
-        persons = Person.objects.filter(ophase=Ophase.current()).exclude(
-            is_helper=True).prefetch_related('orga_jobs').order_by('name')
+        persons = Person.objects.filter(ophase=Ophase.current()).filter(
+                Q(is_tutor=True)| Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
         context['staff'] = persons
         context['count_staff'] = persons.count()
         context['groupscount'] = TutorGroup.objects.filter(
@@ -207,8 +208,8 @@ class NametagCreation(StaffAppMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         # should generate all nametags
         if request.POST['action'] == 'all_nametags':
-            queryset = Person.objects.filter(ophase=Ophase.current()).exclude(
-                is_helper=True).prefetch_related('orga_jobs').order_by('name')
+            queryset = Person.objects.filter(ophase=Ophase.current()).filter(
+                Q(is_tutor=True)| Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
             return generate_nametag_response(request, queryset)
         # generate single nametag
         elif request.POST['action'] == 'single_nametag':
