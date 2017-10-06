@@ -194,8 +194,8 @@ class NametagCreation(StaffAppMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(NametagCreation, self).get_context_data(**kwargs)
-        persons = Person.objects.filter(ophase=Ophase.current()).filter(
-                is_helper=True).prefetch_related('orga_jobs').order_by('name')
+        persons = Person.objects.filter(Q(ophase=Ophase.current()), 
+                Q(is_helper=True) | Q(is_tutor=True) | Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
         context['staff'] = persons
         context['count_staff'] = persons.count()
         context['groupscount'] = TutorGroup.objects.filter(
@@ -208,8 +208,8 @@ class NametagCreation(StaffAppMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         # should generate all nametags
         if request.POST['action'] == 'all_nametags':
-            queryset = Person.objects.filter(ophase=Ophase.current()).filter(
-                is_helper=True).prefetch_related('orga_jobs').order_by('name')
+            queryset = Person.objects.filter(Q(ophase=Ophase.current()),
+                    Q(is_helper=True) | Q(is_tutor=True) | Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
             return generate_nametag_response(request, queryset)
         # generate single nametag
         elif request.POST['action'] == 'single_nametag':
@@ -285,7 +285,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
                 freshmen = []
             else:
                 freshmencsv = TextIOWrapper(
-                request.FILES['freshmencsv'].file, encoding=request.encoding)
+                    request.FILES['freshmencsv'].file, encoding=request.encoding)
                 freshmen = list(reader(freshmencsv))[1:]
            # if len(messages.get_messages(request)) != 0:
            #     return redirect('dashboard:staff:nametags')
