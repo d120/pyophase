@@ -195,7 +195,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(NametagCreation, self).get_context_data(**kwargs)
         persons = Person.objects.filter(ophase=Ophase.current()).filter(
-                Q(is_tutor=True)| Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
+                is_helper=True).prefetch_related('orga_jobs').order_by('name')
         context['staff'] = persons
         context['count_staff'] = persons.count()
         context['groupscount'] = TutorGroup.objects.filter(
