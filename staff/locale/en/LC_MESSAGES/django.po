@@ -48,10 +48,9 @@ msgid "Sonstiges"
 msgstr "Miscellaneous"
 
 #: admin.py:82
-#, fuzzy
 #| msgid "Namensschilderexport"
 msgid "Namensschild"
-msgstr "Name tag export"
+msgstr "Name tag"
 
 #: admin.py:85
 msgid "Optionale Einträge für das Namensschild"
@@ -434,7 +433,7 @@ msgstr "Open helpers' jobs"
 #, fuzzy
 #| msgid "Freigeschaltete Helferjobs"
 msgid "Gewählte Helferjobs"
-msgstr "Open helpers' jobs"
+msgstr "Chosen helpers' jobs"
 
 #: models.py:94 templates/staff/dashboard/staff_overview.html:75
 msgid "Eingeteilt"
@@ -893,7 +892,7 @@ msgstr "Assign group pictures"
 #: templates/staff/dashboard/grouppicture_add.html:16
 #| msgid "Gruppenname"
 msgid "Gruppenbild"
-msgstr "Group name"
+msgstr "Group picture"
 
 #: templates/staff/dashboard/grouppicture_add.html:27
 msgid "Bild hinzufügen"
@@ -905,7 +904,7 @@ msgstr "Delete picture"
 
 #: templates/staff/dashboard/grouppicture_add.html:34
 msgid "Bilder hochladen/löschen"
-msgstr "Upload/delete picture"
+msgstr "Upload/delete pictures"
 
 #: templates/staff/dashboard/grouppicture_add.html:44
 msgid "Änderungen übernehmen?"
@@ -953,7 +952,7 @@ msgstr "Name tag export"
 #: templates/staff/dashboard/nametag_creation.html:90
 #| msgid "Kleingruppen erstellen"
 msgid "Gruppenschilder erstellen"
-msgstr "Create tutored groups"
+msgstr "Generate group signs"
 
 #: templates/staff/dashboard/nametag_creation.html:93
 msgid "Erstellt eine PDF-Datei mit Schildern (Name und Bild für jede Gruppe)"
@@ -979,10 +978,13 @@ msgid_plural ""
 "\t\t\t\tEs gibt <strong>%(groups_without_picture)s</strong>\n"
 "\t\t\t\tGruppen ohne Bilder.\n"
 "\t\t\t\t"
-msgstr[0] "There is <strong>one</strong> without a group picture.\n"
+msgstr[0] ""
+"\n"
+"There is <strong>one</strong> group without a group picture.\n\t"
 msgstr[1] ""
+"\n"
 "There are <strong>%(groups_without_picture)s</strong> groups without group "
-"pictures.\n"
+"pictures.\n\t"
 
 #: templates/staff/dashboard/nametag_creation.html:105
 #: templates/staff/dashboard/nametag_creation.html:139
@@ -1004,7 +1006,7 @@ msgstr ""
 #: templates/staff/dashboard/nametag_creation.html:112
 #| msgid "Kleingruppen erstellen"
 msgid "PDF mit allen Gruppenschildern erstellen"
-msgstr "Create tutored groups"
+msgstr "Generate pdf with all group signs"
 
 #: templates/staff/dashboard/nametag_creation.html:119
 msgid "Gruppenübersicht und Handzettel erstellen"
@@ -1071,7 +1073,7 @@ msgstr "Count"
 #: templates/staff/dashboard/staff_overview.html:41
 #| msgid "Bisher keine Termine"
 msgid "Bisher keine Tutoren"
-msgstr "Currently no appointments"
+msgstr "Currently no tutors"
 
 #: templates/staff/dashboard/staff_overview.html:51
 #| msgid "Orgas"
@@ -1086,7 +1088,7 @@ msgstr "Organizers"
 #: templates/staff/dashboard/staff_overview.html:64
 #| msgid "Bisher keine Termine"
 msgid "Bisher keine Orgas"
-msgstr "Currently no appointments"
+msgstr "Currently no orgas"
 
 #: templates/staff/dashboard/staff_overview.html:86
 #| msgid "Bisher keine Termine"
