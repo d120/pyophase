@@ -1,5 +1,5 @@
 coverage==4.4.1
-Django==1.11.6
+Django==1.11.7
 django-bootstrap3==9.1.0
 django-formtools==2.1
 docutils==0.14
