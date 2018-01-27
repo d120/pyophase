@@ -35,17 +35,13 @@ install:
   - npm install
 
 before_script:
-# @see https://docs.travis-ci.com/user/gui-and-headless-browsers/#Using-xvfb-to-Run-Tests-That-Require-a-GUI
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
   - mysql -e 'CREATE DATABASE pyophase;'
 
 # command to run tests
 script:
   - export PYTHONWARNINGS=all
   - python manage.py check
-    # Test against Sqlite
+    # Test against SQLite
   - python manage.py test
     # Test against MySQL
   - python manage.py test --settings pyophase.settings_travis
