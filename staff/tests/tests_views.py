@@ -2,10 +2,21 @@ from django.core import mail
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.http import urlencode
 
 
 class StaffAddView(TestCase):
     fixtures = ['ophasebase.json', 'staff.json', 'students.json']
+
+    def test_redirect(self):
+        """Test for Redirect to SSO Login page"""
+        c = Client()
+        suffix = urlencode({"next": reverse('staff:registration')})
+        redirect_url = "{}?{}".format(reverse('pyTUID:login'), suffix)
+        
+        response = c.get(reverse('staff:registration'))
+        
+        self.assertRedirects(response, redirect_url, target_status_code=302)
 
     def test_send_email(self):
         """Sending an email after successfull register"""
