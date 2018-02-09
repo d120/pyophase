@@ -7,4 +7,4 @@ odswriter==0.4.0
 Pillow==5.0.0
 git+https://github.com/d120/pyTUID.git#egg=pyTUID-1.2.2
 django-sslserver==0.20
-pytz==2017.3
+pytz==2018.3
