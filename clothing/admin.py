@@ -33,13 +33,15 @@ class OphaseOrderFilter(admin.SimpleListFilter):
         def lookups(self, request, model_admin):
             """
             Returns a tuple with all ophases
+            The first value is the name for the url parameter,
+            the second one is the name shown in the sidebar
             """
-            return ((o, o) for o in Ophase.objects.all())
+            return ((o.id, o.name) for o in Ophase.objects.all())
 
         def queryset(self, request, queryset):
             if not self.value():
                 return queryset
-            return queryset.filter(person__ophase=Ophase.objects.get(name=self.value()))
+            return queryset.filter(person__ophase=Ophase.objects.get(id=self.value()))
 
 
 @admin.register(Order)
