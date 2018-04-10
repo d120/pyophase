@@ -84,7 +84,7 @@ class OrderAggregatedView(ClothingAppMixin, TemplateView):
                         context['orders'][additional_name][type.name][color.name][size.size] = 0
 
         # Store orders
-        orders = Order.objects.values('additional', 'type__name', 'size__size', 'color__name')
+        orders = Order.get_current().values('additional', 'type__name', 'size__size', 'color__name')
         orders = orders.annotate(count=Count('pk'))
         for order in orders:
             additional_name = _('Kostenlos')
