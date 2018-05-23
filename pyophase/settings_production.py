@@ -23,7 +23,8 @@ DATABASES = {
         'USER': 'pyophase',
         'PASSWORD': secrets.DB_PASSWORD,
         'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'isolation_level': "repeatable read"
         }
     }
 }
