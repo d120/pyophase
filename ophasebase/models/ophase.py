@@ -77,5 +77,5 @@ class Ophase(models.Model):
     def current():
         try:
             return Ophase.objects.get(is_active=True)
-        except Ophase.DoesNotExist:
+        except:
             return None
