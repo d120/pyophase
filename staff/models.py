@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
 from ophasebase.models import Ophase, Room, OphaseCategory
+from pyTUID.models import TUIDUser
 
 
 class Job(models.Model):
@@ -169,6 +170,14 @@ class Person(models.Model):
         if self.tutor_for is not None:
             self.is_tutor = True
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        super().delete(*args, **kwargs)
+        
+        # Remove all TUIDs which are not referenced by a person object
+        used_ids = [p.tuid.uid for p in Person.objects.all().select_related('tuid')]
+        admonish_ids = TUIDUser.objects.filter(~Q(uid__in=used_ids))
+        admonish_ids.delete()
 
     @property
     def eligible_for_clothing(self):
