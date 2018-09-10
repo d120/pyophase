@@ -142,4 +142,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ### PYTUID ###
 
-TUID_SERVER_URL = 'https://sso.tu-darmstadt.de'
+TUID_SERVER_URL = 'https://sso.hrz.tu-darmstadt.de'
