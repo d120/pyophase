@@ -1,3 +1,5 @@
+from unittest import skip
+
 from django.core import mail
 from django.test import Client, TestCase
 from django.urls import reverse
@@ -18,14 +20,12 @@ class StaffAddView(TestCase):
         
         self.assertRedirects(response, redirect_url, target_status_code=302)
 
+    @skip
     def test_send_email(self):
         """Sending an email after successfull register"""
 
-        pass
-
         # TODO Use fake SSO in test
 
-        """
         c = Client()
 
         register_view = reverse('staff:registration')
@@ -60,4 +60,3 @@ class StaffAddView(TestCase):
         smail = mail.outbox[0]
         self.assertEqual(len(smail.to), 1)
         self.assertEqual(smail.to[0], 'Leah Bayer <leah.bayer@example.com>')
-        """
