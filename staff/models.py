@@ -175,7 +175,7 @@ class Person(models.Model):
         result = super().delete(*args, **kwargs)
         
         # Remove all TUIDs which are not referenced by a person object
-        used_ids = [p.tuid.uid for p in Person.objects.all().select_related('tuid')]
+        used_ids = [p.tuid.uid for p in Person.objects.all().select_related('tuid') if p.tuid is not None]
         admonish_ids = TUIDUser.objects.filter(~Q(uid__in=used_ids))
         admonish_ids.delete()
         

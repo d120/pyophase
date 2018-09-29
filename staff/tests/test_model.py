@@ -31,6 +31,10 @@ class StaffModelTests(TestCase):
         Person.objects.create(prename="John", name="Doe", email="john@example.net", phone="0123456789",
                               matriculated_since="2011", degree_course="B.Sc.", is_tutor=True, tuid=tid2)
 
+        # A person which dose not have a tuid associated
+        Person.objects.create(prename="John", name="Doe2", email="john3@example.net", phone="0123456789",
+                              matriculated_since="2011", degree_course="B.Sc.")
+
         p.delete()
 
         self.assertEqual(1, TUIDUser.objects.count())
