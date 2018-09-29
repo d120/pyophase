@@ -5,6 +5,9 @@ from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+
 from ophasebase.models import Ophase, Room, OphaseCategory
 from pyTUID.models import TUIDUser
 
@@ -171,16 +174,6 @@ class Person(models.Model):
             self.is_tutor = True
         super().save(*args, **kwargs)
 
-    def delete(self, *args, **kwargs):
-        result = super().delete(*args, **kwargs)
-        
-        # Remove all TUIDs which are not referenced by a person object
-        used_ids = [p.tuid.uid for p in Person.objects.all().select_related('tuid') if p.tuid is not None]
-        admonish_ids = TUIDUser.objects.filter(~Q(uid__in=used_ids))
-        admonish_ids.delete()
-        
-        return result
-
     @property
     def eligible_for_clothing(self):
         return self.is_orga or self.is_tutor
@@ -207,6 +200,13 @@ class Person(models.Model):
     @staticmethod
     def get_by_TUID(TUIDUser):
         return TUIDUser.person_set.filter(ophase=Ophase.current()).first() if TUIDUser is not None else None
+
+# Register a signal receiver so all TUIDs which are not referenced by a person object are deleted
+@receiver(post_delete, sender=Person)
+def person_delete_tuids(sender, instance, **kwargs):
+    used_ids = [p.tuid.uid for p in Person.objects.exclude(tuid=None).select_related('tuid')]
+    admonish_ids = TUIDUser.objects.filter(~Q(uid__in=used_ids))
+    admonish_ids.delete()
 
 
 class StaffFilterGroup(models.Model):

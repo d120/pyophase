@@ -35,6 +35,16 @@ class StaffModelTests(TestCase):
         Person.objects.create(prename="John", name="Doe2", email="john3@example.net", phone="0123456789",
                               matriculated_since="2011", degree_course="B.Sc.")
 
+        self.assertEqual(3, Person.objects.count())
+
         p.delete()
 
+        self.assertEqual(2, Person.objects.count())
+
         self.assertEqual(1, TUIDUser.objects.count())
+
+        self.ophase.delete()
+
+        self.assertEqual(0, Person.objects.count())
+
+        self.assertEqual(0, TUIDUser.objects.count())
