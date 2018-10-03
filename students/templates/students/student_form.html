@@ -24,7 +24,7 @@
 </div>
 {% endif %}
 {% endblock %}
-{% block bottom_script %}{% load staticfiles %}
+{% block bottom_script %}{% load static %}
 {% if student_registration_enabled %}
 <script src="{% static "ophasebase/js/dependent_input_visibility.js" %}"></script>
 
