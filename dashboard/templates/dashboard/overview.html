@@ -1,4 +1,4 @@
-{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/dashboard_base.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -13,7 +13,7 @@
       <div class="panel-heading">
           {% if widget.link_target != "" %}
               <span class="pull-right">
-                <a href="{{ widget.link_target }}">{% bootstrap_icon "new-window" %}</a>
+                <a href="{{ widget.link_target }}">{% icon "new-window" %}</a>
               </span>
           {% endif %}
           {{ widget.name }}
