@@ -1,6 +1,7 @@
 coverage==4.5.1
 Django==2.0.9  # pyup: <2.1
-django-bootstrap3==11.0.0
+django-bootstrap4==0.0.7
+django-icons==0.2.1
 django-formtools==2.1
 mysqlclient==1.3.13
 odswriter==0.4.0

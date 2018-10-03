@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load staticfiles %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load staticfiles %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Tutoren paaren" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -16,7 +16,7 @@
     {% bootstrap_form form %}
     {% buttons %}
     <button type="submit" class="btn btn-success pull-right">
-        {% bootstrap_icon "ok" %} {% trans "Paarungen speichern" %}
+        {% icon "ok" %} {% trans "Paarungen speichern" %}
     </button>
     {% endbuttons %}
 </form>

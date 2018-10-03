@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Stats" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -15,7 +15,7 @@
                 <tr class="{% if tg.num == 0 %}danger{% else %}success{% endif %}">
                     <td>{{ tg.name }}</td>
                     <td>{{ tg.group_category }}</td>
-                    <td>{% if tg.num == 0 %}{% bootstrap_icon "remove" %}{% else %}{% bootstrap_icon "ok" %}{% endif %}
+                    <td>{% if tg.num == 0 %}{% icon "remove" %}{% else %}{% icon "ok" %}{% endif %}
                     <td>{{ tg.num }}</td>
                     <td>{% if tg.num_exam == None %}0{% else %}{{ tg.num_exam }}{% endif %}</td>
                 </tr>

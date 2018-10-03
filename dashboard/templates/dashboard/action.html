@@ -1,4 +1,4 @@
-{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/dashboard_base.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -9,7 +9,7 @@
             {% block content_dashboard_sidebar %}
                 <!-- Default implementation of sidebar (may be overridden in subfiles) -->
 
-                <h3>{% bootstrap_icon "console" %} {{ app_name_verbose }}</h3>
+                <h3>{% icon "console" %} {{ app_name_verbose }}</h3>
 
                 <ul class="nav nav-pills nav-stacked">
                     {% for name, target in sidebar_links %}

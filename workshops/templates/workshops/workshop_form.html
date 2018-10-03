@@ -1,4 +1,4 @@
-{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "ophasebase/base.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 {% block title %}{% trans "Workshopregistrierung" %}{% endblock %}
 {% block heading %}Workshopregistrierung{% endblock %}
 
@@ -28,10 +28,10 @@
         {% bootstrap_form form %}
     {% buttons %}
         <button type="reset" class="btn btn-danger">
-            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+            {% icon "remove" %} {% trans "Zurücksetzen" %}
         </button>
         <button type="submit" class="btn btn-success pull-right">
-            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+            {% icon "ok" %} {% trans "Abschicken" %}
         </button>
     {% endbuttons %}
     </form>

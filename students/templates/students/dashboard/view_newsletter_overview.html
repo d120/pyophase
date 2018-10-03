@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Stats" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -15,10 +15,10 @@
                 <tr>
                     <td>{{ newsletter.name }}</td>
                     <td>{{ newsletter.description }}</td>
-                    <td>{% if newsletter.active %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %}
+                    <td>{% if newsletter.active %}{% icon "ok" %}{% else %}{% icon "remove" %}{% endif %}
                     <td>{% if newsletter.categories.count == 0 %}{% trans "Alle" %}{% else %}{{ newsletter.categories.all | join:", " }}{% endif %}</td>
                     <td>{{ newsletter.num }}</td>
-                    <td><a href="{% url "dashboard:students:newsletter_export" newsletter.pk %}">{% bootstrap_icon "share-alt" %}</a> </td>
+                    <td><a href="{% url "dashboard:students:newsletter_export" newsletter.pk %}">{% icon "share-alt" %}</a> </td>
                 </tr>
             {% endfor %}
         </tbody>

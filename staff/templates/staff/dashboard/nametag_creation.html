@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 {% load static %}
 
 {% block title%}{% trans "Namensschilder erstellen" %} | {% trans "Dashboard" %}{% endblock %}
@@ -26,7 +26,7 @@
 					{% for orga in staff %}
 					<tr>
 						<td>{{ orga.prename }} {{ orga.name }}</td>
-						<td>{% if orga.is_tutor %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %} </td>
+						<td>{% if orga.is_tutor %}{% icon "ok" %}{% else %}{% icon "remove" %}{% endif %} </td>
 						<td>{{ orga.get_approved_orgajob_names | join:", " }}</td>
 					</tr>
 					{% endfor %}
