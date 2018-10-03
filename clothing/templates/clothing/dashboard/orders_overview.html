@@ -40,13 +40,13 @@
             {% if order.additional %}
                 <i class="fa fa-money" aria-hidden="true"></i>
                 {% if order.paid %}
-                    <span title="{% trans 'Bereits bezahlt' %}">{% icon "ok" %}</span>
+                    <span title="{% trans 'Bereits bezahlt' %}">{% icon "check" %}</span>
                 {% else %}
                     <span title="{% trans 'Noch nicht bezahlt' %}">{% icon "warning-sign" %}</span>
                 {% endif %}
             {% endif %}
         </td>
-        <td>{% if order.received_at %}{% icon "ok" %}{% else %}{% icon "remove" %}{% endif %}</td>
+        <td>{% if order.received_at %}{% icon "check" %}{% else %}{% icon "remove" %}{% endif %}</td>
     </tr>
 {% empty %}
     <tr><td>{% trans "Bisher keine Bestellungen" %}</td><td></td><td></td></tr>

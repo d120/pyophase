@@ -18,7 +18,7 @@
     {% if person.eligible_for_clothing %}
     <tr class="{% if person.num_free_orders == 1 %}success{% else %}danger{% endif %}">
         <td>{{ person.prename }} {{ person.name }}</td>
-        <td>{% if person.num_free_orders == 1 %}{% icon "ok" %}{% else %}{% icon "remove" %}{% endif %}</td>
+        <td>{% if person.num_free_orders == 1 %}{% icon "check" %}{% else %}{% icon "remove" %}{% endif %}</td>
         <td>{{ person.num_free_orders }}</td>
     </tr>
     {% endif %}
