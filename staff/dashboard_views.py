@@ -244,10 +244,11 @@ class NametagCreation(StaffAppMixin, TemplateView):
                 return redirect('dashboard:staff:nametags')
             csv = TextIOWrapper(
                 request.FILES['roomscsv'].file, encoding=request.encoding)
-            rooms = list(reader(csv))[2:]
+            csv_list = list(reader(csv))
+            rooms = csv_list[2:]
             groups = TutorGroup.objects.filter(ophase=Ophase.current())
             grouprooms = zip(groups, rooms)
-            timetable = [list(zip(rooms[0], rooms[1], roomnumber))
+            timetable = [list(zip(csv_list[0], roomnumber, csv_list[1]))
                          for roomnumber in rooms]
             timetable_rooms = zip(groups, timetable)
             (group_overview_pdf, group_overview_log) = generate_pdf_with_group_pictures(request,
