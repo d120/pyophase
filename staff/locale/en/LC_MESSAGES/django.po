@@ -1047,14 +1047,14 @@ msgid ""
 "\t\tDazu muss eine csv-Datei mit den Namen der Erstsemester und den Räumen "
 "hochgeladen werden.\n"
 "\t\tVorlagen für <a href=\"%(csv_rooms)s\">Räume</a> und <a href="
-"\"%(csv_freshmen)s\">Erstemester</a>.\n"
+"\"%(csv_firstyears)s\">Erstemester</a>.\n"
 "\t\t"
 msgstr ""
 "\n"
 "Generates a zip file with a pdf containing the first years' nametags and an "
 "overview for the helpdesk. A csv file with the names and and one "
 "for the rooms has to be uploaded.Templates for <a href=\"%(csv_rooms)s"
-"\">rooms</a> and <a href=\"%(csv_freshmen)s\">first-year students</a>.\t"
+"\">rooms</a> and <a href=\"%(csv_firstyears)s\">first-year students</a>.\t"
 
 #: templates/staff/dashboard/nametag_creation.html:179
 #: templates/staff/dashboard/nametag_creation.html:196

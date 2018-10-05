@@ -29,8 +29,8 @@
 	\hline
 	\hline
 {% endverbatim %}
-{% for freshman, group in items %}
-{{ freshman.0|tex_escape }} & {{ freshman.1|tex_escape }} & {{ group.name|tex_escape }} \\
+{% for firstyear, group in items %}
+{{ firstyear.0|tex_escape }} & {{ firstyear.1|tex_escape }} & {{ group.name|tex_escape }} \\
 \hline{% endfor %}
 \end{longtable}
 \end{document}

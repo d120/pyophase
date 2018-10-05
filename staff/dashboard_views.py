@@ -277,18 +277,18 @@ class NametagCreation(StaffAppMixin, TemplateView):
             memoryfile.seek(0)
             response.write(memoryfile.read())
             return response
-        elif request.POST['action'] == 'freshmen_nametags':
+        elif request.POST['action'] == 'firstyears_nametags':
             if not 'roomscsv' in request.FILES:
                 messages.error(request, _(
                     'Du hast keine Raum csv-Datei hochgeladen.'))
-            if not 'freshmencsv' in request.FILES:
+            if not 'firstyearscsv' in request.FILES:
                 messages.error(request, _(
                     'Du hast keine Erstsemester csv-Datei hochgeladen.'))
-                freshmen = []
+                firstyears = []
             else:
-                freshmencsv = TextIOWrapper(
-                    request.FILES['freshmencsv'].file, encoding=request.encoding)
-                freshmen = list(reader(freshmencsv))[1:]
+                firstyearscsv = TextIOWrapper(
+                    request.FILES['firstyearscsv'].file, encoding=request.encoding)
+                firstyears = list(reader(firstyearscsv))[1:]
            # if len(messages.get_messages(request)) != 0:
            #     return redirect('dashboard:staff:nametags')
             roomscsv = TextIOWrapper(
@@ -297,18 +297,18 @@ class NametagCreation(StaffAppMixin, TemplateView):
             form = TutorGroupSelect(request.POST)
             form.is_valid()
             groups = form.cleaned_data.get('TutorGruppe')
-            freshmen_group = zip(freshmen, cycle(groups))
+            firstyears_group = zip(firstyears, cycle(groups))
             # generate group assignement overview
             (assignement_pdf, assignement_log) = generate_nametags(
-                freshmen_group, template='staff/reports/gruppenzuweisung.tex')
+                firstyears_group, template='staff/reports/gruppenzuweisung.tex')
             if not assignement_pdf:
                 return render(request, "staff/reports/rendering-error.html", {"content": assignement_log[0].decode("utf-8")})
             # generate timetable for each group with format [time, slotname, room]
             timetable = [list(zip(rooms[0], rooms[1], roomnumber))
                          for roomnumber in rooms[2:]]
-            # combine this with the freshmen_group-zip
-            freshmen_tags = [list(x) for x in zip(
-                freshmen, cycle(groups), cycle(timetable))]
+            # combine this with the firstyears-group-zip
+            firstyears_tags = [list(x) for x in zip(
+                firstyears, cycle(groups), cycle(timetable))]
             empty_tags = []
             for i, group in enumerate(groups):
                 for x in range(5):
@@ -316,7 +316,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
             (nametags_pdf, nametag_log) = generate_pdf_with_group_pictures(request=request,
                                                                            groups=groups,
                                                                            template='staff/reports/namensschilder-ersties.tex',
-                                                                           context={'freshmen': freshmen_tags,
+                                                                           context={'firstyears': firstyears_tags,
                                                                                     'empty_tags': empty_tags})
             memoryfile = BytesIO()
             zipfile = ZipFile(memoryfile, 'w')
