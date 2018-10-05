@@ -24,10 +24,8 @@ msgstr "Start"
 
 #: dashboard_links.py:18 templates/dashboard/personal_overview.html:4
 #: views.py:33
-#, fuzzy
-#| msgid "Zurück zur Übersicht"
 msgid "Persönliche Übersicht"
-msgstr "Back to overview"
+msgstr "Personal Overview"
 
 #: dashboard_links.py:19
 msgid "Personal"
