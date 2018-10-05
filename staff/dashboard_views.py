@@ -332,7 +332,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
                                  nametag_log[0].decode('utf-8'))
             zipfile.close()
             response = HttpResponse(content_type='application/zip')
-            response['Content-Disposition'] = 'attachment; filename=freshmen.zip'
+            response['Content-Disposition'] = 'attachment; filename=first-year-students.zip'
             memoryfile.seek(0)
             response.write(memoryfile.read())
             return response
