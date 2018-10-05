@@ -33,7 +33,7 @@ msgstr "Staff"
 
 #: dashboard_links.py:20
 msgid "Ersties"
-msgstr "Freshmen"
+msgstr "First-Year Students"
 
 #: dashboard_links.py:21
 msgid "Klausur"
