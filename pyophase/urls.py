@@ -3,13 +3,14 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import reverse_lazy
+from django.views.generic import RedirectView
 from django.views.static import serve
 
 
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^', include('website.urls', namespace='website')),
+    url(r'^$', RedirectView.as_view(url=reverse_lazy('dashboard:index'), permanent=False), name='index'),
     url(r'sso/', include('pyTUID.urls')),
     url(r'^mitmachen/', include('staff.urls', namespace='staff')),
     url(r'^teilnehmer/', include('students.urls', namespace='students')),
@@ -19,7 +20,7 @@ urlpatterns = [
     url(r'^clothing/', include('clothing.urls', namespace='clothing')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', django.contrib.auth.views.login, {'template_name': 'admin/login.html'}, name='login'),
-    url(r'^accounts/logout/$', django.contrib.auth.views.logout, {'next_page': reverse_lazy('website:homepage')}, name='logout'),
+    url(r'^accounts/logout/$', django.contrib.auth.views.logout, {'next_page': reverse_lazy('index')}, name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
