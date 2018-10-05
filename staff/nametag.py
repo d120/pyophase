@@ -45,3 +45,11 @@ def write_Response(request, pdf, pdflatex_output, filename, content_type='applic
     response['Content-Disposition']='attachment; filename=' + filename
     response.write(pdf)
     return response
+
+def cycle_bucket(buckets, sizes):
+    i = 0
+    while sum(sizes) > 0:
+        if sizes[i] > 0:
+            sizes[i] -= 1
+            yield buckets[i]
+        i = (i + 1) % len(buckets)
