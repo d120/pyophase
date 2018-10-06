@@ -304,7 +304,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
                 return redirect('dashboard:staff:nametags')
 
             # Add empty entries to end freshmen list to create empty tags for groups not full already
-            freshmen.extend(["", ""] * (len(groups) * 5))
+            freshmen.extend([["~", "~"]] * (len(groups) * 5))
 
             groups_with_rooms = list(zip(groups, rooms[2:]))
             freshmen_group = list(zip(freshmen, cycle_bucket(groups_with_rooms, group_capacities)))
