@@ -9,7 +9,7 @@ from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.http import HttpResponse
 from django.db.models import Q
@@ -294,34 +294,37 @@ class NametagCreation(StaffAppMixin, TemplateView):
             roomscsv = TextIOWrapper(
                 request.FILES['roomscsv'].file, encoding=request.encoding)
             rooms = list(reader(roomscsv))
-            size = [int(room) for room in [room[0] for room in rooms][2:]] # skip header
+            group_capacities = [int(room) for room in [room[0] for room in rooms][2:]] # skip header
             form = TutorGroupSelect(request.POST)
             form.is_valid()
             groups = form.cleaned_data.get('TutorGruppe')
-            if len(groups) != len(size):
+            if len(groups) != len(group_capacities):
                 messages.error(request, _(
                     'Es wurden nicht genauso viele Räume wie Gruppen angelegt'))
                 return redirect('dashboard:staff:nametags')
-            freshmen_group = list(zip(freshmen, cycle_bucket(groups, size)))
+
+            # Add empty entries to end freshmen list to create empty tags for groups not full already
+            freshmen.extend(["", ""] * (len(groups) * 5))
+
+            groups_with_rooms = list(zip(groups, rooms[2:]))
+            freshmen_group = list(zip(freshmen, cycle_bucket(groups_with_rooms, group_capacities)))
             # generate group assignement overview
             (assignement_pdf, assignement_log) = generate_nametags(
-                freshmen_group, template='staff/reports/gruppenzuweisung.tex')
+                [(f, g) for f, (g, r) in freshmen_group], template='staff/reports/gruppenzuweisung.tex')
             if not assignement_pdf:
                 return render(request, "staff/reports/rendering-error.html", {"content": assignement_log[0].decode("utf-8")})
-            # remove the first line with the amount out of the room list
-            rooms[2:] = [room[1:] for room in rooms[2:]]
-            # generate timetable for each group with format [time, slotname, room]
-            timetable = [list(zip(rooms[0][1:], rooms[1][1:], roomnumber))
-                    for roomnumber in rooms[2:]]
+
             # combine this with the freshmen_group-zip
             freshmen_tags = []
-            for freshmen in freshmen_group:
-                index = groups.index(freshmen[1])
-                freshmen_tags.append(freshmen, timetable[index])
+            for f, (g, r) in freshmen_group:
+                timetable = list(zip(rooms[0][1:], rooms[1][1:], r[1:]))
+                freshmen_tags.append((f, timetable))
+            # Empty tags are created together with other tags already
             empty_tags = []
-            for i, group in enumerate(groups):
+            """for i, group in enumerate(groups):
                 for x in range(5):
                     empty_tags.append((group, timetable[i]))
+                    """
             (nametags_pdf, nametag_log) = generate_pdf_with_group_pictures(request=request,
                                                                            groups=groups,
                                                                            template='staff/reports/namensschilder-ersties.tex',
