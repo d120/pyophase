@@ -317,7 +317,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
             # combine this with the freshmen_group-zip
             freshmen_tags = []
             for f, (g, r) in freshmen_group:
-                timetable = list(zip(rooms[0][1:], rooms[1][1:], r[1:]))
+                timetable = list(zip(rooms[0], rooms[1], r[1:]))
                 freshmen_tags.append([f, g, timetable])
             # Empty tags are created together with other tags already
             empty_tags = []
