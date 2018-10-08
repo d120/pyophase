@@ -99,6 +99,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
     paid = models.BooleanField(default=False)
     received_at = models.DateField(null=True, blank=True, verbose_name=_("Ausgegeben am"))
+    comment = models.TextField(null=True, blank=True, verbose_name=_("Kommentar"))
 
     def __str__(self):
         return "{}: {} {} {}".format(
