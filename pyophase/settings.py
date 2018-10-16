@@ -143,3 +143,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ### PYTUID ###
 
 TUID_SERVER_URL = 'https://sso.tu-darmstadt.de'
+
+# application-specific-cookies
+CSRF_COOKIE_NAME = 'pyophase_csrftoken'
+SESSION_COOKIE_NAME = 'pyophase_sessionid'
