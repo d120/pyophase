@@ -1,6 +1,7 @@
 import math
 
 from django.db import models
+from django.db.models import Sum
 from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
 
@@ -89,38 +90,35 @@ class Assignment(models.Model):
 
         exam_rooms = ExamRoom.objects.filter(available=True)
         exam_students = Student.get_current(tutor_group__group_category=self.group_category, want_exam=True).order_by('name', 'prename')
-        student_count = len(exam_students)
+        student_count = exam_students.count()
 
-        if len(exam_rooms) == 0 or student_count == 0:
+        if exam_rooms.count() == 0 or student_count == 0:
             return 0
 
-        free_places = sum([exam_room.capacity(self.spacing) for exam_room in exam_rooms])
-        places_needed = len(exam_students)
+        aggregation_string = 'capacity_{}_free'.format(self.spacing)
 
-        # Set ratio either to a value where all rooms are used or
-        # fixed 0.9 to fill up the first rooms up to 90 percent each
-        ratio = places_needed / free_places if self.mode == 0 else 0.9
+        free_places = exam_rooms.aggregate(Sum(aggregation_string)).get(aggregation_string+"__sum")
 
-        total_used_places = 0
-        split_points = []
+        # Set ratio so that all room gets equals percentage
+        ratio = student_count / free_places
 
-        # Divide based on mode
+        # on minimal room mode and if the ratio is less then 90% the ratio is set to 90%
+        # e.g. the first rooms get filled by 90%. The other rooms are not used
+        if self.mode == 1 and ratio < 0.9:
+            ratio = 0.9
+
+        exam_rooms_list = []
+
         for exam_room in exam_rooms:
-            used_places = math.ceil(exam_room.capacity(self.spacing) * ratio)
-            end = min(total_used_places + used_places - 1, places_needed - 1)
-            split_points.append(end)
-            total_used_places = end + 1
+            available_places = math.ceil(exam_room.capacity(self.spacing) * ratio)
+            exam_rooms_list.extend( (exam_room, ) * available_places)
 
-        # Create individual assignments per person
-        current_room = 0
-        for index, student in enumerate(exam_students):
+        for student, room in zip(exam_students, exam_rooms_list):
             ptr_assignment = PersonToExamRoomAssignment()
-            ptr_assignment.room = exam_rooms[current_room]
-            ptr_assignment.person = student
             ptr_assignment.assignment = self
+            ptr_assignment.person = student
+            ptr_assignment.room = room
             ptr_assignment.save()
-            if index == split_points[current_room] + 1:
-                current_room += 1
 
         return student_count
 
