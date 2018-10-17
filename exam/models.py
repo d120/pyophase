@@ -1,5 +1,5 @@
 import math
-from _functools import partial
+from functools import partial
 
 from django.db import models
 from django.db.models import Sum
