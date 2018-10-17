@@ -97,6 +97,7 @@ class examAssigment(TestCase):
     def test_assign_min_rooms_overfull(self):
         """
         20 students want to write the exam we want to use only the minimum required rooms
+        This reproduces the bug from https://github.com/d120/pyophase/issues/268
         """
         number_writer = 20
         self.create_exam_writer(number_writer)
