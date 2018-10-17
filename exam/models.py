@@ -1,4 +1,5 @@
 import math
+from _functools import partial
 
 from django.db import models
 from django.db.models import Sum
@@ -89,7 +90,8 @@ class Assignment(models.Model):
         """
 
         exam_rooms = ExamRoom.objects.filter(available=True)
-        exam_students = Student.get_current(tutor_group__group_category=self.group_category, want_exam=True).order_by('name', 'prename')
+        exam_students = Student.get_current(tutor_group__group_category=self.group_category, want_exam=True)
+        exam_students = exam_students.order_by('name', 'prename')
         student_count = exam_students.count()
 
         if exam_rooms.count() == 0 or student_count == 0:
@@ -97,10 +99,10 @@ class Assignment(models.Model):
 
         aggregation_string = 'capacity_{}_free'.format(self.spacing)
 
-        free_places = exam_rooms.aggregate(Sum(aggregation_string)).get(aggregation_string+"__sum")
+        total_places = exam_rooms.aggregate(total_places=Sum(aggregation_string)).get('total_places')
 
         # Set ratio so that all room gets equals percentage
-        ratio = student_count / free_places
+        ratio = student_count / total_places
 
         # on minimal room mode and if the ratio is less then 90% the ratio is set to 90%
         # e.g. the first rooms get filled by 90%. The other rooms are not used
@@ -110,15 +112,13 @@ class Assignment(models.Model):
         exam_rooms_list = []
 
         for exam_room in exam_rooms:
-            available_places = math.ceil(exam_room.capacity(self.spacing) * ratio)
-            exam_rooms_list.extend( (exam_room, ) * available_places)
+            places = math.ceil(exam_room.capacity(self.spacing) * ratio)
+            # add each room as often to the list as places available in the room
+            exam_rooms_list.extend((exam_room, ) * places)
 
-        for student, room in zip(exam_students, exam_rooms_list):
-            ptr_assignment = PersonToExamRoomAssignment()
-            ptr_assignment.assignment = self
-            ptr_assignment.person = student
-            ptr_assignment.room = room
-            ptr_assignment.save()
+        assign = partial(PersonToExamRoomAssignment.objects.create, assignment=self)
+
+        [assign(person = student, room = room) for student, room in zip(exam_students, exam_rooms_list)]
 
         return student_count
 
