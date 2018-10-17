@@ -29,9 +29,9 @@ script:
   - export PYTHONWARNINGS=all
   - python manage.py check
     # Test against SQLite
-  - coverage run --omit="*/migrations*" --source="."  python manage.py test
+  - coverage run --omit="*/migrations*" --source="." manage.py test
     # Test against MySQL
-  - coverage run --omit="*/migrations*" --source="."  python manage.py test --settings pyophase.settings_travis
+  - coverage run --omit="*/migrations*" --source="." manage.py test --settings pyophase.settings_travis
 
 after_success:
   coveralls
