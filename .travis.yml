@@ -17,9 +17,8 @@ python:
   - "3.6"
 
 install:
-  - pip install -U pip wheel
+  - pip install -U pip wheel coveralls
   - pip install -r requirements.txt
-  - pip install coveralls
   - npm install
 
 before_script:
