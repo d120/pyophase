@@ -85,9 +85,9 @@ class examAssigment(TestCase):
 
     def test_assign_min_rooms_normal(self):
         """
-        15 students want to write the exam we want to use only the minimum required rooms
+        14 students want to write the exam we want to use only the minimum required rooms
         """
-        number_writer = 15
+        number_writer = 14
         self.create_exam_writer(number_writer)
         self.assertEqual(number_writer, Student.objects.filter(want_exam=True).count())
         self.assertEqual(0, ptr.objects.count())
@@ -98,7 +98,7 @@ class examAssigment(TestCase):
         self.assertEqual(number_writer, ptr.objects.count())
         self.assertEqual(9, ptr.objects.filter(room=self.big).count())
         self.assertEqual(5, ptr.objects.filter(room=self.medium).count())
-        self.assertEqual(1, ptr.objects.filter(room=self.small).count())
+        self.assertEqual(0, ptr.objects.filter(room=self.small).count())
 
 
     def test_assign_min_rooms_overfull(self):
@@ -115,6 +115,6 @@ class examAssigment(TestCase):
         self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
-        self.assertEqual(9, ptr.objects.filter(room=self.big).count())
-        self.assertEqual(5, ptr.objects.filter(room=self.medium).count())
-        self.assertEqual(1, ptr.objects.filter(room=self.small).count())
+        self.assertEqual(12, ptr.objects.filter(room=self.big).count())
+        self.assertEqual(6, ptr.objects.filter(room=self.medium).count())
+        self.assertEqual(2, ptr.objects.filter(room=self.small).count())
