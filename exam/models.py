@@ -120,7 +120,7 @@ class Assignment(models.Model):
 
         [assign(person = student, room = room) for student, room in zip(exam_students, exam_rooms_list)]
 
-        return student_count
+        return min(student_count, len(exam_rooms_list))
 
 
 class PersonToExamRoomAssignment(models.Model):
