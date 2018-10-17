@@ -61,7 +61,9 @@ class examAssigment(TestCase):
         self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
-
+        self.assertEqual(9, ptr.objects.filter(room=self.big).count())
+        self.assertEqual(5, ptr.objects.filter(room=self.medium).count())
+        self.assertEqual(1, ptr.objects.filter(room=self.small).count())
 
     def test_assign_average_all_rooms_overfull(self):
         """
@@ -77,7 +79,9 @@ class examAssigment(TestCase):
         self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
-
+        self.assertEqual(12, ptr.objects.filter(room=self.big).count())
+        self.assertEqual(6, ptr.objects.filter(room=self.medium).count())
+        self.assertEqual(2, ptr.objects.filter(room=self.small).count())
 
     def test_assign_min_rooms_normal(self):
         """
@@ -92,6 +96,9 @@ class examAssigment(TestCase):
         self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
+        self.assertEqual(9, ptr.objects.filter(room=self.big).count())
+        self.assertEqual(5, ptr.objects.filter(room=self.medium).count())
+        self.assertEqual(1, ptr.objects.filter(room=self.small).count())
 
 
     def test_assign_min_rooms_overfull(self):
@@ -108,4 +115,6 @@ class examAssigment(TestCase):
         self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
-
+        self.assertEqual(9, ptr.objects.filter(room=self.big).count())
+        self.assertEqual(5, ptr.objects.filter(room=self.medium).count())
+        self.assertEqual(1, ptr.objects.filter(room=self.small).count())
