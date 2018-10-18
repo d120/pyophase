@@ -58,7 +58,8 @@ class examAssigment(TestCase):
         self.assertEqual(0, ptr.objects.count())
 
         self.asg.mode=1
-        self.asg.save()
+        with self.assertNumQueries(9):
+            self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
         self.assertEqual(9, ptr.objects.filter(room=self.big).count())
@@ -76,7 +77,8 @@ class examAssigment(TestCase):
         self.assertEqual(0, ptr.objects.count())
 
         self.asg.mode=0
-        self.asg.save()
+        with self.assertNumQueries(9):
+            self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
         self.assertEqual(12, ptr.objects.filter(room=self.big).count())
@@ -93,7 +95,8 @@ class examAssigment(TestCase):
         self.assertEqual(0, ptr.objects.count())
 
         self.asg.mode=1
-        self.asg.save()
+        with self.assertNumQueries(9):
+            self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
         self.assertEqual(9, ptr.objects.filter(room=self.big).count())
@@ -112,7 +115,8 @@ class examAssigment(TestCase):
         self.assertEqual(0, ptr.objects.count())
 
         self.asg.mode=1
-        self.asg.save()
+        with self.assertNumQueries(9):
+            self.asg.save()
 
         self.assertEqual(number_writer, ptr.objects.count())
         self.assertEqual(12, ptr.objects.filter(room=self.big).count())

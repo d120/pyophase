@@ -116,9 +116,10 @@ class Assignment(models.Model):
             # add each room as often to the list as places available in the room
             exam_rooms_list.extend((exam_room, ) * places)
 
-        assign = partial(PersonToExamRoomAssignment.objects.create, assignment=self)
+        assign = partial(PersonToExamRoomAssignment, assignment=self)
 
-        [assign(person = student, room = room) for student, room in zip(exam_students, exam_rooms_list)]
+        assignments = (assign(person = student, room = room) for student, room in zip(exam_students, exam_rooms_list))
+        PersonToExamRoomAssignment.objects.bulk_create(assignments)
 
         return min(student_count, len(exam_rooms_list))
 
