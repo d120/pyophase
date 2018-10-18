@@ -89,7 +89,10 @@ class Assignment(models.Model):
         Do the real assignment based on object properties
         """
 
-        exam_rooms = ExamRoom.objects.filter(available=True)
+        capacity_string = 'capacity_{}_free'.format(self.spacing)
+        order_by_string = "-{}".format(capacity_string)
+
+        exam_rooms = ExamRoom.objects.filter(available=True).order_by(order_by_string)
         exam_students = Student.get_current(tutor_group__group_category=self.group_category, want_exam=True)
         exam_students = exam_students.order_by('name', 'prename')
         student_count = exam_students.count()
@@ -97,9 +100,7 @@ class Assignment(models.Model):
         if exam_rooms.count() == 0 or student_count == 0:
             return 0
 
-        aggregation_string = 'capacity_{}_free'.format(self.spacing)
-
-        total_places = exam_rooms.aggregate(total_places=Sum(aggregation_string)).get('total_places')
+        total_places = exam_rooms.aggregate(total_places=Sum(capacity_string)).get('total_places')
 
         # Set ratio so that all room gets equals percentage
         ratio = student_count / total_places

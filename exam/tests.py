@@ -22,7 +22,7 @@ class examAssigment(TestCase):
 
         self.big = ExamRoom.objects.create(room=room_big, available=True, capacity_1_free=20, capacity_2_free=10)
         self.medium = ExamRoom.objects.create(room=room_medium, available=True, capacity_1_free=10, capacity_2_free=5)
-        self.small = ExamRoom.objects.create(room=room_small, available=True, capacity_1_free=6, capacity_2_free=3)
+        self.small = ExamRoom.objects.create(room=room_small, available=True, capacity_1_free=40, capacity_2_free=3)
 
 
     def create_exam_writer(self, no_writer):
