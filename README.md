@@ -1,3 +1,5 @@
+<p align="left"><img src="logo/horizontal.png" alt="pyophase" height="120px"></p>
+
 # pyophase
 [![Build Status](https://travis-ci.org/d120/pyophase.svg?branch=master)](https://travis-ci.org/d120/pyophase)
 [![Updates](https://pyup.io/repos/github/d120/pyophase/shield.svg)](https://pyup.io/repos/github/d120/pyophase/)
