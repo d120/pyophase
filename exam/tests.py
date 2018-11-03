@@ -9,12 +9,12 @@ from .models import Assignment, ExamRoom, PersonToExamRoomAssignment as ptr
 class examAssigment(TestCase):
     def setUp(self):
         self.oc = OphaseCategory.objects.create(name="Test Cat", slug="slug", lang="de", priority=1)
-        self.op = Ophase.objects.create(name="testOphase", is_active=True, contact_email_address = "test@example.com")
+        self.op = Ophase.objects.create(name="testOphase", is_active=True, contact_email_address="test@example.com")
         self.tg = TutorGroup.objects.create(ophase=self.op, name="Test Group", group_category=self.oc)
 
-        self.asg = Assignment(ophase = Ophase.current(), group_category = self.oc, spacing = 2)
+        self.asg = Assignment(ophase=Ophase.current(), group_category=self.oc, spacing=2)
 
-        sb = Building.objects.create(area="S", subarea=2, number="02")
+        sb = Building.objects.create(area="S", subarea=2, number=2)
 
         room_big = Room.objects.create(building=sb, number="Big", type="HS", has_beamer=True, capacity=40)
         room_medium = Room.objects.create(building=sb, number="Medium", type="HS", has_beamer=True, capacity=20)
@@ -23,7 +23,6 @@ class examAssigment(TestCase):
         self.big = ExamRoom.objects.create(room=room_big, available=True, capacity_1_free=20, capacity_2_free=10)
         self.medium = ExamRoom.objects.create(room=room_medium, available=True, capacity_1_free=10, capacity_2_free=5)
         self.small = ExamRoom.objects.create(room=room_small, available=True, capacity_1_free=40, capacity_2_free=3)
-
 
     def create_exam_writer(self, no_writer):
         """
@@ -57,7 +56,7 @@ class examAssigment(TestCase):
         self.assertEqual(number_writer, Student.objects.filter(want_exam=True).count())
         self.assertEqual(0, ptr.objects.count())
 
-        self.asg.mode=1
+        self.asg.mode = 1
         with self.assertNumQueries(9):
             self.asg.save()
 
@@ -76,7 +75,7 @@ class examAssigment(TestCase):
         self.assertEqual(number_writer, Student.objects.filter(want_exam=True).count())
         self.assertEqual(0, ptr.objects.count())
 
-        self.asg.mode=0
+        self.asg.mode = 0
         with self.assertNumQueries(9):
             self.asg.save()
 
@@ -94,7 +93,7 @@ class examAssigment(TestCase):
         self.assertEqual(number_writer, Student.objects.filter(want_exam=True).count())
         self.assertEqual(0, ptr.objects.count())
 
-        self.asg.mode=1
+        self.asg.mode = 1
         with self.assertNumQueries(9):
             self.asg.save()
 
@@ -102,7 +101,6 @@ class examAssigment(TestCase):
         self.assertEqual(9, ptr.objects.filter(room=self.big).count())
         self.assertEqual(5, ptr.objects.filter(room=self.medium).count())
         self.assertEqual(0, ptr.objects.filter(room=self.small).count())
-
 
     def test_assign_min_rooms_overfull(self):
         """
@@ -114,7 +112,7 @@ class examAssigment(TestCase):
         self.assertEqual(number_writer, Student.objects.filter(want_exam=True).count())
         self.assertEqual(0, ptr.objects.count())
 
-        self.asg.mode=1
+        self.asg.mode = 1
         with self.assertNumQueries(9):
             self.asg.save()
 
@@ -122,3 +120,71 @@ class examAssigment(TestCase):
         self.assertEqual(12, ptr.objects.filter(room=self.big).count())
         self.assertEqual(6, ptr.objects.filter(room=self.medium).count())
         self.assertEqual(2, ptr.objects.filter(room=self.small).count())
+
+    def test_assign_no_writer(self):
+        """
+        Nobody wants to write the exam
+        """
+        Student.objects.create(want_exam=False, prename="p1", name="n1", tutor_group=self.tg, ophase=self.op)
+        Student.objects.create(want_exam=False, prename="p2", name="n2", tutor_group=self.tg, ophase=self.op)
+        self.assertEqual(0, Student.objects.filter(want_exam=True).count())
+        self.assertEqual(0, ptr.objects.count())
+
+        self.asg.mode = 0
+        with self.assertNumQueries(5):
+            self.asg.save()
+
+        self.assertEqual(0, ptr.objects.count())
+
+        self.asg.mode = 1
+        with self.assertNumQueries(0):
+            self.asg.save()
+
+        self.assertEqual(0, ptr.objects.count())
+
+    def test_assign_no_rooms(self):
+        """
+        20 students want to write the exam but there are no rooms
+        """
+        number_writer = 20
+        self.create_exam_writer(number_writer)
+        self.assertEqual(number_writer, Student.objects.filter(want_exam=True).count())
+        self.assertEqual(0, ptr.objects.count())
+
+        ExamRoom.objects.all().delete()
+        self.assertEqual(0, ExamRoom.objects.count())
+
+        self.asg.mode = 0
+        with self.assertNumQueries(5):
+            self.asg.save()
+
+        self.assertEqual(0, ptr.objects.count())
+
+        self.asg.mode = 1
+        with self.assertNumQueries(0):
+            self.asg.save()
+
+        self.assertEqual(0, ptr.objects.count())
+
+    def test_assign_no_ophase_selected(self):
+        """
+        Assign without selecting the current ophase, check str functions
+        """
+        number_writer = 20
+        self.create_exam_writer(number_writer)
+        self.assertEqual(number_writer, Student.objects.filter(want_exam=True).count())
+        self.assertEqual(0, ptr.objects.count())
+        self.asg = Assignment(group_category=self.oc, spacing=2)
+
+        self.asg.mode = 1
+        with self.assertNumQueries(10):
+            self.asg.save()
+
+        self.assertEqual(number_writer, ptr.objects.count())
+        self.assertEqual(12, ptr.objects.filter(room=self.big).count())
+        self.assertEqual(6, ptr.objects.filter(room=self.medium).count())
+        self.assertEqual(2, ptr.objects.filter(room=self.small).count())
+
+        self.assertTrue(str(self.asg))
+
+        self.assertTrue(str(self.small))

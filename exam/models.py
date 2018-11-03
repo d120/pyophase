@@ -89,8 +89,8 @@ class Assignment(models.Model):
         Do the real assignment based on object properties
         """
 
-        capacity_string = 'capacity_{}_free'.format(self.spacing)
-        order_by_string = "-{}".format(capacity_string)
+        capacity_string = 'capacity_{:d}_free'.format(self.spacing)
+        order_by_string = "-{:s}".format(capacity_string)
 
         exam_rooms = ExamRoom.objects.filter(available=True).order_by(order_by_string)
         exam_students = Student.get_current(tutor_group__group_category=self.group_category, want_exam=True)
