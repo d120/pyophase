@@ -15,10 +15,12 @@ fi
 
 git pull
 npm install
-pip install -r requirements.txt
-./manage.py compilemessages  --locale='de' --locale='en'
 if [ "$1" = "--prod" ]; then
+    pip install -r requirements/production.txt
     ./manage.py collectstatic --noinput
+else
+    pip install -r requirements/development.txt
 fi
+./manage.py compilemessages  --locale='de' --locale='en'
 ./manage.py migrate
 touch pyophase/wsgi.py
