@@ -18,7 +18,8 @@ python:
 
 install:
   - pip install -U pip wheel coveralls
-  - pip install -r requirements.txt
+  - pip install -r requirements/development.txt
+  - pip install -r requirements/production.txt
   - npm install
 
 before_script:
