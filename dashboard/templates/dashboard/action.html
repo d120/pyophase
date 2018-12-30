@@ -11,9 +11,9 @@
 
                 <h3>{% icon "console" %} {{ app_name_verbose }}</h3>
 
-                <ul class="nav nav-pills nav-stacked">
+                <ul class="nav nav-pills flex-column">
                     {% for name, target in sidebar_links %}
-		    <li class="{% if target == request.path %}active {% endif %}"><a href="{{ target }}">{{ name }}</a></li>
+		    <li class="nav-item"><a class="nav-link {% if target == request.path %}active{% endif %}" href="{{ target }}">{{ name }}</a></li>
                     {% endfor %}
                 </ul>
             {% endblock %}
