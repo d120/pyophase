@@ -9,7 +9,7 @@
     {%url "dashboard:staff:tutor_pairing" as tpurl %} {% blocktrans %}Vor dem Erstellen der Zertifikate bitte überprüfen, dass Änderungen an den Tutoren der Kleingruppen unter <a href="{{ tpurl }}">Tutoren paaren</a> eingepflegt sind.{% endblocktrans %}
     </div>
     <form action="{{ request.path }}" method="post">{% csrf_token %}
-        <button type="submit">{% trans "PDF mit allen Zertifikaten erstellen" %}</button>
+        <button class="btn btn-primary" type="submit">{% trans "PDF mit allen Zertifikaten erstellen" %}</button>
     </form>
 
 {% endblock %}
