@@ -3,6 +3,6 @@ Django==2.0.10  # pyup: <2.1
 django-bootstrap3==11.0.0
 django-formtools==2.1
 odswriter==0.4.0
-Pillow==5.4.0
+Pillow==5.4.1
 git+https://github.com/d120/pyTUID.git#egg=pyTUID-1.2.2
 pytz==2018.7
