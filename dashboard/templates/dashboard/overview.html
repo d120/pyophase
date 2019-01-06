@@ -1,47 +1,49 @@
 {% extends "dashboard/dashboard_base.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
-{% block title%}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
+{% block title %}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard %}
     <style>
-    /*
-    source:
-    https://gist.github.com/stormwild/773bd6c77130ec16ba379c88ed02e877
-    */
-    .row.equal-height {
-    display: flex;
-    flex-wrap: wrap;
-    }
-    .row.equal-height > [class*='col-'] {
-        display: flex;
-        flex-direction: column;
-    }
-    .card {
-        flex: 1;
-    }
+        /*
+        source:
+        https://gist.github.com/stormwild/773bd6c77130ec16ba379c88ed02e877
+        */
+        .row.equal-height {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .row.equal-height > [class*='col-'] {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card {
+            flex: 1;
+        }
     </style>
 
-<div class="row equal-height">
-{% for widget in widgets %}
-    <div class="col-sm-6  col-lg-4 col-xl-3 mb-4">
-    <div class="card border-{{ widget.get_status }}">
-      <div class="card-body">
-        {{ widget.render }}
-      </div>
-      <div class="card-footer bg-{{ widget.get_status }}">
-      <p class="card-title">
-          {% if widget.link_target != "" %}
-              <span class="pull-right">
+    <div class="row equal-height">
+        {% for widget in widgets %}
+            <div class="col-sm-6  col-lg-4 col-xl-3 mb-4">
+                <div class="card border-{{ widget.get_status }}">
+                    <div class="card-body">
+                        {{ widget.render }}
+                    </div>
+                    <div class="card-footer bg-{{ widget.get_status }}">
+                        <p class="card-title">
+                            {% if widget.link_target != "" %}
+                                <span class="pull-right">
                 <a href="{{ widget.link_target }}">{% icon "external-link" %}</a>
               </span>
-          {% endif %}
-          {{ widget.name }}
-      </p>
-      </div>
+                            {% endif %}
+                            {{ widget.name }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-    </div>
-{% endfor %}
-</div>
-<div class="clearfix"></div>
+    <div class="clearfix"></div>
 
 {% endblock %}
