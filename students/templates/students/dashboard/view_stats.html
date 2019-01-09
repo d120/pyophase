@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             {% for tg in tutor_groups %}
-                <tr class="{% if tg.num == 0 %}danger{% else %}success{% endif %}">
+                <tr class="table-{% if tg.num == 0 %}danger{% else %}success{% endif %}">
                     <td>{{ tg.name }}</td>
                     <td>{{ tg.group_category }}</td>
                     <td>{% if tg.num == 0 %}{% icon "remove" %}{% else %}{% icon "check" %}{% endif %}

@@ -4,7 +4,7 @@
 
 
 {% block content_dashboard_view %}
-    <h3>{% trans "Zertifikate erstellen" %}<span class="badge">{{ count_student }}</span></h3>
+    <h3>{% trans "Zertifikate erstellen" %} <span class="badge badge-pill badge-secondary">{{ count_student }}</span></h3>
     <div class="alert alert-warning" role="alert">
     {%url "dashboard:staff:tutor_pairing" as tpurl %} {% blocktrans %}Vor dem Erstellen der Zertifikate bitte überprüfen, dass Änderungen an den Tutoren der Kleingruppen unter <a href="{{ tpurl }}">Tutoren paaren</a> eingepflegt sind.{% endblocktrans %}
     </div>
