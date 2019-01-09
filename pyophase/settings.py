@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'bootstrap3',
     'formtools',
     'sslserver',
@@ -63,6 +64,7 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'pyTUID.middleware.TUIDMiddleware',
 )
 
@@ -139,6 +141,9 @@ CSRF_COOKIE_HTTPONLY = True
 
 EMAIL_SUBJECT_PREFIX = "[PYOPHASE] "
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# for debug toolbar
+INTERNAL_IPS = ('127.0.0.1',)
 
 ### PYTUID ###
 
