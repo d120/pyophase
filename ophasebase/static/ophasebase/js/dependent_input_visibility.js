@@ -18,26 +18,6 @@ function _dependent_input_visibility_inner(a, b){
     $('#'+b).parent().removeClass('subquestion');}
 }
 
-function dependent_two_input_visibility(a,b,c){
-  _dependent_two_input_visibility_inner(a,b,c);
-  $('#'+a).click(function(){
-    _dependent_two_input_visibility_inner(a,b,c);
-  })
-  $('#'+b).click(function(){
-    _dependent_two_input_visibility_inner(a,b,c);
-  })
-}
-
-function _dependent_two_input_visibility_inner(d,e,f){
-  a='#'+d;b='#'+e;c='#'+f;
-  if($(a).is(':checked') || $(b).is(':checked')){$(c).parent().show();
-  $(c).prop('required',true);}
-  else {$(c).val('');
-  $(c).removeAttr('required');
-  $('input:checkbox[id^="'+f+'"]:checked').each(function(){
-      $(this).removeAttr('checked');});$(c).parent().hide();}
-}
-
 function dependent_multi_checkbox_active(a, b) {
   var checkboxes = $("#"+a).find("input[type='checkbox']");
   toggle_visibility_enabled_disabled(checkboxes.is(":checked"), b);
