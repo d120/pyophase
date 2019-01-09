@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap4 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load icons %}
 {% load i18n %}
 
 {% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
@@ -8,20 +8,37 @@
     <h3 style="margin-bottom:30px;">{% trans "Kleidung bestellen" %}</h3>
 
     {% if clothing_order_enabled %}
+        <div class="alert alert-info col-12" role="alert">
+            {% trans "Diese Bestellung löschen?" %}
+        </div>
+
+
         <form action="" method="post">{% csrf_token %}
-            <p>
-                {% trans "Diese Bestellung löschen?" %}
-                <br><br>
-                <b>{{ order.type }}</b> {{ order.size }} {{ order.color }}<br>
-                <span style="color: #999999">
-                    {% if order.additional %}
-                        {{ order.type.price }} €
-                    {% else %}
-                        {% trans "Kostenlos" %}
-                    {% endif %}
-                </span>
-            </p>
-        <input class="btn btn-default" type="submit" value="{% trans "Löschen" %}" />
+        <div class="row">
+        <div class="col-4">
+        <div class="card">
+            <div class="card-header">
+                {% trans "Bestellung" %}: #{{ order.pk }}
+            </div>
+            <div class="card-body">
+            {% trans "Typ" %}: {{ order.type }}<br>
+            {% trans "Größe" %}: {{ order.size }}<br>
+            {% trans "Farbe" %}: {{ order.color }}<br>
+            {% trans "Preis" %}:
+            <span class="text-muted">
+                {% if order.additional %}
+                    {{ order.type.price |floatformat:2 }} €
+                {% else %}
+                    {% trans "Kostenlos" %}
+                {% endif %}
+            </span><br>
+         <div class="mt-2">
+            <button class="btn btn-danger col-12" type="submit">{% icon "trash" %} {% trans "Entgültig Löschen" %}</button>
+            </div>
+            </div>
+        </div>
+        </div>
+        </div>
     </form>
     {% else %}
         <div class="alert alert-danger">
