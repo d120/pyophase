@@ -7,14 +7,14 @@ function dependent_input_visibility(a, b){
 function _dependent_input_visibility_inner(a, b){
   if($('#'+a).is(':checked')){$('#'+b).parent().show();
     $('#'+b).prop('required',true);
-    $('#'+a).parent().parent().parent().addClass('superquestion');
+    $('#'+a).parent().parent().addClass('superquestion');
     $('#'+b).parent().addClass('subquestion');}
   else {$('#'+b).val('');
     $('input:checkbox[id^="'+b+'"]:checked').each(function(){
       $(this).removeAttr('checked');})
     $('#'+b).removeAttr('required');
     $('#'+b).parent().hide();
-    $('#'+a).parent().parent().parent().removeClass('superquestion');
+    $('#'+a).parent().parent().removeClass('superquestion');
     $('#'+b).parent().removeClass('subquestion');}
 }
 
