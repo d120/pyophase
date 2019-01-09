@@ -2,6 +2,7 @@ from django.conf.urls import url
 
 from .dashboard_views import (
     GroupMassCreateView,
+    GroupMassCreateViewSuccess,
     TutorPairingSuccess,
     TutorPairingView,
     AttendanceEventIndexView, AttendanceEventDetailView, StaffOverview,
@@ -13,6 +14,7 @@ urlpatterns = [
     url(r'^$', StaffOverview.as_view(), name='index'),
 
     url(r'^group_mass_create/$', GroupMassCreateView.as_view(), name='group_mass_create'),
+    url(r'^group_mass_create_success/$', GroupMassCreateViewSuccess.as_view(), name='group_mass_create_success'),
     url(r'^tutor_pairing/$', TutorPairingView.as_view(), name='tutor_pairing'),
     url(r'^tutor_pairing_success/$', TutorPairingSuccess.as_view(), name='tutor_pairing_success'),
     url(r'^group_picture_add/$', GroupPictureAdd.as_view(), name='group_picture_add'),
