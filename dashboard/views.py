@@ -66,7 +66,7 @@ class PersonalOverview(PersonalDashboardMixin, TemplateView):
         if context['user'] is not None:
             context['user_registered'] = True
 
-            context['next_events'] = [attendance.event for attendance in context['user'].attendance_set.filter(event__begin__gte=timezone.now())]
+            context['next_events'] = [attendance.event for attendance in context['user'].attendance_set.filter(event__end__gte=timezone.now()).select_related('event')]
 
             if context['user'].is_tutor:
                 context['tutor_group'] = context['user'].tutorgroup_set.first()
@@ -74,7 +74,7 @@ class PersonalOverview(PersonalDashboardMixin, TemplateView):
                     context['tutor_partners'] = ", ".join(t.get_name() for t in context['tutor_group'].tutors.exclude(id=context['user'].id))
 
             from clothing.models import Order, Settings
-            context['clothing_orders'] = Order.objects.filter(person=context['user'])
+            context['clothing_orders'] = Order.objects.filter(person=context['user']).select_related('type','size','color')
 
             clothing_settings = Settings.instance()
             if clothing_settings is not None:
