@@ -4,7 +4,6 @@ from io import TextIOWrapper, BytesIO
 from zipfile import ZipFile
 from functools import partial
 
-from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
