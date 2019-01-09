@@ -49,35 +49,34 @@
 			<img class="center-block" style="width:30em;" src="data:image/png;base64,{{ img }}">
 			<br>
 			{% endif %}
-			<div class="form-inline">
-				<div class="form-group">
-					<label for="surname"> {% trans "Vorname" %}</label>
+			<div class="form-row">
+				<div class="form-group col-4">
+                    <img class="img-fluid col-8" src="{% static 'website/ophasen-wesen.svg' %}" />
+                </div>
+				<div class="form-group col-6 pull-right">
+					<label for="prename"> {% trans "Vorname" %}</label>
 					<input tabindex="1" class="form-control" id="prename" name="prename" required>
-				</div>
-				<div class="form-group">
 					<label for="name"> {% trans "Nachname" %}</label>
 					<input tabindex="2" class="form-control" id="name" name="name" required>
 				</div>
 			</div>
 			<br>
 			<div class="table-responsive">
-				<table class="table table-bordered table-striped table-highlight">
-					<thead>
-						<th> {% trans "Tutor" %} </th>
-						<th> {% trans "Orga" %} </th>
-						<th> <input tabindex="5" type="text" class="form-control" name="extrahead"/></th>
-						<th> {% trans "Helpdesk" %} </th>
-						<th> {% trans "Leitung" %} </th>
-					</thead>
+				<table class="table table-bordered table-striped table-highlight text-center">
 					<tbody>
 						<tr>
-							<td><input type="checkbox" tabindex="3" class="form-control" name="tutor"/></td>
-							<td><input type="checkbox" tabindex="4" class="form-control" name="orga"/></td>
-							<td><input type="text" tabindex="6" class="form-control" name="extrarow"/></td>
-							<td><input type="checkbox" tabindex="7" class="form-control" name="helpdesk"/></td>
-							<td><input type="checkbox" tabindex="8" class="form-control" name="leitung"/></td>
+							<td class="align-middle"><input type="checkbox" tabindex="3" name="tutor" id="tutor"/></td>
+							<td class="align-middle"><input type="checkbox" tabindex="4" name="orga" id="orga" /></td>
+							<td><input type="text" tabindex="5" class="form-control" name="extrahead" id="extrahead" placeholder="{% trans "Zusätzlicher Buchstabe" %}" /></td>
+							<td class="align-middle"><input type="checkbox" tabindex="7" name="helpdesk" id="helpdesk"/></td>
+							<td class="align-middle"><input type="checkbox" tabindex="8" name="leitung" id="leitung"/></td>
 						</tr>
-					</tbody>
+                        <th class="align-bottom"><label for="tutor">{% trans "Tutor" %}</label></th>
+                        <th class="align-bottom"><label for="orga">{% trans "Orga" %}</label></th>
+						<th><input tabindex="6" type="text" class="form-control" name="extrarow" id="extrarow" placeholder="{% trans "Zusätzliche Aufgabe" %}"/></th>
+                        <th class="align-bottom"><label for="helpdesk">{% trans "Helpdesk" %}</label></th>
+                        <th class="align-bottom"><label for="leitung">{% trans "Leitung" %}</label></th>
+                    </tbody>
 				</table>
 			</div>
 			<input type="hidden" name="action" value="single_nametag">
