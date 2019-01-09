@@ -6,8 +6,8 @@
 {% block content_dashboard_view %}
 {% bootstrap_messages %}
 <h3>{% trans "Gruppenbilder zuordnen" %} <span class="badge">{{ count_staff }}</span></h3>
-<div class="panel panel-default">
-	<div class="panel-body">
+<div class="card">
+	<div class="card-body">
 		<div class="table-responsive">
 			<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
 				<table class="table table-striped">
