@@ -2,3 +2,4 @@
 # Dependencies which are only for development
 coverage==4.5.2
 django-sslserver==0.20
+django-debug-toolbar==1.11
