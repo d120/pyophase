@@ -24,7 +24,7 @@
 </tr>
 </thead>
 {% for attendance in event.attendance_set.all %}
-    <tr {% if attendance.status == "x" %}class="danger"{% endif %}>
+    <tr {% if attendance.status == "x" %}class="table-danger"{% endif %}>
         <td>{{ attendance.person }}</td>
         <td>
             {% if attendance.status == "x" %}
