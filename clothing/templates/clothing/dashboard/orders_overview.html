@@ -32,13 +32,13 @@
 </tr>
 </thead>
 {% for order in orders %}
-    <tr class="{% if order.received_at %}success{% else %}danger{% endif %}">
+    <tr class="table-{% if order.received_at %}success{% else %}danger{% endif %}">
         <td>{{ order.person.prename }} {{ order.person.name }}</td>
         <td>{{ order.type }} {{ order.size }}</td>
         <td>{{ order.color }}</td>
         <td>
             {% if order.additional %}
-                <i class="fa fa-money" aria-hidden="true"></i>
+                {%  icon "money" %}
                 {% if order.paid %}
                     <span title="{% trans 'Bereits bezahlt' %}">{% icon "check" %}</span>
                 {% else %}
