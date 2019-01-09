@@ -64,8 +64,8 @@ a.no-underline:hover { text-decoration: none; }
 
 /* header -------------------------------------------------------- */
 
-.header-img-wesen { height: 9rem; }
-.header-img-logo { height: 7rem; margin-top: 3rem; }
+.header-img-wesen { height: 5.6rem; }
+.header-img-logo { height: 4.4rem; margin-top: 2rem; }
 
 .breadcrumbs {
     font-style: italic;

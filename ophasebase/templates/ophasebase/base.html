@@ -38,15 +38,15 @@
 
         <!-- Header -->
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-12 col-md-10 mt-4">
                 <h1>
-                    <a href="{% url 'website:homepage' %}" class="no-underline hidden-xs">
+                    <a href="{% url 'website:homepage' %}" class="no-underline d-none d-sm-inline">
                         <img src="{% static 'website/ophasen-wesen.svg' %}" class="header-img-wesen" />
                     </a>
                     {% block heading %}{% endblock %}
                 </h1>
             </div>
-            <div class="col-sm-4 hidden-xs right">
+            <div class="col-md-2 d-none d-md-block right">
                 <img src="{% static 'website/logo_ohne_rand.svg' %}" class="pull-right header-img-logo" />
             </div>
         </div>
