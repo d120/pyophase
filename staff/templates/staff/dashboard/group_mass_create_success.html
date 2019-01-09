@@ -10,8 +10,8 @@
 {% if duplicate_group_count > 0 %}
 <div class="alert alert-info">{% icon "remove" %} {{ duplicate_group_count }} {% trans "Kleingruppen existierten bereits." %}</div>
 {% endif %}
-<a href="{%  url 'dashboard:staff:group_mass_create' %}" class="btn btn-default">{% trans "Mehr Kleingruppen erstellen" %}</a>
-<a href="{%  url 'dashboard:staff:tutor_pairing' %}" class="btn btn-default">{% trans "Tutoren auf Kleingruppen verteilen" %}</a>
+<a href="{%  url 'dashboard:staff:group_mass_create' %}" class="btn btn-primary">{% trans "Mehr Kleingruppen erstellen" %}</a>
+<a href="{%  url 'dashboard:staff:tutor_pairing' %}" class="btn btn-primary">{% trans "Tutoren auf Kleingruppen verteilen" %}</a>
 {% else %}
 <div class="alert alert-danger">{% icon "warning-sign" %} {% trans "Keine aktive Ophase vorhanden" %}.</div>
 {% endif %}
