@@ -35,7 +35,8 @@ class AssignmentNameListView(ExamAppMixin, ListView):
     model = PersonToExamRoomAssignment
 
     def get_queryset(self):
-        return super().get_queryset().filter(assignment_id=self.kwargs['assignment_id'])
+        qs = super().get_queryset().filter(assignment_id=self.kwargs['assignment_id'])
+        return qs.select_related('room', 'person', 'room__room', 'room__room__building')
 
 
 class MakeAssignmentView(ExamAppMixin, CreateView):
