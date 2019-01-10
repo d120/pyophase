@@ -3,26 +3,6 @@
 {% block title %}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard %}
-    <style>
-        /*
-        source:
-        https://gist.github.com/stormwild/773bd6c77130ec16ba379c88ed02e877
-        */
-        .row.equal-height {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .row.equal-height > [class*='col-'] {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card {
-            flex: 1;
-        }
-    </style>
-
     <div class="row equal-height">
         {% for widget in widgets %}
             <div class="col-sm-6  col-lg-4 col-xl-3 mb-4">
