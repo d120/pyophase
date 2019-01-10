@@ -11,7 +11,7 @@ from django.views.generic import FormView, TemplateView, ListView, DetailView
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.http import HttpResponse
-from django.db.models import Q
+from django.db.models import Count, Q
 
 from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase, OphaseCategory
@@ -51,11 +51,14 @@ class StaffOverview(StaffAppMixin, TemplateView):
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
 
-            Staff = Person.objects.filter(ophase=current_ophase)
-            context['count_staff'] = Staff.count()
-            context['count_tutor'] = Staff.filter(is_tutor=True).count()
-            context['count_orga'] = Staff.filter(is_orga=True).count()
-            context['count_helper'] = Staff.filter(is_helper=True).count()
+            staff = Person.objects.filter(ophase=current_ophase)
+            stats = staff.aggregate(num_tutor=Count('pk', filter=Q(is_tutor=True)), \
+                                    num_orga=Count('pk', filter=Q(is_orga=True)), \
+                                    num_helper=Count('pk', filter=Q(is_helper=True)))
+
+            context['count_tutor'] = stats['num_tutor']
+            context['count_orga'] = stats['num_orga']
+            context['count_helper'] = stats['num_helper']
 
             context['url_filter_ophase'] = "?ophase__id__exact={}".format(
                 current_ophase.id)
