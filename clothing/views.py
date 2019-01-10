@@ -63,7 +63,8 @@ class ClothingOrderBaseView(ClothingOrderEnabledMixin, PersonalDashboardMixin):
             orders = _("Keine Bestellungen")
 
         email = EmailMessage()
-        email.subject = _("Kleiderbestellung %(ophase)s") % {'ophase': str(Ophase.current())}
+        ophase_current = Ophase.current()
+        email.subject = _("Kleiderbestellung %(ophase)s") % {'ophase': str(ophase_current)}
         email_template = loader.get_template('clothing/mail/order.txt')
         email.body = email_template.render({
             'name': person.prename,
@@ -71,7 +72,7 @@ class ClothingOrderBaseView(ClothingOrderEnabledMixin, PersonalDashboardMixin):
             'editurl': self.request.build_absolute_uri(reverse('clothing:overview'))
         })
         email.to = [person.email]
-        email.reply_to = [Ophase.current().contact_email_address]
+        email.reply_to = [ophase_current.contact_email_address]
         email.send()
 
         return super_return
