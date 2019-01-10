@@ -5,6 +5,7 @@ from zipfile import ZipFile
 from functools import partial
 
 from django.urls import reverse_lazy
+
 from django.utils.translation import ugettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
 from django.shortcuts import redirect, render
@@ -61,9 +62,9 @@ class StaffOverview(StaffAppMixin, TemplateView):
 
             # Create list of current tutors (split by categories)
             context['categories_for_tutors'] = []
-            active_categories = Ophase.current().ophaseactivecategory_set.all()
+            active_categories = current_ophase.ophaseactivecategory_set.all()
             for ac in active_categories:
-                tutors_for_category = Person.objects.filter(ophase=Ophase.current(), is_tutor=True,
+                tutors_for_category = Person.objects.filter(ophase=current_ophase, is_tutor=True,
                                                             tutor_for=ac.category)
                 tutors_count = tutors_for_category.count()
                 tutors_string = ", ".join(
@@ -83,7 +84,7 @@ class StaffOverview(StaffAppMixin, TemplateView):
             active_jobs = OrgaJob.filter_jobs_for_ophase_current()
             for aj in active_jobs:
                 orgas = OrgaSelectedJob.objects.filter(
-                    job=aj, person__ophase=Ophase.current())
+                    job=aj, person__ophase=current_ophase)
                 orgas_by_status = defaultdict(list)
                 for orga in orgas:
                     orgas_by_status[orga.status].append(orga.person.get_name())
@@ -102,7 +103,7 @@ class StaffOverview(StaffAppMixin, TemplateView):
             active_jobs = HelperJob.filter_jobs_for_ophase_current()
             for aj in active_jobs:
                 helpers = HelperSelectedJob.objects.filter(
-                    job=aj, person__ophase=Ophase.current())
+                    job=aj, person__ophase=current_ophase)
                 helpers_by_status = defaultdict(list)
                 for helper in helpers:
                     helpers_by_status[helper.status].append(
@@ -206,14 +207,15 @@ class NametagCreation(StaffAppMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(NametagCreation, self).get_context_data(**kwargs)
-        persons = Person.objects.filter(Q(ophase=Ophase.current()), 
-                Q(is_helper=True) | Q(is_tutor=True) | Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
+        current_ophase = Ophase.current()
+        persons = Person.objects.filter(Q(ophase=current_ophase),
+                                        Q(is_helper=True) | Q(is_tutor=True) | Q(is_orga=True)).prefetch_related('orga_jobs').order_by('name')
         context['staff'] = persons
         context['count_staff'] = persons.count()
         context['groupscount'] = TutorGroup.objects.filter(
-            ophase=Ophase.current()).count()
+            ophase=current_ophase).count()
         context['groups_without_picture'] = TutorGroup.objects.filter(
-            ophase=Ophase.current(), picture='').count()
+            ophase=current_ophase, picture='').count()
         context['form'] = TutorGroupSelect
         return context
 
