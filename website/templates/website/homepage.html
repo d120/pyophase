@@ -1,4 +1,4 @@
-{% extends "ophasebase/base.html" %}{% load static i18n %}
+{% extends "ophasebase/base.html" %}{% load static i18n %}{% load icons %}
 {% block title %}{% trans "Startseite" %}{% endblock %}
 {% block heading %}{% trans "Willkommen zur Ophase Informatik!" %}{% endblock %}
 
@@ -35,7 +35,7 @@
         <div class="box box-highlight box-light-{{ color }}">
             <div class="row">
                 <div class="col-sm-4 focus-item">
-                    <span class="fa fa-calendar"></span>
+                    {% icon "calendar" %}
                     <p>
                         {{ active_category.get_human_short_duration }}<br />
                         <a href="{% url 'website:detail_view' active_category.category.slug %}">
@@ -44,7 +44,7 @@
                     </p>
                 </div>
                 <div class="col-sm-4 focus-item">
-                    <span class="fa fa-map-marker"></span>
+                    {% icon "map-marke" %}
                     <p>
                         {% trans "Gebäude" %} S2|02 <br />
                         <a rel="nofollow" class="external text" target="_blank"
@@ -54,7 +54,7 @@
                     </p>
                 </div>
                 <div class="col-sm-4 focus-item">
-                    <span class="fa fa-phone"></span>
+                    {% icon "phone" %}
                     <p>{% trans "Helpdesk" %}:<br />{{ website_settings.helpdesk_phone_number }}</p>
                 </div>
             </div>

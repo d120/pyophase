@@ -1,4 +1,4 @@
-<!DOCTYPE html>{% load static %}{% load i18n %}
+<!DOCTYPE html>{% load static %}{% load i18n %}{% load icons %}
 <html>
 <head>
     <title>{% block title %}{% endblock %} | OphaseHQ - d120.de</title>
@@ -67,7 +67,7 @@
             {% else %}
             <a href="{% url 'login' %}?next={{request.path}}">{% trans "Login" %}</a>
             {% endif %}
-            <span class="pull-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fa fa-github fa-lg"></i></a></span>
+            <span class="pull-right">This Software is Open Source <a href="https://github.com/d120/pyophase">{% icon "github" %}</a></span>
         </p>
     </div>
 
