@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load staticfiles %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load static %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Tutoren paaren" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -7,7 +7,7 @@
 
 <h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
 
-<div class="well well-sm">
+<div class="card card-body bg-light">
     {% trans "Die Zahl in Klammern gibt die Erfahrung als Ophasentutor der jeweiligen Person an." %}
 </div>
 
@@ -16,7 +16,7 @@
     {% bootstrap_form form %}
     {% buttons %}
     <button type="submit" class="btn btn-success pull-right">
-        {% bootstrap_icon "ok" %} {% trans "Paarungen speichern" %}
+        {% icon "check" %} {% trans "Paarungen speichern" %}
     </button>
     {% endbuttons %}
 </form>

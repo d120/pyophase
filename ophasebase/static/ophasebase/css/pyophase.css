@@ -43,13 +43,23 @@
 
 .dotted-border { border: 1px dotted silver; }
 
-.dashboard-panel {
-    width:240px;
-    float:left;
-    margin-right:20px
+/*
+source:
+https://gist.github.com/stormwild/773bd6c77130ec16ba379c88ed02e877
+*/
+.row.equal-height {
+    display: flex;
+    flex-wrap: wrap;
 }
-.dashboard-panel .panel-body { height:150px }
 
+.row.equal-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    flex: 1;
+}
 
 /* top level element styles -------------------------------------- */
 
@@ -64,8 +74,8 @@ a.no-underline:hover { text-decoration: none; }
 
 /* header -------------------------------------------------------- */
 
-.header-img-wesen { height: 9rem; }
-.header-img-logo { height: 7rem; margin-top: 3rem; }
+.header-img-wesen { height: 5.6rem; }
+.header-img-logo { height: 4.4rem; margin-top: 2rem; }
 
 .breadcrumbs {
     font-style: italic;

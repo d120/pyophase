@@ -1,4 +1,4 @@
-{% extends "ophasebase/breadcrumbs_adminaction.html" %}{% load staticfiles i18n %}
+{% extends "ophasebase/breadcrumbs_adminaction.html" %}{% load static i18n %}{% load icons %}
 
 {% block content %}
 
@@ -36,9 +36,9 @@
         {% for p in persons %}
         <tr>
             <td>{{ p.prename }} {{ p.name }}</td>
-            <td>{% if p.is_tutor == True %}<i class="fa fa-users" title="Tutor"></i>{% endif %}</td>
+            <td>{% if p.is_tutor == True %}{% icon "user" title="Tutor" %}{% endif %}</td>
             {% for j in p.job_interest %}
-            <td>{% if j == True %}<i class="fa fa-check"></i>{% endif %}</td>
+            <td>{% if j == True %}{% icon "check" %}{% endif %}</td>
             {% endfor %}
         </tr>
         {% endfor %}

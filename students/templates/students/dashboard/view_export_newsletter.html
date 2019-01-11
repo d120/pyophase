@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}
 
 {% block title%}{% trans "Stats" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -6,11 +6,9 @@
 {% block content_dashboard_view %}
     <h3>{% trans "Newsletter Export" %}</h3>
 
-<blockquote>
-  <small>{{ newsletter_name }} <span class="badge">{{ object_list|length }}</span></small>
-</blockquote>
+  <h5>{{ newsletter_name }} <span class="badge badge-pill badge-secondary">{{ object_list|length }}</span></h5>
 
-<textarea cols="100" rows="25">
+<textarea cols="80" rows="25">
 {% for person in object_list %}{{ person.prename }} {{ person.name}} <{{person.email}}>
 {% endfor %}
 </textarea>

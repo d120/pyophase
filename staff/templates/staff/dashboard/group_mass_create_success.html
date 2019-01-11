@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Kleingruppen erstellt" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -6,14 +6,26 @@
 <h3>{% trans "Mehrere Kleingruppen auf einmal erstellen" %}</h3>
 
 {% if ophase == True %}
-<div class="alert alert-success">{% bootstrap_icon "ok" %} {{ new_group_count }} {% trans "Kleingruppen erstellt." %}</div>
+<div class="alert alert-success">{% icon "check" %}
+    {% blocktrans count new_group_count=new_group_count %}
+        Es wurde eine {{ new_group_count }} neue Kleingruppe erstellt.
+    {% plural %}
+         Es wurde einen {{ new_group_count }} neue Kleingruppen erstellt.
+    {% endblocktrans %}
+</div>
 {% if duplicate_group_count > 0 %}
-<div class="alert alert-info">{% bootstrap_icon "remove" %} {{ duplicate_group_count }} {% trans "Kleingruppen existierten bereits." %}</div>
+<div class="alert alert-info">{% icon "times" %}
+    {% blocktrans count duplicate_group_count=duplicate_group_count %}
+        {{ duplicate_group_count }} Kleingruppe existierte bereits.
+    {% plural %}
+        {{ duplicate_group_count }} Kleingruppen existierten bereits.
+    {% endblocktrans %}
+</div>
 {% endif %}
-<a href="{%  url 'dashboard:staff:group_mass_create' %}" class="btn btn-default">{% trans "Mehr Kleingruppen erstellen" %}</a>
-<a href="{%  url 'dashboard:staff:tutor_pairing' %}" class="btn btn-default">{% trans "Tutoren auf Kleingruppen verteilen" %}</a>
+<a href="{%  url 'dashboard:staff:group_mass_create' %}" class="btn btn-primary">{% trans "Mehr Kleingruppen erstellen" %}</a>
+<a href="{%  url 'dashboard:staff:tutor_pairing' %}" class="btn btn-primary">{% trans "Tutoren auf Kleingruppen verteilen" %}</a>
 {% else %}
-<div class="alert alert-danger">{% bootstrap_icon "warning-sign" %} {% trans "Keine aktive Ophase vorhanden" %}.</div>
+<div class="alert alert-danger">{% icon "warning-sign" %} {% trans "Keine aktive Ophase vorhanden" %}.</div>
 {% endif %}
 
 {% endblock %}

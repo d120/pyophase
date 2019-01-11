@@ -1,4 +1,4 @@
-{% extends "students/exam_base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "students/exam_base.html" %}{% load bootstrap4 %}{% load i18n %} {% load icons %}
 {% block title %}{% trans "Ophasenregistrierung" %}{% endblock %}
 
 {% block content_exam %}
@@ -10,10 +10,10 @@
         {% bootstrap_form form %}
     {% buttons %}
         <button type="reset" class="btn btn-danger">
-            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+            {% icon "remove" %} {% trans "Zurücksetzen" %}
         </button>
         <button type="submit" class="btn btn-success pull-right">
-            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+            {% icon "check" %} {% trans "Abschicken" %}
         </button>
     {% endbuttons %}
     </form>
@@ -24,7 +24,7 @@
 </div>
 {% endif %}
 {% endblock %}
-{% block bottom_script %}{% load staticfiles %}
+{% block bottom_script %}{% load static %}
 {% if student_registration_enabled %}
 <script src="{% static "ophasebase/js/dependent_input_visibility.js" %}"></script>
 

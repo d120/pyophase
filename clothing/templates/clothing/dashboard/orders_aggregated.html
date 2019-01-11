@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}
 {% load i18n %}
 
 {% block title %}{% trans "Aggregierte Bestellungen" %} | {% trans "Kleidung" %}{% endblock %}
@@ -7,11 +7,11 @@
 <h3>{% trans "Aggregierte Bestellungen" %}</h3>
 
 {% for additonal_type, types in orders.items %}
-    <div class="panel panel-primary">
-        <div class="panel-heading">
+    <div class="card border-primary mb-3">
+        <div class="card-header bg-primary text-light">
             <h4>{{ additonal_type }}</h4>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
             {% for type, colors in types.items %}
                 <table class="table">
                     <thead><tr>
@@ -35,5 +35,5 @@
 {% endfor %}
 
 {% endblock %}
-{% block bottom_script %}{% load staticfiles %}
+{% block bottom_script %}{% load static %}
 {% endblock %}

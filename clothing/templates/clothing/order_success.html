@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load icons %}
 {% load i18n %}
 
 {% block title %}{% trans "Kleidung bestellen" %}{% endblock %}
@@ -9,8 +9,8 @@
     <div class="alert alert-success">{% trans "(Geänderte) Bestellung erfolgreich gespeichert" %}</div>
 
     <div class="text-center">
-        <a href="{% url 'clothing:overview' %}" class="btn btn-default">{% trans 'Zur Übersicht' %}</a>
-        <a href="{% url 'clothing:order_new' %}" class="btn btn-default">{% trans 'Weitere Bestellung aufgeben' %}</a>
+        <a href="{% url 'clothing:overview' %}" class="btn btn-light">{% trans 'Zur Übersicht' %}</a>
+        <a href="{% url 'clothing:order_new' %}" class="btn btn-primary">{% icon "cart-plus" %} {% trans 'Weitere Bestellung aufgeben' %}</a>
     </div>
 
 {% endblock %}

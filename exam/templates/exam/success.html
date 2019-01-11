@@ -1,11 +1,11 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load icons %}
 
 {% block title%}Zuteilung durchgeführt | Klausurzuteilung{% endblock %}
 
 {% block content_dashboard_view %}
 <h3>Klausurzuteilung durchführen</h3>
 
-<div class="alert alert-success">{% bootstrap_icon "ok" %} Zuteilung durchgeführt.</div>
-<a href="{%  url 'dashboard:exam:assignment_new' %}" class="btn btn-default">Neue Zuteilung durchführen</a>
+<div class="alert alert-success">{% icon "check" %} Zuteilung durchgeführt.</div>
+<a  class="btn btn-primary" href="{%  url 'dashboard:exam:assignment_new' %}">Neue Zuteilung durchführen</a>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load icons %}
 {% load i18n %}
 
 {% block title %}{% trans "Anwesenheitstermin" %} | {% trans "Personal" %}{% endblock %}
@@ -24,24 +24,24 @@
 </tr>
 </thead>
 {% for attendance in event.attendance_set.all %}
-    <tr {% if attendance.status == "x" %}class="danger"{% endif %}>
+    <tr {% if attendance.status == "x" %}class="table-danger"{% endif %}>
         <td>{{ attendance.person }}</td>
         <td>
             {% if attendance.status == "x" %}
-                <i class="fa fa-times" aria-hidden="true"></i>
+                {%  icon "times" %}
             {% elif attendance.status == "e" %}
-                <i class="fa fa-user-times" aria-hidden="true"></i>
+                {%  icon "user-times" %}
             {% elif attendance.status == "v" %}
-                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                {% icon "clock-o" %}
             {% else %}
-                <i class="fa fa-check" aria-hidden="true"></i>
+                {% icon "check" %}
             {% endif %}
         </td>
         <td>
             {% if attendance.phone_status == "n" %}
-                <i class="fa fa-phone" aria-hidden="true"></i>
+                {% icon "phone" %}
             {% elif attendance.phone_status == "e" %}
-                <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+                {% icon "volume-control-phone" %}
             {% endif %}
         </td>
         <td>{{ attendance.comment }}</td>
@@ -54,5 +54,5 @@
 
 
 {% endblock %}
-{% block bottom_script %}{% load staticfiles %}
+{% block bottom_script %}{% load static %}
 {% endblock %}

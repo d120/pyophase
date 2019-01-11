@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}
 
 {% block title%}{% trans "Gruppenbilder hinzufügen" %} | {% trans "Dashboard" %}{% endblock %}
 
@@ -6,8 +6,8 @@
 {% block content_dashboard_view %}
 {% bootstrap_messages %}
 <h3>{% trans "Gruppenbilder zuordnen" %} <span class="badge">{{ count_staff }}</span></h3>
-<div class="panel panel-default">
-	<div class="panel-body">
+<div class="card">
+	<div class="card-body">
 		<div class="table-responsive">
 			<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
 				<table class="table table-striped">
@@ -47,7 +47,7 @@
 				Daten auf dem Server werden auf den angezeigten Stand geändert
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Abbrechen" %}</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Abbrechen" %}</button>
 				<button type="submit" class="btn btn-danger">{% trans "Ausführen" %}</button>
 			</div>
 		</div>
