@@ -47,7 +47,7 @@
                 </h1>
             </div>
             <div class="col-md-2 d-none d-md-block right">
-                <img src="{% static 'website/logo_ohne_rand.svg' %}" class="pull-right header-img-logo" />
+                <img src="{% static 'website/logo_ohne_rand.svg' %}" class="float-right header-img-logo" />
             </div>
         </div>
 
@@ -56,7 +56,7 @@
 
         <!-- Footer menu -->
         <p class="text-muted footer">
-            <span class="pull-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>&nbsp;&bull;
+            <span class="float-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>&nbsp;&bull;
             {% if user.is_authenticated %}
             {% trans "Angemeldet als" %} {{ user.username }}
             {% if user.is_staff %}

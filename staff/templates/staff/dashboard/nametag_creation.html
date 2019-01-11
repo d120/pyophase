@@ -35,7 +35,7 @@
 		</div>
 		<form action="{{ request.path }}" method="post">{% csrf_token %}
 			<input type="hidden" name="action" value="all_nametags">
-			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
 		</form>
 	</div>
 </div>
@@ -53,7 +53,7 @@
 				<div class="form-group col-4">
                     <img class="img-fluid col-8" src="{% static 'website/ophasen-wesen.svg' %}" />
                 </div>
-				<div class="form-group col-6 pull-right">
+				<div class="form-group col-6 float-right">
 					<label for="prename"> {% trans "Vorname" %}</label>
 					<input tabindex="1" class="form-control" id="prename" name="prename" required>
 					<label for="name"> {% trans "Nachname" %}</label>
@@ -80,7 +80,7 @@
 				</table>
 			</div>
 			<input type="hidden" name="action" value="single_nametag">
-			<button tabindex="9" class="pull-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
+			<button tabindex="9" class="float-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
 		</div>
 	</div>
 </form>
@@ -106,9 +106,9 @@
 				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
 				{% endblocktrans %}
 			</div>
-			<button class="pull-right btn btn-primary disabled" type="button">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary disabled" type="button">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
 			{% else %}
-			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
 			{% endif %}
 		</form>
 	</div>
@@ -140,9 +140,9 @@
 				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
 				{% endblocktrans %}
 			</div>
-			<button class="pull-right btn btn-primary disabled" type="button">{% trans "zip-Datei erstellen" %}</button>
+			<button class="float-right btn btn-primary disabled" type="button">{% trans "zip-Datei erstellen" %}</button>
 			{% else %}
-			<button class="pull-right btn btn-primary" type="submit">{% trans "zip-Datei erstellen" %}</button>
+			<button class="float-right btn btn-primary" type="submit">{% trans "zip-Datei erstellen" %}</button>
 			{% endif %}
 			<input name="roomscsv" type="file"/>
 		</form>
@@ -175,7 +175,7 @@
 				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
 				{% endblocktrans %}
 			</div>
-			<button class="pull-right btn btn-primary disabled" type="button">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary disabled" type="button">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
 			{% else %}
 			{{ form.as_p }}
 			<div class="row">
@@ -192,7 +192,7 @@
 					</div>
 				</div>
 			</div>
-			<button class="pull-right btn btn-primary" type="submit">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary" type="submit">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
 			{% endif %}
 		</form>
 	</div>

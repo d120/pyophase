@@ -24,14 +24,14 @@
 						<tr>
 							<td> <img style="max-width:200px;" id="img-{{ group.id }}" src="{% if group.picture %}{{ group.picture.url }}{% endif %}"> </td>
 							<td>{{ group.name }}</td>
-							<td><label class="pull-right btn btn-info">{% trans "Bild hinzufügen" %}<input id="imageupload-{{ group.id }}" name="{{ group.id }}" onchange="fileSelected(event)" style="display:none;" type="file"/></label>  </td>
-							<td><button type="button" id="imagedelete-{{ group.id }}" class="pull-right btn btn-danger" onclick="deletePhoto(event)">{% trans "Bild löschen" %}</button>  </td>
+							<td><label class="float-right btn btn-info">{% trans "Bild hinzufügen" %}<input id="imageupload-{{ group.id }}" name="{{ group.id }}" onchange="fileSelected(event)" style="display:none;" type="file"/></label>  </td>
+							<td><button type="button" id="imagedelete-{{ group.id }}" class="float-right btn btn-danger" onclick="deletePhoto(event)">{% trans "Bild löschen" %}</button>  </td>
 						</tr>
 						<input type="hidden" name="action-{{ group.id }}" value=""/>
 						{% endfor %}
 					</tbody>
 				</table>
-				<button class="pull-right btn btn-primary" type="button" data-toggle="modal" data-target="#deletealert">{% trans "Bilder hochladen/löschen" %}</button>
+				<button class="float-right btn btn-primary" type="button" data-toggle="modal" data-target="#deletealert">{% trans "Bilder hochladen/löschen" %}</button>
 		</div>
 	</div>
 </div>
