@@ -46,7 +46,7 @@
                 {% endif %}
             {% endif %}
         </td>
-        <td>{% if order.received_at %}{% icon "check" %}{% else %}{% icon "remove" %}{% endif %}</td>
+        <td>{% if order.received_at %}{% icon "check" %}{% else %}{% icon "times" %}{% endif %}</td>
     </tr>
 {% empty %}
     <tr><td>{% trans "Bisher keine Bestellungen" %}</td><td></td><td></td></tr>
