@@ -4,6 +4,8 @@ from .models import Workshop, WorkshopSlot
 
 
 class WorkshopSubmissionForm(forms.ModelForm):
+    required_css_class = 'required'
+
     class Meta:
         model = Workshop
         exclude = ['ophase']

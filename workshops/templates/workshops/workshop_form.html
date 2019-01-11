@@ -26,6 +26,7 @@
     <form role="form" action="{{action}}" method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
+        <p class="required-explanation">{% trans "Dieses Feld ist erforderlich" %}</p>
     {% buttons %}
         <button type="reset" class="btn btn-danger">
             {% icon "remove" %} {% trans "Zurücksetzen" %}

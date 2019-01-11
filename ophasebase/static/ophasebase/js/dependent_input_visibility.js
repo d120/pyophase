@@ -34,11 +34,13 @@ function toggle_visibility_enabled_disabled(targetState, id) {
   toggledElement.attr("disabled", !targetState);
   if(targetState){
     toggledParent.show();
+    toggledParent.addClass("required");
     toggledElement.prop('required',true);
   }
   else {
     toggledParent.hide();
     toggledElement.removeAttr('required');
+    toggledParent.removeClass("required");
     toggledElement.val('')
   }
 }

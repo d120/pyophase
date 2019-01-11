@@ -10,6 +10,7 @@ from .models import HelperJob, OrgaJob, Person, Settings, OrgaSelectedJob, Helpe
 
 
 class PersonForm(forms.ModelForm):
+    required_css_class = 'required'
 
     def __append_description_link(self, field, view):
         """Append a link to a description view to the field label"""

@@ -8,6 +8,8 @@ from .models import Student
 
 
 class StudentRegisterForm(forms.ModelForm):
+    required_css_class = 'required'
+
     class Meta:
         model = Student
         fields = ['prename', 'name', 'tutor_group', 'want_exam', 'newsletters', 'email']

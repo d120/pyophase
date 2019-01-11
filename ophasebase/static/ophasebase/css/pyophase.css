@@ -103,3 +103,8 @@ a.no-underline:hover { text-decoration: none; }
     display: block;
     margin: 0 auto;
 }
+
+.required label:after, .required-explanation:before {
+    content: ' * ';
+    color: var(--danger);
+}
