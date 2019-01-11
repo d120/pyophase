@@ -26,7 +26,7 @@
 					{% for orga in staff %}
 					<tr>
 						<td>{{ orga.prename }} {{ orga.name }}</td>
-						<td>{% if orga.is_tutor %}{% icon "check" %}{% else %}{% icon "remove" %}{% endif %} </td>
+						<td>{% if orga.is_tutor %}{% icon "check" %}{% else %}{% icon "times" %}{% endif %} </td>
 						<td>{{ orga.get_approved_orgajob_names | join:", " }}</td>
 					</tr>
 					{% endfor %}
