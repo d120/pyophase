@@ -109,12 +109,14 @@ class PersonAdmin(admin.ModelAdmin):
 
 @admin.register(OrgaSelectedJob)
 class OrgaSelectedJobAdmin(admin.ModelAdmin):
-    list_display = ['job', 'status', 'person']
+    list_display = ('job', 'status', 'person')
+    list_filter = ('job',)
 
 
 @admin.register(HelperSelectedJob)
 class HelperelectedJobAdmin(admin.ModelAdmin):
-    list_display = ['job', 'status', 'person']
+    list_display = ('job', 'status', 'person')
+    list_filter = ('job',)
 
 
 @admin.register(StaffFilterGroup)
