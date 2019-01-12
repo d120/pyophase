@@ -107,10 +107,22 @@ class StaffOverview(StaffAppMixin, TemplateView):
 
         ojs_data = list(osj.filter(job__in=active_jobs, status__in=possible_stats))
 
-        return ({"job": j, "filter": "?job__id__exact={}".format(j.id),
-                 "states": [[d for d in ojs_data if d.job == j and d.status == s] for s in possible_stats]}
-               for j in active_jobs)
+        res = []
 
+        for j in active_jobs:
+            # filter data by job
+            data = [d for d in ojs_data if d.job == j]
+
+            # filter data by status for each status
+            states = [[d for d in data if d.status == s] for s in possible_stats]
+
+            res.append({
+                "job": j,
+                "filter": "?job__id__exact={}".format(j.id),
+                "states": states,
+            })
+
+        return res
 
 class GroupMassCreateView(StaffAppMixin, FormView):
     permissions = ['staff.add_tutorgroup']
