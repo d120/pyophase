@@ -81,7 +81,7 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['orga_jobs'] = self.overview_data(OrgaJob)
 
             # Create a list of all helper and fill them with persons that selected this job
-            context['helper_jobs'] = self.overview_data( HelperJob)
+            context['helper_jobs'] = self.overview_data(HelperJob)
 
         return context
 
@@ -97,8 +97,9 @@ class StaffOverview(StaffAppMixin, TemplateView):
         osj = osj.select_related('person', 'person__ophase')
         active_jobs = model.filter_jobs_for_ophase_current()
 
-        return ({"job": j, "states": [osj.filter(job=j, status=s)
-                                       for s in possible_stats]} for j in active_jobs)
+        return ({"job": j, "filter": "?job__id__exact={}".format(j.id),
+                 "states": [osj.filter(job=j, status=s) for s in possible_stats]}
+                for j in active_jobs)
 
 
 class GroupMassCreateView(StaffAppMixin, FormView):

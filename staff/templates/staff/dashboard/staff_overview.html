@@ -57,7 +57,7 @@
         </thead>
         {% for oj in orga_jobs %}
             <tr>
-                <td>{{ oj.job.label }}</td>
+                <td><a href="{% url "admin:staff_orgaselectedjob_changelist" %}{{ oj.filter }}">{{ oj.job.label }}</a></td>
                 {% for state in oj.states %}
                     <td>
                         {% for o in state %} <a href="{% url "admin:staff_orgaselectedjob_change" object_id=o.id %}">
@@ -83,7 +83,7 @@
         </thead>
         {% for hj in helper_jobs %}
             <tr>
-                <td>{{ hj.job.label }}</td>
+                <td><a href="{% url "admin:staff_helperselectedjob_changelist" %}{{ hj.filter }}">{{ hj.job.label }}</a></td>
                 {% for state in hj.states %}
                     <td>{% for o in state %}
                         <a href="{% url "admin:staff_helperselectedjob_change" object_id=o.id %}">
