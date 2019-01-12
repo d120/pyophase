@@ -86,12 +86,20 @@ class StaffOverview(StaffAppMixin, TemplateView):
         return context
 
     def overview_data(self, model):
+        """
+        Creates a list of a jobs and the persons that selected this job.
+        The persons are seperated by status of the selection.
+        :param model: the model to use. Can be OrgaJob or HelperJob
+        :return: a list of dicts. Each dict has the keys: job, filter and states.
+        """
         if model is OrgaJob:
             selected_job = OrgaSelectedJob
             possible_stats = ('o', 'c', 'i')
         elif model is HelperJob:
             selected_job = HelperSelectedJob
             possible_stats = ('e', 'i')
+        else:
+            raise NotImplementedError
 
         osj = selected_job.objects.filter(person__ophase=self.current_ophase)
         osj = osj.select_related('person', 'person__ophase')
