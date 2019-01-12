@@ -52,13 +52,9 @@ class StaffOverview(StaffAppMixin, TemplateView):
             context['ophase_title'] = str(current_ophase)
 
             staff = Person.objects.filter(ophase=current_ophase)
-            stats = staff.aggregate(num_tutor=Count('pk', filter=Q(is_tutor=True)), \
-                                    num_orga=Count('pk', filter=Q(is_orga=True)), \
-                                    num_helper=Count('pk', filter=Q(is_helper=True)))
-
-            context['count_tutor'] = stats['num_tutor']
-            context['count_orga'] = stats['num_orga']
-            context['count_helper'] = stats['num_helper']
+            context.update(staff.aggregate(count_tutor=Count('pk', filter=Q(is_tutor=True)), \
+                                           count_orga=Count('pk', filter=Q(is_orga=True)), \
+                                           count_helper=Count('pk', filter=Q(is_helper=True))))
 
             context['url_filter_ophase'] = "?ophase__id__exact={}".format(
                 current_ophase.id)
