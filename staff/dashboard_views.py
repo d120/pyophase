@@ -47,6 +47,7 @@ class StaffOverview(StaffAppMixin, TemplateView):
         context = super().get_context_data()
 
         current_ophase = Ophase.current()
+        self.current_ophase = current_ophase
         context['ophase_title'] = _('Ophase')
         if current_ophase is not None:
             context['ophase_title'] = str(current_ophase)
@@ -66,57 +67,38 @@ class StaffOverview(StaffAppMixin, TemplateView):
                 tutors_for_category = Person.objects.filter(ophase=current_ophase, is_tutor=True,
                                                             tutor_for=ac.category)
                 tutors_count = tutors_for_category.count()
-                tutors_string = ", ".join(
-                    t.get_name() for t in tutors_for_category) if tutors_count > 0 else "-"
 
                 context['categories_for_tutors'].append(
                     {
                         "name": ac.category.name,
                         "count": tutors_count,
-                        "tutors": tutors_string,
+                        "tutor": tutors_for_category,
                         "filter": "?ophase__id__exact={}&tutorstatus={}".format(current_ophase.id, ac.category.id)
                     }
                 )
 
             # Create a list of all orgajobs and fill them with persons that selected this job
-            context['orga_jobs'] = []
-            active_jobs = OrgaJob.filter_jobs_for_ophase_current()
-            for aj in active_jobs:
-                orgas = OrgaSelectedJob.objects.filter(
-                    job=aj, person__ophase=current_ophase)
-                orgas_by_status = defaultdict(list)
-                for orga in orgas:
-                    orgas_by_status[orga.status].append(orga.person.get_name())
-
-                context['orga_jobs'].append(
-                    {
-                        "name": aj.label,
-                        "orga": ", ".join(orgas_by_status["o"]),
-                        "co_orga": ", ".join(orgas_by_status["c"]),
-                        "interested": ", ".join(orgas_by_status["i"])
-                    }
-                )
+            context['orga_jobs'] = self.overview_data(OrgaJob)
 
             # Create a list of all helper and fill them with persons that selected this job
-            context['helper_jobs'] = []
-            active_jobs = HelperJob.filter_jobs_for_ophase_current()
-            for aj in active_jobs:
-                helpers = HelperSelectedJob.objects.filter(
-                    job=aj, person__ophase=current_ophase)
-                helpers_by_status = defaultdict(list)
-                for helper in helpers:
-                    helpers_by_status[helper.status].append(
-                        helper.person.get_name())
-
-                context['helper_jobs'].append(
-                    {
-                        "name": aj.label,
-                        "selected": ", ".join(helpers_by_status["e"]),
-                        "interested": ", ".join(helpers_by_status["i"])
-                    }
-                )
+            context['helper_jobs'] = self.overview_data( HelperJob)
 
         return context
+
+    def overview_data(self, model):
+        if model is OrgaJob:
+            selected_job = OrgaSelectedJob
+            possible_stats = ('o', 'c', 'i')
+        elif model is HelperJob:
+            selected_job = HelperSelectedJob
+            possible_stats = ('e', 'i')
+
+        osj = selected_job.objects.filter(person__ophase=self.current_ophase)
+        osj = osj.select_related('person', 'person__ophase')
+        active_jobs = model.filter_jobs_for_ophase_current()
+
+        return ({"job": j, "states": [osj.filter(job=j, status=s)
+                                       for s in possible_stats]} for j in active_jobs)
 
 
 class GroupMassCreateView(StaffAppMixin, FormView):

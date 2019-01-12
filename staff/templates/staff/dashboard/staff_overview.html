@@ -35,7 +35,9 @@
             <tr>
                 <td><a href="{% url "admin:staff_person_changelist" %}{{ cft.filter }}">{{ cft.name }}</a></td>
                 <td>{{ cft.count }}</td>
-                <td>{{ cft.tutors }}</td>
+                <td>{% for t in cft.tutor %}
+                    <a href="{% url "admin:staff_person_change" object_id=t.id %}">{{ t.get_name }}</a>{% if not forloop.last %},{% endif %}
+                {% empty %}-{% endfor %}</td>
             </tr>
         {% empty %}
             <tr><td>{% trans "Bisher keine Tutoren" %}</td><td></td><td></td></tr>
@@ -55,10 +57,13 @@
         </thead>
         {% for oj in orga_jobs %}
             <tr>
-                <td>{{ oj.name }}</td>
-                <td>{{ oj.orga }}</td>
-                <td>{{ oj.co_orga }}</td>
-                <td>{{ oj.interested }}</td>
+                <td>{{ oj.job.label }}</td>
+                {% for state in oj.states %}
+                    <td>
+                        {% for o in state %} <a href="{% url "admin:staff_orgaselectedjob_change" object_id=o.id %}">
+                            {{ o.person.get_name }}{% if not forloop.last %},{% endif %}</a>
+                   {% endfor %}</td>
+                {% endfor %}
             </tr>
         {% empty %}
             <tr><td>{% trans "Bisher keine Orgas" %}</td><td></td><td></td><td></td></tr>
@@ -78,9 +83,13 @@
         </thead>
         {% for hj in helper_jobs %}
             <tr>
-                <td>{{ hj.name }}</td>
-                <td>{{ hj.selected }}</td>
-                <td>{{ hj.interested }}</td>
+                <td>{{ hj.job.label }}</td>
+                {% for state in hj.states %}
+                    <td>{% for o in state %}
+                        <a href="{% url "admin:staff_helperselectedjob_change" object_id=o.id %}">
+                            {{ o.person.get_name }}{% if not forloop.last %},{% endif %}</a>
+                   {% endfor %}</td>
+                {% endfor %}
             </tr>
         {% empty %}
             <tr><td>{% trans "Bisher keine Helfer" %}</td><td></td><td></td></tr>
