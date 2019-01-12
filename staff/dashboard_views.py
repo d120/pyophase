@@ -105,9 +105,11 @@ class StaffOverview(StaffAppMixin, TemplateView):
         osj = osj.select_related('person', 'person__ophase')
         active_jobs = model.filter_jobs_for_ophase_current()
 
+        ojs_data = list(osj.filter(job__in=active_jobs, status__in=possible_stats))
+
         return ({"job": j, "filter": "?job__id__exact={}".format(j.id),
-                 "states": [osj.filter(job=j, status=s) for s in possible_stats]}
-                for j in active_jobs)
+                 "states": [[d for d in ojs_data if d.job == j and d.status == s] for s in possible_stats]}
+               for j in active_jobs)
 
 
 class GroupMassCreateView(StaffAppMixin, FormView):
