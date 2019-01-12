@@ -94,10 +94,10 @@ class StaffOverview(StaffAppMixin, TemplateView):
         """
         if model is OrgaJob:
             selected_job = OrgaSelectedJob
-            possible_stats = ('o', 'c', 'i')
+            possible_status = ('o', 'c', 'i')
         elif model is HelperJob:
             selected_job = HelperSelectedJob
-            possible_stats = ('e', 'i')
+            possible_status = ('e', 'i')
         else:
             raise NotImplementedError
 
@@ -105,7 +105,7 @@ class StaffOverview(StaffAppMixin, TemplateView):
         osj = osj.select_related('person', 'person__ophase')
         active_jobs = model.filter_jobs_for_ophase_current()
 
-        ojs_data = list(osj.filter(job__in=active_jobs, status__in=possible_stats))
+        ojs_data = list(osj.filter(job__in=active_jobs, status__in=possible_status))
 
         res = []
 
@@ -114,7 +114,7 @@ class StaffOverview(StaffAppMixin, TemplateView):
             data = [d for d in ojs_data if d.job == j]
 
             # filter data by status for each status
-            states = [[d for d in data if d.status == s] for s in possible_stats]
+            states = [[d for d in data if d.status == s] for s in possible_status]
 
             res.append({
                 "job": j,
