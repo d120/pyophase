@@ -105,58 +105,6 @@ def staff_overview_export(modeladmin, request, queryset):
 
 staff_overview_export.short_description = _('Übersicht exportieren')
 
-def job_overview(jobtype, modeladmin, request, queryset):
-    """Display a matrix to show persons with associated jobs.
-    """
-    template = loader.get_template("staff/admin/job_matrix.html")
-
-    if jobtype == 'helper':
-        persons = queryset.filter(is_helper=True)
-        jobs = HelperJob.objects.all().annotate(num_person=Count(Case(When(person__is_helper=True, then=1))))
-        title = ('Helfer-Übersicht')
-    elif jobtype == 'orga':
-        persons = queryset.filter(is_orga=True)
-        jobs = OrgaJob.objects.all().annotate(num_person=Count(Case(When(person__is_orga=True, then=1))))
-        title = ('Orga-Übersicht')
-
-    jobs.order_by('label')
-
-    for person in persons:
-        job_interest = []
-        for j in jobs:
-            if jobtype == 'helper' and person.helper_jobs.filter(id=j.id).exists() or \
-               jobtype == 'orga' and person.orga_jobs.filter(id=j.id).exists():
-                    job_interest.append(True)
-            else:
-                job_interest.append(False)
-        person.job_interest = job_interest
-
-    context = {
-        'jobtype' : jobtype,
-        'persons' : persons,
-        'jobs' : jobs,
-        'opts' : modeladmin.opts,
-        'title' : title,
-    }
-
-    return SimpleTemplateResponse(template, context)
-
-def helper_job_overview(modeladmin, request, queryset):
-    """Display a matrix to show helpers with associated helper jobs.
-    """
-    return job_overview('helper', modeladmin, request, queryset)
-
-helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
-
-
-def orga_job_overview(modeladmin, request, queryset):
-    """Display a matrix to show orga with associated orga jobs.
-    """
-    return job_overview('orga', modeladmin, request, queryset)
-
-orga_job_overview.short_description = _('Orga-Übersicht anzeigen')
-
-
 def tutorgroup_export(modeladmin, request, queryset):
     """Exports group names with associated tutors in ods format.
     The produced ods file serves as an input for the name tag Java aplication.

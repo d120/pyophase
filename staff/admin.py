@@ -7,9 +7,7 @@ from django.utils.translation import ugettext as _
 
 from ophasebase.models import OphaseCategory
 from .admin_actions import (
-    helper_job_overview,
     mail_export,
-    orga_job_overview,
     send_fillform_mail,
     staff_nametag_export,
     staff_overview_export,
@@ -68,7 +66,7 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
     readonly_fields = ('created_at', 'updated_at')
-    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, send_fillform_mail, generate_orga_cert]
+    actions = [mail_export, staff_overview_export, staff_nametag_export, send_fillform_mail, generate_orga_cert]
 
     fieldsets = [
         (_('Personendaten'), {'fields':
