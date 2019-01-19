@@ -12,9 +12,9 @@ services:
   - mysql
 
 python:
-  - "3.4"
   - "3.5"
   - "3.6"
+  - "3.7"
 
 install:
   - pip install -U pip wheel coveralls
