@@ -157,7 +157,7 @@
 		{% blocktrans %}
 		Erstellt eine zip-Datei mit jeweils einer PDF-Datei für die Namensschilder und einer Übersicht für den Helpdesk.
 		Dazu muss eine csv-Datei mit den Namen der Erstsemester und den Räumen hochgeladen werden.
-		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_freshmen }}">Erstemester</a>.
+		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_freshmen }}">Erstsemester</a>.
 		{% endblocktrans %}
 		<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
 			<input type="hidden" name="action" value="freshmen_nametags">
