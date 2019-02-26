@@ -5,7 +5,6 @@ from django.db import models
 from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
 
-
 class Ophase(models.Model):
     """Object representing an Ophase."""
     class Meta:
@@ -16,21 +15,23 @@ class Ophase(models.Model):
     is_active = models.BooleanField(default=False, verbose_name=_('Aktiv?'))
     contact_email_address = models.EmailField(verbose_name=_('Kontaktadresse Leitung'))
     categories = models.ManyToManyField("OphaseCategory", through="OphaseActiveCategory", related_name=u'ophase_categories')
+    start_date_by_category = models.DateField(verbose_name=_('Beginn'), blank=True, null=True)
+    end_date_by_category = models.DateField(verbose_name=_('Ende'), blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     @property
     def start_date(self):
-        if self.ophaseactivecategory_set.count() == 0:
+        if self.start_date_by_category is None:
             return datetime.date.today()
-        return min(c.start_date for c in self.ophaseactivecategory_set.all())
+        return self.start_date_by_category
 
     @property
     def end_date(self):
-        if self.ophaseactivecategory_set.count() == 0:
+        if self.end_date_by_category is None:
             return datetime.date.today()
-        return max(c.end_date for c in self.ophaseactivecategory_set.all())
+        return self.end_date_by_category
 
     def get_semester(self):
         term = _('Jahr')

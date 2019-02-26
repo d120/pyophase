@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Min, Max
 from django.utils import formats
 from django.utils.translation import ugettext_lazy as _
 
@@ -57,3 +58,13 @@ class OphaseActiveCategory(models.Model):
 
     def __str__(self):
         return "{}: {}".format(self.ophase, self.category)
+
+    def save(self, *args, **kwargs):
+        res = super().save(*args, **kwargs)
+
+        dates = OphaseActiveCategory.objects.filter(ophase=self.ophase).aggregate(start=Min('start_date'), end=Max('end_date'))
+        self.ophase.start_date_by_category = dates.get('start', None)
+        self.ophase.end_date_by_category = dates.get('end', None)
+        self.ophase.save()
+
+        return res
