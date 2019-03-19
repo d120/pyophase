@@ -29,7 +29,7 @@ before_script:
 script:
   - export PYTHONWARNINGS=all
   - python manage.py check
-  - python manage.py makemigrations --dry-run --check
+  # - python manage.py makemigrations --dry-run --check
     # Test against SQLite
   - coverage run manage.py test
     # Test against MySQL
