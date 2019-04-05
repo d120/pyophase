@@ -13,13 +13,6 @@ cache:
 services:
   - mysql
 
-addons:
-  apt:
-    sources:
-      - travis-ci/sqlite3
-    packages:
-      - sqlite3
-
 python:
   - "3.5"
   - "3.6"
