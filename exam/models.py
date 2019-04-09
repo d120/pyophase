@@ -1,3 +1,4 @@
+from itertools import chain, repeat
 import math
 from functools import partial
 
@@ -27,6 +28,9 @@ class ExamRoom(models.Model):
 
     def capacity(self, spacing):
         return self.capacity_1_free if spacing == 1 else self.capacity_2_free
+
+    def seats(self, spacing, ratio):
+        return math.ceil(self.capacity(spacing) * ratio)
 
 
 class Assignment(models.Model):
@@ -89,7 +93,8 @@ class Assignment(models.Model):
         Do the real assignment based on object properties
         """
 
-        capacity_string = 'capacity_{:d}_free'.format(self.spacing)
+        spacing = self.spacing
+        capacity_string = 'capacity_{:d}_free'.format(spacing)
         order_by_string = "-{:s}".format(capacity_string)
 
         exam_rooms = ExamRoom.objects.filter(available=True).order_by(order_by_string)
@@ -110,19 +115,15 @@ class Assignment(models.Model):
         if self.mode == 1 and ratio < 0.9:
             ratio = 0.9
 
-        exam_rooms_list = []
-
-        for exam_room in exam_rooms:
-            places = math.ceil(exam_room.capacity(self.spacing) * ratio)
-            # add each room as often to the list as places available in the room
-            exam_rooms_list.extend((exam_room, ) * places)
+        # returns each room as often as seats are available
+        exam_rooms_list = chain.from_iterable(repeat(room, room.seats(spacing, ratio)) for room in exam_rooms)
 
         assign = partial(PersonToExamRoomAssignment, assignment=self)
 
         assignments = (assign(person = student, room = room) for student, room in zip(exam_students, exam_rooms_list))
-        PersonToExamRoomAssignment.objects.bulk_create(assignments)
+        result = PersonToExamRoomAssignment.objects.bulk_create(assignments)
 
-        return min(student_count, len(exam_rooms_list))
+        return len(result)
 
 
 class PersonToExamRoomAssignment(models.Model):
