@@ -105,17 +105,17 @@ class Assignment(models.Model):
         if exam_rooms.count() == 0 or student_count == 0:
             return 0
 
-        total_places = exam_rooms.aggregate(total_places=Sum(capacity_string)).get('total_places')
+        maximum_capacity = exam_rooms.aggregate(maximum_capacity=Sum(capacity_string)).get('maximum_capacity')
 
         # Set ratio so that all room gets equals percentage
-        ratio = student_count / total_places
+        ratio = student_count / maximum_capacity
 
         # on minimal room mode and if the ratio is less then 90% the ratio is set to 90%
         # e.g. the first rooms get filled by 90%. The other rooms are not used
         if self.mode == 1 and ratio < 0.9:
             ratio = 0.9
 
-        # returns each room as often as seats are available
+        # returns each room as often as seats are available for the given ratio
         exam_room_list = chain.from_iterable(repeat(room, room.seats(spacing, ratio)) for room in exam_rooms)
 
         assign = partial(PersonToExamRoomAssignment, assignment=self)
