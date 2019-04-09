@@ -1,7 +1,7 @@
-from itertools import chain, repeat
-import math
 from functools import partial
+from itertools import chain, repeat
 
+import math
 from django.db import models
 from django.db.models import Sum
 from django.utils import formats
@@ -13,12 +13,14 @@ from students.models import Student
 
 class ExamRoom(models.Model):
     """A room which is suitable for the exam."""
+
     class Meta:
         verbose_name = _('Klausurraum')
         verbose_name_plural = _('Klausurräume')
         ordering = ['available', '-capacity_1_free', '-capacity_2_free', 'room']
 
-    room = models.OneToOneField('ophasebase.Room', models.CASCADE, verbose_name=_('Raum'), limit_choices_to={"type": "HS"})
+    room = models.OneToOneField('ophasebase.Room', models.CASCADE, verbose_name=_('Raum'),
+                                limit_choices_to={"type": "HS"})
     available = models.BooleanField(verbose_name=_('Verfügbar'), default=True)
     capacity_1_free = models.IntegerField(verbose_name=_('Plätze (1 Platz Abstand)'))
     capacity_2_free = models.IntegerField(verbose_name=_('Plätze (2 Plätze Abstand)'))
@@ -68,7 +70,7 @@ class Assignment(models.Model):
         # see http://stackoverflow.com/a/8288298
         formatted_datetime = formats.date_format(self.created_at, 'SHORT_DATETIME_FORMAT')
         return _('Zuteilung vom %(formated_datetime)s') % {
-                 'formated_datetime' : formatted_datetime,}
+            'formated_datetime': formatted_datetime, }
 
     def save(self, *args, **kwargs):
         if self.ophase_id is None:
@@ -120,7 +122,7 @@ class Assignment(models.Model):
 
         assign = partial(PersonToExamRoomAssignment, assignment=self)
 
-        assignments = (assign(person = student, room = room) for student, room in zip(exam_students, exam_room_list))
+        assignments = (assign(person=student, room=room) for student, room in zip(exam_students, exam_room_list))
         result = PersonToExamRoomAssignment.objects.bulk_create(assignments)
 
         return len(result)
