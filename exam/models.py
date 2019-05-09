@@ -118,11 +118,11 @@ class Assignment(models.Model):
             ratio = 0.9
 
         # returns each room as often as seats are available for the given ratio
-        exam_room_list = chain.from_iterable(repeat(room, room.seats(spacing, ratio)) for room in exam_rooms)
+        exam_seats = chain.from_iterable(repeat(room, room.seats(spacing, ratio)) for room in exam_rooms)
 
         assign = partial(PersonToExamRoomAssignment, assignment=self)
 
-        assignments = (assign(person=student, room=room) for student, room in zip(exam_students, exam_room_list))
+        assignments = (assign(person=student, room=seat) for student, seat in zip(exam_students, exam_seats))
         result = PersonToExamRoomAssignment.objects.bulk_create(assignments)
 
         return len(result)
