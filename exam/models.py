@@ -1,6 +1,7 @@
-import math
 from functools import partial
+from itertools import chain, repeat
 
+import math
 from django.db import models
 from django.db.models import Sum
 from django.utils import formats
@@ -12,12 +13,14 @@ from students.models import Student
 
 class ExamRoom(models.Model):
     """A room which is suitable for the exam."""
+
     class Meta:
         verbose_name = _('Klausurraum')
         verbose_name_plural = _('Klausurräume')
         ordering = ['available', '-capacity_1_free', '-capacity_2_free', 'room']
 
-    room = models.OneToOneField('ophasebase.Room', models.CASCADE, verbose_name=_('Raum'), limit_choices_to={"type": "HS"})
+    room = models.OneToOneField('ophasebase.Room', models.CASCADE, verbose_name=_('Raum'),
+                                limit_choices_to={"type": "HS"})
     available = models.BooleanField(verbose_name=_('Verfügbar'), default=True)
     capacity_1_free = models.IntegerField(verbose_name=_('Plätze (1 Platz Abstand)'))
     capacity_2_free = models.IntegerField(verbose_name=_('Plätze (2 Plätze Abstand)'))
@@ -27,6 +30,9 @@ class ExamRoom(models.Model):
 
     def capacity(self, spacing):
         return self.capacity_1_free if spacing == 1 else self.capacity_2_free
+
+    def seats(self, spacing, ratio):
+        return math.ceil(self.capacity(spacing) * ratio)
 
 
 class Assignment(models.Model):
@@ -64,7 +70,7 @@ class Assignment(models.Model):
         # see http://stackoverflow.com/a/8288298
         formatted_datetime = formats.date_format(self.created_at, 'SHORT_DATETIME_FORMAT')
         return _('Zuteilung vom %(formated_datetime)s') % {
-                 'formated_datetime' : formatted_datetime,}
+            'formated_datetime': formatted_datetime, }
 
     def save(self, *args, **kwargs):
         if self.ophase_id is None:
@@ -89,7 +95,8 @@ class Assignment(models.Model):
         Do the real assignment based on object properties
         """
 
-        capacity_string = 'capacity_{:d}_free'.format(self.spacing)
+        spacing = self.spacing
+        capacity_string = 'capacity_{:d}_free'.format(spacing)
         order_by_string = "-{:s}".format(capacity_string)
 
         exam_rooms = ExamRoom.objects.filter(available=True).order_by(order_by_string)
@@ -100,29 +107,25 @@ class Assignment(models.Model):
         if exam_rooms.count() == 0 or student_count == 0:
             return 0
 
-        total_places = exam_rooms.aggregate(total_places=Sum(capacity_string)).get('total_places')
+        maximum_capacity = exam_rooms.aggregate(maximum_capacity=Sum(capacity_string)).get('maximum_capacity')
 
         # Set ratio so that all room gets equals percentage
-        ratio = student_count / total_places
+        ratio = student_count / maximum_capacity
 
         # on minimal room mode and if the ratio is less then 90% the ratio is set to 90%
         # e.g. the first rooms get filled by 90%. The other rooms are not used
         if self.mode == 1 and ratio < 0.9:
             ratio = 0.9
 
-        exam_rooms_list = []
-
-        for exam_room in exam_rooms:
-            places = math.ceil(exam_room.capacity(self.spacing) * ratio)
-            # add each room as often to the list as places available in the room
-            exam_rooms_list.extend((exam_room, ) * places)
+        # returns each room as often as seats are available for the given ratio
+        exam_seats = chain.from_iterable(repeat(room, room.seats(spacing, ratio)) for room in exam_rooms)
 
         assign = partial(PersonToExamRoomAssignment, assignment=self)
 
-        assignments = (assign(person = student, room = room) for student, room in zip(exam_students, exam_rooms_list))
-        PersonToExamRoomAssignment.objects.bulk_create(assignments)
+        assignments = (assign(person=student, room=seat) for student, seat in zip(exam_students, exam_seats))
+        result = PersonToExamRoomAssignment.objects.bulk_create(assignments)
 
-        return min(student_count, len(exam_rooms_list))
+        return len(result)
 
 
 class PersonToExamRoomAssignment(models.Model):

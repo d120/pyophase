@@ -10,8 +10,8 @@
     "bootstrap": "~4.3.1",
     "bootstrap-chosen": "alxlit/bootstrap-chosen",
     "chosen-js": "~1.8.7",
-    "@fortawesome/fontawesome-free": "~5.7.2",
-    "jquery": "~3.3.1",
-    "popper.js": "^1.14.7"
+    "@fortawesome/fontawesome-free": "~5.8.2",
+    "jquery": "~3.4.1",
+    "popper.js": "^1.15.0"
   }
 }
