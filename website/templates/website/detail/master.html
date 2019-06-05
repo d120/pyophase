@@ -20,16 +20,20 @@
                 zu knüpfen. Außßerdem werdet ihr jeden Morgen ihr mit einem kostenlosen Frühstücksangebot versorgt.
             </p>
 
-            <p>Dies ist der Stundenplan der Ophase
-                (Stand: {{ category.website.schedule_last_modified|date:"SHORT_DATE_FORMAT" }}):</p>
-            <div class="padding-top-3"></div>
-            <img src="{{ category.website.schedule_image.url }}"
-                 class="img-fluid img-center box-highlight-header box-light-yellow"/>
-            <div class="padding-top-3"></div>
-            <p>
-                Die Ophase richtet sich nur nach diesem Stundenplan. Andere Angaben (zum Beispiel im uniweiten
-                Raumbuchungssystem) haben für die Ophase keine Bedeutung.
-            </p>
+            {% if category.website.schedule_image %}
+                <p>Dies ist der Stundenplan der Ophase
+                    (Stand: {{ category.website.schedule_last_modified|date:"SHORT_DATE_FORMAT" }}):</p>
+                <div class="padding-top-3"></div>
+                <img src="{{ category.website.schedule_image.url }}"
+                     class="img-fluid img-center box-highlight-header box-light-yellow"/>
+                <div class="padding-top-3"></div>
+                <p>
+                    Die Ophase richtet sich nur nach diesem Stundenplan. Andere Angaben (zum Beispiel im uniweiten
+                    Raumbuchungssystem) haben für die Ophase keine Bedeutung.
+                </p>
+            {% else %}
+                <p>Der Stundenplan wird demnächst veröffentlicht.</p>
+            {% endif %}
 
             <p>
                 Die Master-Ophase ist für alle Master-Erstsemester gedacht, insbesondere aber auch für jene, die ihren
