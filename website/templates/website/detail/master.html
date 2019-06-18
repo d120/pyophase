@@ -85,11 +85,14 @@
             </p>
 
             <p>The Ophase takes place {{ ophase_category_duration }}:</p>
-            <div class="margin-top-3"></div>
-            <img src="{{ category.website.schedule_image.url }}"
-                 class="img-fluid box-light-teal img-center box-highlight-header "/>
-            <div class="margin-top-3"></div>
-
+            {% if category.website.schedule_image %}
+                <div class="margin-top-3"></div>
+                <img src="{{ category.website.schedule_image.url }}"
+                     class="img-fluid box-light-teal img-center box-highlight-header "/>
+                <div class="margin-top-3"></div>
+            {% else %}
+                <p>The schedule will be published soon.</p>
+            {% endif %}
             <p>
                 The Master Ophase is made for each student starting a master's degree. We are going to show you the
                 city, the university as well as the computer science department. We also will talk about cultural
