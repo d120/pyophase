@@ -104,8 +104,9 @@ AUTHENTICATION_BACKENDS = (
 )
 SOCIALACCOUNT_PROVIDERS = {
     'D120': {
-        'URL': 'http://localhost:8001'
-    }
+        'URL': 'https://auth.atlas.d120.de',
+        'realm': 'master',
+    },
 }
 
 

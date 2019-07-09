@@ -13,13 +13,13 @@ class D120Provider(OAuth2Provider):
     account_class = D120Account
 
     def extract_uid(self, data):
-        return str(data['id'])
+        return str(data['preferred_username'])
 
     def extract_common_fields(self, data):
-        return dict(username=data['username'],
+        return dict(username=data['preferred_username'],
                     email=data['email'],
-                    first_name=data['first_name'],
-                    last_name=data['last_name'], )
+                    first_name=data['given_name'],
+                    last_name=data['family_name'], )
 
     def get_default_scope(self):
         scope = ['read']

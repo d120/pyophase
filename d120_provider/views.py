@@ -8,16 +8,19 @@ class D120Adapter(OAuth2Adapter):
     provider_id = D120Provider.id
 
     provider_default_url = 'https://sso.d120.de'
+    provider_default_realm = 'master'
 
     settings = app_settings.PROVIDERS.get(provider_id, {})
     provider_base_url = settings.get('URL', provider_default_url)
+    provider_realm = settings.get('realm', provider_default_realm)
+    provider_base = '{}/auth/realms/{}/protocol/openid-connect/'.format(provider_base_url, provider_realm)
 
     # Fetched programmatically, must be reachable from container
-    access_token_url = '{}/o/token/'.format(provider_base_url)
-    profile_url = '{}/profile/'.format(provider_base_url)
+    access_token_url = provider_base + 'token'
+    profile_url = provider_base + 'userinfo'
 
     # Accessed by the user browser, must be reachable by the host
-    authorize_url = '{}/o/authorize/'.format(provider_base_url)
+    authorize_url = provider_base + 'auth'
 
     # NOTE: trailing slashes in URLs are important, don't miss it
 
