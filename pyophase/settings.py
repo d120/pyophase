@@ -28,7 +28,7 @@ SECRET_KEY = 'w#%&!$am4t$20gu#l*b(z)p3od*1j809+420*e9j=bsmagsy$c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', ]
 
 
 # Application definition
@@ -38,8 +38,13 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'd120_provider',
     'debug_toolbar',
     'bootstrap4',
     'django_icons',
@@ -84,10 +89,27 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SOCIALACCOUNT_PROVIDERS = {
+    'D120': {
+        'URL': 'http://localhost:8001'
+    }
+}
+
+
+SITE_ID = 1
 
 WSGI_APPLICATION = 'pyophase.wsgi.application'
 
