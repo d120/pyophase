@@ -17,9 +17,9 @@ class D120Provider(OAuth2Provider):
 
     def extract_common_fields(self, data):
         return dict(username=data['preferred_username'],
-                    email=data['email'],
-                    first_name=data['given_name'],
-                    last_name=data['family_name'], )
+                    email=data.get('email', ''),
+                    first_name=data.get('given_name', ''),
+                    last_name=data.get('family_name', ''), )
 
     def get_default_scope(self):
         scope = ['read']
