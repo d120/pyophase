@@ -8,7 +8,7 @@ class D120Account(ProviderAccount):
 
 
 class D120Provider(OAuth2Provider):
-    id = 'D120'
+    id = 'd120'
     name = 'D120 OAuth2 Provider'
     account_class = D120Account
 
