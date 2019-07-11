@@ -22,7 +22,7 @@ class D120Provider(OAuth2Provider):
                     last_name=data.get('family_name', ''), )
 
     def get_default_scope(self):
-        scope = ['read']
+        scope = ['read', 'microprofile-jwt']
         return scope
 
 
