@@ -45,6 +45,8 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'd120_provider',
+    'allauth_cas',
+    'tuid_provider',
     'debug_toolbar',
     'bootstrap4',
     'django_icons',
