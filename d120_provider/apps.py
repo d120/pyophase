@@ -3,6 +3,7 @@ from django.apps import AppConfig
 
 class D120ProviderConfig(AppConfig):
     name = 'd120_provider'
+    verbose_name = 'D120 Auth Provider'
 
     def ready(self):
         # noinspection PyUnresolvedReferences
