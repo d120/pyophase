@@ -10,3 +10,6 @@ class GroupSync(models.Model):
     class Meta:
         verbose_name = _('Gruppensyncronization')
         verbose_name_plural = _('Gruppensyncronizationen')
+
+    def __str__(self):
+        return "{} -> {}".format(self.external_group, self.django_group)
