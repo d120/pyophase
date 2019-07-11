@@ -103,7 +103,7 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 SOCIALACCOUNT_PROVIDERS = {
-    'D120': {
+    'd120': {
         'URL': 'https://auth.atlas.d120.de',
         'realm': 'master',
     },
