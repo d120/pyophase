@@ -4,7 +4,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import reverse_lazy
 from django.views.static import serve
-
+from ophasebase.views import LoginSelectView
 
 admin.autodiscover()
 
@@ -18,7 +18,8 @@ urlpatterns = [
     url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
     url(r'^clothing/', include('clothing.urls', namespace='clothing')),
     url(r'^admin/', admin.site.urls),
-    url(r'^accounts/login/$', LoginView.as_view(template_name = 'admin/login.html'), name='login'),
+    url(r'^accounts/login/$', LoginSelectView.as_view(), name='login'),
+    url(r'^accounts/local/login/$', LoginView.as_view(template_name = 'admin/login.html'), name='local_login'),
     url(r'^accounts/logout/$', LogoutView.as_view(next_page=reverse_lazy('website:homepage')), name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^accounts/', include('allauth.urls')),
