@@ -13,13 +13,13 @@ class D120Provider(OAuth2Provider):
     account_class = D120Account
 
     def extract_uid(self, data):
-        return str(data['preferred_username'])
+        return str(data['username'])
 
     def extract_common_fields(self, data):
-        return dict(username=data['preferred_username'],
+        return dict(username=data['username'],
                     email=data.get('email', ''),
-                    first_name=data.get('given_name', ''),
-                    last_name=data.get('family_name', ''), )
+                    first_name=data.get('firstName', ''),
+                    last_name=data.get('lastName', ''), )
 
     def get_default_scope(self):
         scope = ['read', 'microprofile-jwt']
