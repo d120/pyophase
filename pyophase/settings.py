@@ -15,7 +15,6 @@ import os
 
 from django.utils.translation import ugettext_lazy as _
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -106,7 +105,7 @@ AUTHENTICATION_BACKENDS = (
 )
 SOCIALACCOUNT_PROVIDERS = {
     'd120': {
-        'URL': 'https://auth.atlas.d120.de',
+        'URL': 'https://sso.fachschaft.informatik.tu-darmstadt.de',
         'realm': 'master',
     },
 }
