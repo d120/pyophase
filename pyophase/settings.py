@@ -103,13 +103,6 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-SOCIALACCOUNT_PROVIDERS = {
-    'd120': {
-        'URL': 'https://sso.fachschaft.informatik.tu-darmstadt.de',
-        'realm': 'master',
-    },
-}
-
 
 SITE_ID = 1
 
