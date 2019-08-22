@@ -205,6 +205,8 @@ class Person(models.Model):
 
     @staticmethod
     def get_by_user(user):
+        if user.is_anonymous:
+            return None
         try:
             return Person.objects.get(user=user, ophase=Ophase.current())
         except Person.DoesNotExist:

@@ -16,6 +16,7 @@ from staff.models import HelperJob, OrgaJob, Settings, Person
 
 
 class StaffAdd(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('tuid_login')
     form_class = PersonForm
     template_name = 'staff/person_form.html'
     success_url = reverse_lazy('staff:registration_success')
