@@ -22,9 +22,12 @@ class StaffAdd(LoginRequiredMixin, CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         if Person.get_by_user(request.user) is not None:
-            template = loader.get_template("staff/already_registered.html")
-            return TemplateResponse(request, template)
+            return self.already_registerd(request)
         return super().dispatch(request, *args, **kwargs)
+
+    def already_registerd(self, request):
+        template = loader.get_template("staff/already_registered.html")
+        return TemplateResponse(request, template)
 
     def get_initial(self):
         user = self.request.user
@@ -77,8 +80,7 @@ class StaffAdd(LoginRequiredMixin, CreateView):
             super_return = super().form_valid(form)
         except IntegrityError:
             # this should happen when unique constraints fail
-            template = loader.get_template("staff/already_registered.html")
-            return TemplateResponse(self.request, template)
+            return self.already_registerd(self.request)
 
         # the enumeration symbol
         esym = '\n * '
