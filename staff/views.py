@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMessage
 from django.db import IntegrityError
 from django.db.models.query import QuerySet
@@ -8,38 +9,30 @@ from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
-from pyTUID.mixins import TUIDLoginRequiredMixin
 
 from ophasebase.models import Ophase, OphaseCategory
 from staff.forms import PersonForm
 from staff.models import HelperJob, OrgaJob, Settings, Person
 
 
-class StaffAdd(TUIDLoginRequiredMixin, CreateView):
+class StaffAdd(LoginRequiredMixin, CreateView):
     form_class = PersonForm
     template_name = 'staff/person_form.html'
     success_url = reverse_lazy('staff:registration_success')
 
     def dispatch(self, request, *args, **kwargs):
-        if Person.get_by_TUID(request.TUIDUser) is not None:
+        if Person.get_by_user(request.user) is not None:
             template = loader.get_template("staff/already_registered.html")
             return TemplateResponse(request, template)
         return super().dispatch(request, *args, **kwargs)
 
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        if 'instance' not in kwargs or kwargs['instance'] is None:
-            kwargs['instance'] = Person()
-            tuid = self.request.TUIDUser
-            if tuid is not None:
-                kwargs['instance'].tuid = tuid
-                kwargs['initial'] = {
-                    'email': tuid.email,
-                    'name': tuid.surname,
-                    'prename': tuid.given_name,
-                }
-        return kwargs
+    def get_initial(self):
+        user = self.request.user
+        initial = super().get_initial()
+        initial['prename'] = user.first_name
+        initial['name'] = user.last_name
+        initial['email'] = user.email
+        return initial
 
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()
@@ -53,6 +46,7 @@ class StaffAdd(TUIDLoginRequiredMixin, CreateView):
                 vacancies.append(_('Organisatoren'))
             if settings.helper_registration_enabled:
                 vacancies.append(_('Helfer'))
+
             vacancies_str = '.'.join(vacancies)
             vacancies_str = vacancies_str.replace('.', ', ', len(vacancies)-2)
             vacancies_str = vacancies_str.replace('.', ' %s '% _('und'))
