@@ -1,5 +1,6 @@
 from urllib.parse import quote
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
@@ -116,6 +117,7 @@ class Person(models.Model):
 
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     tuid = models.ForeignKey('pyTUID.TUIDUser', on_delete=models.CASCADE, verbose_name=_("TUID User"), null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Benutzer"), null=True, blank=True)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
     email = models.EmailField(max_length=150, verbose_name=_("E-Mail-Adresse"))
@@ -200,6 +202,13 @@ class Person(models.Model):
     @staticmethod
     def get_by_TUID(TUIDUser):
         return TUIDUser.person_set.filter(ophase=Ophase.current()).first() if TUIDUser is not None else None
+
+    @staticmethod
+    def get_by_user(user):
+        try:
+            return Person.objects.get(user=user, ophase=Ophase.current())
+        except Person.DoesNotExist:
+            return None
 
 # Register a signal receiver so all TUIDs which are not referenced by a person object are deleted
 @receiver(post_delete, sender=Person)
