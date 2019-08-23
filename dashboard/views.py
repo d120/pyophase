@@ -1,13 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils import timezone
+from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
-from pyTUID.mixins import TUIDLoginRequiredMixin
 
 from .components import DashboardBaseMixin, DashboardAppMixin
 from .dashboard_widgets import DashboardWidgets
 from .shortcuts import check_permissions
-
-from django.utils.translation import ugettext as _
 
 
 class IndexView(DashboardBaseMixin, TemplateView):
@@ -29,7 +28,7 @@ class IndexView(DashboardBaseMixin, TemplateView):
         return context
 
 
-class PersonalDashboardMixin(TUIDLoginRequiredMixin, DashboardAppMixin):
+class PersonalDashboardMixin(LoginRequiredMixin, DashboardAppMixin):
     app_name_verbose = _('Persönliche Übersicht')
     app_name = 'my'
 
@@ -49,7 +48,7 @@ class PersonalDashboardMixin(TUIDLoginRequiredMixin, DashboardAppMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         from staff.models import Person
-        context['user'] = Person.get_by_TUID(self.request.TUIDUser)
+        context['person'] = Person.get_by_user(self.request.user)
         return context
 
 
@@ -63,21 +62,27 @@ class PersonalOverview(PersonalDashboardMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if context['user'] is not None:
-            context['user_registered'] = True
+        person = context['person']
+        if person is not None:
+            context['person_registered'] = True
 
-            context['next_events'] = [attendance.event for attendance in context['user'].attendance_set.filter(event__end__gte=timezone.now()).select_related('event')]
+            context['next_events'] = [attendance.event for attendance in
+                                      person.attendance_set.filter(event__end__gte=timezone.now()).select_related(
+                                          'event')]
 
-            if context['user'].is_tutor:
-                context['tutor_group'] = context['user'].tutorgroup_set.first()
+            if person.is_tutor:
+                context['tutor_group'] = person.tutorgroup_set.first()
                 if context['tutor_group'] is not None:
-                    context['tutor_partners'] = ", ".join(t.get_name() for t in context['tutor_group'].tutors.exclude(id=context['user'].id))
+                    context['tutor_partners'] = ", ".join(
+                        t.get_name() for t in context['tutor_group'].tutors.exclude(id=person.id))
 
             from clothing.models import Order, Settings
-            context['clothing_orders'] = Order.objects.filter(person=context['user']).select_related('type','size','color')
+            context['clothing_orders'] = Order.objects.filter(person=person).select_related('type', 'size', 'color')
 
             clothing_settings = Settings.instance()
             if clothing_settings is not None:
-                context['show_clothing_order_warning'] = clothing_settings.clothing_ordering_enabled and Order.user_eligible_but_not_ordered_yet(context['user'])
+                context[
+                    'show_clothing_order_warning'] = clothing_settings.clothing_ordering_enabled and Order.user_eligible_but_not_ordered_yet(
+                    person)
 
         return context
