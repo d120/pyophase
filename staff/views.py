@@ -41,34 +41,41 @@ class StaffAdd(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()
         settings = Settings.instance()
+        context = super().get_context_data(**kwargs)
 
         if current_ophase is not None and settings is not None:
-            vacancies = []
-            if settings.tutor_registration_enabled:
-                vacancies.append(_('Tutoren'))
-            if settings.orga_registration_enabled:
-                vacancies.append(_('Organisatoren'))
-            if settings.helper_registration_enabled:
-                vacancies.append(_('Helfer'))
-
-            vacancies_str = '.'.join(vacancies)
-            vacancies_str = vacancies_str.replace('.', ', ', len(vacancies)-2)
-            vacancies_str = vacancies_str.replace('.', ' %s '% _('und'))
-
-            context = super().get_context_data(**kwargs)
             context['ophase_title'] = str(current_ophase)
             context['ophase_duration'] = current_ophase.get_human_duration()
             context['any_registration_enabled'] = settings.any_registration_enabled()
             context['tutor_registration_enabled'] = settings.tutor_registration_enabled
             context['orga_registration_enabled'] = settings.orga_registration_enabled
             context['helper_registration_enabled'] = settings.helper_registration_enabled
-            context['staff_vacancies'] = vacancies_str
-            return context
+            context['staff_vacancies'] = StaffAdd.vacancies_string_generator()
         else:
-            context = super().get_context_data(**kwargs)
             context['ophase_title'] = 'Ophase'
             context['any_registration_enabled'] = False
-            return context
+
+        return context
+
+    @staticmethod
+    def vacancies_string_generator():
+        """
+        Generates a string which lists all job types in natural language enumeration
+        :return: the generated string
+        """
+        settings = Settings.instance()
+        vacancies = []
+
+        if settings.tutor_registration_enabled:
+            vacancies.append(_('Tutoren'))
+        if settings.orga_registration_enabled:
+            vacancies.append(_('Organisatoren'))
+        if settings.helper_registration_enabled:
+            vacancies.append(_('Helfer'))
+
+        vacancies_str = ', '.join(vacancies[:-1])
+        vacancies_str = ' {} '.format(_('und')).join((vacancies_str, vacancies[-1]))
+        return vacancies_str
 
     def form_valid(self, form):
         settings = Settings.instance()
