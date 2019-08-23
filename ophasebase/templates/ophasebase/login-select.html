@@ -6,15 +6,20 @@
     <h2>Bitte wähle deinen Login aus.</h2>
     <div class="container">
         <div class="row text-center">
+            {% with next="?next="|add:request.GET.next %}
             <div class="col-sm">
-                <a href="{% url 'tuid_login' %}"><span class="fa-10x">{% icon 'university' %}</span><br>TU-ID</a>
+                <a href="{% url 'tuid_login' %}{{ next }}"><span
+                        class="fa-10x">{% icon 'university' %}</span><br>TU-ID</a>
             </div>
             <div class="col-sm">
-                <a href="{% url 'd120_login' %}"><span class="fa-10x"><img src="{% static 'ophasebase/logo_quadrat.svg' %}" width="160" height="160"></span><br>D120</a>
+                <a href="{% url 'd120_login' %}{{ next }}"><span class="fa-10x"><img
+                        src="{% static 'ophasebase/logo_quadrat.svg' %}" width="160" height="160"></span><br>D120</a>
             </div>
             <div class="col-sm">
-                <a href="{% url 'local_login' %}"><span class="fa-10x">{% icon 'user' %}</span><br>Lokal</a>
+                <a href="{% url 'local_login' %}{{ next }}"><span
+                        class="fa-10x">{% icon 'user' %}</span><br>Lokal</a>
             </div>
+            {% endwith %}
         </div>
     </div>
 {% endblock %}
