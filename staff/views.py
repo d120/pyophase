@@ -26,6 +26,11 @@ class StaffAdd(LoginRequiredMixin, CreateView):
             return self.already_registerd(request)
         return super().dispatch(request, *args, **kwargs)
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def already_registerd(self, request):
         template = loader.get_template("staff/already_registered.html")
         return TemplateResponse(request, template)
