@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.translation import ugettext as _
@@ -28,7 +27,7 @@ class IndexView(DashboardBaseMixin, TemplateView):
         return context
 
 
-class PersonalDashboardMixin(LoginRequiredMixin, DashboardAppMixin):
+class PersonalDashboardMixin(DashboardAppMixin):
     app_name_verbose = _('Persönliche Übersicht')
     app_name = 'my'
 
