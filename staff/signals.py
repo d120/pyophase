@@ -30,13 +30,12 @@ def person_delete_tuid_user(sender, user, request, **kwargs):
     # only the users which logged in the last time more then one day ago
     no_staff_user = no_staff_user.filter(last_login__lt=timezone.now() - timedelta(days=1))
 
-    # get social accounst for this user
+    # get social accounts for this user
     social_accounts = SocialAccount.objects.filter(user__in=no_staff_user).select_related('user')
 
-    social_accounts_tuid = list(s.user for s in social_accounts.filter(provider=TUIDProvider.id))
-    social_accounts_d120 = set(s.user for s in social_accounts.filter(provider=D120Provider.id))
+    user_tuid = set(s.user for s in social_accounts.filter(provider=TUIDProvider.id))
+    user_d120 = set(s.user for s in social_accounts.filter(provider=D120Provider.id))
 
-    # remove all user which do not have an additional d120 connected related
-    for cas_user in social_accounts_tuid:
-        if cas_user not in social_accounts_d120:
-            cas_user.delete()
+    # remove all user which do not have an additional d120 account connected
+    to_delete = (u.pk for u in user_tuid.difference(user_d120))
+    User.objects.filter(pk__in=to_delete).delete()
