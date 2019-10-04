@@ -1,0 +1,14 @@
+Hallo {{ workshop.tutor_name }},
+
+vielen Dank, dass du einen Workshop in unserer Ophase anbietest. Ich
+möchte dir hier den Termin bestätigen, an dem dieser stattfinden kann.
+
+Workshoptitel: {{ workshop.title }}
+Termin und Raum:{% for assignment in workshop.workshopassignment_set.all %}
+* {{ assignment.assigned_slot.date|date:'D, d.m.' }} {{ assignment.assigned_slot.start_time|date:'H:i' }} - {{ assignment.assigned_slot.end_time|date:'H:i' }}, {{ assignment.location }} (max. {{ assignment.capacity }} Tn.){% endfor %}
+
+Falls sich von deiner Seite aus noch etwas ändert, oder du noch Fragen
+oder Wünsche hast, melde dich gern bei mir.
+
+Viele Grüße
+

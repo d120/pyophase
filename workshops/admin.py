@@ -5,7 +5,7 @@ from django.utils.html import format_html_join, format_html, escape
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from workshops.admin_actions import oinforz_export, workshop_tutor_list, aushang_export
+from workshops.admin_actions import oinforz_export, workshop_tutor_list, aushang_export, mail_text_export
 from workshops.models import Settings, Workshop, WorkshopSlot, WorkshopAssignment
 
 admin.site.register(WorkshopSlot)
@@ -43,7 +43,7 @@ class WorkshopAdmin(admin.ModelAdmin):
     list_display = ('_title', '_tutor_name', '_created_at', '_possible_slots')
     search_fields = ('title', 'tutor_name', 'tutor_mail')
 
-    actions = (oinforz_export, aushang_export, workshop_tutor_list)
+    actions = (oinforz_export, aushang_export, workshop_tutor_list, mail_text_export)
     inlines = (WorkshopAssignmentInline,)
 
     def _title(self, item):

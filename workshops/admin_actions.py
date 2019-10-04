@@ -41,3 +41,20 @@ def aushang_export(modeladmin, request, queryset):
     return response
 
 aushang_export.short_description = _('Aushang Tex Export')
+
+def mail_text_export(modeladmin, request, queryset):
+    """Create a tex file for the OInforz containing workshop information.
+    """
+    email_template = loader.get_template('workshops/mail/confirmation.txt')
+    output = ""
+    for workshop in queryset:
+        email_body = email_template.render({
+            'workshop': workshop,
+        })
+        output += workshop.tutor_name + " <" + workshop.tutor_mail + ">" +\
+                    ("\r\n"*2) + email_body + ("\r\n"*4)
+    response = HttpResponse(output, content_type="text/plain; charset=utf-8")
+    #response['Content-Disposition'] = 'inline; filename="workshops_aushang.tex"'
+    return response
+
+mail_text_export.short_description = _('Bestätigungsmail Export')
