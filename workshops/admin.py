@@ -13,6 +13,7 @@ admin.site.register(WorkshopSlot)
 
 @admin.register(WorkshopAssignment)
 class WorkshopAssignmentAdmin(admin.ModelAdmin):
+    list_display = ('workshop', 'assigned_slot', 'assigned_room', 'assigned_location')
     class Media:
         js = (
             'workshops/workshop_adm.js',   # app static folder
