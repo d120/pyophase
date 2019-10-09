@@ -34,11 +34,14 @@ npm install
 ./manage.py runserver
 ```
 
+The Single Sign On (SSO) of the TU Darmstadt only allows https redirects. A development server with ssl support can be started by
+using the `runsslserver` command instead of`runserver`.
+
 ## Deployment
 
 ### Installation
 
-* Install `python3`, `python3-pip`, `virtualenv` and `npm`
+* Install `python3`, `python3-pip`, `virtualenv`, `pdflatex` (for nametag and certificate generation) and `npm`
 * Maybe create a user for the WSGI applications (e.g. `pyophase`)
 * Clone this repository into a proper directory (e.g. `/srv/pyophase`)
 * Create MySQL database and proper user
