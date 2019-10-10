@@ -1,0 +1,25 @@
+{% extends "admin/change_list.html" %}
+{% load i18n %}
+{% block object-tools %}
+
+
+<ul class="buttons">
+    <li><a href="#" class="Color-DarkPurple">
+        <big>{{ count_orders }}</big>
+        <span class="text">{% trans "Bestellungen" %}</span>
+    </a></li>
+    <li><a href="#" class="Color-DarkPurple">
+        <big>{{ count_orders_free }}</big>
+        <span class="text">{% trans "Grundbestellungen" %}</span>
+    </a></li>
+    <li><a href="#" class="Color-DarkPurple">
+        <big>{{ count_orders_paid }}</big>
+        <span class="text">{% trans "Zusätzlich" %}</span>
+    </a></li>
+</ul>
+<div class="clearfix"></div>
+
+{{ block.super }}
+
+
+{% endblock %}

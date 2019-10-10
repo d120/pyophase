@@ -1,0 +1,106 @@
+
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-family: "Roboto","Lucida Grande","DejaVu Sans","Bitstream Vera Sans",Verdana,Arial,sans-serif;
+    color: #333;
+    background: #fff;
+}
+
+
+#header{background:#444;padding:0 40px;color:#eee;min-height:60px;line-height:40px;display:block; }
+#header #branding h1 { margin:0 10px 0 0; padding: 10px 0; font-size: 12pt; font-weight: bold; color: white;line-height:40px; }
+#header #branding h1 a { color: white; text-decoration: none; }
+#header #user-tools { padding: 10px 0; height: 100%; }
+#header a.ml, #header div.ml {margin:0 ; padding: 10px 15px; display:block;float:left;color:#ffffff;font-weight:bold;text-decoration:none;}
+#header .uml {margin:0 ; padding: 10px 15px; display:inline-block;color:#ffffff;font-weight:bold;text-decoration:none; }
+#header div.ml { cursor: default; }
+#header a.ml:hover, #header div.ml:hover, #header a.uml:hover { text-decoration:none; background-color: #777; color: #fff; }
+#header a.ml.active, #header div.ml.active { color: yellow }
+#header #user-tools {padding:0;}
+#header #language-switcher {float:right;padding: 10px 15px;}
+
+
+.breadcrumbs h3 { display: inline-block; margin: 0 20px 0 0; color: white; font-size: 12pt; }
+.breadcrumbs .toolbar { display: inline-block; color: #ffffff; }
+
+.messageBar { position: fixed; top: 0; left: 0; right: 0; padding: 10px; background: #FDD835; color: white; font-size: 12pt; z-index: 100;
+	    }
+.progressBar { position: fixed; top: 0; left: 0; width: 30%; height: 5px; background: #0091EA; z-index: 101;
+	      animation: slide 5s forwards;
+}
+@keyframes slide {
+    0% { width: 30%; }
+    30% { width: 50%; }
+    100% { width: 60%; }
+}
+.messageBar.error { background: #E53935;  }
+.messageBar.success { background: #43a047;  }
+.messageBar.warning { background: #d09d47;  }
+
+.menudropdown { position: absolute; background: #000; z-index: 9001; min-width: 200px; }
+.menudropdown a { display:block; margin: 0; padding: 5px; }
+.menudropdown a:hover { background: #555; }
+.menudropdown a.ed { float:right;font-weight:normal;display:inline; color:white;}
+
+#header .ddmenu { position: absolute; top: 58px; left: -5px; font-weight: normal; display: none; border: none; overflow-y: auto;  box-shadow: 2px 2px 6px #999, -2px 2px 6px #999; background: #444; padding:  0; min-width: 200px; z-index: 9999; }
+#header .ddmenu div, #header .ddmenu a { display: block; padding: 5px 20px; cursor: pointer; color: #fff !important; line-height: 1.4; text-decoration: none; }
+#header .ddmenu a:hover, #header .ddmenu div:hover { background: #777; text-decoration: none; }
+#header .ddmenu a.disabled, #header .ddmenu a.disabled:hover { color: #777; background: inherit; }
+#header .ddmenu .right { float:right; }
+
+
+
+
+    .mobile-only{display:none!important}
+@media screen and (max-width: 899px) {
+    #content{ padding: 20px 10px; }
+    #mainMenu{ padding: 10px ; }
+    #container {min-width:inherit;width:inherit;position:inherit;}
+    #header{width:inherit;height:auto;padding: 0 5px;}
+    div.breadcrumbs {  padding: 10px 5px; }
+    #header #user-tools { }
+    #header #user-tools > * {text-transform:none;}
+
+    #header .ml { display: none!important; }
+    .mobile-hidden{display:none!important}
+    .mobile-only{display:inherit!important}
+}
+
+
+
+
+.clearfix { display: block; clear: both; }
+ul.buttons { padding: 0; }
+ul.buttons li { list-style: none; padding: 0; }
+ul.buttons li a {
+  display: block; float: left; width: 150px; height: 100px; padding: 30px 10px 10px;  margin: 0 20px 20px 0;
+  text-align: center; color: white; text-decoration: none;
+}
+ul.buttons li a:hover { background-color: #777; }
+ul.buttons li a .fa, ul.buttons li a big { font-size: 26pt; }
+ul.buttons li a span.text { display: block; padding-top: 10px; font-size: 12pt; }
+@media screen and (max-width: 400px) {
+    ul.buttons li a { width: 140px; margin: 0 5px 5px 0; }
+    #content{padding: 10px 5px;}
+}
+ul.buttons li a.Color-Purple {background: #8C0095 }
+ul.buttons li a.Color-Purple:hover {background: #A700AE }
+ul.buttons li a.Color-DarkPurple {background: #5133AB }
+ul.buttons li a.Color-DarkPurple:hover {background: #643EBF }
+ul.buttons li a.Color-Teal, .Color-Default {background: #008299 }
+ul.buttons li a.Color-Teal:hover, .Color-Default:hover {background: #00A0B1 }
+ul.buttons li a.Color-Orange {background: #D24726 }
+ul.buttons li a.Color-Orange:hover {background: #DC572E }
+ul.buttons li a.Color-Blue {background: #2672EC }
+ul.buttons li a.Color-Blue:hover {background: #2E8DEF }
+ul.buttons li a.Color-SkyBlue {background: #094AB2 }
+ul.buttons li a.Color-SkyBlue:hover {background: #0A5BC4 }
+ul.buttons li a.Color-Red {background: #AC193D }
+ul.buttons li a.Color-Red:hover {background: #BF1E4B }
+ul.buttons li a.Color-Green {background: #008A00 }
+ul.buttons li a.Color-Green:hover {background: #00A600 }
+ul.buttons li a.Color-Yellow {background: #e8be1b }
+ul.buttons li a.Color-Yellow:hover {background: #f7d240 }
+

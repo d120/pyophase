@@ -1,83 +1,8 @@
-<!DOCTYPE html>{% load static %}{% load i18n %}{% load icons %}
-<html>
-<head>
-    <title>{% block title %}{% endblock %} | OphaseHQ - d120.de</title>
-    <meta charset="utf-8" />
-    <meta name=viewport content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
-    <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'ophasebase/css/pyophase.css' %}" media="screen" />
-</head>
-<body>
+{% extends "admin/base_site.html" %}
 
-    {% block language-switcher %}
-        <!-- language switcher -->
-        <div class="language-switcher">
-            <div class="container">
-                <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ request.path }}" />
-                    Switch language:
-                    <select name="language" class="form-control input-sm w-initial">
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% get_available_languages as LANGUAGES %}
-                        {% get_language_info_list for LANGUAGES as languages %}
-                        {% for language in languages %}
-                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                                {{ language.code | upper }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="{% trans 'Sprache ändern' %}" class="btn btn-primary btn-sm" />
-                </form>
-            </div>
-        </div>
-    {% endblock %}
+{% load  static %}
+{% block extrahead %}
+        <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" media="screen" />
 
-    <div class="container">
-
-        <!-- Header -->
-        <div class="row">
-            <div class="col-sm-12 col-md-10 mt-4">
-                <h1>
-                    <a href="{% url 'website:homepage' %}" class="no-underline d-none d-sm-inline">
-                        <img src="{% static 'website/ophasen-wesen.svg' %}" class="header-img-wesen" />
-                    </a>
-                    {% block heading %}{% endblock %}
-                </h1>
-            </div>
-            <div class="col-md-2 d-none d-md-block right">
-                <img src="{% static 'website/logo_ohne_rand.svg' %}" class="float-right header-img-logo" />
-            </div>
-        </div>
-
-        <!-- Main component -->
-        {% block content %}{% endblock %}
-
-        <!-- Footer menu -->
-        <p class="text-muted footer">
-            <span class="float-left">Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>&nbsp;&bull;
-            {% if user.is_authenticated %}
-            {% trans "Angemeldet als" %} {{ user.username }}
-            {% if user.is_staff %}
-            &bull; <a href="{% url 'admin:index' %}">{% trans "Zum Adminbereich" %}</a>
-            &bull; <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
-            {% endif %}
-            &bull; <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
-            {% else %}
-            <a href="{% url 'login' %}?next={{request.path}}">{% trans "Login" %}</a>
-            {% endif %}
-            <span class="float-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fab fa-github"></i></a></span>
-        </p>
-    </div>
-
-    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <script>
-        var languageForm = $("form[name='language-form']");
-        $(":submit", languageForm).hide();
-        $("select", languageForm).change(function(){languageForm.submit()});
-    </script>
-    {% block bottom_script %}{% endblock %}
-</body>
-</html>
+{{ block.super }}
+{% endblock %}

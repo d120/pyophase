@@ -2,6 +2,9 @@
 {% load i18n %}
 
 {% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
+{% block content_dashboard_title %}
+    <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ user.prename }}!</h3>
+{% endblock %}
 
 {% block content_dashboard_view %}
 
@@ -14,7 +17,7 @@
         </div>
         {% endif %}
 
-        <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ user.prename }}!</h3>
+
 
         <div class="row">
 

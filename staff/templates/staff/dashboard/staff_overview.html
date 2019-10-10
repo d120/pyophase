@@ -3,25 +3,27 @@
 
 {% block title %}{% trans "Übersicht" %} | {% trans "Personal" %}{% endblock %}
 
-{% block content_dashboard_view %}
+{% block content_dashboard_title %}
     <h3>{% trans "Übersicht" %}</h3>
+{% endblock %}
+{% block content_dashboard_view %}
 
     <div class="row" style="margin-bottom: 50px;">
     <div class="col-sm-4 text-center">
-        <h3>{{ count_tutor }}</h3>
+        <h1 style="margin:0">{{ count_tutor }}</h1>
         {% trans "Tutoren" %}
     </div>
     <div class="col-sm-4 text-center">
-        <h3>{{ count_orga }}</h3>
+        <h1 style="margin:0">{{ count_orga }}</h1>
         {% trans "Orgas" %}
     </div>
         <div class="col-sm-4 text-center">
-        <h3>{{ count_helper }}</h3>
+        <h1 style="margin:0">{{ count_helper }}</h1>
         {% trans "Helfer" %}
     </div>
     </div>
 
-    <h4><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&tutorstatus=onlytutors">{% trans "Tutoren" %}</a></h4>
+    <h2><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&tutorstatus=onlytutors">{% trans "Tutoren" %}</a></h2>
 
     <table class="table table-striped">
         <thead>
@@ -44,7 +46,7 @@
         {% endfor %}
     </table>
 
-    <h4 style="margin-top: 50px;"><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&is_orga__exact=1">{% trans "Orgas" %}</a></h4>
+    <h2 style="margin-top: 50px;"><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&is_orga__exact=1">{% trans "Orgas" %}</a></h2>
 
     <table class="table table-striped">
         <thead>
@@ -71,7 +73,7 @@
     </table>
 
 
-    <h4 style="margin-top: 50px;"><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&is_helper__exact=1">{% trans "Helfer" %}</a></h4>
+    <h2 style="margin-top: 50px;"><a href="{% url "admin:staff_person_changelist" %}{{ url_filter_ophase }}&is_helper__exact=1">{% trans "Helfer" %}</a></h2>
 
     <table class="table table-striped">
         <thead>
