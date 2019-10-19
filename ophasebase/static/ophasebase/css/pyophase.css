@@ -111,6 +111,9 @@ a.no-underline:hover { text-decoration: none; }
 
 
 
+/*  fix bootstrap styles ---------------------------------------- */
+a.btn-primary, a.btn-secondary { color: #fff;}
+
 
 /*  stuff copied from kifplan ---------------------------------------- */
 

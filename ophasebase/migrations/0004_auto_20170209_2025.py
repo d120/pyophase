@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['ophase', 'category'],
                 'verbose_name': 'Aktive Kategorie einer Ophase',
-                'verbose_name_plural': 'Aktive Katgegorien einer Ophase',
+                'verbose_name_plural': 'Aktive Kategorien einer Ophase',
             },
         ),
         migrations.CreateModel(
