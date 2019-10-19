@@ -116,8 +116,7 @@ function newRandomBarcode(){
 
 $(function() {
     window.messageBar = new MessageBar();
-
-    $(".menuddlink").mouseenter(function() {
+    function ddlink_open(e) {
         var targetSel = $(this).attr("data-target");
         if (targetSel == "#raumliste" && !$("#raumliste").length) {
             var $lst = $("<div id=raumliste class=ddmenu></div>").appendTo(this);
@@ -131,11 +130,14 @@ $(function() {
             });
         }
         $(targetSel).css({'left': $(this).offset().left, 'display': 'block'});
-    })
-    .mouseleave(function() {
+        return false;
+    }
+    function ddlink_close() {
         var targetSel = $(this).attr("data-target");
         $(targetSel).hide();
-    });
+    }
+    if (!('ontouchstart' in window))
+        $(".menuddlink").mouseenter(ddlink_open).mouseleave(ddlink_close);
 
     //$("[data-age]").each(make_new_stuff_red);
     $("#kdvuserbarcode_set-group .add-row a").click(function() {
@@ -513,4 +515,20 @@ $.ajaxSetup({
             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
         }
     }
+});
+
+$(function() {
+    var languageForm = $("form[name='language-form']");
+    $(":submit", languageForm).hide();
+    $("select", languageForm).change(function(){languageForm.submit()});
+
+    $("#site-name a").click(function() {
+        if (!$("#header .ml").is(":visible")) {
+            $("#header").addClass("expand");
+            return false;
+        } else if ($("#header").is(".expand")) {
+            $("#header").removeClass("expand");
+            return false;
+        }
+    })
 });

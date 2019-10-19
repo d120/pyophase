@@ -24,7 +24,7 @@ class DashboardLinks():
 
         return [
             (_("Start"), cls.get_index_link(), None),
-            (_("Persönliche Übersicht"), reverse_lazy('dashboard:personal_overview'), None),
+            (_("Meine Übersicht"), reverse_lazy('dashboard:personal_overview'), None),
             (_("Personal"), reverse_lazy('dashboard:staff:index'), StaffAppMixin),
             (_("Ersties"), reverse_lazy('dashboard:students:index'), StudentsAppMixin),
             (_("Klausur"), reverse_lazy('dashboard:exam:assignment'), ExamAppMixin),

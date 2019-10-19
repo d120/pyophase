@@ -13,7 +13,7 @@
 <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
 <script src="{% static 'ophasebase/js/helper.js' %}"></script>
 <script src="{% static 'kiffel/kiffelhelper.js' %}"></script>
-<link rel=stylesheet href="{% static 'ophasebase/css/common.css' %}">
+<link rel=stylesheet href="{% static 'ophasebase/css/pyophase.css' %}">
 <link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" />
 
 {% block customstyle %}{% endblock %}
@@ -89,7 +89,7 @@ oplan.is_staff = "{{user.is_staff}}";
         </div>
     {% endblock %}
 
-<div style="float:right">
+<div id="user-menu">
 {% if user.is_authenticated %}
     <div class="ml menuddlink{% if current_page in target %} active{% endif %}" data-target="#user_ddmenu">
     {% firstof user.get_short_name user.get_username %}
