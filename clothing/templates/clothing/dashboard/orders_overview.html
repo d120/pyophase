@@ -2,9 +2,11 @@
 {% load i18n %}
 
 {% block title %}{% trans "Bestellungen" %} | {% trans "Kleidung" %}{% endblock %}
-
+{% block content_dashboard_title %}
+    <h3>{% trans "Bestellungen" %}</h3>
+{% endblock %}
 {% block content_dashboard_view %}
-<h3>{% trans "Bestellungen" %}</h3>
+
 
 <div class="row" style="margin-bottom: 50px;">
     <div class="col-sm-4 text-center">

@@ -30,7 +30,7 @@ class IndexView(DashboardBaseMixin, TemplateView):
 
 
 class PersonalDashboardMixin(TUIDLoginRequiredMixin, DashboardAppMixin):
-    app_name_verbose = _('Persönliche Übersicht')
+    app_name_verbose = _('Meine Übersicht')
     app_name = 'my'
 
     @property

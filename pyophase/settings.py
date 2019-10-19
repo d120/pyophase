@@ -28,13 +28,13 @@ SECRET_KEY = 'w#%&!$am4t$20gu#l*b(z)p3od*1j809+420*e9j=bsmagsy$c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
+    'pyophase.admin.PyophaseAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -76,7 +76,7 @@ LOGIN_REDIRECT_URL = 'website:homepage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ os.path.join(BASE_DIR, 'templates') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,0 +1,129 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+
+{% load static from staticfiles %}
+<link rel=icon href="{% static 'kiffel/favicon.ico' %}">
+<link rel=stylesheet href="{% static 'oplan/vendor/fullcalendar/dist/fullcalendar.css' %}">
+<link rel=stylesheet href="{% static 'oplan/vendor/fullcalendar-scheduler/dist/scheduler.css' %}">
+
+<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'ophasebase/js/helper.js' %}"></script>
+<script src="{% static 'kiffel/kiffelhelper.js' %}"></script>
+<link rel=stylesheet href="{% static 'ophasebase/css/pyophase.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" />
+
+{% block customstyle %}{% endblock %}
+
+<script src="{% static 'oplan/vendor/moment/moment.js' %}"></script>
+<script src="{% static 'oplan/vendor/fullcalendar/dist/fullcalendar.js' %}"></script>
+<script src="{% static 'oplan/vendor/fullcalendar/dist/lang/de.js' %}"></script>
+<script src="{% static 'oplan/vendor/fullcalendar-scheduler/dist/scheduler.js' %}"></script>
+<script src="{% static 'oplan/vendor/jquery-ui/jquery-ui.min.js' %}"></script>
+<script>
+oplan.is_staff = "{{user.is_staff}}";
+</script>
+<link rel="alternate" type="application/rss+xml"
+   title="RSS" href="{*% url 'neuigkeiten:list_rss' %*}" />
+{% endblock %}
+
+
+{% block title %}{{ title }} | pyOphase{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+  <!--<a href="/"><i class="fa fa-bars mobile-only"></i><i class="fa fa-map mobile-hidden"></i>&nbsp;&nbsp;pyOphase</a>-->
+<a href="/"><img src="{% static "ophasebase/pyophase-light.png" %}" alt="pyophase" style="height:40px"></a>
+</h1>
+{% endblock %}
+
+
+{% block nav-global %}
+
+
+    {% for title, target, dashboardclass in navigation_links %}
+        {%  if dashboardclass %}
+    <div class="ml menuddlink{% if current_page in target %} active{% endif %}" data-target="#navlinks_ddmenu_{{ forloop.counter }}">{{ title }}
+        <div id="navlinks_ddmenu_{{ forloop.counter }}" class="ddmenu">
+            {% for title, target in dashboardclass.sidebar_links %}
+            <a href="{{ target }}" class="{% if target == request.path %}active{% endif %}">{{ title }}</a>
+            {% endfor %}
+        </div>
+    </div>
+        {% else %}
+            <a class="ml{% if current_page in target %} active{% endif %}" href="{{ target }}">{{ title }}</a>
+        {% endif %}
+    {% endfor %}
+
+
+    <a class="ml menuddlink" href="{% if user.is_staff %}{% url 'admin:ophasebase_room_changelist' %}{%else%}{*% url 'oplan:roomlist' %*}{%endif%}" data-target="#raumliste">Räume</a>
+
+{% endblock %}
+
+
+{% block usertools %}
+
+
+    {% block language-switcher %}
+        <div id="language-switcher">
+        <!-- language switcher -->
+                <form action="{% url 'set_language' %}" method="post" class="form-inline" name="language-form">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}" />
+                    <span class="fa fa-globe-europe"></span> &nbsp;
+                    <select name="language" class="form-control input-sm w-initial">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                                {{ language.code | upper }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <!--<input type="submit" value="{% trans 'Sprache ändern' %}" class="btn btn-primary btn-sm" />-->
+                </form>
+        </div>
+    {% endblock %}
+
+<div id="user-menu">
+{% if user.is_authenticated %}
+    <div class="ml menuddlink{% if current_page in target %} active{% endif %}" data-target="#user_ddmenu">
+    {% firstof user.get_short_name user.get_username %}
+        <div id="user_ddmenu" class="ddmenu">
+        {% if user.has_usable_password %}
+        <a href="{% url 'admin:password_change' %}" >{% trans 'Change password' %}</a>
+        {% endif %}
+        <a href="{% url 'logout' %}" >{% trans 'Log out' %}</a>
+        </div>
+    </div>
+{% else %}
+    <a class="ml" href="{% url 'login' %}">{% trans 'Log in' %}</a>
+{% endif %}
+</div>
+{% endblock %}
+
+
+
+{% block footer %}
+    <div id="footer">
+        <span class="float-left">
+        Fachschaft Informatik - TU Darmstadt &bull; <a href="https://www.fachschaft.informatik.tu-darmstadt.de/impressum">Impressum</a></span>&nbsp;&bull;
+        {% if user.is_authenticated %}
+        {% trans "Angemeldet als" %} {{ user.username }}
+        {% if user.is_staff %}
+        &bull; <a href="{% url 'admin:index' %}">{% trans "Zum Adminbereich" %}</a>
+        &bull; <a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a>
+        {% endif %}
+        &bull; <a href="{% url 'logout' %}">{% trans "Logout" %}</a>
+        {% else %}
+        <a href="{% url 'login' %}?next={{request.path}}">{% trans "Login" %}</a>
+        {% endif %}
+        <span class="float-right">This Software is Open Source <a href="https://github.com/d120/pyophase"><i class="fab fa-github"></i></a></span>
+    </div>
+    {% block bottom_script %}{% endblock %}
+{% endblock %}
+

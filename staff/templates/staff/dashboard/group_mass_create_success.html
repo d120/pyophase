@@ -2,8 +2,12 @@
 
 {% block title%}{% trans "Kleingruppen erstellt" %} | {% trans "Dashboard" %}{% endblock %}
 
+{% block content_dashboard_title %}
+    <h3>{% trans "Mehrere Kleingruppen auf einmal erstellen" %}</h3>
+{% endblock %}
+
 {% block content_dashboard_view %}
-<h3>{% trans "Mehrere Kleingruppen auf einmal erstellen" %}</h3>
+
 
 {% if ophase == True %}
 <div class="alert alert-success">{% icon "check" %}
