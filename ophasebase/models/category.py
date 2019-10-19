@@ -30,7 +30,7 @@ class OphaseActiveCategory(models.Model):
     """An active category of a given Ophase"""
     class Meta:
         verbose_name = _('Aktive Kategorie einer Ophase')
-        verbose_name_plural = _('Aktive Katgegorien einer Ophase')
+        verbose_name_plural = _('Aktive Kategorien einer Ophase')
         ordering = ['ophase', 'category']
 
     ophase = models.ForeignKey(Ophase, verbose_name=_('Ophase'), on_delete=models.CASCADE)
