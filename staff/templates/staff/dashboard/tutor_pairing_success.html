@@ -2,8 +2,11 @@
 
 {% block title%}{% trans "Tutoren gepaart" %} | {% trans "Dashboard" %}{% endblock %}
 
+{% block content_dashboard_title %}
+    <h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
+{% endblock %}
 {% block content_dashboard_view %}
-<h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
+
 <div class="alert alert-success">{% icon "check" %} {% trans "Zuteilung erfolgreich gespeichert" %}</div>
 <a href="{%  url 'dashboard:staff:tutor_pairing' %}" class="btn btn-primary">{% trans "Weitere Paarungen vornehmen" %}</a>
 {% endblock %}

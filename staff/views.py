@@ -164,7 +164,7 @@ class GroupCategoryList(GenericJobList):
 
     def __init__(self):
         super().__init__()
-        self.title = OphaseCategory._meta.verbose_name_plural
+        self.title = _("Tutorjobs")
 
 class OrgaJobList(GenericJobList):
     """List all OrgaJobs"""

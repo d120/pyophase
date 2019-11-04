@@ -28,7 +28,7 @@ class IndexView(DashboardBaseMixin, TemplateView):
 
 
 class PersonalDashboardMixin(DashboardAppMixin):
-    app_name_verbose = _('Persönliche Übersicht')
+    app_name_verbose = _('Meine Übersicht')
     app_name = 'my'
 
     @property

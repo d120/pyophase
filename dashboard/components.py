@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
 
-from .dashboard_links import DashboardLinks
+from pyophase.dashboard_links import DashboardLinks
 from .shortcuts import check_permissions
 
 
@@ -60,7 +60,7 @@ class DashboardBaseMixin(LoginRequiredMixin):
     action_name = ""
     app_name_verbose = ""
     app_name = ""
-    navigation_links = DashboardLinks.get_navigation_links()
+    #navigation_links = DashboardLinks.get_navigation_links()
     redirect_target = DashboardLinks.get_permission_missing_link()
     permissions = []
 
@@ -70,7 +70,7 @@ class DashboardBaseMixin(LoginRequiredMixin):
 
         This should be used in all childs of DashboardBaseView instead of directly overriding get_context_data()
         """
-        context['navigation_links'] = self.navigation_links
+        context['navigation_links'] = DashboardLinks.get_navigation_links() #self.navigation_links
         context['app_name_verbose'] = self.app_name_verbose
         context['action_name'] = self.action_name
         return context
@@ -105,3 +105,21 @@ class DashboardAppMixin(DashboardBaseMixin):
         :return: lazily resolved URL
         """
         return reverse_lazy('%s:%s:%s' % (DashboardLinks.get_prefix(), self.app_name, target))
+
+    def prefix_admin_reverse_lazy(self, model, action):
+        """
+        Adds necessary prefixes and calls reverse_lazy
+
+        :param target: target name (without prefixes)
+        :return: lazily resolved URL
+        """
+        return reverse_lazy('%s:%s_%s_%s' % ("admin", self.app_name, model, action))
+
+    def prefix_admin_app_list(self):
+        """
+        Adds necessary prefixes and calls reverse_lazy
+
+        :param target: target name (without prefixes)
+        :return: lazily resolved URL
+        """
+        return reverse_lazy('admin:app_list', args=(self.app_name,))

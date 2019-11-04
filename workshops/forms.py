@@ -8,7 +8,7 @@ class WorkshopSubmissionForm(forms.ModelForm):
 
     class Meta:
         model = Workshop
-        exclude = ['ophase']
+        exclude = ['ophase', 'assigned']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

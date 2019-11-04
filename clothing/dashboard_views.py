@@ -19,9 +19,10 @@ class ClothingAppMixin(DashboardAppMixin):
     @property
     def sidebar_links(self):
         return [
-            (_('Übersicht'), self.prefix_reverse_lazy('order_overview')),
+            (_('Übersicht'), self.prefix_admin_reverse_lazy('order', 'changelist')),
             (_('Grundbestellung'), self.prefix_reverse_lazy('order_free')),
             (_('Aggregierte Bestellungen'), self.prefix_reverse_lazy('order_aggregated')),
+            (_('Konfiguration'), self.prefix_admin_app_list()),
         ]
 
 

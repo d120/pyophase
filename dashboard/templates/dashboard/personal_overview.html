@@ -2,6 +2,9 @@
 {% load i18n %}
 
 {% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
+{% block content_dashboard_title %}
+    <h3>{% trans "Hallo" %} {{ person.prename }}!</h3>
+{% endblock %}
 
 {% block content_dashboard_view %}
 
@@ -13,8 +16,6 @@
             <p>{% trans "Du bekommst ein kostenloses Kleidungsstück als Dankeschön, hast aber noch keins ausgewählt." %} <a href="{%url "clothing:order_new" %}">{% trans "Bitte mach das so schnell wie möglich!" %}</a></p>
         </div>
         {% endif %}
-
-        <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ person.prename }}!</h3>
 
         <div class="row">
 

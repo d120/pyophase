@@ -30,13 +30,12 @@ class StaffAppMixin(DashboardAppMixin):
     def sidebar_links(self):
         return [
             (_('Übersicht'), self.prefix_reverse_lazy('index')),
-            (_('Kleingruppen erstellen'),
-             self.prefix_reverse_lazy('group_mass_create')),
-            (_('Gruppenbilder hinzufügen'),
-             self.prefix_reverse_lazy('group_picture_add')),
+            (_('Kleingruppen erstellen'), self.prefix_reverse_lazy('group_mass_create')),
+            (_('Gruppenbilder hinzufügen'), self.prefix_reverse_lazy('group_picture_add')),
             (_('Tutoren paaren'), self.prefix_reverse_lazy('tutor_pairing')),
-            (_('Termine'), self.prefix_reverse_lazy('event_index')),
-            (_('Schilder'), self.prefix_reverse_lazy('nametags'))
+            (_('Termine'), self.prefix_admin_reverse_lazy('attendanceevent', 'changelist')),
+            (_('Schilder'), self.prefix_reverse_lazy('nametags')),
+            (_('Konfiguration'), self.prefix_admin_app_list()),
         ]
 
 

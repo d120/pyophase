@@ -1,0 +1,103 @@
+{% load tex_escape %}
+{% verbatim %}
+% Mit Hilfe dieser LaTeX-Vorlage lassen sich die Aushänge für die Workshops generieren, auf denen sich die Teilnehmer eintragen können.
+% Das generierte pdf enthält dann die Zettel für alle Workshops und braucht nur noch ausgedruckt zu werden.
+% Soll am Seitenlayout nichts geändert werden, brauchen in der kopierten Vorlagendatei nur noch Informationen zwischen \begin{document} und \end{document} eingefügt zu werden.
+% Pro Workshop wird ein \workshop Kommando mit 8 Parametern aufgerufen.
+% Erklärung der Parameter:
+% 1: Name des Workshops
+% 2: Name des Workshop-Leiters
+% 3: Art des Workshops (Vortrag, Workshop, Sport, ...)
+% 4: Tag und Zeit
+% 5: Ort
+% 6: Beschreibungstext
+% 7: Voraussetzungen (Benötigte Vorkenntnisse oder mitzubringende Dinge)
+% 8: Max. Anzahl der Teilnehmer
+
+\documentclass[a4paper]{article}
+
+% die folgenden Pakete werden zur korrekten Darstellung von Umlauten benötigt
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[T1]{fontenc}
+% für URLs
+\usepackage{url}
+% die verwendete Schriftart
+\usepackage{lmodern}
+% folgendes wird für die Einschreibeliste benötigt
+\usepackage{multicol}
+\usepackage{forloop}
+% ermöglicht die Fußzeile zu definieren
+\usepackage{fancyhdr}
+% Umlaute mit \enquote{in Anführungszeichen} setzen
+\usepackage[autostyle=true,german=quotes,english=american]{csquotes}
+
+% sämtliche Kopf- und Fußzeilenformatierung löschen und rechts die Seitennummer anzeigen
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[R]{\small Seite~\thepage}
+
+% serifenlose Schriftart verwenden
+\renewcommand{\familydefault}{\sfdefault}
+
+% Workshop generieren
+\newcommand{\workshop}[8]{
+    % Seitennummer auf 1 zurückstellen und Workshoptitel links in Fußzeile anzeigen
+    \setcounter{page}{1}
+    \fancyfoot[L]{\small #1}
+    % Kopfinformationen darstellen
+    \begin{center}
+        \huge #1
+        \vspace{1em}\\
+        \large Tutor: #2\\
+        \large Art: #3\\
+        \large Zeit: #4
+        \hspace{2em}
+        \large Ort: #5
+    \end{center}
+    #6
+    \vspace{1em}\\
+    Voraussetzungen: #7
+    \vspace{1em}
+    % Einschreibeliste einfügen und dann Seite beenden
+    \signuplist{#8}
+    \pagebreak
+}
+
+% generiert Einschreibeliste
+\newcounter{i}
+\newcommand{\signuplist}[1]{
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \forloop{i}{0}{\value{i} < #1}{
+                \item \rule{0.4\textwidth}{0.4pt}
+            }
+        \end{enumerate}
+    \end{multicols}
+}
+
+\begin{document}
+
+% hier nun Workshops definieren
+{% endverbatim %}
+
+{% autoescape off %}{% for workshop in workshops %}
+% --------  Workshop: {{ workshop.id }}  ----------
+{% for assignment in workshop.workshopassignment_set.all %}
+
+\workshop{{ '{' }}{{ workshop.title|tex_escape }}{{ '}' }} %Titel
+{{ '{' }}{{ workshop.tutor_name|tex_escape }}{{ '}' }} %Tutor_Name
+{{ '{' }}{{ workshop.workshop_type|tex_escape }}{{ '}' }} %Workshop_Type
+{{ '{' }}{{ assignment.assigned_slot.date|date:'D'|tex_escape }} {{ assignment.assigned_slot.start_time|date:'H:i'|tex_escape }}{{ '}' }} %Assigned_Slot
+{{ '{' }}{{ assignment.location|tex_escape }}{{ '}' }}  %Assigned_Location
+{{ '{' }}{{ workshop.description|tex_escape }}{{ '}' }}  %Description
+{{ '{' }}{{ workshop.participant_requirements|default:"keine"|tex_escape }}{{ '}' }}  %Participant_Requirements
+{{ '{' }}{{ assignment.capacity|tex_escape }}{{ '}' }}  %Max_Participants
+
+{% endfor %}
+{% endfor %}{% endautoescape %}
+
+{% verbatim %}
+\end{document}
+{% endverbatim %}
