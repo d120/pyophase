@@ -10,12 +10,12 @@ from clothing.forms import OrderClothingForm
 from clothing.models import Order, Settings
 from dashboard.views import PersonalDashboardMixin
 from ophasebase.models import Ophase
+from staff.models import Person
 
 
 class GetOrRedirectForbiddenMixin:
     def get(self, request, *args, **kwargs):
         s =  super().get(request, *args, **kwargs)
-        from staff.models import Person
         person = Person.get_by_user(self.request.user)
         if person is None:
             return redirect("clothing:order_forbidden")
@@ -29,7 +29,6 @@ class ClothingPersonalOverview(GetOrRedirectForbiddenMixin, PersonalDashboardMix
 
     def get_queryset(self):
         qs = super().get_queryset()
-        from staff.models import Person
         person = Person.get_by_user(self.request.user)
         return qs.filter(person=person)
 
@@ -83,7 +82,6 @@ class ClothingOrderView(GetOrRedirectForbiddenMixin, ClothingOrderBaseView, Crea
         kwargs = super().get_form_kwargs()
         if 'instance' not in kwargs or kwargs['instance'] is None:
             kwargs['instance'] = Order()
-            from staff.models import Person
             person = Person.get_by_user(self.request.user)
             kwargs['instance'].person = person
             kwargs['person'] = person
