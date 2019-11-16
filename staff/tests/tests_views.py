@@ -1,21 +1,27 @@
-from unittest import skip
-
+from django.contrib.auth.models import User
 from django.core import mail
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.utils.translation import ugettext_lazy as _
-from pyTUID.models import TUIDUser
 
 
 class StaffAddView(TestCase):
     fixtures = ['ophasebase.json', 'staff.json', 'students.json']
 
+    def setUp(self):
+        self.username = 'testuser'
+        self.password = 'secret'
+        self.credentials = {
+            'username': self.username,
+            'password': self.password}
+        User.objects.create_user(**self.credentials)
+
     def test_redirect(self):
         """Test for Redirect to SSO Login page"""
         c = Client()
         suffix = urlencode({"next": reverse('staff:registration')})
-        redirect_url = "{}?{}".format(reverse('pyTUID:login'), suffix)
+        redirect_url = "{}?{}".format(reverse('tuid_login'), suffix)
 
         response = c.get(reverse('staff:registration'))
 
@@ -23,27 +29,12 @@ class StaffAddView(TestCase):
 
     def test_send_email(self):
         """Sending an email after successfull register"""
+        c = self.client
+        c.login(username=self.username, password=self.password)
 
         register_view = reverse('staff:registration')
 
         self.assertEqual(len(mail.outbox), 0)
-
-        # Creates a fake TUID Session bypassing the login procedure
-        myuid = 'PI42GUIN'
-
-        # in production this object is created after ticket validation
-        TUIDUser.objects.create(uid=myuid, surname='Leah',
-                                given_name='Bayer', email='leah.bayer@example.com',
-                                groups='me')
-
-        session = self.client.session
-
-        # in production this value is set after ticket validation
-        session['TUID'] = (myuid,)
-
-        session.save()
-
-        # End fake TUID Session
 
         testdata = {'prename': 'Leah',
                     'name': 'Bayer',
@@ -54,6 +45,9 @@ class StaffAddView(TestCase):
                     'experience_ophase': 'Nothing until now',
                     'is_helper': True,
                     'helper_jobs': 1, }
+
+        response = c.get(register_view)
+        self.assertEqual(response.status_code, 200)
 
         # sending a incomplet form should not send a email
         response = self.client.post(register_view, testdata, follow=True)

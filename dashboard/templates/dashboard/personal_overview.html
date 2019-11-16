@@ -3,12 +3,12 @@
 
 {% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
 {% block content_dashboard_title %}
-    <h3>{% trans "Hallo" %} {{ user.prename }}!</h3>
+    <h3>{% trans "Hallo" %} {{ person.prename }}!</h3>
 {% endblock %}
 
 {% block content_dashboard_view %}
 
-    {% if user_registered == True %}
+    {% if person_registered == True %}
 
         {% if show_clothing_order_warning == True %}
         <div class="alert alert-dismissible alert-danger">
@@ -16,8 +16,6 @@
             <p>{% trans "Du bekommst ein kostenloses Kleidungsstück als Dankeschön, hast aber noch keins ausgewählt." %} <a href="{%url "clothing:order_new" %}">{% trans "Bitte mach das so schnell wie möglich!" %}</a></p>
         </div>
         {% endif %}
-
-
 
         <div class="row">
 
@@ -27,9 +25,9 @@
                         <h3 class="card-title">{% trans "Deine Aufgaben" %}</h3>
                     </div>
                     <div class="card-body">
-                    {% if user.is_tutor  %}
+                        {% if person.is_tutor %}
                         <h5 style="font-weight: bold;">{% trans "Tutor" %}</h5>
-                        {% blocktrans with user.tutor_for as tutor_category %}
+                            {% blocktrans with person.tutor_for as tutor_category %}
                             Du hast dich als Tutor für {{ tutor_category }} eingetragen.
                         {% endblocktrans %}
                         {% if tutor_group != None %}
@@ -40,10 +38,10 @@
                         {% endif %}
                     {% endif %}
 
-                    {% if user.orgaselectedjob_set.count > 0 %}
+                        {% if person.orgaselectedjob_set.count > 0 %}
                         <h5 style="margin-top: 30px;font-weight: bold;">{% trans "Orga-Jobs" %}</h5>
                         <table class="table table-striped">
-                            {% for oj in user.orgaselectedjob_set.all %}
+                            {% for oj in person.orgaselectedjob_set.all %}
                                 {% if oj.status != "n" %}
                                 <tr><td>{{ oj.job.label }}</td><td>{{ oj.get_status_display }}</td></tr>
                                 {% endif %}
@@ -51,10 +49,10 @@
                         </table>
                     {% endif %}
 
-                    {% if user.helperselectedjob_set.count > 0 %}
+                        {% if person.helperselectedjob_set.count > 0 %}
                         <h5 style="margin-top: 30px;font-weight: bold;">{% trans "Helfer-Jobs" %}</h5>
                         <table class="table table-striped">
-                            {% for hj in user.helperselectedjob_set.all %}
+                            {% for hj in person.helperselectedjob_set.all %}
                                 {% if hj.status != "n" %}
                                 <tr><td>{{ hj.job.label }}</td><td>{{ hj.get_status_display }}</td></tr>
                                 {% endif %}

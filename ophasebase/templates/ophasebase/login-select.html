@@ -1,0 +1,26 @@
+{% extends "ophasebase/base.html" %}{% load static i18n %}{% load icons %}
+{% block title %}{% trans "Login Auswahl" %}{% endblock %}
+{% block heading %}{% trans "Login Auswahl" %}{% endblock %}
+
+{% block content %}
+    <h2>Bitte wähle deinen Login aus.</h2>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-sm">
+                <a href="{% url 'tuid_login' %}{{ next_url }}"><span
+                        class="fa-10x">{% icon 'university' %}</span><br>TU-ID</a>
+            </div>
+            <div class="col-sm">
+                <a href="{% url 'd120_login' %}{{ next_url }}"><span class="fa-10x"><img
+                        src="{% static 'ophasebase/logo_quadrat.svg' %}" width="160" height="160"></span><br>D120</a>
+            </div>
+            <div class="col-sm">
+                <a href="{% url 'local_login' %}{{ next_url }}"><span
+                        class="fa-10x">{% icon 'user' %}</span><br>Lokal</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom_script %}
+{% endblock %}

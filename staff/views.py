@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import EmailMessage
 from django.db import IntegrityError
 from django.db.models.query import QuerySet
@@ -8,69 +9,81 @@ from django.urls import reverse_lazy
 from django.utils.translation import ugettext as _
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
-from pyTUID.mixins import TUIDLoginRequiredMixin
 
 from ophasebase.models import Ophase, OphaseCategory
 from staff.forms import PersonForm
 from staff.models import HelperJob, OrgaJob, Settings, Person
 
 
-class StaffAdd(TUIDLoginRequiredMixin, CreateView):
+class StaffAdd(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('tuid_login')
     form_class = PersonForm
     template_name = 'staff/person_form.html'
     success_url = reverse_lazy('staff:registration_success')
 
     def dispatch(self, request, *args, **kwargs):
-        if Person.get_by_TUID(request.TUIDUser) is not None:
-            template = loader.get_template("staff/already_registered.html")
-            return TemplateResponse(request, template)
+        if Person.get_by_user(request.user) is not None:
+            return self.already_registerd(request)
         return super().dispatch(request, *args, **kwargs)
-
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        if 'instance' not in kwargs or kwargs['instance'] is None:
-            kwargs['instance'] = Person()
-            tuid = self.request.TUIDUser
-            if tuid is not None:
-                kwargs['instance'].tuid = tuid
-                kwargs['initial'] = {
-                    'email': tuid.email,
-                    'name': tuid.surname,
-                    'prename': tuid.given_name,
-                }
+        kwargs['user'] = self.request.user
         return kwargs
+
+    def already_registerd(self, request):
+        template = loader.get_template("staff/already_registered.html")
+        return TemplateResponse(request, template)
+
+    def get_initial(self):
+        user = self.request.user
+        initial = super().get_initial()
+        initial['prename'] = user.first_name
+        initial['name'] = user.last_name
+        initial['email'] = user.email
+        return initial
 
     def get_context_data(self, **kwargs):
         current_ophase = Ophase.current()
         settings = Settings.instance()
+        context = super().get_context_data(**kwargs)
 
         if current_ophase is not None and settings is not None:
-            vacancies = []
-            if settings.tutor_registration_enabled:
-                vacancies.append(_('Tutoren'))
-            if settings.orga_registration_enabled:
-                vacancies.append(_('Organisatoren'))
-            if settings.helper_registration_enabled:
-                vacancies.append(_('Helfer'))
-            vacancies_str = '.'.join(vacancies)
-            vacancies_str = vacancies_str.replace('.', ', ', len(vacancies)-2)
-            vacancies_str = vacancies_str.replace('.', ' %s '% _('und'))
-
-            context = super().get_context_data(**kwargs)
             context['ophase_title'] = str(current_ophase)
             context['ophase_duration'] = current_ophase.get_human_duration()
             context['any_registration_enabled'] = settings.any_registration_enabled()
             context['tutor_registration_enabled'] = settings.tutor_registration_enabled
             context['orga_registration_enabled'] = settings.orga_registration_enabled
             context['helper_registration_enabled'] = settings.helper_registration_enabled
-            context['staff_vacancies'] = vacancies_str
-            return context
+            context['staff_vacancies'] = StaffAdd.vacancies_string_generator()
         else:
-            context = super().get_context_data(**kwargs)
             context['ophase_title'] = 'Ophase'
             context['any_registration_enabled'] = False
-            return context
+
+        return context
+
+    @staticmethod
+    def vacancies_string_generator():
+        """
+        Generates a string which lists all job types in natural language enumeration
+        :return: the generated string
+        """
+        settings = Settings.instance()
+        vacancies = []
+
+        if settings.tutor_registration_enabled:
+            vacancies.append(_('Tutoren'))
+        if settings.orga_registration_enabled:
+            vacancies.append(_('Organisatoren'))
+        if settings.helper_registration_enabled:
+            vacancies.append(_('Helfer'))
+
+        vacancies_str = ', '.join(vacancies[:-1])
+        if vacancies_str == '':
+            vacancies_str = vacancies[-1]
+        else:
+            vacancies_str = ' {} '.format(_('und')).join((vacancies_str, vacancies[-1]))
+        return vacancies_str
 
     def form_valid(self, form):
         settings = Settings.instance()
@@ -83,8 +96,7 @@ class StaffAdd(TUIDLoginRequiredMixin, CreateView):
             super_return = super().form_valid(form)
         except IntegrityError:
             # this should happen when unique constraints fail
-            template = loader.get_template("staff/already_registered.html")
-            return TemplateResponse(self.request, template)
+            return self.already_registerd(self.request)
 
         # the enumeration symbol
         esym = '\n * '

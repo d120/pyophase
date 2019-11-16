@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy
@@ -50,7 +51,7 @@ class TemplateWidgetComponent(WidgetComponent):
         return {}
 
 
-class DashboardBaseMixin:
+class DashboardBaseMixin(LoginRequiredMixin):
     """
     Base mixin to transform django generic views into dashboard views
 

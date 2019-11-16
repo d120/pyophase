@@ -20,6 +20,7 @@ class PersonForm(forms.ModelForm):
         self.fields[field].label += format_html(code, reverse(view))
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
         self.__append_description_link(
@@ -82,7 +83,8 @@ class PersonForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        instance.save()
+        instance.user = self.user
+        instance.save(commit)
 
         if "is_orga" in self.cleaned_data and self.cleaned_data["is_orga"]:
             for job in self.cleaned_data['orga_jobs'].all():

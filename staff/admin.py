@@ -70,7 +70,7 @@ class PersonAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (_('Personendaten'), {'fields':
-            ['ophase', 'prename', 'name', 'email', 'tuid', 'phone', 'orga_annotation']}),
+            ['ophase', 'prename', 'name', 'email', 'user', 'tuid', 'phone', 'orga_annotation']}),
         (_('Bewerbung'), {'fields':
             ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
         (_('In der Ophase'), {'fields':
