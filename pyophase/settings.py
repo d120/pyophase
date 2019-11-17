@@ -106,6 +106,10 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1
 
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_ADAPTER = "pyophase.account_adapter.DisableSignUpAdapter"
+SOCIALACCOUNT_ADAPTER = "pyophase.account_adapter.SocialAccountAdapter"
+
 WSGI_APPLICATION = 'pyophase.wsgi.application'
 
 
