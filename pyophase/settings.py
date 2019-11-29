@@ -72,6 +72,7 @@ MIDDLEWARE = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'pyTUID.middleware.TUIDMiddleware',
 )
 
 ROOT_URLCONF = 'pyophase.urls'
