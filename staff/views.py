@@ -80,7 +80,7 @@ class StaffAdd(LoginRequiredMixin, CreateView):
 
         vacancies_str = ', '.join(vacancies[:-1])
         if vacancies_str == '':
-            vacancies_str = vacancies[-1]
+            vacancies_str = vacancies[-1:]
         else:
             vacancies_str = ' {} '.format(_('und')).join((vacancies_str, vacancies[-1]))
         return vacancies_str
