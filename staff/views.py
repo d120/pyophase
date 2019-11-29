@@ -69,19 +69,19 @@ class StaffAdd(LoginRequiredMixin, CreateView):
         :return: the generated string
         """
         settings = Settings.instance()
-        vacancies = []
 
-        if settings.tutor_registration_enabled:
-            vacancies.append(_('Tutoren'))
-        if settings.orga_registration_enabled:
-            vacancies.append(_('Organisatoren'))
-        if settings.helper_registration_enabled:
-            vacancies.append(_('Helfer'))
+        job_types = ((settings.tutor_registration_enabled, _('Tutoren')),
+                     (settings.orga_jobs_enabled, _('Organisatoren')),
+                     settings.helper_jobs_enabled, _('Helfer'))
 
-        vacancies_str = ', '.join(vacancies[:-1])
-        if vacancies_str == '':
-            vacancies_str = vacancies[-1:]
+        vacancies = [name for enabled, name in job_types if enabled]
+
+        if len(vacancies) == 0:
+            vacancies_str = ''
+        elif len(vacancies) == 1:
+            vacancies_str = vacancies[-1]
         else:
+            vacancies_str = ', '.join(vacancies[:-1])
             vacancies_str = ' {} '.format(_('und')).join((vacancies_str, vacancies[-1]))
         return vacancies_str
 
