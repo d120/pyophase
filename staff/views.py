@@ -72,7 +72,7 @@ class StaffAdd(LoginRequiredMixin, CreateView):
 
         job_types = ((settings.tutor_registration_enabled, _('Tutoren')),
                      (settings.orga_jobs_enabled, _('Organisatoren')),
-                     settings.helper_jobs_enabled, _('Helfer'))
+                     (settings.helper_jobs_enabled, _('Helfer')))
 
         vacancies = [name for enabled, name in job_types if enabled]
 
