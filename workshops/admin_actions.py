@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 
 def oinforz_export(modeladmin, request, queryset):

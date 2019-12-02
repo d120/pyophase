@@ -2,7 +2,7 @@ import datetime
 
 from django.utils.dateformat import DateFormat
 from django.utils.safestring import SafeText
-from django.utils.translation import ugettext as _, ungettext
+from django.utils.translation import gettext as _, ungettext
 
 from dashboard.components import WidgetComponent
 

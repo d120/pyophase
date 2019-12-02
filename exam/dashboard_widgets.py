@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 from django.utils import formats
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase

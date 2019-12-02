@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase

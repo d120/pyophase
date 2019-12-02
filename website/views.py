@@ -9,7 +9,7 @@ from ophasebase.models import Ophase, OphaseCategory, OphaseActiveCategory
 from staff.models import Settings as StaffSettings
 from students.models import Settings as StudentsSettings
 from workshops.models import Settings as WorkshopSettings
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from .models import Settings as WebsiteSettings, OInforz
 

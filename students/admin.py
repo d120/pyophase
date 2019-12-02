@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.db.models import When, Count, Case, IntegerField
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ophasebase.models import Ophase
 from students.admin_actions import generate_part_cert

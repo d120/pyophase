@@ -3,7 +3,7 @@ import datetime
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import formats
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 class Ophase(models.Model):
     """Object representing an Ophase."""
