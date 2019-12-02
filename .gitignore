@@ -34,3 +34,7 @@ venv/
 
 # media
 media/
+
+# pyenv
+.python-version
+
