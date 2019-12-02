@@ -138,8 +138,8 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('de', _('German')),
-    ('en', _('English')),
+    ('de-de', _('German')),
+    ('en-us', _('English')),
 ]
 
 
