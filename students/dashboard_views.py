@@ -1,5 +1,5 @@
 from django.db.models import Count, Sum, Case, When, IntegerField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, TemplateView
 
 from dashboard.components import DashboardAppMixin

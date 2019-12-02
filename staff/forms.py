@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.html import escape, format_html
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.db.utils import OperationalError
 
 from ophasebase.models import OphaseCategory, Ophase

@@ -1,5 +1,5 @@
 # Contains all dependencies which are required for production and for development
-Django==2.2.8
+Django==3.0
 django-allauth==0.40.0
 django-allauth-cas==1.0.0
 django-bootstrap4==1.0.1

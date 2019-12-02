@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.template.response import SimpleTemplateResponse, TemplateResponse
 from django.urls import reverse
-from django.utils.translation import ugettext as _, ungettext
+from django.utils.translation import gettext as _, ungettext
 
 from staff.models import HelperJob, OrgaJob, Attendance
 from .reports import generate_orga_cert_response

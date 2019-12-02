@@ -6,7 +6,7 @@ from django.http import HttpResponseForbidden
 from django.template import loader
 from django.template.response import TemplateResponse
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import CreateView
 

@@ -6,7 +6,7 @@ from functools import partial
 
 from django.urls import reverse_lazy
 
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import FormView, TemplateView, ListView, DetailView
 from django.shortcuts import redirect, render
 from django.contrib import messages
