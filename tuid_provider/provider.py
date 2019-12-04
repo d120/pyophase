@@ -12,5 +12,13 @@ class TUIDProvider(CASProvider):
     name = 'TU-ID CAS Provider'  # Verbose name of your provider
     account_class = TUIDAccount
 
+    def extract_uid(self, data):
+        return str(data[1]['cn'])
+
+    def extract_common_fields(self, data):
+        return dict(username=data[1]['cn'],
+                    email=data[1].get('mail', ''),
+                    first_name=data[1].get('givenName', ''),
+                    last_name=data[1].get('surname', ''), )
 
 providers.registry.register(TUIDProvider)
