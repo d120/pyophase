@@ -13,11 +13,12 @@ class TUIDProvider(CASProvider):
     account_class = TUIDAccount
 
     def extract_uid(self, data):
-        return str(data[1]['cn'])
+        username, extra = data
+        return username
 
     def extract_common_fields(self, data):
-        extra = data[1]
-        return dict(username=extra.get('cn', ''),
+        username, extra = data
+        return dict(username=username,
                     email=extra.get('mail', ''),
                     first_name=extra.get('givenName', ''),
                     last_name=extra.get('surname', ''),
