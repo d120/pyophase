@@ -16,9 +16,11 @@ class TUIDProvider(CASProvider):
         return str(data[1]['cn'])
 
     def extract_common_fields(self, data):
-        return dict(username=data[1]['cn'],
-                    email=data[1].get('mail', ''),
-                    first_name=data[1].get('givenName', ''),
-                    last_name=data[1].get('surname', ''), )
+        extra = data[1]
+        return dict(username=extra.get('cn', ''),
+                    email=extra.get('mail', ''),
+                    first_name=extra.get('givenName', ''),
+                    last_name=extra.get('surname', ''),
+                    )
 
 providers.registry.register(TUIDProvider)
