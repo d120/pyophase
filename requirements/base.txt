@@ -3,7 +3,7 @@ Django==3.0
 django-allauth==0.40.0
 django-allauth-cas==1.0.0
 django-bootstrap4==1.0.1
-django-icons==1.0.0
+django-icons==1.1.0
 django-formtools==2.1
 odswriter==0.4.0
 Pillow==6.2.1
