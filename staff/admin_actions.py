@@ -5,14 +5,14 @@ import odswriter
 from django.contrib import messages
 from django.contrib.admin import helpers
 from django.core.mail import send_mass_mail
-from django.db.models import Q, Case, Count, When
+from django.db.models import Q
 from django.http import HttpResponse
 from django.template import loader
 from django.template.response import SimpleTemplateResponse, TemplateResponse
 from django.urls import reverse
-from django.utils.translation import gettext as _, ungettext
+from django.utils.translation import gettext as _, ngettext
 
-from staff.models import HelperJob, OrgaJob, Attendance
+from staff.models import Attendance
 from .reports import generate_orga_cert_response
 
 
@@ -165,7 +165,7 @@ def send_fillform_mail(modeladmin, request, queryset):
         data = {'count': count,
                 'person': str(queryset[0]),}
 
-        admin_msg = ungettext(
+        admin_msg = ngettext(
             'Die Fillform E-Mail wurde an {person} verschickt.',
             'Die Fillform E-Mails wurden an {count} Personen verschickt.',
             count).format(**data)
