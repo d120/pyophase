@@ -178,7 +178,7 @@ class Person(models.Model):
 
     @property
     def eligible_for_clothing(self):
-        return self.is_orga or self.is_tutor
+        return self.is_orga or self.is_tutor or self.is_helper
 
     @property
     def get_approved_orgajob_names(self):
