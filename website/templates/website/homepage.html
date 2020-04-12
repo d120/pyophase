@@ -38,17 +38,24 @@
                     {% icon "calendar" %}
                     <p>
                         {{ active_category.get_human_short_duration }}<br />
+                        <a href="{% url 'website:detail_view' active_category.category.slug %}">
+                            {% trans "zum Stundenplan" %}
+                        </a>
                     </p>
                 </div>
                 <div class="col-sm-4 focus-item">
                     {% icon "map-marker" %}
                     <p>
-		    online
+                        {% trans "Gebäude" %} S2|02 <br />
+                        <a rel="nofollow" class="external text" target="_blank"
+                           href="https://www.tu-darmstadt.de/universitaet/orientierung/lageplaene/lageplaene_stadtmitte/lageplaene_s2/index.de.jsp">
+                            {% trans "Lageplan der Uni" %}
+                        </a>
                     </p>
                 </div>
                 <div class="col-sm-4 focus-item">
                     {% icon "phone" %}
-                    <p>{% trans "Helpdesk" %}:<br />@helpdesk auf discord</p>
+                    <p>{% trans "Helpdesk" %}:<br />{{ website_settings.helpdesk_phone_number }}</p>
                 </div>
             </div>
         </div>
