@@ -13,8 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-from django.utils.translation import ugettext_lazy as _
-
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -28,19 +27,28 @@ SECRET_KEY = 'w#%&!$am4t$20gu#l*b(z)p3od*1j809+420*e9j=bsmagsy$c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
+    'pyophase.admin.PyophaseAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap3',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'd120_provider',
+    'allauth_cas',
+    'tuid_provider',
+    'debug_toolbar',
+    'bootstrap4',
+    'django_icons',
     'formtools',
     'sslserver',
     'pyTUID',
@@ -63,6 +71,7 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'pyTUID.middleware.TUIDMiddleware',
 )
 
@@ -73,7 +82,7 @@ LOGIN_REDIRECT_URL = 'website:homepage'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ os.path.join(BASE_DIR, 'templates') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,10 +90,25 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_ADAPTER = "pyophase.account_adapter.DisableSignUpAdapter"
+SOCIALACCOUNT_ADAPTER = "pyophase.account_adapter.SocialAccountAdapter"
 
 WSGI_APPLICATION = 'pyophase.wsgi.application'
 
@@ -114,8 +138,8 @@ USE_L10N = True
 USE_TZ = True
 
 LANGUAGES = [
-    ('de', _('German')),
-    ('en', _('English')),
+    ('de-de', _('German')),
+    ('en-us', _('English')),
 ]
 
 
@@ -140,6 +164,13 @@ CSRF_COOKIE_HTTPONLY = True
 EMAIL_SUBJECT_PREFIX = "[PYOPHASE] "
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# for debug toolbar
+INTERNAL_IPS = ('127.0.0.1',)
+
 ### PYTUID ###
 
-TUID_SERVER_URL = 'https://sso.hrz.tu-darmstadt.de'
+TUID_SERVER_URL = 'https://sso.tu-darmstadt.de'
+
+# application-specific-cookies
+CSRF_COOKIE_NAME = 'pyophase_csrftoken'
+SESSION_COOKIE_NAME = 'pyophase_sessionid'

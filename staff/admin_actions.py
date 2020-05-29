@@ -5,14 +5,14 @@ import odswriter
 from django.contrib import messages
 from django.contrib.admin import helpers
 from django.core.mail import send_mass_mail
-from django.db.models import Q, Case, Count, When
+from django.db.models import Q
 from django.http import HttpResponse
 from django.template import loader
 from django.template.response import SimpleTemplateResponse, TemplateResponse
 from django.urls import reverse
-from django.utils.translation import ugettext as _, ungettext
+from django.utils.translation import gettext as _, ngettext
 
-from staff.models import HelperJob, OrgaJob, Attendance
+from staff.models import Attendance
 from .reports import generate_orga_cert_response
 
 
@@ -105,58 +105,6 @@ def staff_overview_export(modeladmin, request, queryset):
 
 staff_overview_export.short_description = _('Übersicht exportieren')
 
-def job_overview(jobtype, modeladmin, request, queryset):
-    """Display a matrix to show persons with associated jobs.
-    """
-    template = loader.get_template("staff/admin/job_matrix.html")
-
-    if jobtype == 'helper':
-        persons = queryset.filter(is_helper=True)
-        jobs = HelperJob.objects.all().annotate(num_person=Count(Case(When(person__is_helper=True, then=1))))
-        title = ('Helfer-Übersicht')
-    elif jobtype == 'orga':
-        persons = queryset.filter(is_orga=True)
-        jobs = OrgaJob.objects.all().annotate(num_person=Count(Case(When(person__is_orga=True, then=1))))
-        title = ('Orga-Übersicht')
-
-    jobs.order_by('label')
-
-    for person in persons:
-        job_interest = []
-        for j in jobs:
-            if jobtype == 'helper' and person.helper_jobs.filter(id=j.id).exists() or \
-               jobtype == 'orga' and person.orga_jobs.filter(id=j.id).exists():
-                    job_interest.append(True)
-            else:
-                job_interest.append(False)
-        person.job_interest = job_interest
-
-    context = {
-        'jobtype' : jobtype,
-        'persons' : persons,
-        'jobs' : jobs,
-        'opts' : modeladmin.opts,
-        'title' : title,
-    }
-
-    return SimpleTemplateResponse(template, context)
-
-def helper_job_overview(modeladmin, request, queryset):
-    """Display a matrix to show helpers with associated helper jobs.
-    """
-    return job_overview('helper', modeladmin, request, queryset)
-
-helper_job_overview.short_description = _('Helfer-Übersicht anzeigen')
-
-
-def orga_job_overview(modeladmin, request, queryset):
-    """Display a matrix to show orga with associated orga jobs.
-    """
-    return job_overview('orga', modeladmin, request, queryset)
-
-orga_job_overview.short_description = _('Orga-Übersicht anzeigen')
-
-
 def tutorgroup_export(modeladmin, request, queryset):
     """Exports group names with associated tutors in ods format.
     The produced ods file serves as an input for the name tag Java aplication.
@@ -217,7 +165,7 @@ def send_fillform_mail(modeladmin, request, queryset):
         data = {'count': count,
                 'person': str(queryset[0]),}
 
-        admin_msg = ungettext(
+        admin_msg = ngettext(
             'Die Fillform E-Mail wurde an {person} verschickt.',
             'Die Fillform E-Mails wurden an {count} Personen verschickt.',
             count).format(**data)

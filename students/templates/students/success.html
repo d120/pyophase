@@ -1,4 +1,4 @@
-{% extends "students/exam_base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "students/exam_base.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Daten gespeichert" %} | {% trans "Klausuranmeldung" %}{% endblock %}
 
@@ -11,7 +11,7 @@ for(var i = 1; i < 100; i++) {
 </script>
 
 <div class="jumbotron margin-top-1">
-    <p>{% bootstrap_icon "ok" %} {% trans "Deine Daten wurden erfolgreich gespeichert." %}</p>
+    <p>{% icon "check" %} {% trans "Deine Daten wurden erfolgreich gespeichert." %}</p>
     <p><a href="{% url registration_form %}">{% trans "Nächsten Eintrag hinzufügen" %}</a></p>
 </div>
 

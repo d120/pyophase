@@ -1,4 +1,4 @@
-{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% extends "ophasebase/frontend_base.html" %}{% load static %}{% load i18n %}
 {% block title %}Bachelor of Science{% endblock %}
 {% block heading %}Ophase für Bachelor of Science{% endblock %}
 
@@ -19,7 +19,7 @@
     eine E-Mail schreiben oder unter {{ website_settings.helpdesk_phone_number }} anrufen.
 </p>
 
-<img src="{{ category.website.schedule_image.url }}" class="img-responsive padding-top-1" />
+<img src="{{ category.website.schedule_image.url }}" class="img-fluid padding-top-1" />
 
     <div class="padding-top-1"></div>
 <p>

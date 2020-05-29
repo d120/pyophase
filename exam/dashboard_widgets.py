@@ -2,7 +2,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse_lazy
 from django.utils import formats
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from dashboard.components import TemplateWidgetComponent
 from ophasebase.models import Ophase
@@ -38,7 +38,7 @@ class ExamWidget(TemplateWidgetComponent):
 
         if current_ophase is None:
             context['message'] = _("Keine Ophase, keine Zuteilung")
-            context['status_icon'] = "ok"
+            context['status_icon'] = "check"
             context['submessage'] = ""
         elif assignment is None:
             context['message'] = _("Noch keine gültige Zuteilung")
@@ -46,7 +46,7 @@ class ExamWidget(TemplateWidgetComponent):
             context['submessage'] = ""
         elif self._correct_count(assignment):
             context['message'] = _("Gültige Zuteilung")
-            context['status_icon'] = "ok"
+            context['status_icon'] = "check"
             formatted_datetime = formats.date_format(timezone.localtime(assignment.created_at), 'SHORT_DATETIME_FORMAT')
             context['submessage'] = _('Erstellt am %(formated_datetime)s') % {
                      'formated_datetime' : formatted_datetime,}

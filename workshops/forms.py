@@ -4,9 +4,11 @@ from .models import Workshop, WorkshopSlot
 
 
 class WorkshopSubmissionForm(forms.ModelForm):
+    required_css_class = 'required'
+
     class Meta:
         model = Workshop
-        exclude = ['ophase']
+        exclude = ['ophase', 'assigned']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

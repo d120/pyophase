@@ -1,27 +1,29 @@
-{% extends "dashboard/dashboard_base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/dashboard_base.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
-{% block title%}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
+{% block title %}{% trans "Übersicht" %} | {% trans "Dashboard" %}{% endblock %}
 
 {% block content_dashboard %}
-
-<div>
-{% for widget in widgets %}
-    <div class="dashboard-panel panel panel-{{ widget.get_status }}">
-      <div class="panel-body">
-        {{ widget.render }}
-      </div>
-      <div class="panel-heading">
-          {% if widget.link_target != "" %}
-              <span class="pull-right">
-                <a href="{{ widget.link_target }}">{% bootstrap_icon "new-window" %}</a>
+    <div class="row equal-height">
+        {% for widget in widgets %}
+            <div class="col-sm-6  col-lg-4 col-xl-3 mb-4">
+                <div class="card border-{{ widget.get_status }}">
+                    <div class="card-body">
+                        {{ widget.render }}
+                    </div>
+                    <div class="card-footer bg-{{ widget.get_status }}">
+                        <p class="card-text">
+                            {% if widget.link_target != "" %}
+                                <span class="float-right">
+                <a href="{{ widget.link_target }}">{% icon "external-link-alt" %}</a>
               </span>
-          {% endif %}
-          {{ widget.name }}
-      </div>
+                            {% endif %}
+                            {{ widget.name }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
-</div>
-
-<div class="clearfix"></div>
+    <div class="clearfix"></div>
 
 {% endblock %}

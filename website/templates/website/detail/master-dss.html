@@ -1,4 +1,4 @@
-{% extends "ophasebase/base.html" %}{% load staticfiles %}{% load i18n %}
+{% extends "ophasebase/frontend_base.html" %}{% load static %}{% load i18n %}
 {% block title %}Master DSS{% endblock %}
 {% block heading %}DSS Masters orientation week{% endblock %}
 
@@ -21,7 +21,7 @@
             <p>The Ophase takes place {{ ophase_category_duration }}:</p>
             <div class="margin-top-3"></div>
             <img src="{{ category.website.schedule_image.url }}"
-                 class="img-responsive box-light-teal img-center box-highlight-header "/>
+                 class="img-fluid box-light-teal img-center box-highlight-header "/>
             <div class="margin-top-3"></div>
 
             <p>

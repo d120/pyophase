@@ -1,4 +1,4 @@
-{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "ophasebase/base.html" %}{% load bootstrap4 %}{% load i18n %} {% load icons %}
 {% block title %}{% trans "Mitmachen" %}{% endblock %}
 {% block heading %}{% trans "Bei der Ophase mitmachen" %}{% endblock %}
 
@@ -40,12 +40,13 @@
     <form role="form" action="{{action}}" method="POST">
         {% csrf_token %}
         {% bootstrap_form form %}
+        <p class="required-explanation">{% trans "Dieses Feld ist erforderlich" %}</p>
     {% buttons %}
         <button type="reset" class="btn btn-danger">
-            {% bootstrap_icon "remove" %} {% trans "Zurücksetzen" %}
+            {% icon "times" %} {% trans "Zurücksetzen" %}
         </button>
-        <button type="submit" class="btn btn-success pull-right">
-            {% bootstrap_icon "ok" %} {% trans "Abschicken" %}
+        <button type="submit" class="btn btn-success float-right">
+            {% icon "check" %} {% trans "Abschicken" %}
         </button>
     {% endbuttons %}
     </form>
@@ -59,7 +60,7 @@
 {% endblock %}
 
 {% block bottom_script %}
-{% load staticfiles %}
+{% load static %}
 <script src="{% static "ophasebase/js/dependent_input_visibility.js" %}"></script>
 <script src="{% static "staff/js/fillform.js" %}"></script>
 <script type="text/javascript">

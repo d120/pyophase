@@ -1,5 +1,7 @@
 language: python
 
+dist: xenial
+
 sudo: false
 
 cache:
@@ -12,26 +14,14 @@ services:
   - mysql
 
 python:
-  - "3.4"
-  - "3.5"
   - "3.6"
-
-env:
-    # the Django version from requirements.txt is used
-  - $DENV=""
-    # the latest Django development version is used
-  - $DENV="pip install --upgrade --pre Django"
-
-# allow the Django pre version to fail without failing the entire build
-matrix:
-  allow_failures:
-    - env: $DENV="pip install --upgrade --pre Django"
+  - "3.7"
+  - "3.8"
 
 install:
-  - pip install -U pip wheel
-  - pip install -r requirements.txt
-  - $DENV
-  - pip install coveralls
+  - pip install -U pip wheel coveralls
+  - pip install -r requirements/development.txt
+  - pip install -r requirements/production.txt
   - npm install
 
 before_script:
@@ -41,11 +31,11 @@ before_script:
 script:
   - export PYTHONWARNINGS=all
   - python manage.py check
+  - python manage.py makemigrations --dry-run --check
     # Test against SQLite
-  - python manage.py test
+  - coverage run manage.py test
     # Test against MySQL
-  - python manage.py test --settings pyophase.settings_travis
-  - coverage run --omit="*/migrations*" --source="." manage.py test
+  - coverage run manage.py test --settings pyophase.settings_travis
 
 after_success:
   coveralls

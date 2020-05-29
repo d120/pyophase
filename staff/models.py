@@ -1,9 +1,10 @@
 from urllib.parse import quote
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Q
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
@@ -116,6 +117,7 @@ class Person(models.Model):
 
     ophase = models.ForeignKey(Ophase, models.CASCADE)
     tuid = models.ForeignKey('pyTUID.TUIDUser', on_delete=models.CASCADE, verbose_name=_("TUID User"), null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Benutzer"), null=True, blank=True)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
     email = models.EmailField(max_length=150, verbose_name=_("E-Mail-Adresse"))
@@ -176,7 +178,7 @@ class Person(models.Model):
 
     @property
     def eligible_for_clothing(self):
-        return self.is_orga or self.is_tutor
+        return self.is_orga or self.is_tutor or self.is_helper
 
     @property
     def get_approved_orgajob_names(self):
@@ -200,6 +202,15 @@ class Person(models.Model):
     @staticmethod
     def get_by_TUID(TUIDUser):
         return TUIDUser.person_set.filter(ophase=Ophase.current()).first() if TUIDUser is not None else None
+
+    @staticmethod
+    def get_by_user(user):
+        if user.is_anonymous:
+            return None
+        try:
+            return Person.objects.get(user=user, ophase=Ophase.current())
+        except Person.DoesNotExist:
+            return None
 
 # Register a signal receiver so all TUIDs which are not referenced by a person object are deleted
 @receiver(post_delete, sender=Person)

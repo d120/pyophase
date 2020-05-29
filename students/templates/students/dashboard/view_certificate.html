@@ -1,15 +1,17 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}
 
 {% block title%}{% trans "Zertifikate erstellen" %} | {% trans "Dashboard" %}{% endblock %}
 
-
+{% block content_dashboard_title %}
+    <h3>{% trans "Zertifikate erstellen" %} <span class="badge badge-pill badge-secondary">{{ count_student }}</span></h3>
+{% endblock %}
 {% block content_dashboard_view %}
-    <h3>{% trans "Zertifikate erstellen" %}<span class="badge">{{ count_student }}</span></h3>
+
     <div class="alert alert-warning" role="alert">
     {%url "dashboard:staff:tutor_pairing" as tpurl %} {% blocktrans %}Vor dem Erstellen der Zertifikate bitte überprüfen, dass Änderungen an den Tutoren der Kleingruppen unter <a href="{{ tpurl }}">Tutoren paaren</a> eingepflegt sind.{% endblocktrans %}
     </div>
     <form action="{{ request.path }}" method="post">{% csrf_token %}
-        <button type="submit">{% trans "PDF mit allen Zertifikaten erstellen" %}</button>
+        <button class="btn btn-primary" type="submit">{% trans "PDF mit allen Zertifikaten erstellen" %}</button>
     </form>
 
 {% endblock %}

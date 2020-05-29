@@ -1,4 +1,4 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 {% load static %}
 
 {% block title%}{% trans "Namensschilder erstellen" %} | {% trans "Dashboard" %}{% endblock %}
@@ -7,89 +7,100 @@
 {% block content_dashboard_view %}
 {% bootstrap_messages %}
 
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3>{% trans "Namensschilder erstellen" %} <span class="badge">{{ count_staff }}</span></h3>
-	</div>
+    <div class="card mb-3 vh-25">
+        <div class="card-header bg-primary">
+            <h3 class="text-white">{% trans "Namensschilder erstellen" %} <span
+                    class="badge badge-pill badge-light text-primary">{{ count_staff }}</span></h3>
+        </div>
 
-	<div class="panel-body">
-		<div class="table-responsive">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>{% trans "Tutor" %}</th>
-						<th>{% trans "Jobs" %}</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for orga in staff %}
-					<tr>
-						<td>{{ orga.prename }} {{ orga.name }}</td>
-						<td>{% if orga.is_tutor %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %} </td>
-						<td>{{ orga.get_approved_orgajob_names | join:", " }}</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-		<form action="{{ request.path }}" method="post">{% csrf_token %}
-			<input type="hidden" name="action" value="all_nametags">
-			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
-		</form>
+        <div class="card-body overflow-auto">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>{% trans "Tutor" %}</th>
+                        <th>{% trans "Jobs" %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for orga in staff %}
+                        <tr>
+                            <td>{{ orga.prename }} {{ orga.name }}</td>
+                            <td>{% if orga.is_tutor %}{% icon "check" %}{% else %}{% icon "times" %}{% endif %} </td>
+                            <td>{{ orga.get_approved_orgajob_names | join:", " }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <form action="{{ request.path }}" method="post">{% csrf_token %}
+                <input type="hidden" name="action" value="all_nametags">
+                <button class="float-right btn btn-primary"
+                        type="submit">{% trans "PDF mit allen Namensschildern erstellen" %}</button>
+            </form>
+        </div>
+    </div>
+    <form action="{{ request.path }}" method="post">{% csrf_token %}
+        <div class="card mb-3">
+            <div class="card-header bg-primary">
+                <h3 class="text-white">{% trans "Einzelschild" %}</h3>
+            </div>
+            <div class="card-body">
+                {% if img %}
+                    <img class="center-block" style="width:30em;" src="data:image/png;base64,{{ img }}">
+                    <br>
+                {% endif %}
+                <div class="form-row">
+                    <div class="form-group col-4">
+                        <img class="img-fluid col-8" src="{% static 'website/ophasen-wesen.svg' %}"/>
+                    </div>
+                    <div class="form-group col-6 float-right">
+                        <label for="prename"> {% trans "Vorname" %}</label>
+                        <input tabindex="1" class="form-control" id="prename" name="prename" required>
+                        <label for="name"> {% trans "Nachname" %}</label>
+                        <input tabindex="2" class="form-control" id="name" name="name" required>
+                    </div>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-highlight text-center">
+                        <tbody>
+                        <tr>
+                            <td class="align-middle"><input type="checkbox" tabindex="3" name="tutor" id="tutor"/></td>
+                            <td class="align-middle"><input type="checkbox" tabindex="4" name="orga" id="orga"/></td>
+                            <td><input type="text" tabindex="5" class="form-control" name="extrahead" id="extrahead"
+                                       placeholder="{% trans "Zusätzlicher Buchstabe" %}"/></td>
+                            <td class="align-middle"><input type="checkbox" tabindex="7" name="helpdesk" id="helpdesk"/>
+                            </td>
+                            <td class="align-middle"><input type="checkbox" tabindex="8" name="leitung" id="leitung"/>
+                            </td>
+                        </tr>
+                        <th class="align-bottom"><label for="tutor">{% trans "Tutor" %}</label></th>
+                        <th class="align-bottom"><label for="orga">{% trans "Orga" %}</label></th>
+                        <th><input tabindex="6" type="text" class="form-control" name="extrarow" id="extrarow"
+                                   placeholder="{% trans "Zusätzliche Aufgabe" %}"/></th>
+                        <th class="align-bottom"><label for="helpdesk">{% trans "Helpdesk" %}</label></th>
+                        <th class="align-bottom"><label for="leitung">{% trans "Leitung" %}</label></th>
+                        </tbody>
+                    </table>
+                </div>
+                <input type="hidden" name="action" value="single_nametag">
+            </div>
+            <div class="card-footer">
+                <button tabindex="9" class="float-right btn btn-primary"
+                        type="submit">{% trans "Namensschild erstellen" %}</button>
+
+            </div>
+        </div>
+    </form>
+<div class="card mb-3">
+	<div class="card-header bg-primary">
+		<h3 class="text-white">{% trans "Gruppenschilder erstellen" %} <span class="badge badge-pill badge-light text-primary">{{ groupscount }}</span></h3>
 	</div>
-</div>
-<form action="{{ request.path }}" method="post">{% csrf_token %}
-	<div class="panel panel-primary">
-		<div class="panel-heading">
-			<h3>{% trans "Einzelschild" %}</h3>
-		</div>
-		<div class="panel-body">
-			{% if img %}
-			<img class="center-block" style="width:30em;" src="data:image/png;base64,{{ img }}">
-			<br>
-			{% endif %}
-			<div class="form-inline">
-				<div class="form-group">
-					<label for="surname"> {% trans "Vorname" %}</label>
-					<input tabindex="1" class="form-control" id="prename" name="prename" required>
-				</div>
-				<div class="form-group">
-					<label for="name"> {% trans "Nachname" %}</label>
-					<input tabindex="2" class="form-control" id="name" name="name" required>
-				</div>
-			</div>
-			<br>
-			<div class="table-responsive">
-				<table class="table table-bordered table-striped table-highlight">
-					<thead>
-						<th> {% trans "Tutor" %} </th>
-						<th> {% trans "Orga" %} </th>
-						<th> <input tabindex="5" type="text" class="form-control" name="extrahead"/></th>
-						<th> {% trans "Helpdesk" %} </th>
-						<th> {% trans "Leitung" %} </th>
-					</thead>
-					<tbody>
-						<tr>
-							<td><input type="checkbox" tabindex="3" class="form-control" name="tutor"/></td>
-							<td><input type="checkbox" tabindex="4" class="form-control" name="orga"/></td>
-							<td><input type="text" tabindex="6" class="form-control" name="extrarow"/></td>
-							<td><input type="checkbox" tabindex="7" class="form-control" name="helpdesk"/></td>
-							<td><input type="checkbox" tabindex="8" class="form-control" name="leitung"/></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<input type="hidden" name="action" value="single_nametag">
-			<button tabindex="9" class="pull-right btn btn-primary" type="submit">{% trans "Namensschild erstellen" %}</button>
-		</div>
-	</div>
-</form>
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3>{% trans "Gruppenschilder erstellen" %} <span class="badge">{{ groupscount }}</span></h3>
-	</div>
-	<div class="panel-body">
+	<div class="card-body">
 		{% trans "Erstellt eine PDF-Datei mit Schildern (Name und Bild für jede Gruppe)" %}
 		<form action="{{ request.path }}" method="post">{% csrf_token %}
 			<input type="hidden" name="action" value="group_signs">
@@ -107,18 +118,18 @@
 				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
 				{% endblocktrans %}
 			</div>
-			<button class="pull-right btn btn-primary disabled" type="button">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary disabled" type="button">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
 			{% else %}
-			<button class="pull-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary" type="submit">{% trans "PDF mit allen Gruppenschildern erstellen" %}</button>
 			{% endif %}
 		</form>
 	</div>
 </div>
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3>{% trans "Gruppenübersicht und Handzettel erstellen" %}</h3>
+<div class="card mb-3">
+	<div class="card-header bg-primary">
+		<h3 class="text-white">{% trans "Gruppenübersicht und Handzettel erstellen" %}</h3>
 	</div>
-	<div class="panel-body">
+	<div class="card-body">
 		{% static "staff/csv/rooms.csv" as csv_rooms %}
 		{% blocktrans %}
 		Erstellt ein zip-Datei mit einer Übersicht zu allen Tutor*innen sowie Handzettel für Tutor*innen.
@@ -141,24 +152,24 @@
 				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
 				{% endblocktrans %}
 			</div>
-			<button class="pull-right btn btn-primary disabled" type="button">{% trans "zip-Datei erstellen" %}</button>
+			<button class="float-right btn btn-primary disabled" type="button">{% trans "zip-Datei erstellen" %}</button>
 			{% else %}
-			<button class="pull-right btn btn-primary" type="submit">{% trans "zip-Datei erstellen" %}</button>
+			<button class="float-right btn btn-primary" type="submit">{% trans "zip-Datei erstellen" %}</button>
 			{% endif %}
 			<input name="roomscsv" type="file"/>
 		</form>
 	</div>
 </div>
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3>{% trans "Erstienamensschilder und Helpdeskübersicht" %}</h3>
+<div class="card mb-3">
+	<div class="card-header bg-primary">
+		<h3 class="text-white">{% trans "Erstienamensschilder und Helpdeskübersicht" %}</h3>
 	</div>
-	<div class="panel-body">
+	<div class="card-body">
 		{% static "staff/csv/ersties.csv" as csv_firstyears %}
 		{% blocktrans %}
 		Erstellt eine zip-Datei mit jeweils einer PDF-Datei für die Namensschilder und einer Übersicht für den Helpdesk.
 		Dazu muss eine csv-Datei mit den Namen der Erstsemester und den Räumen hochgeladen werden.
-		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_firstyears }}">Erstemester</a>.
+		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_firstyears }}">Erstsemester</a>.
 		{% endblocktrans %}
 		<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
 			<input type="hidden" name="action" value="firstyears_nametags">
@@ -176,7 +187,7 @@
 				Bilder können <a href="{{ group_picture_url }}">hier</a> nachgetragen werden.
 				{% endblocktrans %}
 			</div>
-			<button class="pull-right btn btn-primary disabled" type="button">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary disabled" type="button">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
 			{% else %}
 			{{ form.as_p }}
 			<div class="row">
@@ -193,7 +204,7 @@
 					</div>
 				</div>
 			</div>
-			<button class="pull-right btn btn-primary" type="submit">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
+			<button class="float-right btn btn-primary" type="submit">{% trans "zip mit Übersicht und Namensschildern erstellen" %}</button>
 			{% endif %}
 		</form>
 	</div>

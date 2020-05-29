@@ -1,15 +1,10 @@
 {% extends "ophasebase/base.html" %}
+
 {% block heading %}OphaseHQ Dashboard{% endblock %}
 
 {% block content %}
 
-<ul class="nav nav-pills">
-    {% for title, target in navigation_links %}
-    <li {% if current_page in target %}class="active"{% endif %}><a href="{{ target }}">{{ title }}</a></li>
-    {% endfor %}
-</ul>
 
-<hr class="margin-top-1">
 
 {% block content_dashboard %}{% endblock %}
 

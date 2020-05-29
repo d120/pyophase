@@ -1,11 +1,14 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}
 {% load i18n %}
 
 {% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
+{% block content_dashboard_title %}
+    <h3>{% trans "Hallo" %} {{ person.prename }}!</h3>
+{% endblock %}
 
 {% block content_dashboard_view %}
 
-    {% if user_registered == True %}
+    {% if person_registered == True %}
 
         {% if show_clothing_order_warning == True %}
         <div class="alert alert-dismissible alert-danger">
@@ -14,19 +17,17 @@
         </div>
         {% endif %}
 
-        <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ user.prename }}!</h3>
-
         <div class="row">
 
-            <div class="col-sm-6">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{% trans "Deine Aufgaben" %}</h3>
+            <div class="col-sm-6 mb-4">
+                <div class="card border-info">
+                    <div class="card-header bg-info">
+                        <h3 class="card-title">{% trans "Deine Aufgaben" %}</h3>
                     </div>
-                    <div class="panel-body">
-                    {% if user.is_tutor  %}
+                    <div class="card-body">
+                        {% if person.is_tutor %}
                         <h5 style="font-weight: bold;">{% trans "Tutor" %}</h5>
-                        {% blocktrans with user.tutor_for as tutor_category %}
+                            {% blocktrans with person.tutor_for as tutor_category %}
                             Du hast dich als Tutor für {{ tutor_category }} eingetragen.
                         {% endblocktrans %}
                         {% if tutor_group != None %}
@@ -37,10 +38,10 @@
                         {% endif %}
                     {% endif %}
 
-                    {% if user.orgaselectedjob_set.count > 0 %}
+                        {% if person.orgaselectedjob_set.count > 0 %}
                         <h5 style="margin-top: 30px;font-weight: bold;">{% trans "Orga-Jobs" %}</h5>
                         <table class="table table-striped">
-                            {% for oj in user.orgaselectedjob_set.all %}
+                            {% for oj in person.orgaselectedjob_set.all %}
                                 {% if oj.status != "n" %}
                                 <tr><td>{{ oj.job.label }}</td><td>{{ oj.get_status_display }}</td></tr>
                                 {% endif %}
@@ -48,10 +49,10 @@
                         </table>
                     {% endif %}
 
-                    {% if user.helperselectedjob_set.count > 0 %}
+                        {% if person.helperselectedjob_set.count > 0 %}
                         <h5 style="margin-top: 30px;font-weight: bold;">{% trans "Helfer-Jobs" %}</h5>
                         <table class="table table-striped">
-                            {% for hj in user.helperselectedjob_set.all %}
+                            {% for hj in person.helperselectedjob_set.all %}
                                 {% if hj.status != "n" %}
                                 <tr><td>{{ hj.job.label }}</td><td>{{ hj.get_status_display }}</td></tr>
                                 {% endif %}
@@ -64,17 +65,19 @@
 
 
             <div class="col-sm-6">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{% trans "Nächste Termine" %}</h3>
+                <div class="card border-success">
+                    <div class="card-header bg-success">
+                        <h3 class="card-title">{% trans "Nächste Termine" %}</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         {% for event in next_events %}
                             <div style="margin-bottom: 15px">
                                 <b>{{ event.name }}</b><br>
                                 {{ event.begin }} - {{ event.end }}<br>
                                 {{ event.room }}
                             </div>
+                        {% empty %}
+                            {% trans "Bisher sind keine Termine hinterlegt." %}
                         {% endfor %}
                     </div>
                 </div>
@@ -82,17 +85,17 @@
 
             {% if clothing_orders.count > 0 %}
             <div class="col-sm-6">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{% trans "Kleidungsbestellungen" %}</h3>
+                <div class="card border-warning">
+                    <div class="card-header bg-warning">
+                        <h3 class="card-title">{% trans "Kleidungsbestellungen" %}</h3>
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         {% for o in clothing_orders %}
                             <div style="margin-bottom: 15px">
                                 <b>{{ o.type }}</b> {{ o.size }} {{ o.color }}<br>
                                 <span style="color: #999999">
                                     {% if o.additional %}
-                                        {{ o.type.price }} €
+                                        {{ o.type.price |floatformat:2 }} €
                                     {% else %}
                                         {% trans "Kostenlos" %}
                                     {% endif %}

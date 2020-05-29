@@ -1,13 +1,13 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.template.response import SimpleTemplateResponse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 
 def oinforz_export(modeladmin, request, queryset):
     """Create a tex file for the OInforz containing workshop information.
     """
-    template = loader.get_template("workshops/admin/workshops.tex")
+    template = loader.get_template("workshops/admin/workshops_oinforz.tex")
     context = {'workshops': queryset}
     output = template.render(context)
     response = HttpResponse(output, content_type="application/x-tex")
@@ -28,3 +28,33 @@ def workshop_tutor_list(modeladmin, request, queryset):
     return SimpleTemplateResponse(template, context)
 
 workshop_tutor_list.short_description = _('Liste der Workshoptutoren')
+
+
+def aushang_export(modeladmin, request, queryset):
+    """Create a tex file for the OInforz containing workshop information.
+    """
+    template = loader.get_template("workshops/admin/workshops_aushang.tex")
+    context = {'workshops': queryset}
+    output = template.render(context)
+    response = HttpResponse(output, content_type="text/plain; charset=utf-8")
+    response['Content-Disposition'] = 'inline; filename="workshops_aushang.tex"'
+    return response
+
+aushang_export.short_description = _('Aushang Tex Export')
+
+def mail_text_export(modeladmin, request, queryset):
+    """Create a tex file for the OInforz containing workshop information.
+    """
+    email_template = loader.get_template('workshops/mail/confirmation.txt')
+    output = ""
+    for workshop in queryset:
+        email_body = email_template.render({
+            'workshop': workshop,
+        })
+        output += workshop.tutor_name + " <" + workshop.tutor_mail + ">" +\
+                    ("\r\n"*2) + email_body + ("\r\n"*4)
+    response = HttpResponse(output, content_type="text/plain; charset=utf-8")
+    #response['Content-Disposition'] = 'inline; filename="workshops_aushang.tex"'
+    return response
+
+mail_text_export.short_description = _('Bestätigungsmail Export')

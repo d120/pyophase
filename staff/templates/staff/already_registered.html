@@ -1,11 +1,11 @@
-{% extends "ophasebase/base.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "ophasebase/frontend_base.html" %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 {% block title %}{% trans "Fehler" %} | {% trans "Mitmachen" %}{% endblock %}
 {% block heading %}Bei der Ophase mithelfen{% endblock %}
 
 {% block content %}
 
 <div class="jumbotron margin-top-1">
-    <h2>{% bootstrap_icon "remove" %} {% trans "Fehler: Bereits registriert." %}</h2>
+    <h2>{% icon "times" %} {% trans "Fehler: Bereits registriert." %}</h2>
     <p>
         {% trans "Scheinbar bist du bereits für diese Ophase registriert. Wenn etwas an deiner Registrierung geändert werden soll, schreib einfach eine E-Mail an <a href='mailto:ophase-leitung@d120.de'>ophase-leitung@d120.de</a>." %}
     </p>

@@ -1,5 +1,5 @@
 from django.db.models import Count, Sum, Case, When, IntegerField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, TemplateView
 
 from dashboard.components import DashboardAppMixin
@@ -20,7 +20,9 @@ class StudentsAppMixin(DashboardAppMixin):
         return [
             (_('Übersicht'), self.prefix_reverse_lazy('index')),
             (_('Zertifikate erstellen'), self.prefix_reverse_lazy('certificate')),
-            (_('Newsletter'), self.prefix_reverse_lazy('newsletter'))
+            (_('Newsletter'), self.prefix_admin_reverse_lazy('newsletter', 'changelist')),
+            (_('Konfiguration'), self.prefix_admin_reverse_lazy('settings', 'changelist')),
+            (_('Liste der Ersties'), self.prefix_admin_reverse_lazy('student', 'changelist')),
         ]
 
 
@@ -67,16 +69,6 @@ class ExportCertificateView(StudentsAppMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         queryset = Student.get_current(want_exam=True).order_by('tutor_group__name', 'name', 'prename')
         return generate_cert_response(request, queryset)
-
-class NewsletterOverviewView(StudentsAppMixin, ListView):
-    model = Newsletter
-    template_name = "students/dashboard/view_newsletter_overview.html"
-
-    def get_queryset(self):
-        return Newsletter.objects.annotate(num=Count(Case(
-                When(student__ophase=Ophase.current(), then=1),
-                output_field=IntegerField())))
-
 
 class ExportNewsletterSubscriptionView(StudentsAppMixin, ListView):
     model = Student

@@ -5,12 +5,13 @@
     "url": "https://github.com/d120/pyophase"
   },
   "license": "AGPL-3.0",
-  "private" : true,
+  "private": true,
   "dependencies": {
-    "bootstrap": "~3.3.7",
+    "bootstrap": "~4.5.0",
     "bootstrap-chosen": "alxlit/bootstrap-chosen",
-    "chosen-js": "~1.7.0",
-    "font-awesome": "~4.7.0",
-    "jquery": "~3.2.1"
+    "chosen-js": "~1.8.7",
+    "@fortawesome/fontawesome-free": "~5.13.0",
+    "jquery": "~3.5.1",
+    "popper.js": "^1.16.1"
   }
 }

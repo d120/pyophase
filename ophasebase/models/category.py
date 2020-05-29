@@ -1,6 +1,7 @@
 from django.db import models
+from django.db.models import Min, Max
 from django.utils import formats
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ophasebase.models.ophase import Ophase
 
@@ -17,6 +18,10 @@ class OphaseCategory(models.Model):
     lang = models.CharField(max_length=5, verbose_name=_('Sprachcode'), default="de")
     priority = models.PositiveIntegerField(verbose_name=_("Priorität"), help_text=_("Die Priorität bestimmt unter anderem die Reihenfolge der Anzeige auf der Webseite"))
 
+    def label(self):
+        """Return name as label for compatibility with Job model"""
+        return self.name
+
     def __str__(self):
         return self.name
 
@@ -25,7 +30,7 @@ class OphaseActiveCategory(models.Model):
     """An active category of a given Ophase"""
     class Meta:
         verbose_name = _('Aktive Kategorie einer Ophase')
-        verbose_name_plural = _('Aktive Katgegorien einer Ophase')
+        verbose_name_plural = _('Aktive Kategorien einer Ophase')
         ordering = ['ophase', 'category']
 
     ophase = models.ForeignKey(Ophase, verbose_name=_('Ophase'), on_delete=models.CASCADE)
@@ -57,3 +62,13 @@ class OphaseActiveCategory(models.Model):
 
     def __str__(self):
         return "{}: {}".format(self.ophase, self.category)
+
+    def save(self, *args, **kwargs):
+        res = super().save(*args, **kwargs)
+
+        dates = OphaseActiveCategory.objects.filter(ophase=self.ophase).aggregate(start=Min('start_date'), end=Max('end_date'))
+        self.ophase.start_date_by_category = dates.get('start', None)
+        self.ophase.end_date_by_category = dates.get('end', None)
+        self.ophase.save()
+
+        return res

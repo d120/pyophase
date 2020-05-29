@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.utils.html import escape, format_html
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.db.utils import OperationalError
 
 from ophasebase.models import OphaseCategory, Ophase
@@ -10,6 +10,7 @@ from .models import HelperJob, OrgaJob, Person, Settings, OrgaSelectedJob, Helpe
 
 
 class PersonForm(forms.ModelForm):
+    required_css_class = 'required'
 
     def __append_description_link(self, field, view):
         """Append a link to a description view to the field label"""
@@ -19,6 +20,7 @@ class PersonForm(forms.ModelForm):
         self.fields[field].label += format_html(code, reverse(view))
 
     def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
         super().__init__(*args, **kwargs)
 
         self.__append_description_link(
@@ -81,7 +83,8 @@ class PersonForm(forms.ModelForm):
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        instance.save()
+        instance.user = self.user
+        instance.save(commit)
 
         if "is_orga" in self.cleaned_data and self.cleaned_data["is_orga"]:
             for job in self.cleaned_data['orga_jobs'].all():

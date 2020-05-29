@@ -3,7 +3,7 @@ from datetime import date
 from django.contrib.auth.models import Permission, User
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ophasebase.models import Ophase, OphaseCategory
 from staff.models import TutorGroup

@@ -230,7 +230,7 @@ msgid "Aktive Kategorie einer Ophase"
 msgstr ""
 
 #: models.py:165
-msgid "Aktive Katgegorien einer Ophase"
+msgid "Aktive Kategorien einer Ophase"
 msgstr ""
 
 #: models.py:170

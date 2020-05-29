@@ -1,6 +1,7 @@
+<p align="left"><img src="logo/horizontal.png" alt="pyophase" height="120px"></p>
+
 # pyophase
 [![Build Status](https://travis-ci.org/d120/pyophase.svg?branch=master)](https://travis-ci.org/d120/pyophase)
-[![Updates](https://pyup.io/repos/github/d120/pyophase/shield.svg)](https://pyup.io/repos/github/d120/pyophase/)
 [![Coverage Status](https://coveralls.io/repos/github/d120/pyophase/badge.svg?branch=master)](https://coveralls.io/github/d120/pyophase?branch=master)
 
 pyophase is our management application used for organizing an introductory week for new students. Such an introductory week is called Ophase.
@@ -33,11 +34,14 @@ npm install
 ./manage.py runserver
 ```
 
+The Single Sign On (SSO) of the TU Darmstadt only allows https redirects. A development server with ssl support can be started by
+using the `runsslserver` command instead of`runserver`.
+
 ## Deployment
 
 ### Installation
 
-* Install `python3`, `python3-pip`, `virtualenv` and `npm`
+* Install `python3`, `python3-pip`, `virtualenv`, `pdflatex` (for nametag and certificate generation) and `npm`
 * Maybe create a user for the WSGI applications (e.g. `pyophase`)
 * Clone this repository into a proper directory (e.g. `/srv/pyophase`)
 * Create MySQL database and proper user

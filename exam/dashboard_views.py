@@ -15,27 +15,18 @@ class ExamAppMixin(DashboardAppMixin):
     @property
     def sidebar_links(self):
         return [
-            ('Zuteilungen', self.prefix_reverse_lazy('assignment')),
-            ('Neue Zuteilung', self.prefix_reverse_lazy('assignment_new'))
+            ('Zuteilungen', self.prefix_admin_reverse_lazy('assignment', 'changelist')),
+            ('Neue Zuteilung', self.prefix_reverse_lazy('assignment_new')),
+            ('Klausurräume', self.prefix_admin_reverse_lazy('examroom', 'changelist')),
         ]
-
-
-class AssignmentIndexView(ExamAppMixin, ListView):
-    template_name = "exam/dashboard/assignment_overview.html"
-    model = Assignment
-
-
-class AssignmentDetailView(ExamAppMixin, DetailView):
-    template_name = "exam/dashboard/assignment_detail.html"
-    model = Assignment
-
 
 class AssignmentNameListView(ExamAppMixin, ListView):
     template_name = "exam/dashboard/assignment_name_list.html"
     model = PersonToExamRoomAssignment
 
     def get_queryset(self):
-        return super().get_queryset().filter(assignment_id=self.kwargs['assignment_id'])
+        qs = super().get_queryset().filter(assignment_id=self.kwargs['assignment_id'])
+        return qs.select_related('room', 'person', 'room__room', 'room__room__building')
 
 
 class MakeAssignmentView(ExamAppMixin, CreateView):

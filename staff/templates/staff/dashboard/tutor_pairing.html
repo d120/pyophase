@@ -1,13 +1,16 @@
-{% extends "dashboard/action.html" %}{% load staticfiles %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load static %}{% load bootstrap4 %}{% load i18n %}{% load icons %}
 
 {% block title%}{% trans "Tutoren paaren" %} | {% trans "Dashboard" %}{% endblock %}
+
+{% block content_dashboard_title %}
+    <h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
+{% endblock %}
 
 {% block content_dashboard_view %}
 <link rel="stylesheet" href="{% static 'vendor/bootstrap-chosen/bootstrap-chosen.css' %}" />
 
-<h3>{% trans "Tutoren auf Kleingruppen verteilen" %}</h3>
 
-<div class="well well-sm">
+<div class="card card-body bg-light">
     {% trans "Die Zahl in Klammern gibt die Erfahrung als Ophasentutor der jeweiligen Person an." %}
 </div>
 
@@ -15,8 +18,8 @@
     {% csrf_token %}
     {% bootstrap_form form %}
     {% buttons %}
-    <button type="submit" class="btn btn-success pull-right">
-        {% bootstrap_icon "ok" %} {% trans "Paarungen speichern" %}
+    <button type="submit" class="btn btn-success float-right">
+        {% icon "check" %} {% trans "Paarungen speichern" %}
     </button>
     {% endbuttons %}
 </form>

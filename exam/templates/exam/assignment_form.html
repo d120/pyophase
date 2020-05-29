@@ -1,8 +1,12 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load icons %}
 {% block title %}Neue Zuteilung | Klausur{% endblock %}
 
+{% block content_dashboard_title %}
+    <h3>Klausurzuteilung durchführen</h3>
+{% endblock %}
+
 {% block content_dashboard_view %}
-<h3>Klausurzuteilung durchführen</h3>
+
 
 <div id="mainForm">
     <table class="table">
@@ -16,14 +20,14 @@
         {% bootstrap_form form %}
     {% buttons %}
         <button type="reset" class="btn btn-danger">
-            {% bootstrap_icon "remove" %} Zurücksetzen
+            {% icon "times" %} Zurücksetzen
         </button>
-        <button type="submit" class="btn btn-success pull-right">
-            {% bootstrap_icon "ok" %} Abschicken
+        <button type="submit" class="btn btn-success float-right">
+            {% icon "check" %} Abschicken
         </button>
     {% endbuttons %}
     </form>
 </div>
 {% endblock %}
-{% block bottom_script %}{% load staticfiles %}
+{% block bottom_script %}{% load static %}
 {% endblock %}

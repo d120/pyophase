@@ -1,36 +1,49 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %} {% load icons %}
 {% load i18n %}
 
 {% block title %}{% trans "Persönliche Übersicht" %}{% endblock %}
 
+{% block content_dashboard_title %}
+    <h3>{% trans "Hallo" %} {{ user.first_name }}!</h3>
+{% endblock %}
+
 {% block content_dashboard_view %}
-    <h3 style="margin-bottom: 30px;">{% trans "Hallo" %} {{ user.prename }}!</h3>
 
-    <p>{% trans "Auf dieser Seite findest du deine aktuellen Bestellungen, kannst sie löschen und weitere hinzufügen" %}</p>
-
-    <div class="row" style="margin-top:30px;margin-bottom: 30px;">
-
-    {% for o in orders %}
-        <div class="col-sm-4">
-            <b>{{ o.type }}</b> {{ o.size }} {{ o.color }}<br>
-            <span style="color: #999999">
-                {% if o.additional %}
-                    {{ o.type.price }} €
+    <p>{% trans "Auf dieser Seite findest du deine aktuellen Bestellungen, kannst sie löschen und weitere hinzufügen." %}</p>
+    <div class="row">
+    {% for order in orders %}
+        <div class="col-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                {% trans "Bestellung" %}: #{{ order.pk }}
+            </div>
+            <div class="card-body">
+            {% trans "Typ" %}: {{ order.type }}<br>
+            {% trans "Größe" %}: {{ order.size }}<br>
+            {% trans "Farbe" %}: {{ order.color }}<br>
+            {% trans "Preis" %}:
+            <span class="text-muted">
+                {% if order.additional %}
+                    {{ order.type.price |floatformat:2 }} €
                 {% else %}
                     {% trans "Kostenlos" %}
                 {% endif %}
             </span><br>
-            <a href="{% url "clothing:order_edit" o.id %}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <a href="{% url "clothing:order_delete" o.id %}"><i class="fa fa-times" aria-hidden="true"></i></a>
+            <div class="row">
+            <div class="btn-group mt-2 col-12">
+            <a class="btn btn-danger" href="{% url "clothing:order_delete" order.id %}">{% icon "trash" %} Löschen</a>
+            <a class="btn btn-info" href="{% url "clothing:order_edit" order.id %}">{% icon "edit" %} Ändern</a>
+                </div>
+            </div>
+            </div>
+        </div>
         </div>
     {% empty %}
-        <p class="text-center" style="color: #999999;">{% trans "Bisher keine Bestellungen" %}</p>
+        <p class="text-center text-muted">{% trans "Bisher keine Bestellungen" %}</p>
     {% endfor %}
-
     </div>
-
     <div class="text-center">
-    <a href="{% url "clothing:order_new" %}" class="btn btn-default">{% trans "Neue Bestellung" %}</a>
+    <a href="{% url "clothing:order_new" %}" class="btn btn-primary">{% icon "cart-plus" %} {% trans "Neue Bestellung" %}</a>
     </div>
 
 {% endblock %}

@@ -1,13 +1,16 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}{% load i18n %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load i18n %}
 
 {% block title%}{% trans "Gruppenbilder hinzufügen" %} | {% trans "Dashboard" %}{% endblock %}
 
+{% block content_dashboard_title %}
+    <h3>{% trans "Gruppenbilder zuordnen" %} <span class="badge">{{ count_staff }}</span></h3>
+{% endblock %}
 
 {% block content_dashboard_view %}
 {% bootstrap_messages %}
-<h3>{% trans "Gruppenbilder zuordnen" %} <span class="badge">{{ count_staff }}</span></h3>
-<div class="panel panel-default">
-	<div class="panel-body">
+
+<div class="card">
+	<div class="card-body">
 		<div class="table-responsive">
 			<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
 				<table class="table table-striped">
@@ -24,14 +27,14 @@
 						<tr>
 							<td> <img style="max-width:200px;" id="img-{{ group.id }}" src="{% if group.picture %}{{ group.picture.url }}{% endif %}"> </td>
 							<td>{{ group.name }}</td>
-							<td><label class="pull-right btn btn-info">{% trans "Bild hinzufügen" %}<input id="imageupload-{{ group.id }}" name="{{ group.id }}" onchange="fileSelected(event)" style="display:none;" type="file"/></label>  </td>
-							<td><button type="button" id="imagedelete-{{ group.id }}" class="pull-right btn btn-danger" onclick="deletePhoto(event)">{% trans "Bild löschen" %}</button>  </td>
+							<td><label class="float-right btn btn-info">{% trans "Bild hinzufügen" %}<input id="imageupload-{{ group.id }}" name="{{ group.id }}" onchange="fileSelected(event)" style="display:none;" type="file"/></label>  </td>
+							<td><button type="button" id="imagedelete-{{ group.id }}" class="float-right btn btn-danger" onclick="deletePhoto(event)">{% trans "Bild löschen" %}</button>  </td>
 						</tr>
 						<input type="hidden" name="action-{{ group.id }}" value=""/>
 						{% endfor %}
 					</tbody>
 				</table>
-				<button class="pull-right btn btn-primary" type="button" data-toggle="modal" data-target="#deletealert">{% trans "Bilder hochladen/löschen" %}</button>
+				<button class="float-right btn btn-primary" type="button" data-toggle="modal" data-target="#deletealert">{% trans "Bilder hochladen/löschen" %}</button>
 		</div>
 	</div>
 </div>
@@ -47,7 +50,7 @@
 				Daten auf dem Server werden auf den angezeigten Stand geändert
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Abbrechen" %}</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">{% trans "Abbrechen" %}</button>
 				<button type="submit" class="btn btn-danger">{% trans "Ausführen" %}</button>
 			</div>
 		</div>

@@ -2,13 +2,28 @@ from django.core.mail import EmailMessage
 from django.http import HttpResponseForbidden
 from django.template import loader
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 
+from dashboard.components import DashboardAppMixin
 from ophasebase.models import Ophase
 from workshops.forms import WorkshopSubmissionForm
 from workshops.models import Settings, Workshop
+
+
+class WorkshopAppMixin(DashboardAppMixin):
+    app_name_verbose = _('Workshops')
+    app_name = 'workshops'
+    permissions = ['workshops.add_workshop']
+
+    @property
+    def sidebar_links(self):
+        return [
+            (_('Workshops'), self.prefix_admin_reverse_lazy('workshop', 'changelist')),
+            (_('Slots einrichten'), self.prefix_admin_reverse_lazy('workshopslot', 'changelist')),
+            (_('Konfiguration'), self.prefix_admin_reverse_lazy('settings', 'changelist')),
+        ]
 
 
 class WorkshopCreate(CreateView):

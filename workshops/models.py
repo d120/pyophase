@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import date as _date
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
-from ophasebase.models import Ophase
+from ophasebase.models import Ophase, Room
 
 
 class WorkshopSlot(models.Model):
@@ -25,7 +25,6 @@ class WorkshopSlot(models.Model):
     def get_current(**kwargs):
         return WorkshopSlot.objects.filter(ophase=Ophase.current(), **kwargs)
 
-
 class Workshop(models.Model):
     """A workshop offered in the Ophase."""
     class Meta:
@@ -37,7 +36,8 @@ class Workshop(models.Model):
     tutor_mail = models.EmailField(verbose_name=_('E-Mail-Adresse'))
     title = models.CharField(max_length=200, verbose_name=_('Workshoptitel'), help_text=_('Unter welcher Überschrift steht der Workshop?'))
     workshop_type = models.CharField(max_length=40, verbose_name=_('Art des Workshops'), help_text=_('Welche Art Veranstaltung ist das? Vortrag, Vortrag mit Hands-on, Workshop, Sport, Ausflug, ...'))
-    possible_slots = models.ManyToManyField(WorkshopSlot, verbose_name=_('Mögliche Zeitslots'), help_text=_('Welche Slots sind zeitlich möglich (unabhängig davon wie oft der Workshop stattfinden kann)?'))
+    possible_slots = models.ManyToManyField(WorkshopSlot, verbose_name=_('Mögliche Zeitslots'), help_text=_('Welche Slots sind zeitlich möglich (unabhängig davon wie oft der Workshop stattfinden kann)?'),
+                                            related_name='possible_workshops')
     how_often = models.PositiveSmallIntegerField(verbose_name=_('Anzahl'), help_text=_('Wie oft kann dieser Workshop angeboten werden?'))
     location_info = models.CharField(max_length=200, verbose_name=_('Raumbedarf'), help_text=_('Wo soll der Workshop stattfinden (Hörsaal, Gruppenraum, Poolraum, ...)?'))
     max_participants = models.PositiveSmallIntegerField(verbose_name=_('Max. Teilnehmerzahl'), help_text=_('Maximale Teilnehmeranzahl (auf 0 lassen für volle Raumkapazität).'))
@@ -47,6 +47,8 @@ class Workshop(models.Model):
     remarks = models.TextField(blank=True, verbose_name=_('Anmerkungen'), help_text=_('Sonstige Informationen für den Orga'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Eingetragen am"))
     updated_at = models.DateTimeField(auto_now=True, verbose_name=_("Verändert am"))
+    assigned = models.ManyToManyField(WorkshopSlot, through="WorkshopAssignment", verbose_name=_('Zugewiesene Zeitslots und Orte'), help_text=_(
+        'Wann und Wo findet der Workshop statt?'), related_name='assigned_workshops')
 
     def __str__(self):
         return self.title
@@ -60,6 +62,41 @@ class Workshop(models.Model):
     @staticmethod
     def get_current(**kwargs):
         return Workshop.objects.filter(ophase=Ophase.current(), **kwargs)
+
+
+class WorkshopAssignment(models.Model):
+    """Configuration for Workshop app."""
+    class Meta:
+        verbose_name = _("Workshopzuordnung")
+        verbose_name_plural = _("Workshopzuordnungen")
+    workshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
+    assigned_slot = models.ForeignKey(WorkshopSlot, verbose_name=_('Zugewiesener Zeitslot'), help_text=_(
+        'Wann findet der Workshop statt?'), on_delete=models.CASCADE)
+    assigned_room = models.ForeignKey(Room, verbose_name=_('Zugewiesener Raum'),
+                                      help_text=_('In welchem Raum findet der Workshop statt?'),
+                                      on_delete=models.SET_NULL, null=True, blank=True)
+    assigned_location = models.CharField(max_length=200,
+                                         verbose_name=_('Zugewiesener Ort'),
+                                         help_text=_('Freitext-Feld für zugewiesenen Raum'),
+                                         null=True, blank=True)
+
+    def capacity(self):
+        if self.workshop.max_participants > 0:
+            return self.workshop.max_participants
+        elif self.assigned_room is not None:
+            return self.assigned_room.capacity
+        else:
+            raise ValueError("Can't determine capacity of workshop assignment. Please either set workshop.max_participants or assigned_room")
+
+    def location(self):
+        if self.assigned_room is not None:
+            return str(self.assigned_room)
+        else:
+            return self.assigned_location
+
+    def __str__(self):
+        return "{} @ {} @ {}".format(self.workshop, self.assigned_slot, self.assigned_location)
+
 
 
 class Settings(models.Model):

@@ -3,13 +3,11 @@ from django.contrib.admin.templatetags.admin_list import _boolean_icon
 from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from ophasebase.models import OphaseCategory
 from .admin_actions import (
-    helper_job_overview,
     mail_export,
-    orga_job_overview,
     send_fillform_mail,
     staff_nametag_export,
     staff_overview_export,
@@ -68,11 +66,11 @@ class PersonAdmin(admin.ModelAdmin):
     list_display_links = ['prename', 'name']
     search_fields = ['prename', 'name', 'phone']
     readonly_fields = ('created_at', 'updated_at')
-    actions = [mail_export, staff_overview_export, staff_nametag_export, helper_job_overview, orga_job_overview, send_fillform_mail, generate_orga_cert]
+    actions = [mail_export, staff_overview_export, staff_nametag_export, send_fillform_mail, generate_orga_cert]
 
     fieldsets = [
         (_('Personendaten'), {'fields':
-            ['ophase', 'prename', 'name', 'email', 'tuid', 'phone', 'orga_annotation']}),
+            ['ophase', 'prename', 'name', 'email', 'user', 'tuid', 'phone', 'orga_annotation']}),
         (_('Bewerbung'), {'fields':
             ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
         (_('In der Ophase'), {'fields':
@@ -109,12 +107,14 @@ class PersonAdmin(admin.ModelAdmin):
 
 @admin.register(OrgaSelectedJob)
 class OrgaSelectedJobAdmin(admin.ModelAdmin):
-    list_display = ['job', 'status', 'person']
+    list_display = ('job', 'status', 'person')
+    list_filter = ('job',)
 
 
 @admin.register(HelperSelectedJob)
 class HelperelectedJobAdmin(admin.ModelAdmin):
-    list_display = ['job', 'status', 'person']
+    list_display = ('job', 'status', 'person')
+    list_filter = ('job',)
 
 
 @admin.register(StaffFilterGroup)

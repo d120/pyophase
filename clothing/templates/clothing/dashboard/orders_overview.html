@@ -1,10 +1,12 @@
-{% extends "dashboard/action.html" %}{% load bootstrap3 %}
+{% extends "dashboard/action.html" %}{% load bootstrap4 %}{% load icons %}
 {% load i18n %}
 
 {% block title %}{% trans "Bestellungen" %} | {% trans "Kleidung" %}{% endblock %}
-
+{% block content_dashboard_title %}
+    <h3>{% trans "Bestellungen" %}</h3>
+{% endblock %}
 {% block content_dashboard_view %}
-<h3>{% trans "Bestellungen" %}</h3>
+
 
 <div class="row" style="margin-bottom: 50px;">
     <div class="col-sm-4 text-center">
@@ -32,21 +34,21 @@
 </tr>
 </thead>
 {% for order in orders %}
-    <tr class="{% if order.received_at %}success{% else %}danger{% endif %}">
+    <tr class="table-{% if order.received_at %}success{% else %}danger{% endif %}">
         <td>{{ order.person.prename }} {{ order.person.name }}</td>
         <td>{{ order.type }} {{ order.size }}</td>
         <td>{{ order.color }}</td>
         <td>
             {% if order.additional %}
-                <i class="fa fa-money" aria-hidden="true"></i>
+                {%  icon "money" %}
                 {% if order.paid %}
-                    <span title="{% trans 'Bereits bezahlt' %}">{% bootstrap_icon "ok" %}</span>
+                    <span title="{% trans 'Bereits bezahlt' %}">{% icon "check" %}</span>
                 {% else %}
-                    <span title="{% trans 'Noch nicht bezahlt' %}">{% bootstrap_icon "warning-sign" %}</span>
+                    <span title="{% trans 'Noch nicht bezahlt' %}">{% icon "warning-sign" %}</span>
                 {% endif %}
             {% endif %}
         </td>
-        <td>{% if order.received_at %}{% bootstrap_icon "ok" %}{% else %}{% bootstrap_icon "remove" %}{% endif %}</td>
+        <td>{% if order.received_at %}{% icon "check" %}{% else %}{% icon "times" %}{% endif %}</td>
     </tr>
 {% empty %}
     <tr><td>{% trans "Bisher keine Bestellungen" %}</td><td></td><td></td></tr>
@@ -55,5 +57,5 @@
 
 
 {% endblock %}
-{% block bottom_script %}{% load staticfiles %}
+{% block bottom_script %}{% load static %}
 {% endblock %}
