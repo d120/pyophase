@@ -20,7 +20,7 @@ msgstr ""
 
 #: dashboard_views.py:14 models.py:41
 msgid "Ersties"
-msgstr "Freshmen"
+msgstr "First-Year Students"
 
 #: dashboard_views.py:21
 msgid "Übersicht"
@@ -38,7 +38,7 @@ msgstr "Newsletter"
 
 #: dashboard_widgets.py:14
 msgid "Erstie-Anmeldestatus"
-msgstr "Freshman sign-up status"
+msgstr "First years' sign-up status"
 
 #: forms.py:28 tests/tests_views.py:94
 msgid "Um Newsletter zu abonnieren muss eine E-Mail-Adresse angegeben werden."
@@ -58,7 +58,7 @@ msgstr ""
 
 #: models.py:40
 msgid "Erstie"
-msgstr "Freshman"
+msgstr "First-year student"
 
 #: models.py:44
 msgid "first name"
@@ -177,7 +177,7 @@ msgstr "Group"
 
 #: templates/students/dashboard/view_stats.html:11
 msgid "# Ersties"
-msgstr "# freshmen"
+msgstr "# first-year students"
 
 #: templates/students/dashboard/view_stats.html:11
 msgid "# Klausur"
@@ -189,7 +189,7 @@ msgstr "Sum"
 
 #: templates/students/dashboard/widget_registration_stats.html:2
 msgid "Eingetragene Ersties:"
-msgstr "Signed-up freshmen:"
+msgstr "Signed-up first-year students:"
 
 #: templates/students/dashboard/widget_registration_stats.html:3
 msgid "Klausuranmeldungen:"

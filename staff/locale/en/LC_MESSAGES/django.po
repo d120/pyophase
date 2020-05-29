@@ -288,7 +288,7 @@ msgstr "You did not upload a room csv file."
 
 #: dashboard_views.py:285
 msgid "Du hast keine Erstsemester csv-Datei hochgeladen."
-msgstr "You did not upload a freshmen csv file."
+msgstr "You did not upload a csv file."
 
 #: dashboard_views.py:339
 msgid "Keine valide Aktion gewählt"
@@ -519,7 +519,7 @@ msgstr "Tutor for"
 
 #: models.py:126
 msgid "Erstsemester welches Studiengangs möchtest du als Tutor betreuen?"
-msgstr "Freshmen of which degree program would you like to take care of?"
+msgstr "First-year students of which degree program would you like to take care of?"
 
 #: models.py:127
 #, fuzzy
@@ -1036,7 +1036,7 @@ msgstr "Generate zip file"
 
 #: templates/staff/dashboard/nametag_creation.html:154
 msgid "Erstienamensschilder und Helpdeskübersicht"
-msgstr "Freshmen nametags and helpdesk overview"
+msgstr "First years' nametags and helpdesk overview"
 
 #: templates/staff/dashboard/nametag_creation.html:158
 #, python-format
@@ -1047,14 +1047,14 @@ msgid ""
 "\t\tDazu muss eine csv-Datei mit den Namen der Erstsemester und den Räumen "
 "hochgeladen werden.\n"
 "\t\tVorlagen für <a href=\"%(csv_rooms)s\">Räume</a> und <a href="
-"\"%(csv_freshmen)s\">Erstsemester</a>.\n"
+"\"%(csv_firstyears)s\">Erstemester</a>.\n"
 "\t\t"
 msgstr ""
 "\n"
-"Generates a zip file with a pdf containing the freshmen nametags and an "
-"overview for the helpdesk. A csv file with the freshmen names and and one "
+"Generates a zip file with a pdf containing the first years' nametags and an "
+"overview for the helpdesk. A csv file with the names and and one "
 "for the rooms has to be uploaded.Templates for <a href=\"%(csv_rooms)s"
-"\">rooms</a> and <a href=\"%(csv_freshmen)s\">freshmen</a>.\t"
+"\">rooms</a> and <a href=\"%(csv_firstyears)s\">first-year students</a>.\t"
 
 #: templates/staff/dashboard/nametag_creation.html:179
 #: templates/staff/dashboard/nametag_creation.html:196
@@ -1207,7 +1207,7 @@ msgid ""
 "Durchführung der Programmpunkte. Für die Woche vor der Ophase ist eine kurze "
 "Schulung sowie eine Einführung in das Programm der Ophase geplant."
 msgstr ""
-"As tutor you take care of a tutored group of freshmen and assist at "
+"As a tutor you take care of a tutored group of first-year students and assist at "
 "activities. In the week before the Ophase as short training and an "
 "introductory meeting is scheduled."
 

@@ -165,14 +165,14 @@
 		<h3 class="text-white">{% trans "Erstienamensschilder und Helpdeskübersicht" %}</h3>
 	</div>
 	<div class="card-body">
-		{% static "staff/csv/ersties.csv" as csv_freshmen %}
+		{% static "staff/csv/ersties.csv" as csv_firstyears %}
 		{% blocktrans %}
 		Erstellt eine zip-Datei mit jeweils einer PDF-Datei für die Namensschilder und einer Übersicht für den Helpdesk.
 		Dazu muss eine csv-Datei mit den Namen der Erstsemester und den Räumen hochgeladen werden.
-		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_freshmen }}">Erstsemester</a>.
+		Vorlagen für <a href="{{ csv_rooms }}">Räume</a> und <a href="{{ csv_firstyears }}">Erstsemester</a>.
 		{% endblocktrans %}
 		<form action="{{ request.path }}" method="post" enctype="multipart/form-data">{% csrf_token %}
-			<input type="hidden" name="action" value="freshmen_nametags">
+			<input type="hidden" name="action" value="firstyears_nametags">
 			{% if groups_without_picture != 0 %}
 			{% url 'dashboard:staff:group_picture_add' as group_picture_url%}
 			<div class="alert alert-danger" role="alert">{% blocktrans count counter=groups_without_picture %}
@@ -199,8 +199,8 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group">
-						<label for="freshmencsv">Erstsemester:</label>
-						<input id="freshmencsv" name="freshmencsv" type="file"/>
+						<label for="firstyearscsv">Erstsemester:</label>
+						<input id="firstyearscsv" name="firstyearscsv" type="file"/>
 					</div>
 				</div>
 			</div>

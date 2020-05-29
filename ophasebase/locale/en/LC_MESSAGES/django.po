@@ -285,7 +285,7 @@ msgstr ""
 #~ msgstr "For tutors"
 
 #~ msgid "Die Erstsemester deiner Kleingruppe registrieren"
-#~ msgstr "Register freshmen of your tutored group"
+#~ msgstr "Register first-year students of your tutored group"
 
 #~ msgid "Für Workshopleiter"
 #~ msgstr "For workshop tutors"

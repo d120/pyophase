@@ -293,18 +293,18 @@ class NametagCreation(StaffAppMixin, TemplateView):
             memoryfile.seek(0)
             response.write(memoryfile.read())
             return response
-        elif request.POST['action'] == 'freshmen_nametags':
+        elif request.POST['action'] == 'firstyears_nametags':
             if not 'roomscsv' in request.FILES:
                 messages.error(request, _(
                     'Du hast keine Raum csv-Datei hochgeladen.'))
-            if not 'freshmencsv' in request.FILES:
+            if not 'firstyearscsv' in request.FILES:
                 messages.error(request, _(
                     'Du hast keine Erstsemester csv-Datei hochgeladen.'))
-                freshmen = []
+                firstyears = []
             else:
-                freshmencsv = TextIOWrapper(
-                    request.FILES['freshmencsv'].file, encoding=request.encoding)
-                freshmen = list(reader(freshmencsv))[1:]
+                firstyearscsv = TextIOWrapper(
+                    request.FILES['firstyearscsv'].file, encoding=request.encoding)
+                firstyears = list(reader(firstyearscsv))[1:]
            # if len(messages.get_messages(request)) != 0:
            #     return redirect('dashboard:staff:nametags')
             roomscsv = TextIOWrapper(
@@ -314,27 +314,28 @@ class NametagCreation(StaffAppMixin, TemplateView):
             form = TutorGroupSelect(request.POST)
             form.is_valid()
             groups = form.cleaned_data.get('TutorGruppe')
+            
             if len(groups) != len(group_capacities):
                 messages.error(request, _(
                     'Es wurden nicht genauso viele Räume wie Gruppen angelegt'))
                 return redirect('dashboard:staff:nametags')
 
-            # Add empty entries to end freshmen list to create empty tags for groups not full already
-            freshmen.extend([[" ", " "]] * (len(groups) * 5))
+            # Add empty entries to end firstyears list to create empty tags for groups not full already
+            firstyears.extend([[" ", " "]] * (len(groups) * 5))
 
             groups_with_rooms = list(zip(groups, rooms[2:]))
-            freshmen_group = list(zip(freshmen, cycle_bucket(groups_with_rooms, group_capacities)))
+            firstyears_group = list(zip(firstyears, cycle_bucket(groups_with_rooms, group_capacities)))
             # generate group assignement overview
             (assignement_pdf, assignement_log) = generate_nametags(
-                [(f, g) for f, (g, r) in freshmen_group], template='staff/reports/gruppenzuweisung.tex')
+                [(f, g) for f, (g, r) in firstyears_group], template='staff/reports/gruppenzuweisung.tex')
             if not assignement_pdf:
                 return render(request, "staff/reports/rendering-error.html", {"content": assignement_log[0].decode("utf-8")})
 
-            # combine this with the freshmen_group-zip
-            freshmen_tags = []
-            for f, (g, r) in freshmen_group:
+            # combine this with the firstyears_group-zip
+            firstyears_tags = []
+            for f, (g, r) in firstyears_group:
                 timetable = list(zip(rooms[0], rooms[1], r[1:]))
-                freshmen_tags.append([f, g, timetable])
+                firstyears_tags.append([f, g, timetable])
             # Empty tags are created together with other tags already
             empty_tags = []
             """for i, group in enumerate(groups):
@@ -344,7 +345,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
             (nametags_pdf, nametag_log) = generate_pdf_with_group_pictures(request=request,
                                                                            groups=groups,
                                                                            template='staff/reports/namensschilder-ersties.tex',
-                                                                           context={'freshmen': freshmen_tags,
+                                                                           context={'firstyears': firstyears_tags,
                                                                                     'empty_tags': empty_tags})
             memoryfile = BytesIO()
             zipfile = ZipFile(memoryfile, 'w')
@@ -360,7 +361,7 @@ class NametagCreation(StaffAppMixin, TemplateView):
                                  nametag_log[0].decode('utf-8'))
             zipfile.close()
             response = HttpResponse(content_type='application/zip')
-            response['Content-Disposition'] = 'attachment; filename=freshmen.zip'
+            response['Content-Disposition'] = 'attachment; filename=first-year-students.zip'
             memoryfile.seek(0)
             response.write(memoryfile.read())
             return response
