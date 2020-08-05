@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 # Application definition
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'pyophase.admin.PyophaseAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,9 +59,9 @@ INSTALLED_APPS = (
     'exam',
     'workshops',
     'clothing',
-)
+]
 
-MIDDLEWARE = (
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -71,7 +71,7 @@ MIDDLEWARE = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'pyTUID.middleware.TUIDMiddleware',
-)
+]
 
 ROOT_URLCONF = 'pyophase.urls'
 
