@@ -46,7 +46,6 @@ INSTALLED_APPS = (
     'd120_provider',
     'allauth_cas',
     'tuid_provider',
-    'debug_toolbar',
     'bootstrap4',
     'django_icons',
     'formtools',
@@ -71,7 +70,6 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'pyTUID.middleware.TUIDMiddleware',
 )
 
@@ -111,7 +109,6 @@ ACCOUNT_ADAPTER = "pyophase.account_adapter.DisableSignUpAdapter"
 SOCIALACCOUNT_ADAPTER = "pyophase.account_adapter.SocialAccountAdapter"
 
 WSGI_APPLICATION = 'pyophase.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -164,8 +161,13 @@ CSRF_COOKIE_HTTPONLY = True
 EMAIL_SUBJECT_PREFIX = "[PYOPHASE] "
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# for debug toolbar
-INTERNAL_IPS = ('127.0.0.1',)
+# Only if this settings file is used as settings do the following.
+# If the file id import by another file the lines are skipped.
+if os.environ['DJANGO_SETTINGS_MODULE'] == "pyophase.settings":
+    # Settings for django debug toolbar
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
+    INTERNAL_IPS = ('127.0.0.1',)
 
 ### PYTUID ###
 
