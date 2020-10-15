@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 
 from .dashboard_views import (
     ExportCertificateView,
@@ -6,10 +6,10 @@ from .dashboard_views import (
     StudentStatsView,
 )
 
-
 app_name = 'students'
 urlpatterns = [
-    url(r'^$', StudentStatsView.as_view(), name='index'),
-    url(r'^certificate/$', ExportCertificateView.as_view(), name='certificate'),
-    url(r'^newsletter/(?P<newsletter_id>[0-9]+)/export/$', ExportNewsletterSubscriptionView.as_view(), name='newsletter_export'),
+    path('', StudentStatsView.as_view(), name='index'),
+    path('certificate/', ExportCertificateView.as_view(), name='certificate'),
+    path('newsletter/<int:newsletter_id>/export',
+         ExportNewsletterSubscriptionView.as_view(), name='newsletter_export'),
 ]

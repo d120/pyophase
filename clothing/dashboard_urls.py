@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import path
 
 from .dashboard_views import (
     FreeClothingView,
@@ -6,10 +6,10 @@ from .dashboard_views import (
     OrderOverView,
 )
 
-
 app_name = 'clothing'
 urlpatterns = [
-    url(r'^orders/$', OrderOverView.as_view(), name='order_overview'),
-    url(r'^orders/free/$', FreeClothingView.as_view(), name='order_free'),
-    url(r'^orders/aggregated/$', OrderAggregatedView.as_view(), name='order_aggregated'),
+    path('orders/', OrderOverView.as_view(), name='order_overview'),
+    path('orders/free/', FreeClothingView.as_view(), name='order_free'),
+    path('orders/aggregated/', OrderAggregatedView.as_view(),
+         name='order_aggregated'),
 ]
