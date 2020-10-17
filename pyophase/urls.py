@@ -1,38 +1,39 @@
-from django.contrib.auth.views import LoginView, LogoutView
 from django.conf import settings
-from django.conf.urls import include, url
 from django.contrib import admin
-from django.urls import reverse_lazy
-from django.views.static import serve
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import include, path, reverse_lazy
+
 from ophasebase.views import LoginSelectView
 
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^', include('website.urls', namespace='website')),
-    url(r'sso/', include('pyTUID.urls')),
-    url(r'^mitmachen/', include('staff.urls', namespace='staff')),
-    url(r'^teilnehmer/', include('students.urls', namespace='students')),
-    url(r'^klausur/', include('exam.urls', namespace='exam')),
-    url(r'^workshops/', include('workshops.urls', namespace='workshops')),
-    url(r'^dashboard/', include('dashboard.urls', namespace='dashboard')),
-    url(r'^clothing/', include('clothing.urls', namespace='clothing')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/login/$', LoginSelectView.as_view(), name='login'),
-    url(r'^accounts/local/login/$', LoginView.as_view(template_name = 'admin/login.html'), name='local_login'),
-    url(r'^accounts/logout/$', LogoutView.as_view(next_page=reverse_lazy('website:homepage')), name='logout'),
-    url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^accounts/', include('allauth.urls')),
+    path('', include('website.urls', namespace='website')),
+    path('mitmachen/', include('staff.urls', namespace='staff')),
+    path('teilnehmer/', include('students.urls', namespace='students')),
+    path('klausur/', include('exam.urls', namespace='exam')),
+    path('workshops/', include('workshops.urls', namespace='workshops')),
+    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+    path('clothing/', include('clothing.urls', namespace='clothing')),
+    path('admin/', admin.site.urls),
+    path('accounts/login/', LoginSelectView.as_view(), name='login'),
+    path('accounts/local/login/',
+         LoginView.as_view(template_name='admin/login.html'),
+         name='local_login'),
+    path('accounts/logout/',
+         LogoutView.as_view(next_page=reverse_lazy('website:homepage')),
+         name='logout'),
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
-    urlpatterns += [
-        url(r'^media/(?P<path>.*)$', serve, {
-            'document_root': settings.MEDIA_ROOT,
-        }),
-    ]
-
+    from django.conf.urls.static import static
     import debug_toolbar
+
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+
     urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
+        path('__debug__/', include(debug_toolbar.urls)),
     ]
