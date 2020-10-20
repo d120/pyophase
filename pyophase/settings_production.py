@@ -29,9 +29,9 @@ DATABASES = {
     }
 }
 
-STATIC_URL = '/ophase/static/'
-LOGIN_URL = '/ophase/accounts/login/'
-MEDIA_URL = '/ophase/media/'
+STATIC_URL = '/ophasehq/static/'
+LOGIN_URL = '/ophasehq/accounts/login/'
+MEDIA_URL = '/ophasehq/media/'
 
 SESSION_COOKIE_SECURE = True
 
