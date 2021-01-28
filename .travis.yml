@@ -24,6 +24,7 @@ before_script:
 # command to run tests
 script:
   - export PYTHONWARNINGS=all
+  - echo "PASSWORD_HASHERS = ['django.contrib.auth.hashers.MD5PasswordHasher',]" >> pyophase/settings.py
   - python manage.py check
   - python manage.py makemigrations --dry-run --check
     # Test against SQLite
