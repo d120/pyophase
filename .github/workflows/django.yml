@@ -19,7 +19,7 @@ jobs:
           MYSQL_PASSWORD: pyophase
           MYSQL_DATABASE: pyophase
           MYSQL_ROOT_PASSWORD: pyophase
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retrie
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s
 
     steps:
       - uses: actions/checkout@v2
