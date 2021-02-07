@@ -1,21 +1,9 @@
 [
   {
-    "model": "pyTUID.TUIDUser",
-    "pk": 5,
-    "fields": {
-      "uid": "tf00abcd",
-      "surname": "Freitag",
-      "given_name": "Thorsten",
-      "email": "ThorstenFreitag@example.com",
-      "groups": ""
-    }
-  },
-  {
     "model": "staff.person",
     "pk": 5,
     "fields": {
       "ophase": 1,
-      "tuid": 5,
       "prename": "Thorsten",
       "name": "Freitag",
       "email": "ThorstenFreitag@example.com",
@@ -43,22 +31,10 @@
     }
   },
   {
-    "model": "pyTUID.TUIDUser",
-    "pk": 6,
-    "fields": {
-      "uid": "tm06abcd",
-      "surname": "Master",
-      "given_name": "Thorsten",
-      "email": "ThorstenF1reitag@example.com",
-      "groups": ""
-    }
-  },
-  {
     "model": "staff.person",
     "pk": 6,
     "fields": {
       "ophase": 1,
-      "tuid": 6,
       "prename": "Thorsten",
       "name": "Master",
       "email": "ThorstenF1reitag@example.com",
@@ -86,22 +62,10 @@
     }
   },
   {
-    "model": "pyTUID.TUIDUser",
-    "pk": 7,
-    "fields": {
-      "uid": "tm07abcd",
-      "surname": "Freitag",
-      "given_name": "Thorsten",
-      "email": "Thorsten2Freitag@example.com",
-      "groups": ""
-    }
-  },
-  {
     "model": "staff.person",
     "pk": 7,
     "fields": {
       "ophase": 1,
-      "tuid": 7,
       "prename": "Thorsten",
       "name": "Freitag",
       "email": "Thorsten2Freitag@example.com",
@@ -129,22 +93,10 @@
     }
   },
   {
-    "model": "pyTUID.TUIDUser",
-    "pk": 8,
-    "fields": {
-      "uid": "tm08abcd",
-      "surname": "Freitag",
-      "given_name": "Thorsten",
-      "email": "ThorstenF12reitag@example.com",
-      "groups": ""
-    }
-  },
-  {
     "model": "staff.person",
     "pk": 8,
     "fields": {
       "ophase": 1,
-      "tuid": 8,
       "prename": "Thorsten",
       "name": "Freitag",
       "email": "ThorstenF12reitag@example.com",
@@ -172,22 +124,10 @@
     }
   },
   {
-    "model": "pyTUID.TUIDUser",
-    "pk": 9,
-    "fields": {
-      "uid": "tm09abcd",
-      "surname": "Freitag",
-      "given_name": "Thorsten",
-      "email": "aThorstenFreitag@example.com",
-      "groups": ""
-    }
-  },
-  {
     "model": "staff.person",
     "pk": 9,
     "fields": {
       "ophase": 1,
-      "tuid": 9,
       "prename": "Thorsten",
       "name": "Freitag",
       "email": "aThorstenFreitag@example.com",
@@ -215,22 +155,10 @@
     }
   },
   {
-    "model": "pyTUID.TUIDUser",
-    "pk": 10,
-    "fields": {
-      "uid": "tm10abcd",
-      "surname": "Freitag",
-      "given_name": "Thorsten",
-      "email": "TasdhorstenFreitag@example.com",
-      "groups": ""
-    }
-  },
-  {
     "model": "staff.person",
     "pk": 10,
     "fields": {
       "ophase": 1,
-      "tuid": 10,
       "prename": "Thorsten",
       "name": "Freitag",
       "email": "TasdhorstenFreitag@example.com",
@@ -274,22 +202,10 @@
     }
   },
   {
-    "model": "pyTUID.TUIDUser",
-    "pk": 11,
-    "fields": {
-      "uid": "aa11abcd",
-      "surname": "Anfang",
-      "given_name": "Anton",
-      "email": "anton@anfang.de",
-      "groups": ""
-    }
-  },
-  {
     "model": "staff.person",
     "pk": 11,
     "fields": {
       "ophase": 1,
-      "tuid": 11,
       "prename": "Anton",
       "name": "Anfang",
       "email": "anton@anfang.de",

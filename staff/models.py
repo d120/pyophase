@@ -6,21 +6,20 @@ from django.db import models
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
-from django.db.models.signals import post_delete
-from django.dispatch import receiver
-
 from ophasebase.models import Ophase, Room, OphaseCategory
-from pyTUID.models import TUIDUser
 
 
 class Job(models.Model):
     """A job during the Ophase for which persons are needed."""
+
     class Meta:
         abstract = True
 
     label = models.CharField(max_length=50, verbose_name=_('Bezeichnung'))
     description = models.TextField(verbose_name=_('Beschreibung'))
-    categories = models.ManyToManyField(OphaseCategory, verbose_name=_("Kategorie(n) zu der/den der Job gehört"), blank=True)
+    categories = models.ManyToManyField(OphaseCategory,
+                                        verbose_name=_("Kategorie(n) zu der/den der Job gehört"),
+                                        blank=True)
 
     @classmethod
     def filter_jobs_for_ophase(cls, ophase):
@@ -30,7 +29,8 @@ class Job(models.Model):
         :param ophase: ophase to find jobs for
         :return: object manager of all matching jobs
         """
-        return cls.objects.filter(Q(categories=None) | Q(categories__in=ophase.categories.all())).distinct()
+        return cls.objects.filter(
+            Q(categories=None) | Q(categories__in=ophase.categories.all())).distinct()
 
     @classmethod
     def filter_jobs_for_ophase_current(cls):
@@ -113,10 +113,9 @@ class Person(models.Model):
         verbose_name = _("Person")
         verbose_name_plural = _("Personen")
         ordering = ['prename', 'name']
-        unique_together = (('ophase', 'email'), ('ophase', 'tuid'),)
+        unique_together = (('ophase', 'email'),)
 
     ophase = models.ForeignKey(Ophase, models.CASCADE)
-    tuid = models.ForeignKey('pyTUID.TUIDUser', on_delete=models.CASCADE, verbose_name=_("TUID User"), null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_("Benutzer"), null=True, blank=True)
     prename = models.CharField(max_length=60, verbose_name=_('first name'))
     name = models.CharField(max_length=75, verbose_name=_('last name'))
@@ -200,10 +199,6 @@ class Person(models.Model):
         return Person.get_by_email_address(address, Ophase.current())
 
     @staticmethod
-    def get_by_TUID(TUIDUser):
-        return TUIDUser.person_set.filter(ophase=Ophase.current()).first() if TUIDUser is not None else None
-
-    @staticmethod
     def get_by_user(user):
         if user.is_anonymous:
             return None
@@ -211,13 +206,6 @@ class Person(models.Model):
             return Person.objects.get(user=user, ophase=Ophase.current())
         except Person.DoesNotExist:
             return None
-
-# Register a signal receiver so all TUIDs which are not referenced by a person object are deleted
-@receiver(post_delete, sender=Person)
-def person_delete_tuids(sender, instance, **kwargs):
-    used_ids = [p.tuid.uid for p in Person.objects.exclude(tuid=None).select_related('tuid')]
-    admonish_ids = TUIDUser.objects.filter(~Q(uid__in=used_ids))
-    admonish_ids.delete()
 
 
 class StaffFilterGroup(models.Model):
