@@ -1,10 +1,11 @@
 from .settings import *
+import os
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'PORT': os.environ['PORT'],
         'NAME': 'pyophase',
         'USER': 'root',
         'PASSWORD': 'pyophase',
