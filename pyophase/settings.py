@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'django_icons',
     'formtools',
     'sslserver',
-    'pyTUID',
     'ophasebase',
     'website',
     'dashboard',
@@ -70,7 +69,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'pyTUID.middleware.TUIDMiddleware',
 ]
 
 ROOT_URLCONF = 'pyophase.urls'
