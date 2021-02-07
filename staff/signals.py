@@ -1,13 +1,13 @@
 from datetime import timedelta
 
 from allauth.socialaccount.models import SocialAccount
+from allauth_d120_provider.provider import D120Provider
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.db.models import Q
 from django.dispatch import receiver
 from django.utils import timezone
 
-from d120_provider.provider import D120Provider
 from tuid_provider.provider import TUIDProvider
 from .models import Person
 
