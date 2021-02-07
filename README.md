@@ -1,7 +1,7 @@
 <p align="left"><img src="logo/horizontal.png" alt="pyophase" height="120px"></p>
 
 # pyophase
-[![Build Status](https://travis-ci.org/d120/pyophase.svg?branch=master)](https://travis-ci.org/d120/pyophase)
+![Build Status](https://github.com/d120/pyophase/workflows/Test/badge.svg?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/d120/pyophase/badge.svg?branch=master)](https://coveralls.io/github/d120/pyophase?branch=master)
 
 pyophase is our management application used for organizing an introductory week for new students. Such an introductory week is called Ophase.
