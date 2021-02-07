@@ -34,8 +34,18 @@ jobs:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ matrix.python-version }}-{{ hashFiles('requirements/*') }}
           restore-keys: |
-            ${{ runner.os }}-pip-${{ matrix.python-version }}
+            ${{ runner.os }}-pip-${{ matrix.python-version }}-
             ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
+      - name: Cache npm
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ matrix.python-version }}-{{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-${{ matrix.python-version }}-
+            ${{ runner.os }}-npm-
             ${{ runner.os }}-
 
       - name: Install dependencies
@@ -64,4 +74,3 @@ jobs:
           coverage run manage.py test
           coverage run -a manage.py test --settings pyophase.settings_github_actions
           coveralls
-
