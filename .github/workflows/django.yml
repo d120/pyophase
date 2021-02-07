@@ -54,14 +54,6 @@ jobs:
           python manage.py check
           python manage.py makemigrations --dry-run --check
 
-      - name: Verify MariaDB connection
-        env:
-          PORT: ${{ job.services.mariadb.ports[3306] }}
-        run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-            sleep 1
-          done
-
       - name: Unit tests
         env:
           PYTHONWARNINGS: all
