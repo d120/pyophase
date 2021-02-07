@@ -12,7 +12,8 @@ from .admin_actions import (
     staff_nametag_export,
     staff_overview_export,
     tutorgroup_export,
-    update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e, mark_phoned_x, mark_phoned_e,
+    update_attendees, mark_attendance_x, mark_attendance_a, mark_attendance_e, mark_phoned_x,
+    mark_phoned_e,
     mark_phoned_n, mark_attendance_v, generate_orga_cert)
 from .models import (
     HelperJob,
@@ -70,17 +71,20 @@ class PersonAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (_('Personendaten'), {'fields':
-            ['ophase', 'prename', 'name', 'email', 'user', 'tuid', 'phone', 'orga_annotation']}),
+                                  ['ophase', 'prename', 'name', 'email', 'user', 'phone',
+                                   'orga_annotation']}),
         (_('Bewerbung'), {'fields':
-            ['matriculated_since', 'degree_course', 'experience_ophase', 'why_participate', 'remarks']}),
+                              ['matriculated_since', 'degree_course', 'experience_ophase',
+                               'why_participate', 'remarks']}),
         (_('In der Ophase'), {'fields':
-            ['is_tutor', 'tutor_for', 'tutor_experience', 'is_orga', 'is_helper']}),
+                                  ['is_tutor', 'tutor_for', 'tutor_experience', 'is_orga',
+                                   'is_helper']}),
         (_('Sonstiges'), {'fields':
-            ['created_at', 'updated_at']}),
+                              ['created_at', 'updated_at']}),
         (_('Namensschild'), {'fields':
-                ['nametag_shortname', 'nametag_long'],
-                'classes': ('collapse',),
-                'description': _('Optionale Einträge für das Namensschild')}),
+                                 ['nametag_shortname', 'nametag_long'],
+                             'classes': ('collapse',),
+                             'description': _('Optionale Einträge für das Namensschild')}),
     ]
 
     filter_horizontal = ('orga_jobs', 'helper_jobs')
