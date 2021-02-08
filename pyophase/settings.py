@@ -73,7 +73,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pyophase.urls'
 
-LOGIN_REDIRECT_URL = 'website:homepage'
+LOGIN_REDIRECT_URL = 'landing_page'
 
 TEMPLATES = [
     {
