@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'formtools',
     'sslserver',
     'ophasebase',
-    'website',
     'dashboard',
     'staff',
     'students',
