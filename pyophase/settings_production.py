@@ -6,7 +6,7 @@ Secrets are stored in and imported from an additional file, not set under versio
 
 from pyophase import settings_secrets as secrets
 
-from .settings import *
+from .settings import *  # noqa
 
 
 SECRET_KEY = secrets.SECRET_KEY
@@ -41,7 +41,7 @@ CSRF_COOKIE_SECURE = True
 
 ADMINS = (('pyophase-dev', 'pyophase-dev@fachschaft.informatik.tu-darmstadt.de'),)
 
-SERVER_EMAIL = "pyophase@fachschaft.informatik.tu-darmstadt.de"
+SERVER_EMAIL = "pyophase <pyophase@fachschaft.informatik.tu-darmstadt.de>"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
