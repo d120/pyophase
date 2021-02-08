@@ -1,0 +1,28 @@
+{% extends "ophasebase/frontend_base.html" %}{% load static i18n %}{% load icons %}
+{% block title %}{% trans "Startseite" %}{% endblock %}
+{% block heading %}{% trans "Willkommen zur Ophase Informatik!" %}{% endblock %}
+
+{% block content %}
+
+<div class="margin-top-1"></div>
+
+{% if any_staff_registration_enabled %}
+    <div class="box box-highlight box-lilac">
+        <h3>Helfer*innen gesucht!</h3>
+	<p class="box-big">Du hast Lust, uns bei der Ophase zu unterstützen? Super, schreibe eine Mail an <a href="mailto:ophase-leitung@fachschaft.informatik.tu-darmstadt.de">ophase-leitung@fachschaft.informatik.tu-darmstadt.de</a></p>
+    </div>
+{% endif %}
+
+{% if student_registration_enabled %}
+    <div class="box box-highlight box-gray">
+        <h3>{% trans "Für Tutorinnen und Tutoren während der Ophase" %}</h3>
+        <p class="box-big"><a href="{% url 'students:registration' %}">{% trans "Die Erstsemester deiner Kleingruppe registrieren" %}</a></p>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block bottom_script %}
+    {% include "ophasebase/semantics.html" %}
+{% endblock %}

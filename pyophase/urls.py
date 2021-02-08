@@ -3,12 +3,12 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import include, path, reverse_lazy
 
-from ophasebase.views import LoginSelectView
+from ophasebase.views import LoginSelectView, LandingPageView
 
 admin.autodiscover()
 
 urlpatterns = [
-    path('', include('website.urls', namespace='website')),
+    path('', LandingPageView.as_view(), name='landing_page'),
     path('mitmachen/', include('staff.urls', namespace='staff')),
     path('teilnehmer/', include('students.urls', namespace='students')),
     path('klausur/', include('exam.urls', namespace='exam')),
@@ -21,7 +21,7 @@ urlpatterns = [
          LoginView.as_view(template_name='admin/login.html'),
          name='local_login'),
     path('accounts/logout/',
-         LogoutView.as_view(next_page=reverse_lazy('website:homepage')),
+         LogoutView.as_view(next_page=reverse_lazy('landing_page')),
          name='logout'),
     path('i18n/', include('django.conf.urls.i18n')),
     path('accounts/', include('allauth.urls')),
