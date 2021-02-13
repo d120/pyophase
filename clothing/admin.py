@@ -26,24 +26,24 @@ class ColorAdmin(admin.ModelAdmin):
 
 
 class OphaseOrderFilter(admin.SimpleListFilter):
-        """
-        A filter to limit the order overview to a specific ophase
-        """
-        title = 'Ophase'
-        parameter_name = 'ophase'
+    """
+    A filter to limit the order overview to a specific ophase
+    """
+    title = 'Ophase'
+    parameter_name = 'ophase'
 
-        def lookups(self, request, model_admin):
-            """
-            Returns a tuple with all ophases
-            The first value is the name for the url parameter,
-            the second one is the name shown in the sidebar
-            """
-            return ((o.id, o.name) for o in Ophase.objects.all())
+    def lookups(self, request, model_admin):
+        """
+        Returns a tuple with all ophases
+        The first value is the name for the url parameter,
+        the second one is the name shown in the sidebar
+        """
+        return ((o.id, o.name) for o in Ophase.objects.all())
 
-        def queryset(self, request, queryset):
-            if not self.value():
-                return queryset
-            return queryset.filter(person__ophase=Ophase.objects.get(id=self.value()))
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        return queryset.filter(person__ophase=Ophase.objects.get(id=self.value()))
 
 
 @admin.register(Order)
