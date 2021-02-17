@@ -166,10 +166,6 @@ if os.environ['DJANGO_SETTINGS_MODULE'] == "pyophase.settings":
     MIDDLEWARE.append('debug_toolbar.middleware.DebugToolbarMiddleware')
     INTERNAL_IPS = ('127.0.0.1',)
 
-### PYTUID ###
-
-TUID_SERVER_URL = 'https://sso.tu-darmstadt.de'
-
 # application-specific-cookies
 CSRF_COOKIE_NAME = 'pyophase_csrftoken'
 SESSION_COOKIE_NAME = 'pyophase_sessionid'

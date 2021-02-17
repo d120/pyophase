@@ -38,8 +38,8 @@ MEDIA_URL = BASE_PATH + '/media/'
 SESSION_COOKIE_PATH = BASE_PATH
 SESSION_COOKIE_SECURE = True
 
-CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_PATH = BASE_PATH
+CSRF_COOKIE_SECURE = True
 
 ADMINS = (('pyophase-dev', 'pyophase-dev@fachschaft.informatik.tu-darmstadt.de'),)
 
@@ -52,7 +52,5 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'pyophase'
 EMAIL_HOST_PASSWORD = secrets.MAIL_PASSWORD
-
-TUID_FORCE_SERVICE_URL = 'https://www.fachschaft.informatik.tu-darmstadt.de/ophase/sso/login/'
 
 FILE_UPLOAD_PERMISSIONS = 0o644
