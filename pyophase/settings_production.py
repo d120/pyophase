@@ -35,9 +35,11 @@ STATIC_URL = BASE_PATH + '/static/'
 LOGIN_URL = BASE_PATH + '/accounts/login/'
 MEDIA_URL = BASE_PATH + '/media/'
 
+SESSION_COOKIE_PATH = BASE_PATH
 SESSION_COOKIE_SECURE = True
 
 CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_PATH = BASE_PATH
 
 ADMINS = (('pyophase-dev', 'pyophase-dev@fachschaft.informatik.tu-darmstadt.de'),)
 
