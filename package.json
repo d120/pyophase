@@ -10,7 +10,7 @@
     "bootstrap": "~4.6.0",
     "bootstrap-chosen": "alxlit/bootstrap-chosen",
     "chosen-js": "~1.8.7",
-    "@fortawesome/fontawesome-free": "~5.15.2",
+    "@fortawesome/fontawesome-free": "~5.15.3",
     "jquery": "~3.6.0",
     "popper.js": "^1.16.1"
   }
