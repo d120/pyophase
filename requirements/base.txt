@@ -4,7 +4,7 @@ django-allauth==0.44.0
 django-allauth-cas==1.0.0
 django-allauth-d120==0.0.8
 django-bootstrap4==3.0.1
-django-icons==3.0.0
+django-icons==4.0.0
 django-formtools==2.3
 odswriter==0.4.0
 Pillow==8.2.0
