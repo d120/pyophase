@@ -1,5 +1,5 @@
 -r base.txt
 # Dependencies which are only for development
-coverage==6.0.2
+coverage==6.1.1
 django-sslserver==0.22
 django-debug-toolbar==3.2.2
